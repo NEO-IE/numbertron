@@ -1,6 +1,6 @@
 ##Training
 
-###Collecting relevant sentences
+###Finding relevant sentences
 
 
 The first file, that involves collecting sentences that are relevant can be done by first creating a file similar to the one created by multir and then aggregating appropriately.
@@ -11,4 +11,7 @@ Finally, we will have a file similar to the instances file. There is a crucial d
 For us, this is not distant supervision, just spotting. There is no distant supervision that has happened yet (In some sense, we already 
 know about the unit of the relation which can be considered to be a source of distant supervision, but that is it).
 
+###Collecting into Location Number pairs
+We need to find all the sentences that possibly express a given relation for a given location. This is easy given the file above.
+The first column will give us the location and the last one will give us hte relation.
 
