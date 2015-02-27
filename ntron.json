@@ -1,0 +1,40 @@
+{
+  "corpusPath" :
+"jdbc:derby:/mnt/a99/d0/aman/MultirExperiments/data/numbers_short",
+  "train" : "true",
+  "testDocumentsFile" :
+"data/emptyFile",
+  "fg" :
+"edu.washington.multirframework.featuregeneration.DefaultFeatureGenerator",
+  "ai" :
+"edu.washington.multirframework.argumentidentification.NERArgumentIdentification",
+  "rm" :
+"edu.washington.multirframework.argumentidentification.NERRelationMatching",
+  "nec" :
+"edu.washington.multirframework.distantsupervision.NegativeExampleCollectionByRatio",
+  "necRatio" : "0.25",	
+  "kbRelFile" : "/mnt/a99/d0/aman/MultirExperiments/data/numericalkb/kb-facts-train.tsv.gz",
+  "kbEntityFile" : "/mnt/a99/d0/aman/MultirExperiments/data/numericalkb/entity-names-train.tsv.gz",
+  "targetRelFile" : "/mnt/a99/d0/aman/MultirExperiments/data/numericalkb/target_relations.tsv",
+  "typeRelMap" : null,
+  "sigs" : [
+"edu.washington.multirframework.argumentidentification.DefaultSententialInstanceGeneration"
+],
+  "dsFiles" : [
+"data/test_instances.tsv"
+],
+  "featureFiles" : [
+"/data/test_features.tsv"
+],
+  "models" : [
+"data/test-extractor" ],
+  "cis" :
+"edu.washington.multirframework.corpus.DefaultCorpusInformationSpecification",
+  "si" : [
+"edu.washington.multirframework.corpus.SentNamedEntityLinkingInformation",
+"edu.washington.multirframework.corpus.SentFreebaseNotableTypeInformation"
+],
+  "ti" : [ "edu.washington.multirframework.corpus.TokenChunkInformation" ],
+  "di" : [ ],
+  "useFiger" : "false"
+}
