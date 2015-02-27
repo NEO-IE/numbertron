@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import org.apache.commons.io.IOUtils;
 
@@ -32,6 +33,7 @@ import edu.washington.multirframework.corpus.DocumentInformationI;
 import edu.washington.multirframework.corpus.SentInformationI;
 import edu.washington.multirframework.corpus.TokenInformationI;
 import edu.washington.multirframework.distantsupervision.NegativeExampleCollection;
+import edu.washington.multirframework.featuregeneration.FeatureGeneration;
 import edu.washington.multirframework.featuregeneration.FeatureGenerator;
 import edu.washington.multirframework.knowledgebase.KnowledgeBase;
 
@@ -282,10 +284,22 @@ public class NtronExperiment {
 		return null;
 	}
 
-	public void run() throws SQLException, IOException {
-		Spotting spotting = new Spotting(corpusPath, cis, rbased);
+	public void run() throws SQLException, IOException, InterruptedException, ExecutionException {
 		Corpus c = new Corpus(corpusPath, cis, true);
-		spotting.iterateAndSpot(DSFiles.get(0), c);
+		/*Step 1: create a file of all the possible spots*/
+		boolean runDS = !filesExist(DSFiles);
+		if(runDS) {
+			Spotting spotting = new Spotting(corpusPath, cis, rbased);
+			spotting.iterateAndSpot(DSFiles.get(0), c);
+		}
+		
+		/*Step 2: Generate features*/
+		boolean runFG = !filesExist(featureFiles);
+		if(runFG){ 
+			FeatureGeneration fGeneration = new FeatureGeneration(fg);
+			fGeneration.run(DSFiles, featureFiles, c, cis);
+		}
+		
 	}
 	public static void main(String args[]) throws Exception {
 		System.out.println("sg");
@@ -293,4 +307,16 @@ public class NtronExperiment {
 				args[0]);
 		irb.run();
 	}
+
+	private boolean filesExist(List<String> dsFiles) {
+		for(String s : dsFiles){
+			File f = new File(s);
+			if(!f.exists()){
+				System.err.println(s + " File does not exist!Need To Generate it");
+				return false;
+			}
+		}
+		return true;
+	}
+
 }

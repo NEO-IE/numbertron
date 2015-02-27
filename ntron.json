@@ -24,7 +24,7 @@
 "data/test_instances.tsv"
 ],
   "featureFiles" : [
-"/data/test_features.tsv"
+"data/test_features.tsv"
 ],
   "models" : [
 "data/test-extractor" ],
