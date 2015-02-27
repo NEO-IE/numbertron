@@ -2,7 +2,7 @@
 /**
  * An attempt at integrating rule based system with multir
  */
-package main.java.iitb.neo.spotting;
+package main.java.iitb.neo.pretrain.spotting;
 
 import iitb.rbased.main.RuleBasedDriver;
 import iitb.rbased.util.Number;

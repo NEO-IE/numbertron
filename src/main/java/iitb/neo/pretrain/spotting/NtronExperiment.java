@@ -2,7 +2,7 @@
 /**
  * An attempt at integrating rule based system with multir
  */
-package main.java.iitb.neo.spotting;
+package main.java.iitb.neo.pretrain.spotting;
 
 import iitb.rbased.main.RuleBasedDriver;
 
@@ -299,6 +299,8 @@ public class NtronExperiment {
 			FeatureGeneration fGeneration = new FeatureGeneration(fg);
 			fGeneration.run(DSFiles, featureFiles, c, cis);
 		}
+		
+		/*Step 3: Training and weight learning*/
 		
 	}
 	public static void main(String args[]) throws Exception {
