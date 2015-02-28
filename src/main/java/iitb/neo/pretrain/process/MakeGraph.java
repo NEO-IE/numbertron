@@ -14,9 +14,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+import main.java.iitb.neo.training.ds.LRGraph;
 import main.java.iitb.neo.training.ds.Number;
 import edu.washington.multir.development.Preprocess;
-import edu.washington.multirframework.multiralgorithm.MILDocument;
 import edu.washington.multirframework.multiralgorithm.Mappings;
 import edu.washington.multirframework.multiralgorithm.Model;
 import edu.washington.multirframework.multiralgorithm.SparseBinaryVector;
@@ -61,7 +61,7 @@ public class MakeGraph {
 		System.out.println("PREPROCESSING TRAIN FEATURES");
 		{
 			String output1 = outDir + File.separatorChar + "train";
-			convertFeatureFileToLRDocument(trainFile, output1, mapping);
+			convertFeatureFileToLRGraph(trainFile, output1, mapping);
 		}
 
 		System.out.println("FINISHED PREPROCESSING TRAIN FEATURES");
@@ -169,7 +169,7 @@ public class MakeGraph {
 	    			for(String num: numberSentenceMap.keySet()) {
 	    				numbers.add(new Number(num, numberSentenceMap.get(num)));
 	    			}
-	    			constructMILDOC(relInts,featureLists,v[0],v[1]).write(os);
+	    			constructLRGraph(numbers, featureLists, v[0], v[1]).write(os);
 	    		
 	    		}
 	    		//reste featureLists and prevKey
@@ -195,7 +195,7 @@ public class MakeGraph {
 			for(String num: numberSentenceMap.keySet()) {
 				numbers.add(new Number(num, numberSentenceMap.get(num)));
 			}
-			constructMILDOC(relInts,featureLists,v[0],v[1]).write(os);
+			constructLRGraph(numbers, featureLists, v[0], v[1]).write(os);
 		
 		}
 	    
@@ -207,36 +207,25 @@ public class MakeGraph {
 
 	private static LRGraph constructLRGraph(List<Number> numbers, List<List<Integer>> featureInts,
 			String location, String relation){
-		MILDocument doc = new MILDocument();
-    	doc.arg1 = arg1;
-    	doc.arg2 = arg2;
+		LRGraph lrg = new LRGraph();
+    	lrg.location = location;
+    	lrg.relation = relation;
 		
-    	// set relations
-    	{
-	    	int[] irels = new int[relInts.size()];
-	    	for (int i=0; i < relInts.size(); i++)
-	    		irels[i] = relInts.get(i);
-	    	Arrays.sort(irels);
-	    	// ignore NA and non-mapped relations
-	    	int countUnique = 0;
-	    	for (int i=0; i < irels.length; i++)
-	    		if (irels[i] > 0 && (i == 0 || irels[i-1] != irels[i]))
-	    			countUnique++;
-	    	doc.Y = new int[countUnique];
-	    	int pos = 0;
-	    	for (int i=0; i < irels.length; i++)
-	    		if (irels[i] > 0 && (i == 0 || irels[i-1] != irels[i]))
-	    			doc.Y[pos++] = irels[i];
-    	}
+    	// set number nodes
     	
-    	// set mentions
-    	doc.setCapacity(featureInts.size());
-    	doc.numMentions = featureInts.size();
+    		int numNodesCount = numbers.size();
+	    	lrg.n = new Number[numNodesCount];
+	    	for(int i = 0; i < numNodesCount; i++) {
+	    		lrg.n[i] = numbers.get(i); //just for performance reasons, too early and perhaps evil. But worth a try;
+	    	}
+	    		// set mentions
+    	lrg.setCapacity(featureInts.size());
+    	lrg.numMentions = featureInts.size();
     	
     	for (int j=0; j < featureInts.size(); j++) {
-	    	doc.Z[j] = -1;
-    		doc.mentionIDs[j] = j;
-    		SparseBinaryVector sv = doc.features[j] = new SparseBinaryVector();
+	    	lrg.Z[j] = -1;
+    		lrg.mentionIDs[j] = j;
+    		SparseBinaryVector sv = lrg.features[j] = new SparseBinaryVector();
     		
     		List<Integer> instanceFeatures = featureInts.get(j);
     		int[] fts = new int[instanceFeatures.size()];
@@ -257,7 +246,7 @@ public class MakeGraph {
 	    	
     	}
     	
-    	return doc;
+    	return lrg;
 	}
 
 
