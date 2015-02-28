@@ -2,7 +2,7 @@
 /**
  * An attempt at integrating rule based system with multir
  */
-package main.java.iitb.neo.pretrain.spotting;
+package main.java.iitb.neo;
 
 import iitb.rbased.main.RuleBasedDriver;
 
@@ -17,6 +17,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
+
+import main.java.iitb.neo.pretrain.process.MakeGraph;
+import main.java.iitb.neo.pretrain.spotting.Spotting;
 
 import org.apache.commons.io.IOUtils;
 
@@ -46,7 +49,7 @@ public class NtronExperiment {
 	private List<String> DSFiles;
 	private List<String> oldFeatureFiles;
 	private List<String> featureFiles;
-	private List<String> multirDirs;
+	private List<String> ntronModelDirs;
 	private List<String> oldMultirDirs;
 	private RelationMatching rm;
 	private NegativeExampleCollection nec;
@@ -68,8 +71,7 @@ public class NtronExperiment {
 	public NtronExperiment(String propertiesFile) throws Exception {
 
 		System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");
-		String jsonProperties = IOUtils.toString(new FileInputStream(new File(
-				propertiesFile)));
+		String jsonProperties = IOUtils.toString(new FileInputStream(new File(propertiesFile)));
 		Map<String, Object> properties = JsonReader.jsonToMaps(jsonProperties);
 
 		rbased = new RuleBasedDriver(true);
@@ -85,8 +87,7 @@ public class NtronExperiment {
 
 		try {
 
-			BufferedReader br = new BufferedReader(
-					new FileReader(countriesFile));
+			BufferedReader br = new BufferedReader(new FileReader(countriesFile));
 			String countryRecord = null;
 			countryFreebaseIdMap = new HashMap<String, String>();
 			while ((countryRecord = br.readLine()) != null) {
@@ -115,16 +116,14 @@ public class NtronExperiment {
 			}
 		}
 
-		String strictNegativeGenerationString = getStringProperty(properties,
-				"strictNegativeGeneration");
+		String strictNegativeGenerationString = getStringProperty(properties, "strictNegativeGeneration");
 		if (strictNegativeGenerationString != null) {
 			if (strictNegativeGenerationString.equals("true")) {
 				strictNegativeGeneration = true;
 			}
 		}
 
-		String featThresholdString = getStringProperty(properties,
-				"featureThreshold");
+		String featThresholdString = getStringProperty(properties, "featureThreshold");
 		if (featThresholdString != null) {
 			this.featureThreshold = Integer.parseInt(featThresholdString);
 		}
@@ -137,20 +136,19 @@ public class NtronExperiment {
 		}
 		String featureGeneratorClass = getStringProperty(properties, "fg");
 		if (featureGeneratorClass != null) {
-			fg = (FeatureGenerator) ClassLoader.getSystemClassLoader()
-					.loadClass(featureGeneratorClass).newInstance();
+			fg = (FeatureGenerator) ClassLoader.getSystemClassLoader().loadClass(featureGeneratorClass).newInstance();
 		}
 
 		String aiClass = getStringProperty(properties, "ai");
 		if (aiClass != null) {
-			ai = (ArgumentIdentification) ClassLoader.getSystemClassLoader()
-					.loadClass(aiClass).getMethod("getInstance").invoke(null);
+			ai = (ArgumentIdentification) ClassLoader.getSystemClassLoader().loadClass(aiClass)
+					.getMethod("getInstance").invoke(null);
 		}
 
 		String rmClass = getStringProperty(properties, "rm");
 		if (rmClass != null) {
-			rm = (RelationMatching) ClassLoader.getSystemClassLoader()
-					.loadClass(rmClass).getMethod("getInstance").invoke(null);
+			rm = (RelationMatching) ClassLoader.getSystemClassLoader().loadClass(rmClass).getMethod("getInstance")
+					.invoke(null);
 		}
 
 		String necRatioString = getStringProperty(properties, "necRatio");
@@ -160,10 +158,8 @@ public class NtronExperiment {
 
 		String necClass = getStringProperty(properties, "nec");
 		if (necClass != null) {
-			nec = (NegativeExampleCollection) ClassLoader
-					.getSystemClassLoader().loadClass(necClass)
-					.getMethod("getInstance", double.class)
-					.invoke(null, necRatio);
+			nec = (NegativeExampleCollection) ClassLoader.getSystemClassLoader().loadClass(necClass)
+					.getMethod("getInstance", double.class).invoke(null, necRatio);
 		}
 
 		String kbRelFile = getStringProperty(properties, "kbRelFile");
@@ -176,8 +172,7 @@ public class NtronExperiment {
 		List<String> sigClasses = getListProperty(properties, "sigs");
 		sigs = new ArrayList<>();
 		for (String sigClass : sigClasses) {
-			sigs.add((SententialInstanceGeneration) ClassLoader
-					.getSystemClassLoader().loadClass(sigClass)
+			sigs.add((SententialInstanceGeneration) ClassLoader.getSystemClassLoader().loadClass(sigClass)
 					.getMethod("getInstance").invoke(null));
 		}
 
@@ -187,68 +182,58 @@ public class NtronExperiment {
 			DSFiles.add(dsFileName);
 		}
 
-		List<String> oldFeatureFileNames = getListProperty(properties,
-				"oldFeatureFiles");
+		List<String> oldFeatureFileNames = getListProperty(properties, "oldFeatureFiles");
 		oldFeatureFiles = new ArrayList<>();
 		for (String oldFeatureFileName : oldFeatureFileNames) {
 			oldFeatureFiles.add(oldFeatureFileName);
 		}
 
-		List<String> featureFileNames = getListProperty(properties,
-				"featureFiles");
+		List<String> featureFileNames = getListProperty(properties, "featureFiles");
 		featureFiles = new ArrayList<>();
 		for (String featureFileName : featureFileNames) {
 			featureFiles.add(featureFileName);
 		}
 
-		List<String> oldMultirDirNames = getListProperty(properties,
-				"oldModels");
+		List<String> oldMultirDirNames = getListProperty(properties, "oldModels");
 		oldMultirDirs = new ArrayList<>();
 		for (String oldMultirDirName : oldMultirDirNames) {
 			oldMultirDirs.add(oldMultirDirName);
 		}
 
-		multirDirs = new ArrayList<>();
+		ntronModelDirs = new ArrayList<>();
 		List<String> multirDirNames = getListProperty(properties, "models");
 		for (String multirDirName : multirDirNames) {
-			multirDirs.add(multirDirName);
+			ntronModelDirs.add(multirDirName);
 		}
 
 		cis = new CustomCorpusInformationSpecification();
 
 		String altCisString = getStringProperty(properties, "cis");
 		if (altCisString != null) {
-			cis = (CustomCorpusInformationSpecification) ClassLoader
-					.getSystemClassLoader().loadClass(altCisString)
+			cis = (CustomCorpusInformationSpecification) ClassLoader.getSystemClassLoader().loadClass(altCisString)
 					.newInstance();
 		}
 
 		// CorpusInformationSpecification
-		List<String> tokenInformationClassNames = getListProperty(properties,
-				"ti");
+		List<String> tokenInformationClassNames = getListProperty(properties, "ti");
 		List<TokenInformationI> tokenInfoList = new ArrayList<>();
 		for (String tokenInformationClassName : tokenInformationClassNames) {
-			tokenInfoList.add((TokenInformationI) ClassLoader
-					.getSystemClassLoader()
+			tokenInfoList.add((TokenInformationI) ClassLoader.getSystemClassLoader()
 					.loadClass(tokenInformationClassName).newInstance());
 		}
 
-		List<String> sentInformationClassNames = getListProperty(properties,
-				"si");
+		List<String> sentInformationClassNames = getListProperty(properties, "si");
 		List<SentInformationI> sentInfoList = new ArrayList<>();
 		for (String sentInformationClassName : sentInformationClassNames) {
-			sentInfoList.add((SentInformationI) ClassLoader
-					.getSystemClassLoader().loadClass(sentInformationClassName)
+			sentInfoList.add((SentInformationI) ClassLoader.getSystemClassLoader().loadClass(sentInformationClassName)
 					.newInstance());
 		}
 
-		List<String> docInformationClassNames = getListProperty(properties,
-				"di");
+		List<String> docInformationClassNames = getListProperty(properties, "di");
 		List<DocumentInformationI> docInfoList = new ArrayList<>();
 		for (String docInformationClassName : docInformationClassNames) {
-			docInfoList.add((DocumentInformationI) ClassLoader
-					.getSystemClassLoader().loadClass(docInformationClassName)
-					.newInstance());
+			docInfoList.add((DocumentInformationI) ClassLoader.getSystemClassLoader()
+					.loadClass(docInformationClassName).newInstance());
 		}
 
 		CustomCorpusInformationSpecification ccis = (CustomCorpusInformationSpecification) cis;
@@ -260,8 +245,7 @@ public class NtronExperiment {
 
 	}
 
-	private List<String> getListProperty(Map<String, Object> properties,
-			String string) {
+	private List<String> getListProperty(Map<String, Object> properties, String string) {
 		if (properties.containsKey(string)) {
 			JsonObject obj = (JsonObject) properties.get(string);
 			List<String> returnValues = new ArrayList<>();
@@ -286,34 +270,44 @@ public class NtronExperiment {
 
 	public void run() throws SQLException, IOException, InterruptedException, ExecutionException {
 		Corpus c = new Corpus(corpusPath, cis, true);
-		/*Step 1: create a file of all the possible spots*/
+		/* Step 1: create a file of all the possible spots */
 		boolean runDS = !filesExist(DSFiles);
-		if(runDS) {
+		if (runDS) {
 			Spotting spotting = new Spotting(corpusPath, cis, rbased);
 			spotting.iterateAndSpot(DSFiles.get(0), c);
 		}
-		
-		/*Step 2: Generate features*/
+
+		/* Step 2: Generate features */
 		boolean runFG = !filesExist(featureFiles);
-		if(runFG){ 
+		if (runFG) {
 			FeatureGeneration fGeneration = new FeatureGeneration(fg);
 			fGeneration.run(DSFiles, featureFiles, c, cis);
 		}
-		
-		/*Step 3: Training and weight learning*/
-		
+
+		/* Step 3: Training and weight learning */
+		// Step 3.1: From the feature file, generate graphs
+
+		// for each input feature training file
+		for (int i = 0; i < featureFiles.size(); i++) {
+			String featureFile = featureFiles.get(i);
+			File modelFile = new File(ntronModelDirs.get(i));
+			if (!modelFile.exists())
+				modelFile.mkdir();
+			MakeGraph.run(featureFiles.get(0), ntronModelDirs.get(0));
+		}
+
 	}
+
 	public static void main(String args[]) throws Exception {
 		System.out.println("sg");
-		NtronExperiment irb = new NtronExperiment(
-				args[0]);
+		NtronExperiment irb = new NtronExperiment(args[0]);
 		irb.run();
 	}
 
 	private boolean filesExist(List<String> dsFiles) {
-		for(String s : dsFiles){
+		for (String s : dsFiles) {
 			File f = new File(s);
-			if(!f.exists()){
+			if (!f.exists()) {
 				System.err.println(s + " File does not exist!Need To Generate it");
 				return false;
 			}

@@ -83,7 +83,7 @@ public class Spotting {
 	 * @throws SQLException
 	 * @throws IOException
 	 */
-	void iterateAndSpot(String outputFile, Corpus c) throws SQLException, IOException {
+	public void iterateAndSpot(String outputFile, Corpus c) throws SQLException, IOException {
 		PrintWriter pw = new PrintWriter(outputFile);
 		
 		System.out.println("Reading the docs");

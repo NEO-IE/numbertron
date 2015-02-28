@@ -134,7 +134,7 @@ public class MakeGraph {
 	    String prevKey = "";
 	    List<List<Integer>> featureLists= new ArrayList<>();
 	    
-    	List<String> numberVals = new ArrayList<String>();
+   
     	int mentionNumber = 0; //keeps track of the mention that is being processed for the current location relation.
     	HashMap<String, List<Integer>> numberSentenceMap = null; //stores the sentences in which the current number appears
 	    while((line = br.readLine()) != null){
@@ -144,7 +144,7 @@ public class MakeGraph {
 	    	String location = values[1];
 	    	String number = values[2];
 	    	String relString = values[3];	    	
-	    	String[] rels = relString.split("&&");
+	 
 	    	String key = location+"%"+relString;
 	    	
 	    	List<String> features = new ArrayList<>();

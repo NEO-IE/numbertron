@@ -25,6 +25,9 @@ import edu.washington.multirframework.multiralgorithm.SparseBinaryVector;
  * "The purpose of this data structure is to keep all relevant information for
  * learning while using as little memory as possible. Using less memory helps
  * keeping more records in memory at the same time, thus improving speed."
+ * 
+ * TODO: Move the list of Z nodes connected to a number node to the 
+ * SparseBinaryRepresentation
  */
 public class LRGraph {
 	public static final int MNT_CAPACITY = 2;
@@ -70,11 +73,14 @@ public class LRGraph {
 	public boolean read(DataInputStream dis) throws IOException {
 		try {
 			random = dis.readInt();
-			arg1 = dis.readUTF();
-			arg2 = dis.readUTF();			
-			int lenY = dis.readInt();
-			Y = new int[lenY];
-			for (int i=0; i < lenY; i++) Y[i] = dis.readInt();
+			location = dis.readUTF();
+			relation = dis.readUTF();			
+			int lenN = dis.readInt();
+			n = new Number[lenN];
+			for (int i=0; i < lenN; i++) {
+				n[i] = new Number();
+				n[i].deserialize(dis);
+			};
 			int numMentions = dis.readInt();
 			if (numMentions > mentionIDs.length) setCapacity(numMentions);
 			this.numMentions = numMentions;
@@ -85,7 +91,7 @@ public class LRGraph {
 				features[i].deserialize(dis);
 			}
 			
-			//arg1 = arg2 = null;
+			//location = relation = null;
 			//mentionIDs = null;
 			
 			return true;
@@ -94,11 +100,11 @@ public class LRGraph {
 	
 	public void write(DataOutputStream dos) throws IOException {
 		dos.writeInt(random);
-		dos.writeUTF(arg1);
-		dos.writeUTF(arg2);
-		dos.writeInt(Y.length);
-		for (int i=0; i < Y.length; i++)
-			dos.writeInt(Y[i]);
+		dos.writeUTF(location);
+		dos.writeUTF(relation);
+		dos.writeInt(n.length);
+		for (int i=0; i < n.length; i++)
+			n[i].serialize(dos);
 		dos.writeInt(numMentions);
 		for (int i=0; i < numMentions; i++) {
 			dos.writeInt(mentionIDs[i]);
@@ -111,12 +117,12 @@ public class LRGraph {
 	public String toString(){
 
 		StringBuilder sb = new StringBuilder();
-		sb.append(arg1);
+		sb.append(location);
 		sb.append("\t");
-		sb.append(arg2);
+		sb.append(relation);
 		sb.append("\t");
-		for(Integer rel : Y){
-			sb.append(rel);
+		for(Number n_node: n){
+			sb.append(n_node);
 			sb.append("|");
 		}
 		sb.setLength(sb.length()-1);
