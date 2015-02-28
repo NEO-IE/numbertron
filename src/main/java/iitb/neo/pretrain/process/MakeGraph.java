@@ -8,13 +8,18 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+import main.java.iitb.neo.training.ds.Number;
 import edu.washington.multir.development.Preprocess;
+import edu.washington.multirframework.multiralgorithm.MILDocument;
 import edu.washington.multirframework.multiralgorithm.Mappings;
 import edu.washington.multirframework.multiralgorithm.Model;
+import edu.washington.multirframework.multiralgorithm.SparseBinaryVector;
 
 /**
  * This class assumes that the features have been created and then uses the
@@ -87,14 +92,15 @@ public class MakeGraph {
 			Mappings m) throws IOException {
 		
 		//external sorting mechanism so we don't have to keep entity pairs in memory
-		Comparator<String> entityPairComparator = new Comparator<String>(){
+		Comparator<String> locationRelationPairComparator = new Comparator<String>(){
 			@Override
 			public int compare(String line1, String line2) {
 				String[] line1Values = line1.split("\t");
 				String[] line2Values = line2.split("\t");
-				
-				Integer entity1Compare = line1Values[1].compareTo(line2Values[1]);
-				return entity1Compare==0 ? line1Values[2].compareTo(line2Values[2]) : entity1Compare;
+				int locationIdx = 1;
+				int relationIdx = 3;
+				Integer entity1Compare = line1Values[locationIdx].compareTo(line2Values[locationIdx]);
+				return entity1Compare==0 ? line1Values[relationIdx].compareTo(line2Values[relationIdx]) : entity1Compare;
 			}
 			
 		};
@@ -105,7 +111,7 @@ public class MakeGraph {
 		long start = System.currentTimeMillis();
 		System.out.println("Sorting feature file");
 	
-		Preprocess.externalSort(new File(input),tempSortedFeatureFile,entityPairComparator);
+		Preprocess.externalSort(new File(input),tempSortedFeatureFile, locationRelationPairComparator);
 		long end = System.currentTimeMillis();
 		System.out.println("Feature file sorted in "  + (end-start) + " milliseconds");
 		
@@ -127,44 +133,48 @@ public class MakeGraph {
 	    Integer count =0;
 	    String prevKey = "";
 	    List<List<Integer>> featureLists= new ArrayList<>();
-	    List<Integer> relInts = new ArrayList<>();
+	    
+    	List<String> numberVals = new ArrayList<String>();
+    	int mentionNumber = 0; //keeps track of the mention that is being processed for the current location relation.
+    	HashMap<String, List<Integer>> numberSentenceMap = null; //stores the sentences in which the current number appears
 	    while((line = br.readLine()) != null){
+	    	mentionNumber++;
+	    	
 	    	String[] values = line.split("\t");
-	    	String arg1Id = values[1];
-	    	String arg2Id = values[2];
+	    	String location = values[1];
+	    	String number = values[2];
 	    	String relString = values[3];	    	
 	    	String[] rels = relString.split("&&");
-	    	List<Integer> intRels = new ArrayList<>();
-	    	for(String rel : rels){
-	    		intRels.add(m.getRelationID(rel, true));
-	    	}	    	
-	    	String key = arg1Id+"%"+arg2Id;
+	    	String key = location+"%"+relString;
+	    	
 	    	List<String> features = new ArrayList<>();
 	    	//add all features
 	    	for(int i = 4; i < values.length; i++){
 	    		features.add(values[i]);
 	    	}
 	    	//convert to integer keys from the mappings m object
-	    	List<Integer> featureIntegers = convertFeaturesToIntegers(features,m);
+	    	List<Integer> featureIntegers = Preprocess.convertFeaturesToIntegers(features,m);
 	    	
-	    	if(key.equals(prevKey)){
+	    	if(key.equals(prevKey)) { //same location relation, add
 	    		featureLists.add(featureIntegers);
-	    		for(Integer relInt: intRels){
-	    			if(!relInts.contains(relInt)) relInts.add(relInt);
+	    		if(numberSentenceMap.keySet().contains(number)) { //number already exists
+	    			numberSentenceMap.get(number).add(mentionNumber);
 	    		}
 	    	}
 	    	else{
 	    		//construct MILDoc from currentFeatureLists
-	    		if(!prevKey.equals("")){
+	    		if(!prevKey.equals("")){ //not first time round?
 	    			String[] v = prevKey.split("%");
+	    			ArrayList<Number> numbers = new ArrayList<Number>();
+	    			for(String num: numberSentenceMap.keySet()) {
+	    				numbers.add(new Number(num, numberSentenceMap.get(num)));
+	    			}
 	    			constructMILDOC(relInts,featureLists,v[0],v[1]).write(os);
 	    		
 	    		}
 	    		//reste featureLists and prevKey
-	    		relInts = new ArrayList<>();
-	    		for(Integer relInt: intRels){
-	    			if(!relInts.contains(relInt)) relInts.add(relInt);
-	    		}
+	    		numberSentenceMap = new HashMap<String, List<Integer>>();
+	    		
 	    		featureLists = new ArrayList<>();
 	    		featureLists.add(featureIntegers);
 	    		prevKey = key;
@@ -181,6 +191,10 @@ public class MakeGraph {
 	    //construct last MILDOC from featureLists
 		if(!prevKey.equals("")){
 			String[] v = prevKey.split("%");
+			ArrayList<Number> numbers = new ArrayList<Number>();
+			for(String num: numberSentenceMap.keySet()) {
+				numbers.add(new Number(num, numberSentenceMap.get(num)));
+			}
 			constructMILDOC(relInts,featureLists,v[0],v[1]).write(os);
 		
 		}
@@ -189,5 +203,62 @@ public class MakeGraph {
 		os.close();
 		tempSortedFeatureFile.delete();
 	}
+	
+
+	private static LRGraph constructLRGraph(List<Number> numbers, List<List<Integer>> featureInts,
+			String location, String relation){
+		MILDocument doc = new MILDocument();
+    	doc.arg1 = arg1;
+    	doc.arg2 = arg2;
+		
+    	// set relations
+    	{
+	    	int[] irels = new int[relInts.size()];
+	    	for (int i=0; i < relInts.size(); i++)
+	    		irels[i] = relInts.get(i);
+	    	Arrays.sort(irels);
+	    	// ignore NA and non-mapped relations
+	    	int countUnique = 0;
+	    	for (int i=0; i < irels.length; i++)
+	    		if (irels[i] > 0 && (i == 0 || irels[i-1] != irels[i]))
+	    			countUnique++;
+	    	doc.Y = new int[countUnique];
+	    	int pos = 0;
+	    	for (int i=0; i < irels.length; i++)
+	    		if (irels[i] > 0 && (i == 0 || irels[i-1] != irels[i]))
+	    			doc.Y[pos++] = irels[i];
+    	}
+    	
+    	// set mentions
+    	doc.setCapacity(featureInts.size());
+    	doc.numMentions = featureInts.size();
+    	
+    	for (int j=0; j < featureInts.size(); j++) {
+	    	doc.Z[j] = -1;
+    		doc.mentionIDs[j] = j;
+    		SparseBinaryVector sv = doc.features[j] = new SparseBinaryVector();
+    		
+    		List<Integer> instanceFeatures = featureInts.get(j);
+    		int[] fts = new int[instanceFeatures.size()];
+    		
+    		for (int i=0; i < instanceFeatures.size(); i++)
+    			fts[i] = instanceFeatures.get(i);
+    		Arrays.sort(fts);
+	    	int countUnique = 0;
+	    	for (int i=0; i < fts.length; i++)
+	    		if (fts[i] != -1 && (i == 0 || fts[i-1] != fts[i]))
+	    			countUnique++;
+	    	sv.num = countUnique;
+	    	sv.ids = new int[countUnique];
+	    	int pos = 0;
+	    	for (int i=0; i < fts.length; i++)
+	    		if (fts[i] != -1 && (i == 0 || fts[i-1] != fts[i]))
+	    			sv.ids[pos++] = fts[i];
+	    	
+    	}
+    	
+    	return doc;
+	}
+
 
 }
