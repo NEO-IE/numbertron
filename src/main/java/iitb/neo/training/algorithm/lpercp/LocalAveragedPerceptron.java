@@ -1,16 +1,13 @@
 package main.java.iitb.neo.training.algorithm.lpercp;
 
+import java.util.ArrayList;
 import java.util.Random;
 
-import edu.washington.multirframework.multiralgorithm.ConditionalInference;
+import main.java.iitb.neo.training.ds.LRGraph;
 import edu.washington.multirframework.multiralgorithm.Dataset;
 import edu.washington.multirframework.multiralgorithm.DenseVector;
-import edu.washington.multirframework.multiralgorithm.FullInference;
-import edu.washington.multirframework.multiralgorithm.MILDocument;
 import edu.washington.multirframework.multiralgorithm.Model;
 import edu.washington.multirframework.multiralgorithm.Parameters;
-import edu.washington.multirframework.multiralgorithm.Parse;
-import edu.washington.multirframework.multiralgorithm.Scorer;
 import edu.washington.multirframework.multiralgorithm.SparseBinaryVector;
 
 /**
@@ -75,62 +72,80 @@ public class LocalAveragedPerceptron {
 	public void trainingIteration(int iteration, Dataset trainingData) {
 		System.out.println("iteration " + iteration);
 
-		MILDocument doc = new MILDocument();
+		LRGraph lrg = new LRGraph();
 
 		trainingData.shuffle(random);
 
 		trainingData.reset();
 
-		while (trainingData.next(doc)) {
+		while (trainingData.next(lrg)) {
 
 			// compute most likely label under current parameters
-			Parse predictedParse = FullInference.infer(doc, scorer,
+			Parse predictedParse = FullInference.infer(lrg, scorer,
 					iterParameters);
-
-			if (updateOnTrueY || !YsAgree(predictedParse.Y, doc.Y)) {
+			Parse trueParse = GoldDbInference.infer(lrg);
+			if (!NsAgree(predictedParse, trueParse)) {
 				// if this is the first avgIteration, then we need to initialize
 				// the lastUpdate vector
 				if (computeAvgParameters && avgIteration == 0)
 					avgParamsLastUpdates.sum(iterParameters, 1.0f);
-
-				Parse trueParse = ConditionalInference.infer(doc, scorer,
-					iterParameters);
-				update(predictedParse, trueParse);
+				int numN = predictedParse.n_states.length;
+				for(int i = 0; i < numN; i++) {
+					if(predictedParse.n_states[i] != trueParse.n_states[i]) {
+						ArrayList<Integer> linkedMentions = trueParse.graph.n[i].zs_linked;
+						for(int m: linkedMentions) {
+							SparseBinaryVector v1a = scorer.getMentionRelationFeatures(trueParse.graph, m, lrg.relNumber);
+							updateRel(lrg.relNumber, v1a, delta, computeAvgParameters);
+						}
+			
+					}
+				}
+			
+				
 			}
 
 			if (computeAvgParameters) avgIteration++;
 		}
 	}
 
-	private boolean YsAgree(int[] y1, int[] y2) {
-		if (y1.length != y2.length)
-			return false;
-		for (int i = 0; i < y1.length; i++)
-			if (y1[i] != y2[i])
+	
+
+	private boolean NsAgree(Parse predictedParse, Parse trueParse) {
+		int numN = predictedParse.n_states.length;
+		if(numN != trueParse.n_states.length) {
+			throw new IllegalArgumentException("Something is not write in LocalAveragedPerceptron");
+		}
+		for(int i = 0; i < numN; i++) {
+			if(predictedParse.n_states[i] != trueParse.n_states[i]) {
 				return false;
+			}
+		}
 		return true;
 	}
 
-	// a bit dangerous, since scorer.setDocument is called only inside inference
-	public void update(Parse pred, Parse tru) {
-		int numMentions = tru.Z.length;
 
-		// iterate over mentions
-		for (int m = 0; m < numMentions; m++) {
-			int truRel = tru.Z[m];
-			int predRel = pred.Z[m];
 
-			if (truRel != predRel) {
-				SparseBinaryVector v1a = scorer.getMentionRelationFeatures(
-						tru.doc, m, truRel);
-				updateRel(truRel, v1a, delta, computeAvgParameters);
-
-				SparseBinaryVector v2a = scorer.getMentionRelationFeatures(
-						tru.doc, m, predRel);
-				updateRel(predRel, v2a, -delta, computeAvgParameters);
-			}
-		}
-	}
+//	// a bit dangerous, since scorer.setDocument is called only inside inference
+//	
+//	public void update(Parse pred, Parse tru) {
+//		int numMentions = tru.Z.length;
+//
+//		// iterate over mentions
+//		for (int m = 0; m < numMentions; m++) {
+//			int truRel = tru.Z[m];
+//			int predRel = pred.Z[m];
+//
+//			if (truRel != predRel) {
+//				SparseBinaryVector v1a = scorer.getMentionRelationFeatures(
+//						tru.doc, m, truRel);
+//				updateRel(truRel, v1a, delta, computeAvgParameters);
+//
+//				SparseBinaryVector v2a = scorer.getMentionRelationFeatures(
+//						tru.doc, m, predRel);
+//				updateRel(predRel, v2a, -delta, computeAvgParameters);
+//			}
+//		}
+//	}
 
 	private void updateRel(int toState, SparseBinaryVector features,
 			double delta, boolean useIterAverage) {

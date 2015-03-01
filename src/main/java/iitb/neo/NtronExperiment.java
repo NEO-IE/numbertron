@@ -16,10 +16,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
 import main.java.iitb.neo.pretrain.process.MakeGraph;
 import main.java.iitb.neo.pretrain.spotting.Spotting;
+import main.java.iitb.neo.training.algorithm.lpercp.LperceptTrain;
 
 import org.apache.commons.io.IOUtils;
 
@@ -294,6 +296,9 @@ public class NtronExperiment {
 				modelFile.mkdir();
 			MakeGraph.run(featureFiles.get(0), ntronModelDirs.get(0));
 		}
+		File modelFile = new File(ntronModelDirs.get(0));
+		//Step 3.2: Now run the super naive training algorithm
+		LperceptTrain.train(modelFile.getAbsoluteFile().toString(),new Random(1));					
 		
 
 	}
