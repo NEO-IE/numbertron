@@ -31,9 +31,9 @@ import edu.washington.multirframework.multiralgorithm.SparseBinaryVector;
  */
 public class LRGraph {
 	public static final int MNT_CAPACITY = 2;
-	
+	public static final int NUM_RELS = 11;
 	public String location, relation;
-	
+	public int relNumber;
 	public int random = 0;
 	
 

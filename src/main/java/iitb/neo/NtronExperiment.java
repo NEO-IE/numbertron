@@ -286,7 +286,6 @@ public class NtronExperiment {
 
 		/* Step 3: Training and weight learning */
 		// Step 3.1: From the feature file, generate graphs
-
 		// for each input feature training file
 		for (int i = 0; i < featureFiles.size(); i++) {
 			String featureFile = featureFiles.get(i);
@@ -295,6 +294,7 @@ public class NtronExperiment {
 				modelFile.mkdir();
 			MakeGraph.run(featureFiles.get(0), ntronModelDirs.get(0));
 		}
+		
 
 	}
 

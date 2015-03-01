@@ -36,8 +36,6 @@ import edu.washington.multirframework.data.Argument;
 import edu.washington.multirframework.data.KBArgument;
 
 public class Spotting {
-
-
 	String corpusPath;
 	CorpusInformationSpecification cis;
 	RuleBasedDriver rbased;
@@ -204,8 +202,4 @@ public class Spotting {
 			dsWriter.write("\n");
 		}
 	}
-
-
-
-
 }
