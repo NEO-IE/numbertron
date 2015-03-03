@@ -37,6 +37,7 @@ public class MakeGraph {
 	private static final double GIGABYTE_DIVISOR = 1073741824;
 
 	static HashMap<String, Integer> relToRelnumberMap;
+	static int numRelations = 11;
 	static {
 		relToRelnumberMap = new HashMap<String, Integer>();
 
@@ -171,7 +172,7 @@ public class MakeGraph {
 			String relString = values[3];
 
 			String key = location + "%" + relString;
-
+			m.getRelationID(relString, true);
 			List<String> features = new ArrayList<>();
 			// add all features
 			for (int i = 4; i < values.length; i++) {
@@ -183,9 +184,11 @@ public class MakeGraph {
 			if (key.equals(prevKey)) { // same location relation, add
 				featureLists.add(featureIntegers);
 				if (numberSentenceMap.keySet().contains(number)) { // number
-																	// already
-																	// exists
 					numberSentenceMap.get(number).add(mentionNumber);
+				} else { //need to add
+					ArrayList<Integer> mentionIds = new ArrayList<Integer>();
+					mentionIds.add(mentionNumber);
+					numberSentenceMap.put(number, mentionIds);
 				}
 			} else {
 				// construct MILDoc from currentFeatureLists
@@ -196,11 +199,15 @@ public class MakeGraph {
 						numbers.add(new Number(num, numberSentenceMap.get(num)));
 					}
 					constructLRGraph(numbers, featureLists, v[0], v[1]).write(os);
+					mentionNumber = 0; //reset the mention number
 
 				}
 				// reste featureLists and prevKey
 				numberSentenceMap = new HashMap<String, List<Integer>>();
-
+				ArrayList<Integer> mentionIds = new ArrayList<Integer>();
+				mentionIds.add(mentionNumber);
+				numberSentenceMap.put(number, mentionIds);
+			
 				featureLists = new ArrayList<>();
 				featureLists.add(featureIntegers);
 				prevKey = key;
@@ -234,6 +241,11 @@ public class MakeGraph {
 		LRGraph lrg = new LRGraph();
 		lrg.location = location;
 		lrg.relation = relation;
+	
+		if (!relToRelnumberMap.keySet().contains(relation)) {
+			relToRelnumberMap.put(relation, numRelations);
+			numRelations++;
+		}
 		lrg.relNumber = relToRelnumberMap.get(relation);
 		// set number nodes
 

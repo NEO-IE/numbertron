@@ -16,13 +16,14 @@ public class FullInference {
 		/*setup what we already know about the parse*/
 		p.graph = lrg;
 		scorer.setParameters(params);
-		
+		p.z_states = new boolean[lrg.Z.length];
+		p.n_states = new boolean[lrg.n.length];
 		/*iterate over the Z nodes and set them to true whenever applicable*/
 		int numZ = lrg.Z.length;
 		for(int z = 0; z < numZ; z++) {
 			double bestScore = 0;
 			int bestR = -1;
-			 for(int r = 0; r < LRGraph.NUM_RELS; r++) {
+			 for(int r = 0; r < params.model.numRelations; r++) {
 				 double currScore = scorer.scoreMentionRelation(lrg, z, r);
 				 if(currScore > bestScore) {
 					 bestR = r;

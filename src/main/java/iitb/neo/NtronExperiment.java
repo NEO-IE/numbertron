@@ -298,9 +298,18 @@ public class NtronExperiment {
 		}
 		File modelFile = new File(ntronModelDirs.get(0));
 		//Step 3.2: Now run the super naive training algorithm
-		LperceptTrain.train(modelFile.getAbsoluteFile().toString(),new Random(1));					
-		
-
+		LperceptTrain.train(modelFile.getAbsoluteFile().toString(),new Random(1));	
+		/**Print Graph
+		String dir = modelFile.getAbsoluteFile().toString();
+		Dataset train = new LRGraphMemoryDataset(dir + File.separatorChar + "train");
+		LRGraph lrg = new LRGraph();
+		BufferedWriter bw = new BufferedWriter(new FileWriter("graph"));
+		while(train.next(lrg)) {
+			bw.write(lrg.toString() + "\n");
+			bw.write("\n\n");
+		}
+		bw.close();
+		**/
 	}
 
 	public static void main(String args[]) throws Exception {

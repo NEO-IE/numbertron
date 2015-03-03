@@ -11,6 +11,8 @@ public class GoldDbInference {
 	public static Parse infer(LRGraph lrg) {
 		Parse p = new Parse();
 		p.graph = lrg;
+		p.z_states = new boolean[lrg.Z.length];
+		p.n_states = new boolean[lrg.n.length];
 		int numN = lrg.n.length;
 		for(int n_i = 0; n_i < numN; n_i++) {
 			if(closeEnough(lrg.n[n_i].value, lrg.relNumber)) {
