@@ -18,7 +18,7 @@ import edu.washington.multirframework.multiralgorithm.SparseBinaryVector;
  */
 public class LocalAveragedPerceptron {
 	public int maxIterations = 50;
-	public boolean computeAvgParameters = true;
+	public boolean computeAvgParameters = false;
 	public boolean updateOnTrueY = true;
 	public double delta = 1;
 
@@ -79,6 +79,9 @@ public class LocalAveragedPerceptron {
 		trainingData.reset();
 
 		while (trainingData.next(lrg)) {
+			if(lrg.features.length == 0){
+				continue;
+			}
 
 			// compute most likely label under current parameters
 			Parse predictedParse = FullInference.infer(lrg, scorer,
@@ -150,7 +153,8 @@ public class LocalAveragedPerceptron {
 	private void updateRel(int toState, SparseBinaryVector features,
 			double delta, boolean useIterAverage) {
 		iterParameters.relParameters[toState].addSparse(features, delta);
-
+		useIterAverage = false;
+		System.out.println("here");
 		if (useIterAverage) {
 			DenseVector lastUpdatesIter = (DenseVector) avgParamsLastUpdatesIter.relParameters[toState];
 			DenseVector lastUpdates = (DenseVector) avgParamsLastUpdates.relParameters[toState];
