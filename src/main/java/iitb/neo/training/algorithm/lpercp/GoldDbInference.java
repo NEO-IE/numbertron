@@ -33,15 +33,15 @@ public class GoldDbInference {
 	private static boolean closeEnough(Double value, String rel, String entity) {
 		// TODO Auto-generated method stub
 		
-//		ArrayList<Double> goldValues = GoldDB.getGoldDBValue(entity, rel, K);
-//		for(Double val : goldValues){
-//			Double valueSlack = 0.05 * val; // +- 5 percent
-//			if((value > (val- valueSlack)) && (value < (val + valueSlack))){
-//					return true;
-//			}
-//		}
-		return true;
-		//return false;
+		ArrayList<Double> goldValues = GoldDB.getGoldDBValue(entity, rel, K);
+		for(Double val : goldValues){
+			Double valueSlack = 0.05 * val; // +- 5 percent
+			if((value > (val- valueSlack)) && (value < (val + valueSlack))){
+					return true;
+			}
+		}
+	
+		return false;
 	}
 
 }

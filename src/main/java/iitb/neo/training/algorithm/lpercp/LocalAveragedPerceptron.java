@@ -99,7 +99,17 @@ public class LocalAveragedPerceptron {
 						ArrayList<Integer> linkedMentions = trueParse.graph.n[i].zs_linked;
 						for(int m: linkedMentions) {
 							SparseBinaryVector v1a = scorer.getMentionRelationFeatures(trueParse.graph, m, lrg.relNumber);
-							updateRel(lrg.relNumber, v1a, delta, computeAvgParameters);
+							//increase weight for the correct mention
+							
+							//decrease weight for the incorrect mention
+							for(int r = 0; r < model.numRelations; r++) {
+								if(r == lrg.relNumber) {
+									updateRel(r, v1a, delta, computeAvgParameters);
+								} else {
+									updateRel(r, v1a, -delta, computeAvgParameters);
+								}
+							}
+							
 						}
 			
 					}
