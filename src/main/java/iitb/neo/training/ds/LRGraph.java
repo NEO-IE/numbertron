@@ -74,7 +74,8 @@ public class LRGraph {
 		try {
 			random = dis.readInt();
 			location = dis.readUTF();
-			relation = dis.readUTF();			
+			relation = dis.readUTF();
+			relNumber = dis.readInt();
 			int lenN = dis.readInt();
 			n = new Number[lenN];
 			for (int i=0; i < lenN; i++) {
@@ -102,6 +103,7 @@ public class LRGraph {
 		dos.writeInt(random);
 		dos.writeUTF(location);
 		dos.writeUTF(relation);
+		dos.writeInt(relNumber);
 		dos.writeInt(n.length);
 		for (int i=0; i < n.length; i++)
 			n[i].serialize(dos);

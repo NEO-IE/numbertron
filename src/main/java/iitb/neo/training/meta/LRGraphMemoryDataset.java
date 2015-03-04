@@ -27,6 +27,7 @@ public class LRGraphMemoryDataset implements Dataset<LRGraph> {
 				(new FileInputStream(file)));
 		while (d.read(dis)) {
 			l.add(d);
+			System.out.println(d.relNumber);
 			d = new LRGraph();
 		}
 		dis.close();
@@ -58,6 +59,7 @@ public class LRGraphMemoryDataset implements Dataset<LRGraph> {
 			doc.relation = d.relation;
 			doc.features = d.features;
 			doc.mentionIDs = d.mentionIDs;
+			doc.relNumber = d.relNumber;
 			doc.numMentions = d.numMentions;
 			doc.n = d.n;
 			doc.Z = d.Z;

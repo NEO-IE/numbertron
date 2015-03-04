@@ -21,11 +21,11 @@ public class GoldDbInference {
 		p.n_states = new boolean[lrg.n.length];
 		int numN = lrg.n.length;
 		for(int n_i = 0; n_i < numN; n_i++) {
-			/*if(closeEnough(lrg.n[n_i].value, lrg.relNumber)) {
+			if(closeEnough(lrg.n[n_i].value, lrg.relation, lrg.location)) {
 				p.n_states[n_i] = true;
 			} else {
 				p.n_states[n_i] = false;
-			}*/
+			}
 		}
 		return p;
 	}
@@ -33,14 +33,15 @@ public class GoldDbInference {
 	private static boolean closeEnough(Double value, String rel, String entity) {
 		// TODO Auto-generated method stub
 		
-		ArrayList<Double> goldValues = GoldDB.getGoldDBValue(entity, rel, K);
-		for(Double val : goldValues){
-			Double valueSlack = 0.05 * val; // +- 5 percent
-			if((value > (val- valueSlack)) && (value < (val + valueSlack))){
-					return true;
-			}
-		}
-		return false;
+//		ArrayList<Double> goldValues = GoldDB.getGoldDBValue(entity, rel, K);
+//		for(Double val : goldValues){
+//			Double valueSlack = 0.05 * val; // +- 5 percent
+//			if((value > (val- valueSlack)) && (value < (val + valueSlack))){
+//					return true;
+//			}
+//		}
+		return true;
+		//return false;
 	}
 
 }

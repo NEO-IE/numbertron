@@ -124,6 +124,7 @@ public class MakeGraph {
 			}
 
 		};
+		
 
 		File inputFile = new File(input);
 		File tempSortedFeatureFile = new File(inputFile.getParentFile().getAbsolutePath() + "/" + inputFile.getName()
@@ -198,7 +199,7 @@ public class MakeGraph {
 					for (String num : numberSentenceMap.keySet()) {
 						numbers.add(new Number(num, numberSentenceMap.get(num)));
 					}
-					constructLRGraph(numbers, featureLists, v[0], v[1]).write(os);
+					constructLRGraph(numbers, featureLists, v[0], v[1], m.getRelationID(v[1], false)).write(os);
 					mentionNumber = 0; //reset the mention number
 
 				}
@@ -227,7 +228,7 @@ public class MakeGraph {
 			for (String num : numberSentenceMap.keySet()) {
 				numbers.add(new Number(num, numberSentenceMap.get(num)));
 			}
-			constructLRGraph(numbers, featureLists, v[0], v[1]).write(os);
+			constructLRGraph(numbers, featureLists, v[0], v[1], m.getRelationID(v[1], false)).write(os);
 
 		}
 
@@ -237,16 +238,13 @@ public class MakeGraph {
 	}
 
 	private static LRGraph constructLRGraph(List<Number> numbers, List<List<Integer>> featureInts, String location,
-			String relation) {
+			String relation, int relNumber) {
 		LRGraph lrg = new LRGraph();
 		lrg.location = location;
 		lrg.relation = relation;
 	
-		if (!relToRelnumberMap.keySet().contains(relation)) {
-			relToRelnumberMap.put(relation, numRelations);
-			numRelations++;
-		}
-		lrg.relNumber = relToRelnumberMap.get(relation);
+		
+		lrg.relNumber = relNumber;
 		// set number nodes
 
 		int numNodesCount = numbers.size();

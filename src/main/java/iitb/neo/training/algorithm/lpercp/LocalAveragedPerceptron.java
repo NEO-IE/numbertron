@@ -75,7 +75,7 @@ public class LocalAveragedPerceptron {
 		LRGraph lrg = new LRGraph();
 
 		trainingData.shuffle(random);
-
+		
 		trainingData.reset();
 
 		while (trainingData.next(lrg)) {
@@ -83,6 +83,7 @@ public class LocalAveragedPerceptron {
 				continue;
 			}
 
+			
 			// compute most likely label under current parameters
 			Parse predictedParse = FullInference.infer(lrg, scorer,
 					iterParameters);

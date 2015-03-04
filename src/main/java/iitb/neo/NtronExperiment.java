@@ -7,9 +7,11 @@ package main.java.iitb.neo;
 import iitb.rbased.main.RuleBasedDriver;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -41,6 +43,9 @@ import edu.washington.multirframework.distantsupervision.NegativeExampleCollecti
 import edu.washington.multirframework.featuregeneration.FeatureGeneration;
 import edu.washington.multirframework.featuregeneration.FeatureGenerator;
 import edu.washington.multirframework.knowledgebase.KnowledgeBase;
+import edu.washington.multirframework.multiralgorithm.DenseVector;
+import edu.washington.multirframework.multiralgorithm.Model;
+import edu.washington.multirframework.multiralgorithm.Parameters;
 
 public class NtronExperiment {
 	private String corpusPath;
@@ -310,6 +315,7 @@ public class NtronExperiment {
 		}
 		bw.close();
 		**/
+		writeFeatureWeights(ntronModelDirs.get(0) + File.separatorChar + "mapping", ntronModelDirs.get(0) + File.separatorChar + "params", ntronModelDirs.get(0) + File.separatorChar + "model", "wt");
 	}
 
 	public static void main(String args[]) throws Exception {
@@ -327,6 +333,40 @@ public class NtronExperiment {
 			}
 		}
 		return true;
+	}
+	
+	private void writeFeatureWeights(String mapping, String parametersFile, String modelFile, String outFile) throws IOException {
+		BufferedWriter bw = new BufferedWriter(new FileWriter(outFile));
+		BufferedReader featureReader = new BufferedReader(new FileReader(mapping));
+		Integer numRel = Integer.parseInt(featureReader.readLine());
+		HashMap<Integer, String> relNumNameMapping = new HashMap<Integer, String>();
+		
+		for(int i = 0; i < numRel; i++) {
+			//skip relation names
+			relNumNameMapping.put(i, featureReader.readLine());
+		}
+		String ftr = null;
+		HashMap<Integer, String> featureList = new HashMap<Integer, String>();
+		int fno = 0;
+		while((ftr = featureReader.readLine()) != null) {
+			featureList.put(fno, ftr);
+			fno++;
+		}
+		Parameters p = new Parameters();
+		p.model  = new Model();
+		p.model.read(modelFile);
+		p.deserialize(parametersFile);
+		int numfeatures = fno - 1;
+		for(int r = 0; r < p.model.numRelations; r++) {
+			String relName = relNumNameMapping.get(r);
+			DenseVector dv = p.relParameters[r];
+			System.out.println(dv.vals.length);
+			for(int i = 0; i < numfeatures; i++) {
+				bw.write(relName + "\t" + featureList.get(i) + "\t" + dv.vals[i] + "\n");
+			}
+		}
+		bw.close();
+		featureReader.close();
 	}
 
 }
