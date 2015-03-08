@@ -65,9 +65,9 @@ public class GoldDB {
 	public static ArrayList<Double> getGoldDBValue(String entity, String rel, int k){
 		Pair<String, String> entityRel = new Pair<String, String>(entity, rel);
 		if(goldDB.containsKey(entityRel)){
-			return (ArrayList<Double>) goldDB.get(entityRel).subList(0, k);
+			return new ArrayList<Double>(goldDB.get(entityRel).subList(0, k));
 		}
-		return null;
+		return new ArrayList<Double>();
 	}
 	
 	/*
@@ -82,6 +82,7 @@ public class GoldDB {
 	}
 	
 	public static void main(String args[]){
-		System.out.println(GoldDB.getGoldDBValue("/m/0j11","GDP"));
+		
+		System.out.println(GoldDB.getGoldDBValue("/m/01z88t","FDI"));
 	}
 }
