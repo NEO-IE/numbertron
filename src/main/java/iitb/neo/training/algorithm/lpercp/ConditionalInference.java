@@ -14,7 +14,6 @@ import main.java.iitb.neo.training.ds.Number;
 public class ConditionalInference {
 	public static Parse infer(LRGraph lrg, Scorer scorer, Parameters params) {
 				
-			System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");
 			Parse p = new Parse();
 			p.graph = lrg;
 			scorer.setParameters(params);
