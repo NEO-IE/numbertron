@@ -82,6 +82,6 @@ public class GoldDB {
 	}
 	
 	public static void main(String args[]){
-		System.out.println(GoldDB.getGoldDBValue("/m/0j11","GDP"));
+		System.out.println(GoldDB.getGoldDBValue("/m/0j11","POP"));
 	}
 }
