@@ -82,7 +82,6 @@ public class GoldDB {
 	}
 	
 	public static void main(String args[]){
-		
 		System.out.println(GoldDB.getGoldDBValue("/m/01z88t","FDI"));
 	}
 }

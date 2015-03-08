@@ -77,7 +77,7 @@ public class LocalAveragedPerceptron {
 		trainingData.shuffle(random);
 		
 		trainingData.reset();
-
+		
 		while (trainingData.next(lrg)) {
 			if(lrg.features.length == 0){
 				continue;
