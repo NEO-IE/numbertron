@@ -1,7 +1,10 @@
 package main.java.iitb.neo.training.algorithm.lpercp;
 
+import java.util.ArrayList;
+
 import main.java.iitb.neo.training.ds.LRGraph;
 import edu.washington.multirframework.multiralgorithm.Parameters;
+import main.java.iitb.neo.training.ds.Number;	
 
 
 
@@ -15,41 +18,19 @@ public class ConditionalInference {
 			Parse p = new Parse();
 			p.graph = lrg;
 			scorer.setParameters(params);
-			int numMentions = lrg.numMentions;
 			
-			Parse trueParse = GoldDbInference.infer(lrg);
+			Parse trueParse = GoldDbInference.infer(lrg); //get the states of n nodes from gold DB for this graph.
+			p.z_states = new boolean[lrg.Z.length];
+			p.n_states = trueParse.n_states;
 			
-			Viterbi viterbi = new Viterbi(params.model, scorer);
-			Viterbi.Parse[] vp = new Viterbi.Parse[numMentions];
-			for (int m = 0; m < numMentions; m++) {
-				vp[m] = viterbi.parse(lrg, m);
+			for(int i = 0 ; i < lrg.n.length; i++){
+				Number n = lrg.n[i];
+				ArrayList<Integer> z_s = n.zs_linked;
+				for(Integer z: z_s){
+					p.z_states[z] = trueParse.n_states[i];  //z_s copy the state of n_s.
+				}
 			}
 			
-			// each mention can be linked to one of the numbers
-			int numRelevantNumbers = lrg.n.length;
-			
-			// solve bipartite graph matching problem ??
-			// Edge[] es = new Edge[numMentions * numRelevantNumbers];
-			for (int m = 0; m < numMentions; m++) {
-				for (int no = 0; no < numRelevantNumbers; no++)
-					if(lrg.n[no].zs_linked.contains(m)){
-						
-					}
-			}
-			
-			
-			
-			
-			return null;
-	}
-	static class Edge {
-		int m;
-		int y;
-		double score;		
-		Edge(int m, int y, double score) {
-			this.m = m;
-			this.y = y;
-			this.score = score;
-		}
+			return p;
 	}
 }
