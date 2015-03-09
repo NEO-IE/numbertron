@@ -85,8 +85,38 @@ public class LocalAveragedPerceptron {
 
 			
 			// compute most likely label under current parameters
-			Parse predictedParse = FullInference.infer(lrg, scorer,
-					iterParameters);
+			Parse predictedParse = FullInference.infer(lrg, scorer, iterParameters);
+			Parse conditionalParse = ConditionalInference.infer(lrg, scorer, iterParameters);
+			
+			if(!NsAgree(predictedParse, conditionalParse)){
+				// if this is the first avgIteration, then we need to initialize
+				// the lastUpdate vector
+				if (computeAvgParameters && avgIteration == 0)
+					avgParamsLastUpdates.sum(iterParameters, 1.0f);
+				
+				int numMentions = lrg.numMentions;
+				for(int i = 0; i < numMentions; i++){
+					SparseBinaryVector v1a = scorer.getMentionRelationFeatures(lrg, i, lrg.relNumber);
+					
+					if(conditionalParse.z_states[i] == true){
+						//increase weight for the incorrect mention
+						for(int r = 0; r < model.numRelations; r++) {
+							if(r == lrg.relNumber) {
+								updateRel(r, v1a, delta, computeAvgParameters);
+							} 
+						}
+					}else if(predictedParse.z_states[i] == true){
+						//decrease weight for the incorrect mention
+						for(int r = 0; r < model.numRelations; r++) {
+							if(r == lrg.relNumber) {
+								updateRel(r, v1a, -delta, computeAvgParameters);
+							} 
+						}
+					}
+				}
+			}
+			
+			/*
 			Parse trueParse = GoldDbInference.infer(lrg);
 			if (!NsAgree(predictedParse, trueParse)) {
 				// if this is the first avgIteration, then we need to initialize
@@ -114,10 +144,8 @@ public class LocalAveragedPerceptron {
 			
 					}
 				}
-			
-				
 			}
-
+			*/
 			if (computeAvgParameters) avgIteration++;
 		}
 	}
