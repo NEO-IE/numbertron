@@ -13,7 +13,7 @@ import edu.washington.multirframework.multiralgorithm.SparseBinaryVector;
 /**
  * Simple percepton-ish algorithm for learning weights.
  * Averaged because the parameters are averaged across the runs
- * @author aman
+ * @author aman/ashish
  *
  */
 public class LocalAveragedPerceptron {
@@ -25,6 +25,8 @@ public class LocalAveragedPerceptron {
 	private Scorer scorer;
 	private Model model;
 	private Random random;
+	
+	private int relNumber = -1;
 
 	public LocalAveragedPerceptron(Model model, Random random) {
 		scorer = new Scorer();
@@ -62,14 +64,15 @@ public class LocalAveragedPerceptron {
 		for (int i = 0; i < maxIterations; i++)
 			trainingIteration(i, trainingData);
 
-		if (computeAvgParameters) finalizeRel();
+		if (computeAvgParameters && relNumber != -1) finalizeRel(relNumber);
 		
 		return (computeAvgParameters) ? avgParameters : iterParameters;
 	}
 
 	int avgIteration = 0;
 
-	public void trainingIteration(int iteration, Dataset trainingData) {
+	@SuppressWarnings("unchecked")
+	public void trainingIteration(int iteration, @SuppressWarnings("rawtypes") Dataset trainingData) {
 		System.out.println("iteration " + iteration);
 
 		LRGraph lrg = new LRGraph();
@@ -79,77 +82,88 @@ public class LocalAveragedPerceptron {
 		trainingData.reset();
 		
 		while (trainingData.next(lrg)) {
+			if(relNumber == -1)
+				relNumber = lrg.relNumber;
+			
 			if(lrg.features.length == 0){
 				continue;
 			}
 
-			
 			// compute most likely label under current parameters
 			Parse predictedParse = FullInference.infer(lrg, scorer, iterParameters);
-			Parse conditionalParse = ConditionalInference.infer(lrg, scorer, iterParameters);
-			
-			if(!NsAgree(predictedParse, conditionalParse)){
+			Parse trueParse = ConditionalInference.infer(lrg, scorer, iterParameters);
+						
+			if (updateOnTrueY || !NsAgree(predictedParse,trueParse)) {
 				// if this is the first avgIteration, then we need to initialize
 				// the lastUpdate vector
 				if (computeAvgParameters && avgIteration == 0)
 					avgParamsLastUpdates.sum(iterParameters, 1.0f);
-				
-				int numMentions = lrg.numMentions;
-				for(int i = 0; i < numMentions; i++){
-					SparseBinaryVector v1a = scorer.getMentionRelationFeatures(lrg, i, lrg.relNumber);
 					
-					if(conditionalParse.z_states[i] == true){
-						//increase weight for the incorrect mention
-						for(int r = 0; r < model.numRelations; r++) {
-							if(r == lrg.relNumber) {
-								updateRel(r, v1a, delta, computeAvgParameters);
-							} 
-						}
-					}else if(predictedParse.z_states[i] == true){
-						//decrease weight for the incorrect mention
-						for(int r = 0; r < model.numRelations; r++) {
-							if(r == lrg.relNumber) {
-								updateRel(r, v1a, -delta, computeAvgParameters);
-							} 
-						}
-					}
-				}
+					update(predictedParse, trueParse);
 			}
 			
-			/*
-			Parse trueParse = GoldDbInference.infer(lrg);
-			if (!NsAgree(predictedParse, trueParse)) {
-				// if this is the first avgIteration, then we need to initialize
-				// the lastUpdate vector
-				if (computeAvgParameters && avgIteration == 0)
-					avgParamsLastUpdates.sum(iterParameters, 1.0f);
-				int numN = predictedParse.n_states.length;
-				for(int i = 0; i < numN; i++) {
-					if(predictedParse.n_states[i] != trueParse.n_states[i]) {
-						ArrayList<Integer> linkedMentions = trueParse.graph.n[i].zs_linked;
-						for(int m: linkedMentions) {
-							SparseBinaryVector v1a = scorer.getMentionRelationFeatures(trueParse.graph, m, lrg.relNumber);
-							//increase weight for the correct mention
-							
-							//decrease weight for the incorrect mention
-							for(int r = 0; r < model.numRelations; r++) {
-								if(r == lrg.relNumber) {
-									updateRel(r, v1a, delta, computeAvgParameters);
-								} else {
-									updateRel(r, v1a, -delta, computeAvgParameters);
-								}
-							}
-							
-						}
 			
-					}
-				}
-			}
-			*/
 			if (computeAvgParameters) avgIteration++;
 		}
 	}
 
+	public void update(Parse predictedParse, Parse trueParse) {
+		// if this is the first avgIteration, then we need to initialize
+		// the lastUpdate vector
+		if (computeAvgParameters && avgIteration == 0)
+			avgParamsLastUpdates.sum(iterParameters, 1.0f);
+		LRGraph lrg = predictedParse.graph;
+		int numMentions = lrg.numMentions;
+		for(int i = 0; i < numMentions; i++){
+			SparseBinaryVector v1a = scorer.getMentionRelationFeatures(lrg, i, lrg.relNumber);
+			
+			if(trueParse.z_states[i] == true){
+				//increase weight for the incorrect mention
+				for(int r = 0; r < model.numRelations; r++) {
+					if(r == lrg.relNumber) {
+						updateRel(r, v1a, delta, computeAvgParameters);
+					} 
+				}
+			}else if(predictedParse.z_states[i] == true){
+				//decrease weight for the incorrect mention
+				for(int r = 0; r < model.numRelations; r++) {
+					if(r == lrg.relNumber) {
+						updateRel(r, v1a, -delta, computeAvgParameters);
+					} 
+				}
+			}
+		}
+	}
+	/*
+	Parse trueParse = GoldDbInference.infer(lrg);
+	if (!NsAgree(predictedParse, trueParse)) {
+		// if this is the first avgIteration, then we need to initialize
+		// the lastUpdate vector
+		if (computeAvgParameters && avgIteration == 0)
+			avgParamsLastUpdates.sum(iterParameters, 1.0f);
+		int numN = predictedParse.n_states.length;
+		for(int i = 0; i < numN; i++) {
+			if(predictedParse.n_states[i] != trueParse.n_states[i]) {
+				ArrayList<Integer> linkedMentions = trueParse.graph.n[i].zs_linked;
+				for(int m: linkedMentions) {
+					SparseBinaryVector v1a = scorer.getMentionRelationFeatures(trueParse.graph, m, lrg.relNumber);
+					//increase weight for the correct mention
+					
+					//decrease weight for the incorrect mention
+					for(int r = 0; r < model.numRelations; r++) {
+						if(r == lrg.relNumber) {
+							updateRel(r, v1a, delta, computeAvgParameters);
+						} else {
+							updateRel(r, v1a, -delta, computeAvgParameters);
+						}
+					}
+					
+				}
+	
+			}
+		}
+	}
+	*/
 	
 
 	private boolean NsAgree(Parse predictedParse, Parse trueParse) {
@@ -165,29 +179,6 @@ public class LocalAveragedPerceptron {
 		return true;
 	}
 
-
-
-//	// a bit dangerous, since scorer.setDocument is called only inside inference
-//	
-//	public void update(Parse pred, Parse tru) {
-//		int numMentions = tru.Z.length;
-//
-//		// iterate over mentions
-//		for (int m = 0; m < numMentions; m++) {
-//			int truRel = tru.Z[m];
-//			int predRel = pred.Z[m];
-//
-//			if (truRel != predRel) {
-//				SparseBinaryVector v1a = scorer.getMentionRelationFeatures(
-//						tru.doc, m, truRel);
-//				updateRel(truRel, v1a, delta, computeAvgParameters);
-//
-//				SparseBinaryVector v2a = scorer.getMentionRelationFeatures(
-//						tru.doc, m, predRel);
-//				updateRel(predRel, v2a, -delta, computeAvgParameters);
-//			}
-//		}
-//	}
 
 	private void updateRel(int toState, SparseBinaryVector features,
 			double delta, boolean useIterAverage) {
@@ -211,8 +202,11 @@ public class LocalAveragedPerceptron {
 		}
 	}
 
-	private void finalizeRel() {
+	private void finalizeRel(int relNumber) {
 		for (int s = 0; s < model.numRelations; s++) {
+			if(s != relNumber){
+				continue; //not the candidate relation, whose parameters are to be updated.
+			}
 			DenseVector lastUpdatesIter = (DenseVector) avgParamsLastUpdatesIter.relParameters[s];
 			DenseVector lastUpdates = (DenseVector) avgParamsLastUpdates.relParameters[s];
 			DenseVector avg = (DenseVector) avgParameters.relParameters[s];
