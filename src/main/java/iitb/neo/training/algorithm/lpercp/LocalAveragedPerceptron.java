@@ -17,8 +17,8 @@ import edu.washington.multirframework.multiralgorithm.SparseBinaryVector;
  *
  */
 public class LocalAveragedPerceptron {
-	public int maxIterations = 50;
-	public boolean computeAvgParameters = false;
+	public int maxIterations = 2;
+	public boolean computeAvgParameters = true;
 	public boolean updateOnTrueY = true;
 	public double delta = 1;
 
@@ -89,12 +89,13 @@ public class LocalAveragedPerceptron {
 			Parse predictedParse = FullInference.infer(lrg, scorer, iterParameters);
 			Parse trueParse = ConditionalInference.infer(lrg, scorer, iterParameters);
 						
-			if (updateOnTrueY || !NsAgree(predictedParse,trueParse)) {
+			if ( !NsAgree(predictedParse,trueParse)) {
 				// if this is the first avgIteration, then we need to initialize
 				// the lastUpdate vector
 				if (computeAvgParameters && avgIteration == 0)
 					avgParamsLastUpdates.sum(iterParameters, 1.0f);
 					
+					System.out.println("Updating params");		
 					update(predictedParse, trueParse);
 			}
 			
@@ -165,7 +166,7 @@ public class LocalAveragedPerceptron {
 	private boolean NsAgree(Parse predictedParse, Parse trueParse) {
 		int numN = predictedParse.n_states.length;
 		if(numN != trueParse.n_states.length) {
-			throw new IllegalArgumentException("Something is not write in LocalAveragedPerceptron");
+			throw new IllegalArgumentException("Something is not right in LocalAveragedPerceptron");
 		}
 		for(int i = 0; i < numN; i++) {
 			if(predictedParse.n_states[i] != trueParse.n_states[i]) {
@@ -179,7 +180,7 @@ public class LocalAveragedPerceptron {
 	private void updateRel(int toState, SparseBinaryVector features,
 			double delta, boolean useIterAverage) {
 		iterParameters.relParameters[toState].addSparse(features, delta);
-		useIterAverage = false;
+		//useIterAverage = false;
 		if (useIterAverage) {
 			DenseVector lastUpdatesIter = (DenseVector) avgParamsLastUpdatesIter.relParameters[toState];
 			DenseVector lastUpdates = (DenseVector) avgParamsLastUpdates.relParameters[toState];

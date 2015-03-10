@@ -22,6 +22,7 @@ public class GoldDbInference {
 		int numN = lrg.n.length;
 		for(int n_i = 0; n_i < numN; n_i++) {
 			if(closeEnough(lrg.n[n_i].value, lrg.relation, lrg.location)) {
+				System.out.println("Close Enough");
 				p.n_states[n_i] = true;
 			} else {
 				p.n_states[n_i] = false;
@@ -34,11 +35,11 @@ public class GoldDbInference {
 		// TODO Auto-generated method stub
 		rel = rel.split("&")[0];
 		ArrayList<Double> goldValues = GoldDB.getGoldDBValue(entity, rel, K);
-		System.out.println("\nTrue: " + value);
+		//System.out.println("\nTrue: " + value);
 		for(Double val : goldValues){
 			
 			Double valueSlack = 0.9 * val; // +- 5 percent
-			System.out.print(val + "\t");
+			//System.out.print(val + "\t");
 			if((value > (val- valueSlack)) && (value < (val + valueSlack))){
 				System.err.println("RETURNING TRUE");	
 				return true;
@@ -46,6 +47,7 @@ public class GoldDbInference {
 		}
 	
 		return false;
+		//return true;
 	}
 
 }
