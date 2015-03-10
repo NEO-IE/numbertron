@@ -25,8 +25,6 @@ public class LocalAveragedPerceptron {
 	private Scorer scorer;
 	private Model model;
 	private Random random;
-	
-	private int relNumber = -1;
 
 	public LocalAveragedPerceptron(Model model, Random random) {
 		scorer = new Scorer();
@@ -64,7 +62,7 @@ public class LocalAveragedPerceptron {
 		for (int i = 0; i < maxIterations; i++)
 			trainingIteration(i, trainingData);
 
-		if (computeAvgParameters && relNumber != -1) finalizeRel(relNumber);
+		if (computeAvgParameters) finalizeRel();
 		
 		return (computeAvgParameters) ? avgParameters : iterParameters;
 	}
@@ -82,8 +80,6 @@ public class LocalAveragedPerceptron {
 		trainingData.reset();
 		
 		while (trainingData.next(lrg)) {
-			if(relNumber == -1)
-				relNumber = lrg.relNumber;
 			
 			if(lrg.features.length == 0){
 				continue;
@@ -184,7 +180,6 @@ public class LocalAveragedPerceptron {
 			double delta, boolean useIterAverage) {
 		iterParameters.relParameters[toState].addSparse(features, delta);
 		useIterAverage = false;
-		System.out.println("here");
 		if (useIterAverage) {
 			DenseVector lastUpdatesIter = (DenseVector) avgParamsLastUpdatesIter.relParameters[toState];
 			DenseVector lastUpdates = (DenseVector) avgParamsLastUpdates.relParameters[toState];
@@ -202,11 +197,8 @@ public class LocalAveragedPerceptron {
 		}
 	}
 
-	private void finalizeRel(int relNumber) {
+	private void finalizeRel() {
 		for (int s = 0; s < model.numRelations; s++) {
-			if(s != relNumber){
-				continue; //not the candidate relation, whose parameters are to be updated.
-			}
 			DenseVector lastUpdatesIter = (DenseVector) avgParamsLastUpdatesIter.relParameters[s];
 			DenseVector lastUpdates = (DenseVector) avgParamsLastUpdates.relParameters[s];
 			DenseVector avg = (DenseVector) avgParameters.relParameters[s];
