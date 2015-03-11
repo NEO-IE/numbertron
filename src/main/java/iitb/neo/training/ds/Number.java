@@ -6,8 +6,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Represents the "n" nodes Each nodes stores the absolute value of the number,
@@ -23,10 +25,31 @@ public class Number {
 		this.zs_linked = new ArrayList<Integer>(list);
 //		NumberFormat nf = NumberFormat.getInstance();
 //		String formatted = nf.format(num);
-//		this.value = Double.parseDouble(formatted);
+		this.value = getDoubleValue(num);
+		if(this.value == null){
+			this.value = -1.0;
+		}
 		this.svalue = num;
-		this.value = 1.0;
+//		this.value = 1.0;
 		
+	}
+	
+	public Double getDoubleValue(String num){
+		java.lang.Number number = null;
+		for (Locale l : Locale.getAvailableLocales()) {
+			NumberFormat format = NumberFormat.getInstance(l);
+			try {
+				number = format.parse(num);
+			} catch (ParseException e) {
+				continue;
+			}
+			break;
+		}
+		if(null == number){
+			return null;
+		}
+		Double numVal = number.doubleValue();
+		return numVal;
 	}
 
 	public Number() {
