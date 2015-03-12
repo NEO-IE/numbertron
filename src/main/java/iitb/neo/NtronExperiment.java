@@ -335,7 +335,7 @@ public class NtronExperiment {
 		return true;
 	}
 	
-	private void writeFeatureWeights(String mapping, String parametersFile, String modelFile, String outFile) throws IOException {
+	public static void writeFeatureWeights(String mapping, String parametersFile, String modelFile, String outFile) throws IOException {
 		BufferedWriter bw = new BufferedWriter(new FileWriter(outFile));
 		BufferedReader featureReader = new BufferedReader(new FileReader(mapping));
 		Integer numRel = Integer.parseInt(featureReader.readLine());

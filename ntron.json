@@ -1,6 +1,6 @@
 {
   "corpusPath" :
-"jdbc:derby:/mnt/a99/d0/aman/MultirExperiments/data/numbers_short",
+"jdbc:derby:/mnt/a99/d0/aman/MultirExperiments/data/gold_set",
   "train" : "true",
   "testDocumentsFile" :
 "data/emptyFile",
