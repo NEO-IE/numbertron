@@ -124,7 +124,6 @@ public class MakeGraph {
 			}
 
 		};
-		
 
 		File inputFile = new File(input);
 		File tempSortedFeatureFile = new File(inputFile.getParentFile().getAbsolutePath() + "/" + inputFile.getName()
@@ -165,15 +164,17 @@ public class MakeGraph {
 																	// number
 																	// appears
 		while ((line = br.readLine()) != null) {
-			mentionNumber++;
 
 			String[] values = line.split("\t");
 			String location = values[1];
 			String number = values[2];
 			String relString = values[3];
-
+			if (location.equalsIgnoreCase("/m/0154j") && relString.equalsIgnoreCase("AGL")) {
+				System.out.println("Match");
+			}
 			String key = location + "%" + relString;
-			m.getRelationID(relString, true);
+			m.getRelationID(relString, true); // add the relation to the list of
+												// relations
 			List<String> features = new ArrayList<>();
 			// add all features
 			for (int i = 4; i < values.length; i++) {
@@ -186,7 +187,7 @@ public class MakeGraph {
 				featureLists.add(featureIntegers);
 				if (numberSentenceMap.keySet().contains(number)) { // number
 					numberSentenceMap.get(number).add(mentionNumber);
-				} else { //need to add
+				} else { // need to add
 					ArrayList<Integer> mentionIds = new ArrayList<Integer>();
 					mentionIds.add(mentionNumber);
 					numberSentenceMap.put(number, mentionIds);
@@ -199,8 +200,10 @@ public class MakeGraph {
 					for (String num : numberSentenceMap.keySet()) {
 						numbers.add(new Number(num, numberSentenceMap.get(num)));
 					}
+					// m/0154j AGL
+
 					constructLRGraph(numbers, featureLists, v[0], v[1], m.getRelationID(v[1], false)).write(os);
-					mentionNumber = 0; //reset the mention number
+					mentionNumber = 0; // reset the mention number
 
 				}
 				// reste featureLists and prevKey
@@ -208,7 +211,7 @@ public class MakeGraph {
 				ArrayList<Integer> mentionIds = new ArrayList<Integer>();
 				mentionIds.add(mentionNumber);
 				numberSentenceMap.put(number, mentionIds);
-			
+
 				featureLists = new ArrayList<>();
 				featureLists.add(featureIntegers);
 				prevKey = key;
@@ -219,6 +222,7 @@ public class MakeGraph {
 				System.out.println("Number of training instances read in =" + count);
 				Preprocess.printMemoryStatistics();
 			}
+			mentionNumber++;
 		}
 
 		// construct last MILDOC from featureLists
@@ -228,6 +232,7 @@ public class MakeGraph {
 			for (String num : numberSentenceMap.keySet()) {
 				numbers.add(new Number(num, numberSentenceMap.get(num)));
 			}
+
 			constructLRGraph(numbers, featureLists, v[0], v[1], m.getRelationID(v[1], false)).write(os);
 
 		}
@@ -242,8 +247,7 @@ public class MakeGraph {
 		LRGraph lrg = new LRGraph();
 		lrg.location = location;
 		lrg.relation = relation;
-	
-		
+
 		lrg.relNumber = relNumber;
 		// set number nodes
 

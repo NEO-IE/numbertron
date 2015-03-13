@@ -24,6 +24,8 @@ import java.util.concurrent.ExecutionException;
 import main.java.iitb.neo.pretrain.process.MakeGraph;
 import main.java.iitb.neo.pretrain.spotting.Spotting;
 import main.java.iitb.neo.training.algorithm.lpercp.LperceptTrain;
+import main.java.iitb.neo.training.ds.LRGraph;
+import main.java.iitb.neo.training.meta.LRGraphMemoryDataset;
 
 import org.apache.commons.io.IOUtils;
 
@@ -43,6 +45,7 @@ import edu.washington.multirframework.distantsupervision.NegativeExampleCollecti
 import edu.washington.multirframework.featuregeneration.FeatureGeneration;
 import edu.washington.multirframework.featuregeneration.FeatureGenerator;
 import edu.washington.multirframework.knowledgebase.KnowledgeBase;
+import edu.washington.multirframework.multiralgorithm.Dataset;
 import edu.washington.multirframework.multiralgorithm.DenseVector;
 import edu.washington.multirframework.multiralgorithm.Model;
 import edu.washington.multirframework.multiralgorithm.Parameters;
@@ -280,6 +283,7 @@ public class NtronExperiment {
 		/* Step 1: create a file of all the possible spots */
 		boolean runDS = !filesExist(DSFiles);
 		if (runDS) {
+			System.err.println("Running DS");
 			Spotting spotting = new Spotting(corpusPath, cis, rbased);
 			spotting.iterateAndSpot(DSFiles.get(0), c);
 		}
@@ -287,10 +291,12 @@ public class NtronExperiment {
 		/* Step 2: Generate features */
 		boolean runFG = !filesExist(featureFiles);
 		if (runFG) {
+			System.err.println("Running Feature Generation");
 			FeatureGeneration fGeneration = new FeatureGeneration(fg);
 			fGeneration.run(DSFiles, featureFiles, c, cis);
 		}
 
+		System.err.println("Training");
 		/* Step 3: Training and weight learning */
 		// Step 3.1: From the feature file, generate graphs
 		// for each input feature training file
@@ -303,8 +309,8 @@ public class NtronExperiment {
 		}
 		File modelFile = new File(ntronModelDirs.get(0));
 		//Step 3.2: Now run the super naive training algorithm
-		LperceptTrain.train(modelFile.getAbsoluteFile().toString(),new Random(1));	
-		/**Print Graph
+			
+		/**Print Graph*/
 		String dir = modelFile.getAbsoluteFile().toString();
 		Dataset train = new LRGraphMemoryDataset(dir + File.separatorChar + "train");
 		LRGraph lrg = new LRGraph();
@@ -314,7 +320,8 @@ public class NtronExperiment {
 			bw.write("\n\n");
 		}
 		bw.close();
-		**/
+		/**/
+		LperceptTrain.train(modelFile.getAbsoluteFile().toString(),new Random(1));
 		writeFeatureWeights(ntronModelDirs.get(0) + File.separatorChar + "mapping", ntronModelDirs.get(0) + File.separatorChar + "params", ntronModelDirs.get(0) + File.separatorChar + "model", "wt");
 	}
 
