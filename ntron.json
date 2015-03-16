@@ -1,6 +1,6 @@
 {
   "corpusPath" :
-"jdbc:derby:/mnt/a99/d0/aman/MultirExperiments/data/gold_set",
+"jdbc:derby:/mnt/a99/d0/aman/MultirExperiments/data/numbers_corpus",
   "train" : "true",
   "testDocumentsFile" :
 "data/emptyFile",
@@ -21,13 +21,13 @@
 "edu.washington.multirframework.argumentidentification.DefaultSententialInstanceGeneration"
 ],
   "dsFiles" : [
-"data/test_instances.tsv"
+"data/full_instances.tsv"
 ],
   "featureFiles" : [
-"data/test_features.tsv"
+"data/full_features.tsv"
 ],
   "models" : [
-"data/test-extractor" ],
+"data/full-extractor" ],
   "cis" :
 "edu.washington.multirframework.corpus.DefaultCorpusInformationSpecification",
   "si" : [

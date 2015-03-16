@@ -63,7 +63,7 @@ public class LocalAveragedPerceptron {
 		iterParameters.init();
 
 		for (int i = 0; i < maxIterations; i++){
-			
+			System.out.println("Iteration: " + i);
 			trainingIteration(i, trainingData);
 			avgParameters.serialize("data/test-extractor/params");
 			NtronExperiment.writeFeatureWeights("data/test-extractor/mapping", "data/test-extractor/params", "data/test-extractor/model", "wt_"+i);
@@ -105,7 +105,6 @@ public class LocalAveragedPerceptron {
 				if (computeAvgParameters && avgIteration == 0)
 					avgParamsLastUpdates.sum(iterParameters, 1.0f);
 
-				System.out.println("Updating params");
 				update(predictedParse, trueParse);
 			}
 
@@ -127,16 +126,15 @@ public class LocalAveragedPerceptron {
 
 			if (trueParse.z_states[i] == true) {
 				// increase weight for the incorrect mention
-				System.out.println("->");
+				
 				updateRel(lrg.relNumber, v1a, delta, computeAvgParameters);
-				System.out.println(avgParameters);
+				
 
 			}
 			if (predictedParse.z_states[i] == true) {
 				// decrease weight for the incorrect mention
 				updateRel(lrg.relNumber, v1a, -delta, computeAvgParameters);
-				System.out.println("<-");
-				System.out.println(avgParameters);
+		
 			}
 		}
 	}

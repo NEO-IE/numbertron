@@ -25,7 +25,7 @@ public class LperceptTrain {
 		
 		Dataset train = (Dataset) new LRGraphMemoryDataset(dir + File.separatorChar + "train");
 
-		System.out.println("starting training");
+		System.out.println("starting training m");
 		
 		long start = System.currentTimeMillis();
 		Parameters params = lpton.train(train);

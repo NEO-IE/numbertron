@@ -22,7 +22,6 @@ public class GoldDbInference {
 		int numN = lrg.n.length;
 		for(int n_i = 0; n_i < numN; n_i++) {
 			if(closeEnough(lrg.n[n_i].value, lrg.relation, lrg.location)) {
-				System.out.println("Close Enough");
 				p.n_states[n_i] = true;
 			} else {
 				p.n_states[n_i] = false;
@@ -40,8 +39,7 @@ public class GoldDbInference {
 			
 			Double valueSlack = 0.9 * val; // +- 5 percent
 			//System.out.print(val + "\t");
-			if((value > (val- valueSlack)) && (value < (val + valueSlack))){
-				System.err.println("RETURNING TRUE");	
+			if((value > (val- valueSlack)) && (value < (val + valueSlack))){	
 				return true;
 			}
 		}
