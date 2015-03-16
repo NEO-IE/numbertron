@@ -65,7 +65,9 @@ public class GoldDB {
 	public static ArrayList<Double> getGoldDBValue(String entity, String rel, int k){
 		Pair<String, String> entityRel = new Pair<String, String>(entity, rel);
 		if(goldDB.containsKey(entityRel)){
-			return new ArrayList<Double>(goldDB.get(entityRel).subList(0, k));
+			ArrayList<Double> resultList = new ArrayList<Double>(goldDB.get(entityRel));
+			int max_val = (k < resultList.size()) ? k : resultList.size();
+			return new ArrayList<Double>(resultList.subList(0, max_val));
 		}
 		return new ArrayList<Double>();
 	}
