@@ -274,7 +274,7 @@ public class ExtractFromCorpus {
 	private ArrayList<Integer> unitsCompatible(Argument numArg, CoreMap sentence, Map<String, Integer> map){
 		String sentString = sentence.toString();
 		String tokenStr = numArg.getArgName();
-		String parts[] = tokenStr.split(" ");
+		String parts[] = tokenStr.split("\\s+");
 		int beginIdx = sentString.indexOf(parts[0]);
 		int endIdx = beginIdx + parts[0].length();
 		
@@ -286,7 +286,7 @@ public class ExtractFromCorpus {
 		if(back.length() > 20){
 			back = back.substring(0, 20);
 		}
-		String utString = front + "<b>" + tokenStr + "</b>" + back; 
+		String utString = front + "<b>" + parts[0] + "</b>" + back; 
 		float values[][] = new float[1][1];
 		List<? extends EntryWithScore<Unit>> unitsS = ue.parser.getTopKUnitsValues(utString, "b", 1, 0, values);
 		
@@ -296,6 +296,8 @@ public class ExtractFromCorpus {
 		if (unitsS != null && unitsS.size() > 0) {
 			unit = unitsS.get(0).getKey().getBaseName();
 		}
+		System.out.println(utString);
+		System.out.println("Unit: "+unit);
 		ArrayList<Integer> validRelations = new ArrayList<Integer>();
 		for(String rel: relations){
 			if(unitRelationMatch(rel, unit)){
