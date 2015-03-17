@@ -71,7 +71,7 @@ public class FullInference {
 		p.graph = lrg;
 		scorer.setParameters(params);
 		p.z_states = new boolean[lrg.Z.length];
-		p.n_states = new boolean[lrg.n.length];
+	
 		/* iterate over the Z nodes and set them to true whenever applicable */
 		int numZ = lrg.Z.length;
 		assert (numZ == 1);
