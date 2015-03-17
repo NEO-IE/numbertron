@@ -1,0 +1,27 @@
+{
+  "corpusPath" :
+"jdbc:derby:/mnt/a99/d0/aman/MultirExperiments/data/gold_set",
+  "train" : "true",
+  "testDocumentsFile" :
+"data/emptyFile",
+  "fg" :
+"edu.washington.multirframework.featuregeneration.DefaultFeatureGenerator",
+  "ai" :
+"edu.washington.multirframework.argumentidentification.NERAndNumberArgumentIdentification",
+  "targetRelFile" : "data/numericalkb/target_relations.tsv",
+  "typeRelMap" : null,
+  "sigs" : [
+"edu.washington.multirframework.argumentidentification.DefaultSententialInstanceGeneration"
+],
+  "models" : [
+"/mnt/a99/d0/aman/numbertron/data/full-extractor" ],
+  "cis" :
+"edu.washington.multirframework.corpus.DefaultCorpusInformationSpecification",
+  "si" : [
+"edu.washington.multirframework.corpus.SentNamedEntityLinkingInformation",
+"edu.washington.multirframework.corpus.SentFreebaseNotableTypeInformation"
+],
+  "ti" : [ "edu.washington.multirframework.corpus.TokenChunkInformation" ],
+  "di" : [ ],
+  "useFiger" : "false"
+}

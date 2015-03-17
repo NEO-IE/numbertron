@@ -208,9 +208,7 @@ public class ExtractFromCorpus {
 					List<Pair<Argument, Argument>> sententialInstances = sig
 							.generateSententialInstances(arguments, sentence);
 					for (Pair<Argument, Argument> p : sententialInstances) {
-						if(!(exactlyOneNumber(p) && secondNumber(p))) { // do not waste time with useless extractions
-							continue;
-						}
+					
 						Pair<Triple<String, Double, Double>, Map<Integer, Map<Integer, Double>>> extrResult = de
 								.extractFromSententialInstanceWithAllFeatureScores(
 										p.first, p.second, sentence, doc, featureWriter);
