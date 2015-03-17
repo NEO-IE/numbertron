@@ -11,9 +11,10 @@ tmp/
 local.properties
 .settings/
 .loadpath
-
+derby.log
 # Eclipse Core
 .project
+wt*
 
 # External tool builders
 .externalToolBuilders/
