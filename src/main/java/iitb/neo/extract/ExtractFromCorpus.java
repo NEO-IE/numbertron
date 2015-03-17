@@ -183,18 +183,18 @@ public class ExtractFromCorpus {
 			Iterator<Annotation> docs = c.getDocumentIterator();
 			SententialInstanceGeneration sig = sigs.get(i);
 			String modelPath = modelPaths.get(i);
-			DocumentExtractor de = new DocumentExtractor(modelPath, fg, ai, sig);
+			SentLevelExtractor sle = new SentLevelExtractor(modelPath, fg, ai, sig);
 			
-			Map<String, Integer> rel2RelIdMap = de.getMapping().getRel2RelID();
+			Map<String, Integer> rel2RelIdMap = sle.getMapping().getRel2RelID();
 			
 			Map<Integer, String> ftID2ftMap = ModelUtils
-					.getFeatureIDToFeatureMap(de.getMapping());
+					.getFeatureIDToFeatureMap(sle.getMapping());
 		
-			PrintWriter pw1 = new PrintWriter(new FileWriter("features_map"));
-			for(Integer id : ftID2ftMap.keySet()) {
-				pw1.write(id.toString() + " - " + ftID2ftMap.get(id) + "\n");
-			}
-			pw1.close();
+//			PrintWriter pw1 = new PrintWriter(new FileWriter("features_map"));
+//			for(Integer id : ftID2ftMap.keySet()) {
+//				pw1.write(id.toString() + " - " + ftID2ftMap.get(id) + "\n");
+//			}
+//			pw1.close();
 			int docCount = 0;
 			while (docs.hasNext()) {
 				Annotation doc = docs.next();
@@ -209,7 +209,7 @@ public class ExtractFromCorpus {
 							.generateSententialInstances(arguments, sentence);
 					for (Pair<Argument, Argument> p : sententialInstances) {
 					
-						Pair<Triple<String, Double, Double>, Map<Integer, Map<Integer, Double>>> extrResult = de
+						Map<Integer, Double> perRelationScoreMap = sle
 								.extractFromSententialInstanceWithAllFeatureScores(
 										p.first, p.second, sentence, doc, featureWriter);
 						if (extrResult != null) {
@@ -224,6 +224,7 @@ public class ExtractFromCorpus {
 										.getFeatureScoreList(featureScores,
 												ftID2ftMap);
 
+								//prepare extraction
 								String docName = sentence
 										.get(SentDocName.class);
 									String senText = sentence
