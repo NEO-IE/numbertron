@@ -211,7 +211,9 @@ public class ExtractFromCorpus {
 					List<Pair<Argument, Argument>> sententialInstances = sig
 							.generateSententialInstances(arguments, sentence);
 					for (Pair<Argument, Argument> p : sententialInstances) {
-					
+						 if(!(exactlyOneNumber(p) && secondNumber(p))) { // do not waste time with useless extractions
+							 continue;
+						}
 						Map<Integer, Double> perRelationScoreMap = sle
 								.extractFromSententialInstanceWithAllFeatureScores(
 										p.first, p.second, sentence, doc, featureWriter);
@@ -272,8 +274,9 @@ public class ExtractFromCorpus {
 	private ArrayList<Integer> unitsCompatible(Argument numArg, CoreMap sentence, Map<String, Integer> map){
 		String sentString = sentence.toString();
 		String tokenStr = numArg.getArgName();
-		int beginIdx = sentString.indexOf(tokenStr);
-		int endIdx = beginIdx + tokenStr.length();
+		String parts[] = tokenStr.split(" ");
+		int beginIdx = sentString.indexOf(parts[0]);
+		int endIdx = beginIdx + parts[0].length();
 		
 		String front = sentString.substring(0, beginIdx);
 		if(front.length() > 20){
@@ -288,6 +291,7 @@ public class ExtractFromCorpus {
 		List<? extends EntryWithScore<Unit>> unitsS = ue.parser.getTopKUnitsValues(utString, "b", 1, 0, values);
 		
 		// check for unit here....
+		
 		String unit = "";
 		if (unitsS != null && unitsS.size() > 0) {
 			unit = unitsS.get(0).getKey().getBaseName();
