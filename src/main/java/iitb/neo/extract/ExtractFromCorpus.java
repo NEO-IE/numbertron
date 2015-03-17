@@ -5,19 +5,16 @@ import iitb.shared.EntryWithScore;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.cli.ParseException;
 import org.apache.commons.io.IOUtils;
 
 import catalog.Unit;
@@ -29,8 +26,6 @@ import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.util.CoreMap;
 import edu.stanford.nlp.util.Pair;
-import edu.stanford.nlp.util.Triple;
-import edu.washington.multir.sententialextraction.DocumentExtractor;
 import edu.washington.multir.util.EvaluationUtils;
 import edu.washington.multir.util.ModelUtils;
 import edu.washington.multirframework.argumentidentification.ArgumentIdentification;
@@ -114,7 +109,8 @@ public class ExtractFromCorpus {
 		Corpus c = new Corpus(efc.corpusPath, efc.cis, true);
 		c.setCorpusToDefault();
 		BufferedWriter bw = new BufferedWriter(new FileWriter(new File("rulebased_extractions")));
-		List<Extraction> extrs = getMultiModelExtractions(c, efc.ai, efc.fg, efc.sigs, efc.multirDirs, bw);
+		
+		List<Extraction> extrs = efc.getExtractions(c, efc.ai, efc.fg, efc.sigs, efc.multirDirs, bw);
 		System.out.println("Total extractions : " + extrs.size());
 		bw.close();
 
@@ -179,7 +175,7 @@ public class ExtractFromCorpus {
 	
 	
 
-	public static List<Extraction> getMultiModelExtractions(Corpus c,
+	public List<Extraction> getExtractions(Corpus c,
 			ArgumentIdentification ai, FeatureGenerator fg,
 			List<SententialInstanceGeneration> sigs, List<String> modelPaths,
 			BufferedWriter bw) throws SQLException, IOException {
@@ -219,19 +215,17 @@ public class ExtractFromCorpus {
 						Map<Integer, Double> perRelationScoreMap = sle
 								.extractFromSententialInstanceWithAllFeatureScores(
 										p.first, p.second, sentence, doc, featureWriter);
-						if (extrResult != null) {
-							Triple<String, Double, Double> extrScoreTriple = extrResult.first;
-							if (!extrScoreTriple.first.equals("NA")) {
+						ArrayList<Integer> compatRels = unitsCompatible(p.second, sentence, sle.getMapping().getRel2RelID());
+						String relStr = null;
+						Double extrScore = -1.0;
+						for(Integer rel: perRelationScoreMap.keySet()) { //sorted by score
+							if(compatRels.contains(rel)) {
+								relStr = sle.relID2rel.get(rel);
+							}
+						}
+						
 								//System.out.println(extrResult);
-								Map<Integer, Double> featureScores = extrResult.second
-										.get(rel2RelIdMap
-												.get(extrResult.first.first));
-								String rel = extrScoreTriple.first;
-								List<Pair<String, Double>> featureScoreList = EvaluationUtils
-										.getFeatureScoreList(featureScores,
-												ftID2ftMap);
-
-								//prepare extraction
+																//prepare extraction
 								String docName = sentence
 										.get(SentDocName.class);
 									String senText = sentence
@@ -239,16 +233,16 @@ public class ExtractFromCorpus {
 								Integer sentNum = sentence
 										.get(SentGlobalID.class);
 								Extraction e = new Extraction(p.first,
-										p.second, docName, rel, sentNum,
-										extrScoreTriple.third, senText);
-								e.setFeatureScoreList(featureScoreList);
+										p.second, docName, relStr, sentNum,
+										extrScore, senText);
 								extrs.add(e);
 								bw.write(formatExtractionString(c, e) + "\n");
-							}
+						}
 
 						}
 					}
-				}
+				
+			
 				docCount++;
 				if (docCount % 100 == 0) {
 					System.out.println(docCount + " docs processed");
@@ -256,8 +250,8 @@ public class ExtractFromCorpus {
 				}	
 			}
 			
-		}
-		featureWriter.close();
+		
+
 		return EvaluationUtils.getUniqueList(extrs);
 	}
 	
@@ -275,7 +269,7 @@ public class ExtractFromCorpus {
 	/*
 	 * returns the list of relation compatible with numeric argument
 	 */
-	private ArrayList<String> unitCompatible(Argument numArg, CoreMap sentence){
+	private ArrayList<Integer> unitsCompatible(Argument numArg, CoreMap sentence, Map<String, Integer> map){
 		String sentString = sentence.toString();
 		String tokenStr = numArg.getArgName();
 		int beginIdx = sentString.indexOf(tokenStr);
@@ -304,9 +298,9 @@ public class ExtractFromCorpus {
 				validRelations.add(rel);
 			}
 		}
-		
 		return validRelations;
 	}
+	
 	public boolean unitRelationMatch(String rel, String unitStr){
 		Unit unit = ue.quantDict.getUnitFromBaseName(unitStr);
 		if (unit != null && !unit.getBaseName().equals("")) {

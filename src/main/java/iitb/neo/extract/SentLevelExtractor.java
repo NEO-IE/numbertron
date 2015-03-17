@@ -41,7 +41,7 @@ public class SentLevelExtractor {
 	private Parameters params;
 	private Scorer scorer;
 
-	private Map<Integer, String> relID2rel = new HashMap<Integer, String>();
+	public Map<Integer, String> relID2rel = new HashMap<Integer, String>();
 
 	public SentLevelExtractor(String pathToMultirFiles, FeatureGenerator fg,
 			ArgumentIdentification ai, SententialInstanceGeneration sig) {
