@@ -1,4 +1,7 @@
 package main.java.iitb.neo.extract;
+import iitb.rbased.meta.RelationMetadata;
+import iitb.shared.EntryWithScore;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,9 +15,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.io.IOUtils;
+
+import catalog.Unit;
 
 import com.cedarsoftware.util.io.JsonObject;
 import com.cedarsoftware.util.io.JsonReader;
@@ -38,6 +44,7 @@ import edu.washington.multirframework.corpus.SentOffsetInformation.SentStartOffs
 import edu.washington.multirframework.data.Argument;
 import edu.washington.multirframework.data.Extraction;
 import edu.washington.multirframework.featuregeneration.FeatureGenerator;
+import eval.UnitExtractor;
 
 
 /**
@@ -55,10 +62,12 @@ public class ExtractFromCorpus {
 	private List<SententialInstanceGeneration> sigs;
 	private List<String> multirDirs;
 	private String corpusPath;
+	private UnitExtractor ue;
+	private Set<String> relations;
 	
 	
 
-	public ExtractFromCorpus(String propertiesFile) throws FileNotFoundException, IOException, InstantiationException, IllegalAccessException, ClassNotFoundException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+	public ExtractFromCorpus(String propertiesFile) throws Exception {
 		String jsonProperties = IOUtils.toString(new FileInputStream(new File(
 				propertiesFile)));
 		Map<String, Object> properties = JsonReader.jsonToMaps(jsonProperties);
@@ -93,14 +102,12 @@ public class ExtractFromCorpus {
 		if(altCisString != null){
 			cis = (CustomCorpusInformationSpecification)ClassLoader.getSystemClassLoader().loadClass(altCisString).newInstance();
 		}
-		
+		ue = new UnitExtractor();
+		relations = RelationMetadata.getRelations();
 	}
 
 	
-	public static void main(String[] args) throws ClassNotFoundException,
-			InstantiationException, IllegalAccessException, ParseException,
-			NoSuchMethodException, SecurityException, IllegalArgumentException,
-			InvocationTargetException, SQLException, IOException {
+	public static void main(String[] args) throws Exception {
 	
 		
 		ExtractFromCorpus efc = new ExtractFromCorpus(args[0]);
@@ -265,7 +272,61 @@ public class ExtractFromCorpus {
 		return secondHasNumber;
 	}
 	
-
+	/*
+	 * returns the list of relation compatible with numeric argument
+	 */
+	private ArrayList<String> unitCompatible(Argument numArg, CoreMap sentence){
+		String sentString = sentence.toString();
+		String tokenStr = numArg.getArgName();
+		int beginIdx = sentString.indexOf(tokenStr);
+		int endIdx = beginIdx + tokenStr.length();
+		
+		String front = sentString.substring(0, beginIdx);
+		if(front.length() > 20){
+			front = front.substring(front.length()-20);
+		}
+		String back = sentString.substring(endIdx);
+		if(back.length() > 20){
+			back = back.substring(0, 20);
+		}
+		String utString = front + "<b>" + tokenStr + "</b>" + back; 
+		float values[][] = new float[1][1];
+		List<? extends EntryWithScore<Unit>> unitsS = ue.parser.getTopKUnitsValues(utString, "b", 1, 0, values);
+		
+		// check for unit here....
+		String unit = "";
+		if (unitsS != null && unitsS.size() > 0) {
+			unit = unitsS.get(0).getKey().getBaseName();
+		}
+		ArrayList<String> validRelations = new ArrayList<String>();
+		for(String rel: relations){
+			if(unitRelationMatch(rel, unit)){
+				validRelations.add(rel);
+			}
+		}
+		
+		return validRelations;
+	}
+	public boolean unitRelationMatch(String rel, String unitStr){
+		Unit unit = ue.quantDict.getUnitFromBaseName(unitStr);
+		if (unit != null && !unit.getBaseName().equals("")) {
+			Unit SIUnit = unit.getParentQuantity().getCanonicalUnit();
+			if (SIUnit != null && !RelationMetadata.getUnit(rel).equals(SIUnit.getBaseName()) || SIUnit == null
+					&& !RelationMetadata.getUnit(rel).equals(unit.getBaseName())) {
+				return false; // Incorrect unit, this cannot be the relation.
+								
+			}
+		} else if (unit == null && !unitStr.equals("")
+				&& RelationMetadata.getUnit(rel).equals(unitStr)) { // for the cases where units are compound units.
+			return true;
+		} else {
+			if (!RelationMetadata.getUnit(rel).equals("")) {
+				return false; // this cannot be the correct relation.
+			}
+		}
+		return true;
+	}
+	
 	private static double sigmoid(double score) {
 		return 1 / (1 + Math.exp(-score));
 	}
