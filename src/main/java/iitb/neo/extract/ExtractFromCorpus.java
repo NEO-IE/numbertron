@@ -292,10 +292,10 @@ public class ExtractFromCorpus {
 		if (unitsS != null && unitsS.size() > 0) {
 			unit = unitsS.get(0).getKey().getBaseName();
 		}
-		ArrayList<String> validRelations = new ArrayList<String>();
+		ArrayList<Integer> validRelations = new ArrayList<Integer>();
 		for(String rel: relations){
 			if(unitRelationMatch(rel, unit)){
-				validRelations.add(rel);
+				validRelations.add(map.get(rel));
 			}
 		}
 		return validRelations;
