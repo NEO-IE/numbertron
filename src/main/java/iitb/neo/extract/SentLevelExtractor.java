@@ -72,7 +72,7 @@ public class SentLevelExtractor {
 		}
 	}
 
-	public Map<Integer, Double> extractFromSententialInstanceWithAllFeatureScores(
+	public Map<Integer, Double> extractFromSententialInstanceWithAllRelationScores(
 			Argument arg1, Argument arg2, CoreMap sentence, Annotation doc, BufferedWriter genFeature) throws IOException {
 		String senText = sentence.get(CoreAnnotations.TextAnnotation.class);
 		String arg1ID = null;
@@ -128,7 +128,7 @@ public class SentLevelExtractor {
 			sv.ids[k++] = f;
 		}
 
-
+		
 		return FullInference.getRelationScoresPerMention(lrg, scorer, params);
 		
 	}

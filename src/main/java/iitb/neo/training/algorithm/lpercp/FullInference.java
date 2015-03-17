@@ -1,8 +1,10 @@
 package main.java.iitb.neo.training.algorithm.lpercp;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import main.java.iitb.neo.training.ds.LRGraph;
 import edu.washington.multirframework.multiralgorithm.Parameters;
@@ -81,6 +83,8 @@ public class FullInference {
 		for (int r = 0; r < params.model.numRelations; r++) {
 			relationScoreMap.put(r, scorer.scoreMentionRelation(lrg, 0, r));
 		}
-		return relationScoreMap;
+		Map<Integer, Double> newMap = new TreeMap(Collections.reverseOrder());
+		newMap.putAll(relationScoreMap);
+		return newMap;
 	}
 }

@@ -215,7 +215,7 @@ public class ExtractFromCorpus {
 							 continue;
 						}
 						Map<Integer, Double> perRelationScoreMap = sle
-								.extractFromSententialInstanceWithAllFeatureScores(
+								.extractFromSententialInstanceWithAllRelationScores(
 										p.first, p.second, sentence, doc, featureWriter);
 						ArrayList<Integer> compatRels = unitsCompatible(p.second, sentence, sle.getMapping().getRel2RelID());
 						String relStr = null;
@@ -223,9 +223,15 @@ public class ExtractFromCorpus {
 						for(Integer rel: perRelationScoreMap.keySet()) { //sorted by score
 							if(compatRels.contains(rel)) {
 								relStr = sle.relID2rel.get(rel);
+								if(!sle.relID2rel.keySet().contains(rel)) {
+									System.err.println("Outlier: " + rel);
+								}
+								extrScore = perRelationScoreMap.get(rel);
 							}
 						}
-						
+						if(relStr == null) { //no compatible extraction 
+							continue;
+						}
 								//System.out.println(extrResult);
 																//prepare extraction
 								String docName = sentence
@@ -238,6 +244,7 @@ public class ExtractFromCorpus {
 										p.second, docName, relStr, sentNum,
 										extrScore, senText);
 								extrs.add(e);
+								System.out.println(relStr + " : " + extrScore);
 								bw.write(formatExtractionString(c, e) + "\n");
 						}
 
@@ -254,7 +261,7 @@ public class ExtractFromCorpus {
 			
 		
 
-		return EvaluationUtils.getUniqueList(extrs);
+		return extrs;
 	}
 	
 	private static boolean exactlyOneNumber(Pair<Argument, Argument> p) {
@@ -296,8 +303,7 @@ public class ExtractFromCorpus {
 		if (unitsS != null && unitsS.size() > 0) {
 			unit = unitsS.get(0).getKey().getBaseName();
 		}
-		System.out.println(utString);
-		System.out.println("Unit: "+unit);
+		
 		ArrayList<Integer> validRelations = new ArrayList<Integer>();
 		for(String rel: relations){
 			if(unitRelationMatch(rel, unit)){
