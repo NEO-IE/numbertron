@@ -13,7 +13,7 @@ import main.java.iitb.neo.training.ds.LRGraph;
 public class GoldDbInference {
 	
 	private static int K = 3;
-	
+	private static final double MARGIN = 0.20; //allow true values to be within 20%
 	public static Parse infer(LRGraph lrg) {
 		Parse p = new Parse();
 		p.graph = lrg;
@@ -37,7 +37,7 @@ public class GoldDbInference {
 		//System.out.println("\nTrue: " + value);
 		for(Double val : goldValues){
 			
-			Double valueSlack = 0.9 * val; // +- 5 percent
+			Double valueSlack = MARGIN * val; // +- 5 percent
 			//System.out.print(val + "\t");
 			if((value > (val- valueSlack)) && (value < (val + valueSlack))){	
 				return true;

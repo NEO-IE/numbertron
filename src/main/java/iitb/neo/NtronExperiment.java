@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
+import main.java.iitb.neo.pretrain.featuregeneration.PerSpotFeatureGeneration;
 import main.java.iitb.neo.pretrain.process.MakeGraph;
 import main.java.iitb.neo.pretrain.spotting.Spotting;
 import main.java.iitb.neo.training.algorithm.lpercp.LperceptTrain;
@@ -42,7 +43,6 @@ import edu.washington.multirframework.corpus.DocumentInformationI;
 import edu.washington.multirframework.corpus.SentInformationI;
 import edu.washington.multirframework.corpus.TokenInformationI;
 import edu.washington.multirframework.distantsupervision.NegativeExampleCollection;
-import edu.washington.multirframework.featuregeneration.FeatureGeneration;
 import edu.washington.multirframework.featuregeneration.FeatureGenerator;
 import edu.washington.multirframework.knowledgebase.KnowledgeBase;
 import edu.washington.multirframework.multiralgorithm.Dataset;
@@ -292,7 +292,7 @@ public class NtronExperiment {
 		boolean runFG = !filesExist(featureFiles);
 		if (runFG) {
 			System.err.println("Running Feature Generation");
-			FeatureGeneration fGeneration = new FeatureGeneration(fg);
+			PerSpotFeatureGeneration fGeneration = new PerSpotFeatureGeneration(fg);
 			fGeneration.run(DSFiles, featureFiles, c, cis);
 		}
 
@@ -308,8 +308,8 @@ public class NtronExperiment {
 			MakeGraph.run(featureFiles.get(0), ntronModelDirs.get(0));
 		}
 		File modelFile = new File(ntronModelDirs.get(0));
-		//Step 3.2: Now run the super naive training algorithm
-			
+//		//Step 3.2: Now run the super naive training algorithm
+//			
 		/**Print Graph*/
 		String dir = modelFile.getAbsoluteFile().toString();
 		Dataset train = new LRGraphMemoryDataset(dir + File.separatorChar + "train");

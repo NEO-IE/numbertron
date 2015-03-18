@@ -14,7 +14,10 @@ local.properties
 derby.log
 # Eclipse Core
 .project
+graph
+nonzfeatures
 wt*
+data/*
 
 # External tool builders
 .externalToolBuilders/

@@ -109,8 +109,7 @@ public class MakeGraph {
 
 	private static void convertFeatureFileToLRGraph(String input, String output, Mappings m) throws IOException {
 
-		// external sorting mechanism so we don't have to keep entity pairs in
-		// memory
+	
 		Comparator<String> locationRelationPairComparator = new Comparator<String>() {
 			@Override
 			public int compare(String line1, String line2) {
@@ -169,9 +168,7 @@ public class MakeGraph {
 			String location = values[1];
 			String number = values[2];
 			String relString = values[3];
-			if (location.equalsIgnoreCase("/m/0154j") && relString.equalsIgnoreCase("AGL")) {
-				System.out.println("Match");
-			}
+			
 			String key = location + "%" + relString;
 			m.getRelationID(relString, true); // add the relation to the list of
 												// relations
