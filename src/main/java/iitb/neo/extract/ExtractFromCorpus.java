@@ -16,6 +16,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import org.apache.commons.io.IOUtils;
 
@@ -59,7 +60,10 @@ public class ExtractFromCorpus {
 	private String corpusPath;
 	private UnitExtractor ue;
 	private Set<String> relations;
+	private static final Pattern yearPat = Pattern.compile("^19[56789]\\d|20[01]\\d$");
 
+	private static final double CUTOFF_SCORE = 0.0;
+	private static final double CUTOFF_CONF = 0.7;
 	public ExtractFromCorpus(String propertiesFile) throws Exception {
 		String jsonProperties = IOUtils.toString(new FileInputStream(new File(propertiesFile)));
 		Map<String, Object> properties = JsonReader.jsonToMaps(jsonProperties);
@@ -102,7 +106,7 @@ public class ExtractFromCorpus {
 		ExtractFromCorpus efc = new ExtractFromCorpus(args[0]);
 		Corpus c = new Corpus(efc.corpusPath, efc.cis, true);
 		c.setCorpusToDefault();
-		BufferedWriter bw = new BufferedWriter(new FileWriter(new File("rulebased_extractions")));
+		BufferedWriter bw = new BufferedWriter(new FileWriter(new File("numbertron_20perc_allow_conf0.7")));
 
 		List<Extraction> extrs = efc.getExtractions(c, efc.ai, efc.fg, efc.sigs, efc.multirDirs, bw);
 		System.out.println("Total extractions : " + extrs.size());
@@ -199,7 +203,7 @@ public class ExtractFromCorpus {
 					List<Pair<Argument, Argument>> sententialInstances = sig.generateSententialInstances(arguments,
 							sentence);
 					for (Pair<Argument, Argument> p : sententialInstances) {
-						if (!(exactlyOneNumber(p) && secondNumber(p))) { // do
+						if (!(exactlyOneNumber(p) && secondNumber(p) && !isYear(p.second.getArgName()))) { // do
 																			// not
 																			// waste
 																			// time
@@ -230,15 +234,6 @@ public class ExtractFromCorpus {
 						String docName = sentence.get(SentDocName.class);
 
 						Integer sentNum = sentence.get(SentGlobalID.class);
-						if (extrScore <= 0) { // no compatible extraction ||
-												// only negative extractions
-							// System.out.println(relStr + " : " + extrScore +
-							// "\t" + senText);
-							continue;
-						}
-						// System.out.println(extrResult);
-						// prepare extraction
-
 						double max, min;
 						ArrayList<Double> scores =  new ArrayList<Double>(perRelationScoreMap.values());
 						max = min = scores.get(0);
@@ -251,8 +246,16 @@ public class ExtractFromCorpus {
 							}
 							
 						}
-
 						double conf = (extrScore - min) / (max - min);
+						
+						if (conf <= CUTOFF_CONF) { // no compatible extraction ||
+							continue;
+						}
+						// System.out.println(extrResult);
+						// prepare extraction
+
+						
+						
 						Extraction e = new Extraction(p.first, p.second, docName, relStr, sentNum, extrScore, senText);
 
 						extrs.add(e);
@@ -364,4 +367,8 @@ public class ExtractFromCorpus {
 		return new ArrayList<>();
 	}
 
+
+	public boolean isYear(String token) {
+		return yearPat.matcher(token).matches();
+	}
 }
