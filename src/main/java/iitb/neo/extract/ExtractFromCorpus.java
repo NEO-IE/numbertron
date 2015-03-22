@@ -8,10 +8,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +27,6 @@ import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.util.CoreMap;
 import edu.stanford.nlp.util.Pair;
-import edu.washington.multir.util.ModelUtils;
 import edu.washington.multirframework.argumentidentification.ArgumentIdentification;
 import edu.washington.multirframework.argumentidentification.SententialInstanceGeneration;
 import edu.washington.multirframework.corpus.Corpus;
@@ -64,6 +61,7 @@ public class ExtractFromCorpus {
 
 	private static final double CUTOFF_SCORE = 0.0;
 	private static final double CUTOFF_CONF = 0.7;
+
 	public ExtractFromCorpus(String propertiesFile) throws Exception {
 		String jsonProperties = IOUtils.toString(new FileInputStream(new File(propertiesFile)));
 		Map<String, Object> properties = JsonReader.jsonToMaps(jsonProperties);
@@ -106,7 +104,7 @@ public class ExtractFromCorpus {
 		ExtractFromCorpus efc = new ExtractFromCorpus(args[0]);
 		Corpus c = new Corpus(efc.corpusPath, efc.cis, true);
 		c.setCorpusToDefault();
-		BufferedWriter bw = new BufferedWriter(new FileWriter(new File("numbertron_20perc_allow_conf0.7")));
+		BufferedWriter bw = new BufferedWriter(new FileWriter(new File("cutoff_0")));
 
 		List<Extraction> extrs = efc.getExtractions(c, efc.ai, efc.fg, efc.sigs, efc.multirDirs, bw);
 		System.out.println("Total extractions : " + extrs.size());
@@ -173,7 +171,12 @@ public class ExtractFromCorpus {
 	public List<Extraction> getExtractions(Corpus c, ArgumentIdentification ai, FeatureGenerator fg,
 			List<SententialInstanceGeneration> sigs, List<String> modelPaths, BufferedWriter bw) throws SQLException,
 			IOException {
-		BufferedWriter featureWriter = new BufferedWriter(new FileWriter("extract_features"));
+		boolean ANALYZE = true;
+		BufferedWriter analysis_writer = null;
+		if (ANALYZE) {
+			String outFile = "analyze";
+			analysis_writer = new BufferedWriter(new FileWriter(outFile));
+		}
 
 		List<Extraction> extrs = new ArrayList<Extraction>();
 		for (int i = 0; i < sigs.size(); i++) {
@@ -182,16 +185,11 @@ public class ExtractFromCorpus {
 			String modelPath = modelPaths.get(i);
 			SentLevelExtractor sle = new SentLevelExtractor(modelPath, fg, ai, sig);
 
-			Map<String, Integer> rel2RelIdMap = sle.getMapping().getRel2RelID();
+			// Map<String, Integer> rel2RelIdMap =
+			// sle.getMapping().getRel2RelID();
+			// Map<Integer, String> ftID2ftMap =
+			// ModelUtils.getFeatureIDToFeatureMap(sle.getMapping());
 
-			Map<Integer, String> ftID2ftMap = ModelUtils.getFeatureIDToFeatureMap(sle.getMapping());
-
-			// PrintWriter pw1 = new PrintWriter(new
-			// FileWriter("features_map"));
-			// for(Integer id : ftID2ftMap.keySet()) {
-			// pw1.write(id.toString() + " - " + ftID2ftMap.get(id) + "\n");
-			// }
-			// pw1.close();
 			int docCount = 0;
 			while (docs.hasNext()) {
 				Annotation doc = docs.next();
@@ -203,68 +201,64 @@ public class ExtractFromCorpus {
 					List<Pair<Argument, Argument>> sententialInstances = sig.generateSententialInstances(arguments,
 							sentence);
 					for (Pair<Argument, Argument> p : sententialInstances) {
-						if (!(exactlyOneNumber(p) && secondNumber(p) && !isYear(p.second.getArgName()))) { // do
-																			// not
-																			// waste
-																			// time
-																			// with
-																			// useless
-																			// extractions
+						if (!(exactlyOneNumber(p) && secondNumber(p) && !isYear(p.second.getArgName()))) {
 							continue;
 						}
 						Map<Integer, Double> perRelationScoreMap = sle
-								.extractFromSententialInstanceWithAllRelationScores(p.first, p.second, sentence, doc,
-										featureWriter);
+								.extractFromSententialInstanceWithAllRelationScores(p.first, p.second, sentence, doc);
+						
 						ArrayList<Integer> compatRels = unitsCompatible(p.second, sentence, sle.getMapping()
 								.getRel2RelID());
 						String relStr = null;
 						Double extrScore = -1.0;
-						for (Integer rel : perRelationScoreMap.keySet()) { // sorted
-																			// by
-																			// score
+						for (Integer rel : perRelationScoreMap.keySet()) {
 							if (compatRels.contains(rel)) {
 								relStr = sle.relID2rel.get(rel);
-								if (!sle.relID2rel.keySet().contains(rel)) {
-									System.err.println("Outlier: " + rel);
-								}
 								extrScore = perRelationScoreMap.get(rel);
+								break;
 							}
 						}
+						
 						String senText = sentence.get(CoreAnnotations.TextAnnotation.class);
 						String docName = sentence.get(SentDocName.class);
 
 						Integer sentNum = sentence.get(SentGlobalID.class);
 						double max, min;
-						ArrayList<Double> scores =  new ArrayList<Double>(perRelationScoreMap.values());
+						ArrayList<Double> scores = new ArrayList<Double>(perRelationScoreMap.values());
 						max = min = scores.get(0);
-						for(int i1 = 1, l = scores.size(); i1 < l; i1++) {
-							if(max < scores.get(i1)) {
+						for (int i1 = 1, l = scores.size(); i1 < l; i1++) {
+							if (max < scores.get(i1)) {
 								max = scores.get(i1);
 							}
-							if(min > scores.get(i1)) {
+							if (min > scores.get(i1)) {
 								min = scores.get(i1);
 							}
-							
+
 						}
 						double conf = (extrScore - min) / (max - min);
-						
-						if (conf <= CUTOFF_CONF) { // no compatible extraction ||
+
+						if (extrScore <= CUTOFF_SCORE) { // no compatible
+															// extraction ||
 							continue;
 						}
 						// System.out.println(extrResult);
 						// prepare extraction
-
-						
+						if(ANALYZE && null != relStr) {
+							sle.firedFeaturesScores(p.first, p.second, sentence, doc, relStr, analysis_writer);
+							analysis_writer.flush();
+						}
 						
 						Extraction e = new Extraction(p.first, p.second, docName, relStr, sentNum, extrScore, senText);
 
 						extrs.add(e);
 
-						bw.write(formatExtractionString(c, e) + " "  + conf + "\n" );
+						bw.write(formatExtractionString(c, e) + " " + conf + "\n");
 					}
 
 				}
 			}
+			
+			
 
 			docCount++;
 			if (docCount % 100 == 0) {
@@ -272,7 +266,7 @@ public class ExtractFromCorpus {
 				bw.flush();
 			}
 		}
-
+		
 		return extrs;
 	}
 
@@ -366,7 +360,6 @@ public class ExtractFromCorpus {
 		}
 		return new ArrayList<>();
 	}
-
 
 	public boolean isYear(String token) {
 		return yearPat.matcher(token).matches();

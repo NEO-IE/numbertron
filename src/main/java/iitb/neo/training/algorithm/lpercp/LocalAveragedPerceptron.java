@@ -65,8 +65,6 @@ public class LocalAveragedPerceptron {
 		for (int i = 0; i < maxIterations; i++){
 			System.out.println("Iteration: " + i);
 			trainingIteration(i, trainingData);
-			avgParameters.serialize("data/test-extractor/params");
-			NtronExperiment.writeFeatureWeights("data/test-extractor/mapping", "data/test-extractor/params", "data/test-extractor/model", "wt_"+i);
 		}
 		if (computeAvgParameters)
 			finalizeRel();
@@ -88,11 +86,9 @@ public class LocalAveragedPerceptron {
 		trainingData.reset();
 
 		while (trainingData.next(lrg)) {
-
 			if (lrg.features.length == 0) {
 				continue;
 			}
-
 			// compute most likely label under current parameters
 			Parse predictedParse = FullInference.infer(lrg, scorer,
 					iterParameters);

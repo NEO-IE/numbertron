@@ -29,7 +29,6 @@ public class ConditionalInference {
 					p.z_states[z] = trueParse.n_states[i];  //z_s copy the state of n_s.
 				}
 			}
-			
 			return p;
 	}
 }

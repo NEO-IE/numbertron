@@ -27,15 +27,20 @@ public class FullInference {
 		int numZ = lrg.Z.length;
 		for (int z = 0; z < numZ; z++) {
 			double bestScore = 0;
-			int bestR = -1;
+			
+			//There can be multiple "best" relations. It is okay if we get anyone of them
+			ArrayList<Integer> bestRels = new ArrayList<Integer>();
 			for (int r = 0; r < params.model.numRelations; r++) {
 				double currScore = scorer.scoreMentionRelation(lrg, z, r);
 				if (currScore > bestScore) {
-					bestR = r;
+					bestRels.clear();
+					bestRels.add(r);
 					bestScore = currScore;
+				} else if(currScore == bestScore) {
+					bestRels.add(r);
 				}
 			}
-			if (bestR == lrg.relNumber) {
+			if (bestRels.contains(lrg.relNumber)) {
 				p.z_states[z] = true;
 			} else {
 				p.z_states[z] = false;
@@ -78,8 +83,6 @@ public class FullInference {
 		int numZ = lrg.Z.length;
 		assert (numZ == 1);
 		HashMap<Integer, Double> relationScoreMap = new HashMap<Integer, Double>();
-		double bestScore = 0;
-		int bestR = -1;
 		for (int r = 0; r < params.model.numRelations; r++) {
 			relationScoreMap.put(r, scorer.scoreMentionRelation(lrg, 0, r));
 		}
