@@ -30,7 +30,7 @@ import edu.washington.multirframework.multiralgorithm.SparseBinaryVector;
  * SparseBinaryRepresentation
  */
 public class LRGraph {
-	public static final int MNT_CAPACITY = 2;
+	public static final int MNT_CAPACITY = 1;
 	public static final int NUM_RELS = 11;
 	public String location, relation;
 	public int relNumber;

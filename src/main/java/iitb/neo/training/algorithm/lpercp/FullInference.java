@@ -26,7 +26,7 @@ public class FullInference {
 		/* iterate over the Z nodes and set them to true whenever applicable */
 		int numZ = lrg.Z.length;
 		for (int z = 0; z < numZ; z++) {
-			double bestScore = 0;
+			double bestScore = 0.0;
 			
 			//There can be multiple "best" relations. It is okay if we get anyone of them
 			ArrayList<Integer> bestRels = new ArrayList<Integer>();
@@ -36,7 +36,7 @@ public class FullInference {
 					bestRels.clear();
 					bestRels.add(r);
 					bestScore = currScore;
-				} else if(currScore == bestScore) {
+				} else if(bestScore > 0 && currScore == bestScore) {
 					bestRels.add(r);
 				}
 			}

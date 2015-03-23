@@ -20,7 +20,7 @@ import edu.washington.multirframework.multiralgorithm.SparseBinaryVector;
  * 
  */
 public class LocalAveragedPerceptron {
-	public int maxIterations = 50;
+	public int maxIterations = 2;
 	public boolean computeAvgParameters = true;
 	public boolean updateOnTrueY = true;
 	public double delta = 1;
@@ -201,8 +201,8 @@ public class LocalAveragedPerceptron {
 				if (lastUpdates.vals[id] != 0) {
 					avg.vals[id] += (avgIteration - lastUpdatesIter.vals[id])
 							* lastUpdates.vals[id];
-					lastUpdatesIter.vals[id] = avgIteration;
-				}
+						lastUpdatesIter.vals[id] = avgIteration;
+					}
 			}
 		}
 	}
