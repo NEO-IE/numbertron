@@ -5,7 +5,7 @@
   "testDocumentsFile" :
 "data/emptyFile",
   "fg" :
-"edu.washington.multirframework.featuregeneration.DefaultFeatureGenerator",
+  "main.java.iitb.neo.pretrain.featuregeneration",
   "ai" :
 "edu.washington.multirframework.argumentidentification.NERAndNumberArgumentIdentification",
   "targetRelFile" : "/mnt/a99/d0/aman/MultirExperiments/data/numericalkb/target_relations.tsv",
