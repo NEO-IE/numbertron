@@ -1,0 +1,1120 @@
+_____________________________________________________
+At 3.71 million square miles (9.62 million km2) and with around 318 million people, the US is the world's 3rd or 4th-largest country by total area and third-largest by population.
+US	88	90	9.62 million	30	42	AGL
+dir:->|LOCATION|-><-<-<-<-|NUMBER  4544.0
+dir:LOCATION|-><-<-<-<-|NUMBER|->  13145.0
+key: country  -6092.0
+key: km2  19307.0
+_____________________________________________________
+_____________________________________________________
+The US has a total area of more than 3.5 million square miles, making it the third largest country in the world after Russia and Canada.
+US	4	6	3.5 million	37	48	AGL
+dep:LOCATION|[nsubj]->[root]<-[dobj]<-[prep]<-[pobj]<-|NUMBER|[quantmod]->  13145.0
+dir:->|LOCATION|-><-<-<-<-|NUMBER  4544.0
+dir:LOCATION|-><-<-<-<-|NUMBER|->  13145.0
+key: area  -9130.0
+_____________________________________________________
+_____________________________________________________
+Pakistan covers an area of 796,095 km2 (307,374 sq mi), approximately equal to the combined land areas of France and the United Kingdom.
+Pakistan	0	8	796,095	27	34	AGL
+key: area  -9130.0
+key: km2  19307.0
+_____________________________________________________
+_____________________________________________________
+With an area of 504,030 km², Spain is the second largest country in Western Europe(behind France) and with an average altitude of 650 m, the second highest country in Europe (behind Switzerland).
+France	90	96	504,030	16	23	AGL
+inverse_true|NUMBER|*LONG*|LOCATION  -19469.0
+inverse_true|of|NUMBER|*LONG*|LOCATION|-rrb-  42602.0
+key: area  -9130.0
+key: country  -6092.0
+key: km  10215.0
+key: ²  4961.0
+_____________________________________________________
+_____________________________________________________
+Public broadcaster ARD/ZDF said 55.6 million people in Germany use the internet, or 79 percent of the population aged 14 and over.
+Germany	55	62	79 percent	84	94	INTERNET
+inverse_false|LOCATION|use the internet , or|PERCENT  13149.0
+key: internet  13149.0
+_____________________________________________________
+_____________________________________________________
+he say the deployment would help to ease unemployment in the nation of 104,000 people , as well as foster closer tie between Tonga and Britain .
+Tonga	125	130	104,000	71	78	POP
+dir:->|LOCATION|->->->-><-<-<-<-<-<-|NUMBER  31470.0
+key: nation  -32056.0
+key: tie  7863.0
+key: unemployment  7863.0
+_____________________________________________________
+_____________________________________________________
+China shipped US$2.21 trillion worth of goods, up by 84% since 2009.
+China	0	5	84 %	53	56	INTERNET
+dir:LOCATION|-><-<-<-|PERCENT|->  13160.0
+_____________________________________________________
+_____________________________________________________
+Zimbabwe, where life expectancy is around 47 years and 15 percent of the population need food aid, would lose 47 percent; Nigeria -- Africa's most populous nation with a population of 152 million -- and Ethiopia would each lose 46 percent, and Liberia's population would fall by 45 percent.
+Zimbabwe	0	8	15 percent	55	65	INTERNET
+inverse_false|LOCATION|, where life expectancy be around 47 year and|PERCENT  13166.0
+_____________________________________________________
+_____________________________________________________
+Zimbabwe, where life expectancy is around 47 years and 15 percent of the population need food aid, would lose 47 percent; Nigeria -- Africa's most populous nation with a population of 152 million -- and Ethiopia would each lose 46 percent, and Liberia's population would fall by 45 percent.
+Zimbabwe	0	8	152 million	184	195	POP
+inverse_false|LOCATION|*LONG*|NUMBER  62835.0
+key: nation  -32056.0
+key: population  -16173.0
+_____________________________________________________
+_____________________________________________________
+Zimbabwe, where life expectancy is around 47 years and 15 percent of the population need food aid, would lose 47 percent; Nigeria -- Africa's most populous nation with a population of 152 million -- and Ethiopia would each lose 46 percent, and Liberia's population would fall by 45 percent.
+Nigeria	122	129	15 percent	55	65	INTERNET
+dir:->|LOCATION|->-><-<-<-<-<-|PERCENT  202378.0
+inverse_true|PERCENT|*LONG*|LOCATION  -169176.0
+inverse_true|and|PERCENT|*LONG*|LOCATION|--  0.0
+inverse_true|year and|PERCENT|*LONG*|LOCATION|-- Africa  0.0
+_____________________________________________________
+_____________________________________________________
+Zimbabwe, where life expectancy is around 47 years and 15 percent of the population need food aid, would lose 47 percent; Nigeria -- Africa's most populous nation with a population of 152 million -- and Ethiopia would each lose 46 percent, and Liberia's population would fall by 45 percent.
+Africa	133	139	45 percent	279	289	INTERNET
+dir:->|LOCATION|->->-><-<-<-|PERCENT  161192.0
+dir:LOCATION|->->-><-<-<-|PERCENT|->  25786.0
+inverse_false|LOCATION|*LONG*|PERCENT  -128411.0
+key: nation  0.0
+_____________________________________________________
+_____________________________________________________
+The United States is the world's largest national economy with a GDP of approximately $16.8 trillion, due to high average incomes, a large population,[6] capital investment, moderate unemployment,[7] high consumer spending,[8] a relatively young population,[9] and technological innovation.
+United States	4	17	6	151	152	POP
+dir:->|LOCATION|*LONG-PATH*|NUMBER  -26039.0
+inverse_false|LOCATION|*LONG*|NUMBER  62835.0
+str:LOCATION|*LONG-PATH*|NUMBER  -34872.0
+_____________________________________________________
+_____________________________________________________
+The United States is the world's largest national economy with a GDP of approximately $16.8 trillion, due to high average incomes, a large population,[6] capital investment, moderate unemployment,[7] high consumer spending,[8] a relatively young population,[9] and technological innovation.
+United States	4	17	7	197	198	POP
+inverse_false|LOCATION|*LONG*|NUMBER  62835.0
+key: economy  0.0
+_____________________________________________________
+_____________________________________________________
+The United States is the world's largest national economy with a GDP of approximately $16.8 trillion, due to high average incomes, a large population,[6] capital investment, moderate unemployment,[7] high consumer spending,[8] a relatively young population,[9] and technological innovation.
+United States	4	17	8	224	225	POP
+inverse_false|LOCATION|*LONG*|NUMBER  62835.0
+key: economy  0.0
+_____________________________________________________
+_____________________________________________________
+The United States is the world's largest national economy with a GDP of approximately $16.8 trillion, due to high average incomes, a large population,[6] capital investment, moderate unemployment,[7] high consumer spending,[8] a relatively young population,[9] and technological innovation.
+United States	4	17	9	258	259	POP
+inverse_false|LOCATION|*LONG*|NUMBER  62835.0
+key: economy  0.0
+_____________________________________________________
+_____________________________________________________
+accord to the International Telecommunication Union , as of June 2010 , Singapore Internet usage have a 77.8 percent penetration rate , say Dr Sundeep Muppidi of the asian Media Information and Communication Center -lrb- AMIC -rrb- .
+International Telecommunication Union	14	51	77.8 percent	104	116	INTERNET
+inverse_false|ORGANIZATION|*LONG*|PERCENT  0.0
+key: accord  117093.0
+key: rate  -80932.0
+_____________________________________________________
+_____________________________________________________
+accord to the International Telecommunication Union , as of June 2010 , Singapore Internet usage have a 77.8 percent penetration rate , say Dr Sundeep Muppidi of the asian Media Information and Communication Center -lrb- AMIC -rrb- .
+Singapore	72	81	77.8 percent	104	116	INTERNET
+inverse_false|LOCATION|Internet usage have a|PERCENT  32450.0
+key: rate  -80932.0
+key: usage  32450.0
+str:LOCATION|[nn]->usage[nsubj]->have[ccomp]<-rate[dobj]<-|PERCENT  32450.0
+_____________________________________________________
+_____________________________________________________
+accord to the International Telecommunication Union , as of June 2010 , Singapore Internet usage have a 77.8 percent penetration rate , say Dr Sundeep Muppidi of the asian Media Information and Communication Center -lrb- AMIC -rrb- .
+AMIC	221	225	77.8 percent	104	116	INTERNET
+inverse_true|PERCENT|*LONG*|ORGANIZATION  119787.0
+key: rate  -80932.0
+_____________________________________________________
+_____________________________________________________
+Foreign direct investment (FDI) in U.S. businesses, measured on a cumulative stock basis, reached $2.7 trillion at the end of 2012, which is equivalent to about 16 percent of U.S. gross domestic product.
+U.S.	35	39	16 percent	161	171	INTERNET
+inverse_false|LOCATION|*LONG*|PERCENT  -128411.0
+key: end  191247.0
+key: investment  -12764.0
+_____________________________________________________
+_____________________________________________________
+A government report said in July that Japan's average life expectancy set a world-best 86.44 years for women while men's average life expectancy came fifth globally with 79.59 years.
+Japan	38	43	86.44	87	92	LIFE
+key: expectancy  12970.0
+_____________________________________________________
+_____________________________________________________
+A government report said in July that Japan's average life expectancy set a world-best 86.44 years for women while men's average life expectancy came fifth globally with 79.59 years.
+Japan	38	43	79.59	170	175	LIFE
+inverse_false|LOCATION|*LONG*|DURATION  13089.0
+key: expectancy  12970.0
+_____________________________________________________
+_____________________________________________________
+India, Germany, and Canada had constant CO2 emissions for the two years, at 1.97, 0.81, and 0.56 million kilotons, respectively.
+India	0	5	0.81	82	86	POP
+dep:[conj]->|LOCATION|[nsubj]->[root]<-[prep]<-[pobj]<-|NUMBER  -32188.0
+dir:->|LOCATION|-><-<-<-|NUMBER  -7947.0
+inverse_false|B_-1|LOCATION|*LONG*|NUMBER|,  1702.0
+inverse_false|LOCATION|*LONG*|NUMBER  62835.0
+_____________________________________________________
+_____________________________________________________
+India, Germany, and Canada had constant CO2 emissions for the two years, at 1.97, 0.81, and 0.56 million kilotons, respectively.
+Germany	7	14	0.81	82	86	POP
+inverse_false|,|LOCATION|*LONG*|NUMBER|,  30558.0
+inverse_false|LOCATION|*LONG*|NUMBER  62835.0
+str:LOCATION|[conj]->India[nsubj]->have[root]<-at[prep]<-1.97[pobj]<-|NUMBER  -65235.0
+_____________________________________________________
+_____________________________________________________
+Food Inflation in India decreased to 3.50 percent in November of 2014 from 5.68 percent in October of 2014.
+India	19	24	3.50 percent	38	50	INTERNET
+inverse_false|LOCATION|decrease to|PERCENT  -155907.0
+key: inflation  546397.0
+_____________________________________________________
+_____________________________________________________
+Food Inflation in India decreased to 3.50 percent in November of 2014 from 5.68 percent in October of 2014.
+India	19	24	5.68 percent	76	88	INTERNET
+key: inflation  546397.0
+_____________________________________________________
+_____________________________________________________
+In 2014 China reached $17.6 trillion or 16.48 percent of the world’s purchasing-power-adjusted GDP, while the US made slightly less, 16.28 percent or $17.4 trillion, the FT reported citing IMF data.
+US	111	113	16.48 percent	41	54	INTERNET
+dir:->|LOCATION|->-><-<-|PERCENT  -18290.0
+dir:LOCATION|->-><-<-|PERCENT|->  26208.0
+_____________________________________________________
+_____________________________________________________
+In 2014 China reached $17.6 trillion or 16.48 percent of the world’s purchasing-power-adjusted GDP, while the US made slightly less, 16.28 percent or $17.4 trillion, the FT reported citing IMF data.
+IMF	190	193	16.48 percent	41	54	INTERNET
+inverse_true|PERCENT|*LONG*|ORGANIZATION  119787.0
+_____________________________________________________
+_____________________________________________________
+But in the rest of Canada, male life expectancy rose to 77.5 years from 74.1 years and among females it rose to 81.3 years from 79.7 years.
+Canada	20	26	77.5	57	61	LIFE
+key: rest  26444.0
+_____________________________________________________
+_____________________________________________________
+But in the rest of Canada, male life expectancy rose to 77.5 years from 74.1 years and among females it rose to 81.3 years from 79.7 years.
+Canada	20	26	74.1	73	77	LIFE
+key: rest  26444.0
+_____________________________________________________
+_____________________________________________________
+But in the rest of Canada, male life expectancy rose to 77.5 years from 74.1 years and among females it rose to 81.3 years from 79.7 years.
+Canada	20	26	81.3	113	117	LIFE
+inverse_false|LOCATION|*LONG*|DURATION  13089.0
+inverse_false|of|LOCATION|*LONG*|DURATION|year  26444.0
+key: rest  26444.0
+_____________________________________________________
+_____________________________________________________
+But in the rest of Canada, male life expectancy rose to 77.5 years from 74.1 years and among females it rose to 81.3 years from 79.7 years.
+Canada	20	26	79.7	129	133	LIFE
+inverse_false|LOCATION|*LONG*|DURATION  13089.0
+inverse_false|of|LOCATION|*LONG*|DURATION|year  26444.0
+key: rest  26444.0
+_____________________________________________________
+_____________________________________________________
+Covering a total area of 8.51 million square kilometers, Brazil has a rangeland of more than 200 million hectares, a farmland of 6.2 million hectares and 100 million hectares of unexploited land.
+Brazil	58	64	8.51 million	26	38	AGL
+dir:LOCATION|-><-<-<-<-<-|NUMBER|->  13274.0
+key: area  -9130.0
+_____________________________________________________
+_____________________________________________________
+Covering a total area of 8.51 million square kilometers, Brazil has a rangeland of more than 200 million hectares, a farmland of 6.2 million hectares and 100 million hectares of unexploited land.
+Brazil	58	64	6.2 million	130	141	AGL
+dir:LOCATION|-><-<-<-<-<-|NUMBER|->  13274.0
+inverse_false|LOCATION|*LONG*|NUMBER  57741.0
+key: rangeland  -26237.0
+_____________________________________________________
+_____________________________________________________
+China 's population of internet user , already the world 's largest , soar nearly 30 percent last year to 384 million as the number of people surf the web by mobile phone more than double , a research group report Friday .
+China	1	6	384 million	107	118	POP
+dir:->|LOCATION|->-><-<-|NUMBER  35333.0
+dir:LOCATION|->-><-<-|NUMBER|->  0.0
+inverse_false|LOCATION|*LONG*|NUMBER  62835.0
+key: population  -16173.0
+_____________________________________________________
+_____________________________________________________
+the state of Brazil 's more developed southeast have the highest internet use -- 48.1 percent , compare to 30 percent in the poorer northeast , the agency say .
+Brazil	14	20	48.1 percent	82	94	INTERNET
+inverse_false|LOCATION|'s more developed southeast have the highest internet use --|PERCENT  26338.0
+key: southeast  506.0
+key: state  253.0
+key: use  26338.0
+_____________________________________________________
+_____________________________________________________
+Fiji inflation jump to 5.1 percent SUVA , Oct. 14 -lrb- Xinhua -rrb- inflation in Fiji more than double in August to 5.1 percent , up from 2.2 percent in July , accord to the Reserve Bank of Fiji 's September economic review .
+Fiji	1	5	5.1 percent	24	35	INTERNET
+inverse_false|LOCATION|inflation jump to|PERCENT  -13249.0
+key: inflation  546397.0
+key: jump  -89596.0
+str:LOCATION|[nn]->inflation[nsubj]->jump[root]<-to[prep]<-SUVA[pobj]<-|PERCENT  -13249.0
+_____________________________________________________
+_____________________________________________________
+Fiji inflation jump to 5.1 percent SUVA , Oct. 14 -lrb- Xinhua -rrb- inflation in Fiji more than double in August to 5.1 percent , up from 2.2 percent in July , accord to the Reserve Bank of Fiji 's September economic review .
+Fiji	1	5	5.1 percent	118	129	INTERNET
+inverse_false|LOCATION|*LONG*|PERCENT  -128411.0
+key: inflation  546397.0
+key: jump  -89596.0
+_____________________________________________________
+_____________________________________________________
+Fiji inflation jump to 5.1 percent SUVA , Oct. 14 -lrb- Xinhua -rrb- inflation in Fiji more than double in August to 5.1 percent , up from 2.2 percent in July , accord to the Reserve Bank of Fiji 's September economic review .
+Fiji	1	5	2.2 percent	140	151	INTERNET
+inverse_false|LOCATION|*LONG*|PERCENT  -128411.0
+key: inflation  546397.0
+key: jump  -89596.0
+key: percent  114960.0
+_____________________________________________________
+_____________________________________________________
+Fiji inflation jump to 5.1 percent SUVA , Oct. 14 -lrb- Xinhua -rrb- inflation in Fiji more than double in August to 5.1 percent , up from 2.2 percent in July , accord to the Reserve Bank of Fiji 's September economic review .
+Xinhua	57	63	2.2 percent	140	151	INTERNET
+inverse_false|ORGANIZATION|*LONG*|PERCENT  0.0
+key: jump  -89596.0
+key: percent  114960.0
+_____________________________________________________
+_____________________________________________________
+Fiji inflation jump to 5.1 percent SUVA , Oct. 14 -lrb- Xinhua -rrb- inflation in Fiji more than double in August to 5.1 percent , up from 2.2 percent in July , accord to the Reserve Bank of Fiji 's September economic review .
+Fiji	83	87	5.1 percent	24	35	INTERNET
+key: inflation  546397.0
+str:LOCATION|[pobj]->in[prep]->inflation[dep]->Oct.[appos]->SUVA[pobj]<-|PERCENT  -13249.0
+_____________________________________________________
+_____________________________________________________
+Fiji inflation jump to 5.1 percent SUVA , Oct. 14 -lrb- Xinhua -rrb- inflation in Fiji more than double in August to 5.1 percent , up from 2.2 percent in July , accord to the Reserve Bank of Fiji 's September economic review .
+Fiji	83	87	5.1 percent	118	129	INTERNET
+inverse_false|LOCATION|more than double in August to|PERCENT  -33687.0
+key: inflation  546397.0
+key: jump  -89596.0
+_____________________________________________________
+_____________________________________________________
+Fiji inflation jump to 5.1 percent SUVA , Oct. 14 -lrb- Xinhua -rrb- inflation in Fiji more than double in August to 5.1 percent , up from 2.2 percent in July , accord to the Reserve Bank of Fiji 's September economic review .
+Reserve Bank of Fiji	176	196	5.1 percent	118	129	INTERNET
+inverse_true|August to|PERCENT|*LONG*|ORGANIZATION|'s September  -26498.0
+inverse_true|PERCENT|*LONG*|ORGANIZATION  119787.0
+inverse_true|to|PERCENT|*LONG*|ORGANIZATION|'s  -39747.0
+key: accord  117093.0
+key: review  -26498.0
+_____________________________________________________
+_____________________________________________________
+Fiji inflation jump to 5.1 percent SUVA , Oct. 14 -lrb- Xinhua -rrb- inflation in Fiji more than double in August to 5.1 percent , up from 2.2 percent in July , accord to the Reserve Bank of Fiji 's September economic review .
+Reserve Bank of Fiji	176	196	2.2 percent	140	151	INTERNET
+dir:->|ORGANIZATION|->->->->->-><-<-<-|PERCENT  -13249.0
+key: accord  117093.0
+key: percent  114960.0
+key: review  -26498.0
+_____________________________________________________
+_____________________________________________________
+The wide scattering of the Marshalls' 29 atolls, 2,300 miles (3,700 kilometers) southwest of Hawaii, give them an exclusive economic zone of 800,000 square miles (2 million square kilometers) of ocean, an area the size of Mexico.
+Hawaii	94	100	2 million	164	173	POP
+inverse_false|LOCATION|*LONG*|NUMBER  62835.0
+_____________________________________________________
+_____________________________________________________
+Life expectancy at birth for Indian males has gone up from 48.6 years in 1970 to 63.2 years in 2010, while for Indian females the number has risen from 49.1 years to 67.5 years during the same period.
+indian	30	36	48.6 year in 1970 to 63.2 year in 2010	60	100	LIFE
+key: expectancy  12970.0
+_____________________________________________________
+_____________________________________________________
+Life expectancy at birth for Indian males has gone up from 48.6 years in 1970 to 63.2 years in 2010, while for Indian females the number has risen from 49.1 years to 67.5 years during the same period.
+indian	30	36	49.1	153	157	LIFE
+inverse_false|LOCATION|*LONG*|DURATION  13089.0
+key: expectancy  12970.0
+_____________________________________________________
+_____________________________________________________
+Life expectancy at birth for Indian males has gone up from 48.6 years in 1970 to 63.2 years in 2010, while for Indian females the number has risen from 49.1 years to 67.5 years during the same period.
+indian	30	36	67.5	167	171	LIFE
+inverse_false|LOCATION|*LONG*|DURATION  13089.0
+key: expectancy  12970.0
+_____________________________________________________
+_____________________________________________________
+Thailand, a country which is widely known for its craze for social networks, reportedly, has a Facebook and internet penetration of 36 percent and 26 percent respectively.
+Facebook	96	104	26 percent	148	158	INTERNET
+key: penetration  -16781.0
+key: percent  114960.0
+_____________________________________________________
+_____________________________________________________
+by the end of last year , the number of internet user in China have reach 384 million user , cover about 28.9 percent of the country 's total population .
+China	58	63	28.9 percent	106	118	INTERNET
+inverse_false|LOCATION|have reach 384 million user , cover about|PERCENT  25786.0
+key: cover  12893.0
+key: number  25786.0
+key: reach  12893.0
+_____________________________________________________
+_____________________________________________________
+wholesale price inflation , India 's main cost-of-living measure , be at 9.90 percent , above the bank 's 5.5-percent target for the year end March 2011 .
+India	29	34	9.90 percent	74	86	INTERNET
+inverse_false|LOCATION|'s main cost-of-living measure , be at|PERCENT  204127.0
+key: inflation  546397.0
+key: measure  -127259.0
+_____________________________________________________
+_____________________________________________________
+inflation soar from negative figure at the end of the 1990s to a record 12.9 percent in July last year , before plunge to one percent in June this year , accord to the Central Bank of Libya .
+Central Bank of Libya	169	190	12.9 percent	73	85	INTERNET
+inverse_true|PERCENT|*LONG*|ORGANIZATION  119787.0
+inverse_true|a record|PERCENT|*LONG*|ORGANIZATION|. B_1  204011.0
+inverse_true|record|PERCENT|*LONG*|ORGANIZATION|.  204011.0
+key: accord  117093.0
+key: end  191247.0
+_____________________________________________________
+_____________________________________________________
+THE LAND -- Lebanon lies in the eastern Mediterranean and covers about 4,030 square miles (10,450 square kilometers) -- smaller than the U.S. state of Connecticut.
+Lebanon	13	20	10,450	92	98	AGL
+inverse_false|LOCATION|*LONG*|NUMBER  57741.0
+_____________________________________________________
+_____________________________________________________
+THE LAND -- Lebanon lies in the eastern Mediterranean and covers about 4,030 square miles (10,450 square kilometers) -- smaller than the U.S. state of Connecticut.
+mediterranean	41	54	4,030	72	77	AGL
+dir:->|LOCATION|->-><-<-<-|NUMBER  24095.0
+_____________________________________________________
+_____________________________________________________
+The United Nations this year inaugurated a decade for deserts and the fight against desertification, which affects 12 million hectares (30 million acres) of land fit for agriculture each year, the size as Greece or Benin, Gnacadja's home country.
+Greece	206	212	30 million	137	147	AGL
+dir:->|LOCATION|->->-><-<-|NUMBER  24334.0
+inverse_true|NUMBER|*LONG*|LOCATION  -19469.0
+key: size  -2200.0
+_____________________________________________________
+_____________________________________________________
+Chile is the longest and narrowest nation in the world, with a total area of 756, 626 sq km.
+Chile	1	6	626	83	86	POP
+inverse_false|B_-1|LOCATION|*LONG*|NUMBER|sq  0.0
+inverse_false|B_-2 B_-1|LOCATION|*LONG*|NUMBER|sq km  0.0
+inverse_false|LOCATION|*LONG*|NUMBER  62835.0
+key: km  -18010.0
+key: nation  -32056.0
+key: sq  0.0
+_____________________________________________________
+_____________________________________________________
+With an area of 1.29 million square km and Lima as its capital, Peru has a population of some 28.22 million, including Amerindians, Indian- Europeans, Europeans and others.
+Lima	44	48	1.29 million	17	29	AGL
+key: km  10215.0
+_____________________________________________________
+_____________________________________________________
+With an area of 1.29 million square km and Lima as its capital, Peru has a population of some 28.22 million, including Amerindians, Indian- Europeans, Europeans and others.
+Peru	65	69	1.29 million	17	29	AGL
+dir:LOCATION|-><-<-<-<-<-|NUMBER|->  13274.0
+key: area  -9130.0
+key: km  10215.0
+str:LOCATION|[nsubj]->have[root]<-with[prep]<-area[pobj]<-of[prep]<-km[pobj]<-|NUMBER  0.0
+_____________________________________________________
+_____________________________________________________
+Vietnam is planning for a one-metre (3.3 feet) rise in sea levels by 2100, which would inundate about 31,000 square kilometres (12,400 square miles) of land -- an area about the size of Belgium -- unless dykes and drainage systems are strengthened, a UN discussion paper said in December.
+Vietnam	1	8	31,000	103	109	AGL
+inverse_false|B_-1|LOCATION|*LONG*|NUMBER|square  -25116.0
+inverse_false|LOCATION|*LONG*|NUMBER  57741.0
+_____________________________________________________
+_____________________________________________________
+Vietnam is planning for a one-metre (3.3 feet) rise in sea levels by 2100, which would inundate about 31,000 square kilometres (12,400 square miles) of land -- an area about the size of Belgium -- unless dykes and drainage systems are strengthened, a UN discussion paper said in December.
+Vietnam	1	8	12,400	129	135	AGL
+inverse_false|B_-1|LOCATION|*LONG*|NUMBER|square  -25116.0
+inverse_false|LOCATION|*LONG*|NUMBER  57741.0
+_____________________________________________________
+_____________________________________________________
+With a total area of about 88,300 square km, Serbia has a population of about 9.9 million.
+Serbia	46	52	88,300	28	34	AGL
+dep:LOCATION|[nsubj]->[root]<-[prep]<-[pobj]<-[prep]<-[pobj]<-|NUMBER|[quantmod]->  13274.0
+dir:LOCATION|-><-<-<-<-<-|NUMBER|->  13274.0
+inverse_true|NUMBER|square km ,|LOCATION  0.0
+inverse_true|about|NUMBER|square km ,|LOCATION|have  0.0
+inverse_true|of about|NUMBER|square km ,|LOCATION|have a  0.0
+key: area  -9130.0
+key: km  10215.0
+str:LOCATION|[nsubj]->have[root]<-with[prep]<-area[pobj]<-of[prep]<-km[pobj]<-|NUMBER  0.0
+str:LOCATION|[nsubj]->have[root]<-with[prep]<-area[pobj]<-of[prep]<-km[pobj]<-|NUMBER|[quantmod]->about  0.0
+_____________________________________________________
+_____________________________________________________
+Portugal has a total area of about 92,300 square kilometers with a population of 10.7 million.
+Portugal	1	9	92,300	36	42	AGL
+dep:LOCATION|[nsubj]->[root]<-[dobj]<-[prep]<-[pobj]<-|NUMBER|[quantmod]->  13145.0
+dir:LOCATION|-><-<-<-<-|NUMBER|->  13145.0
+key: area  -9130.0
+str:LOCATION|[nsubj]->have[root]<-area[dobj]<-of[prep]<-kilometer[pobj]<-|NUMBER  13145.0
+_____________________________________________________
+_____________________________________________________
+Portugal has a total area of about 92,300 square kilometers with a population of 10.7 million.
+Portugal	1	9	10.7 million	82	94	POP
+inverse_false|LOCATION|*LONG*|NUMBER  62835.0
+key: area  -38404.0
+key: population  -16173.0
+_____________________________________________________
+_____________________________________________________
+By introducing nuclear energy, between 2020, when plants might begin working, and 2030, when they should account for 25 percent of electricity supply, Italy might save up to (EURO)69 billion in generation costs and cut up to 381 million tons in carbon emissions, according to the study.
+Italy	152	157	25 percent	118	128	INTERNET
+dir:LOCATION|-><-<-<-|PERCENT|->  13160.0
+_____________________________________________________
+_____________________________________________________
+NDRC statistics showed China cut its energy consumption by 10.1 percent from 2006 to 2008, which means it saved 300 million tonnes of standard coal, and cut carbon dioxide emissions by 750 million tonnes.
+ndrc	1	5	2006 to 2008	78	90	POP
+key: percent  3670.0
+_____________________________________________________
+_____________________________________________________
+NDRC statistics showed China cut its energy consumption by 10.1 percent from 2006 to 2008, which means it saved 300 million tonnes of standard coal, and cut carbon dioxide emissions by 750 million tonnes.
+China	24	29	2006 to 2008	78	90	POP
+key: percent  3670.0
+_____________________________________________________
+_____________________________________________________
+by August , Armenia 's inflation rate drop to 1.3 percent , down from the January-July average of 5 percent , accord to the armenian National Statistical Service .
+armenian	125	133	5 percent	99	108	INTERNET
+key: accord  117093.0
+key: average  25281.0
+key: drop  -60420.0
+_____________________________________________________
+_____________________________________________________
+by August , Armenia 's inflation rate drop to 1.3 percent , down from the January-July average of 5 percent , accord to the armenian National Statistical Service .
+National Statistical Service	134	162	1.3 percent	47	58	INTERNET
+inverse_true|PERCENT|*LONG*|ORGANIZATION  119787.0
+key: accord  117093.0
+key: drop  -60420.0
+_____________________________________________________
+_____________________________________________________
+by August , Armenia 's inflation rate drop to 1.3 percent , down from the January-July average of 5 percent , accord to the armenian National Statistical Service .
+National Statistical Service	134	162	5 percent	99	108	INTERNET
+key: accord  117093.0
+key: average  25281.0
+key: drop  -60420.0
+_____________________________________________________
+_____________________________________________________
+inflation in Fiji more than double in August to 5.1 percent , up from 2.2 percent in July , accord to the Reserve Bank of Fiji 's September economic review .
+Fiji	14	18	5.1 percent	49	60	INTERNET
+inverse_false|LOCATION|more than double in August to|PERCENT  -33687.0
+key: inflation  546397.0
+_____________________________________________________
+_____________________________________________________
+inflation in Fiji more than double in August to 5.1 percent , up from 2.2 percent in July , accord to the Reserve Bank of Fiji 's September economic review .
+Fiji	14	18	2.2 percent	71	82	INTERNET
+dir:LOCATION|->->-><-<-<-|PERCENT|->  25786.0
+inverse_false|LOCATION|*LONG*|PERCENT  -128411.0
+key: inflation  546397.0
+_____________________________________________________
+_____________________________________________________
+inflation in Fiji more than double in August to 5.1 percent , up from 2.2 percent in July , accord to the Reserve Bank of Fiji 's September economic review .
+Reserve Bank of Fiji	107	127	5.1 percent	49	60	INTERNET
+inverse_true|August to|PERCENT|*LONG*|ORGANIZATION|'s September  -26498.0
+inverse_true|PERCENT|*LONG*|ORGANIZATION  119787.0
+inverse_true|to|PERCENT|*LONG*|ORGANIZATION|'s  -39747.0
+key: accord  117093.0
+key: review  -26498.0
+_____________________________________________________
+_____________________________________________________
+inflation in Fiji more than double in August to 5.1 percent , up from 2.2 percent in July , accord to the Reserve Bank of Fiji 's September economic review .
+Reserve Bank of Fiji	107	127	2.2 percent	71	82	INTERNET
+dir:->|ORGANIZATION|->->->->->-><-<-<-|PERCENT  -13249.0
+key: accord  117093.0
+key: review  -26498.0
+_____________________________________________________
+_____________________________________________________
+Turkey 's central bank say Wednesday it expect the annual inflation rate to reach 6.09 percent at the end of 2009 , lower than the official target of 7.5 percent .
+Turkey	1	7	6.09 percent	83	95	INTERNET
+dir:->|LOCATION|->-><-<-<-|PERCENT  7172.0
+inverse_false|LOCATION|*LONG*|PERCENT  -128411.0
+key: bank  191555.0
+_____________________________________________________
+_____________________________________________________
+Turkey 's central bank say Wednesday it expect the annual inflation rate to reach 6.09 percent at the end of 2009 , lower than the official target of 7.5 percent .
+Turkey	1	7	7.5 percent	151	162	INTERNET
+dir:->|LOCATION|->-><-<-<-<-<-<-<-|PERCENT  -20679.0
+inverse_false|LOCATION|*LONG*|PERCENT  -128411.0
+key: bank  191555.0
+key: target  -38826.0
+_____________________________________________________
+_____________________________________________________
+Bangladesh 's inflation in May surge slightly from its April level to 5.39 percent as food price soar in the south asian country to some extent , official statistics show .
+Bangladesh	1	11	5.39 percent	71	83	INTERNET
+dir:->|LOCATION|->-><-<-|PERCENT  -18290.0
+dir:LOCATION|->-><-<-|PERCENT|->  26208.0
+inverse_false|LOCATION|*LONG*|PERCENT  -128411.0
+key: inflation  546397.0
+key: surge  220752.0
+_____________________________________________________
+_____________________________________________________
+India 's central bank have already raise interest rate three time this year but inflation have remain stubbornly high and stand at 10.55 percent , the highest among the group of 20 lead nation .
+India	1	6	10.55 percent	132	145	INTERNET
+dir:->|LOCATION|->-><-<-<-<-|PERCENT  -34309.0
+dir:LOCATION|->-><-<-<-<-|PERCENT|->  0.0
+inverse_false|LOCATION|*LONG*|PERCENT  -128411.0
+key: bank  191555.0
+_____________________________________________________
+_____________________________________________________
+Turkey 's household have access to Internet rise to 41.6 percent from the 30 percent register last year , a survey carry out by the turkish Statistical Institute show on Wednesday .
+Statistical Institute	141	162	41.6 percent	53	65	INTERNET
+inverse_true|PERCENT|*LONG*|ORGANIZATION  119787.0
+key: rise  -20727.0
+_____________________________________________________
+_____________________________________________________
+Turkey 's household have access to Internet rise to 41.6 percent from the 30 percent register last year , a survey carry out by the turkish Statistical Institute show on Wednesday .
+Statistical Institute	141	162	30 percent	75	85	INTERNET
+inverse_true|PERCENT|*LONG*|ORGANIZATION  119787.0
+key: register  -35575.0
+key: rise  -20727.0
+_____________________________________________________
+_____________________________________________________
+the coverage rate of the internet in China be 33.9 percent -- above the world average of 30 percent , Wang tell a press conference .
+China	38	43	30 percent	90	100	INTERNET
+inverse_false|LOCATION|be 33.9 percent -- above the world average of|PERCENT  25281.0
+key: average  25281.0
+key: percent  114960.0
+key: rate  -80932.0
+_____________________________________________________
+_____________________________________________________
+the coverage rate of the internet in China be 33.9 percent -- above the world average of 30 percent , Wang tell a press conference .
+Wang	103	107	30 percent	90	100	INTERNET
+key: average  25281.0
+_____________________________________________________
+_____________________________________________________
+Malawi, like other southern African countries, has seen its life expectancy drop from about 60 years in the early 1990s to below 40 years presently due to the HIV/AIDS pandemic.
+Malawi	1	7	60 year in the early 1990s	93	120	LIFE
+inverse_false|LOCATION|*LONG*|DATE  13070.0
+key: drop  -159.0
+_____________________________________________________
+_____________________________________________________
+Malawi, like other southern African countries, has seen its life expectancy drop from about 60 years in the early 1990s to below 40 years presently due to the HIV/AIDS pandemic.
+african	29	36	40	130	132	LIFE
+inverse_false|LOCATION|*LONG*|DURATION  13089.0
+key: drop  -159.0
+_____________________________________________________
+_____________________________________________________
+Life expectancy in Zimbabwe, plagued by AIDS and poverty, has fallen to 47 years from 61 years over the past quarter century.
+Zimbabwe	20	28	47	73	75	LIFE
+inverse_false|LOCATION|, plague by aid and poverty , have fall to|DURATION  0.0
+inverse_false|expectancy in|LOCATION|, plague by aid and poverty , have fall to|DURATION|year from  0.0
+inverse_false|in|LOCATION|, plague by aid and poverty , have fall to|DURATION|year  0.0
+key: expectancy  12970.0
+str:LOCATION|[pobj]->in[prep]->expectancy[nsubj]->fall[root]<-to[prep]<-year[pobj]<-|DURATION  0.0
+_____________________________________________________
+_____________________________________________________
+Life expectancy in Zimbabwe, plagued by AIDS and poverty, has fallen to 47 years from 61 years over the past quarter century.
+Zimbabwe	20	28	61 year over the past quarter century	87	125	LIFE
+inverse_false|LOCATION|*LONG*|DATE  13070.0
+key: expectancy  12970.0
+_____________________________________________________
+_____________________________________________________
+Along with early retirement, Greece has one of Europe's highest longevity rates -- with an average life expectancy of 77.1 years for men and 81.9 for women.
+Greece	30	36	77.1	119	123	LIFE
+inverse_false|,|LOCATION|*LONG*|DURATION|year  0.0
+inverse_false|LOCATION|*LONG*|DURATION  13089.0
+inverse_false|retirement ,|LOCATION|*LONG*|DURATION|year for  0.0
+key: expectancy  12970.0
+str:LOCATION|[nsubj]->have[root]<-with[prep]<-expectancy[pobj]<-of[prep]<-year[pobj]<-|DURATION  0.0
+_____________________________________________________
+_____________________________________________________
+Along with early retirement, Greece has one of Europe's highest longevity rates -- with an average life expectancy of 77.1 years for men and 81.9 for women.
+Europe	48	54	77.1	119	123	LIFE
+inverse_false|LOCATION|*LONG*|DURATION  13089.0
+inverse_false|of|LOCATION|*LONG*|DURATION|year  26444.0
+key: expectancy  12970.0
+_____________________________________________________
+_____________________________________________________
+Along with early retirement, Greece has one of Europe's highest longevity rates -- with an average life expectancy of 77.1 years for men and 81.9 for women.
+Europe	48	54	81.9	142	146	POP
+dir:->|LOCATION|->->->-><-<-<-<-<-|NUMBER  -7695.0
+inverse_false|LOCATION|*LONG*|NUMBER  62835.0
+key: expectancy  -24252.0
+_____________________________________________________
+_____________________________________________________
+In stark contrast to the leaders, in Zimbabwe life expectancy is just 47 years and per capita income 176 dollars.
+Zimbabwe	38	46	47	71	73	LIFE
+inverse_false|, in|LOCATION|life expectancy be just|DURATION|year and  0.0
+inverse_false|LOCATION|life expectancy be just|DURATION  0.0
+inverse_false|in|LOCATION|life expectancy be just|DURATION|year  0.0
+key: expectancy  12970.0
+str:LOCATION|[nn]->expectancy[pobj]->in[prep]->year[root]<-|DURATION  0.0
+_____________________________________________________
+_____________________________________________________
+about half of Greenland 's 60,000 people be native to the icebound island .
+Greenland	15	24	60,000	28	34	POP
+dep:[possessive]->|LOCATION|[poss]->[pobj]<-|NUMBER  6864.0
+dir:->|LOCATION|-><-|NUMBER  6864.0
+inverse_false|LOCATION|'s|NUMBER  -6375.0
+_____________________________________________________
+_____________________________________________________
+With a land area of just 700 square kilometres (280 square miles), Singapore does not have the watersheds and natural rivers from which to draw the life- giving resource.
+Singapore	68	77	700	26	29	AGL
+dep:LOCATION|[nsubj]->[root]<-[prep]<-[pobj]<-[prep]<-[pobj]<-|NUMBER|[quantmod]->  13274.0
+dir:LOCATION|-><-<-<-<-<-|NUMBER|->  13274.0
+key: area  -9130.0
+_____________________________________________________
+_____________________________________________________
+About 60 percent of Malaysia's 28 million people are Malay Muslims, while the rest are ethnic Chinese, Indians and indigenous tribes, who follow Christianity, Hinduism and other religions.
+Malaysia	21	29	28 million	32	42	POP
+dep:[possessive]->|LOCATION|[poss]->[pobj]<-|NUMBER  6864.0
+dir:->|LOCATION|-><-|NUMBER  6864.0
+inverse_false|LOCATION|'s|NUMBER  -6375.0
+_____________________________________________________
+_____________________________________________________
+About 60 percent of Malaysia's 28 million people are Malay Muslims, while the rest are ethnic Chinese, Indians and indigenous tribes, who follow Christianity, Hinduism and other religions.
+chinese	95	102	28 million	32	42	POP
+key: percent  3670.0
+_____________________________________________________
+_____________________________________________________
+About 60 percent of Malaysia's 28 million people are Malay Muslims, while the rest are ethnic Chinese, Indians and indigenous tribes, who follow Christianity, Hinduism and other religions.
+Christianity	146	158	60 percent	7	17	INTERNET
+inverse_true|PERCENT|*LONG*|ORGANIZATION  119787.0
+_____________________________________________________
+_____________________________________________________
+About 60 percent of Malaysia's 28 million people are Malay Muslims, while the rest are ethnic Chinese, Indians and indigenous tribes, who follow Christianity, Hinduism and other religions.
+Christianity	146	158	28 million	32	42	POP
+key: percent  3670.0
+_____________________________________________________
+_____________________________________________________
+About 60 percent of Malaysia's 28 million people are Malay Muslims, while the rest are ethnic Chinese, Indians and indigenous tribes, who follow Christianity, Hinduism and other religions.
+Hinduism	160	168	28 million	32	42	POP
+inverse_true|NUMBER|*LONG*|LOCATION  6335.0
+key: percent  3670.0
+_____________________________________________________
+_____________________________________________________
+A recent population census in Sudan showed 18.5 million persons were under the age of 16 years and that 6 million were under the age of five years, which indicates that children represent the biggest part of Sudan's total population of 39 million.
+Sudan	31	36	6 million	105	114	POP
+inverse_false|LOCATION|*LONG*|NUMBER  62835.0
+key: census  -10712.0
+_____________________________________________________
+_____________________________________________________
+A recent population census in Sudan showed 18.5 million persons were under the age of 16 years and that 6 million were under the age of five years, which indicates that children represent the biggest part of Sudan's total population of 39 million.
+Sudan	31	36	39 million	237	247	POP
+inverse_false|LOCATION|*LONG*|NUMBER  62835.0
+str:LOCATION|*LONG-PATH*|NUMBER  -34872.0
+_____________________________________________________
+_____________________________________________________
+Brazil has 36.4 million active internet users in July: survey RIO DE JANEIRO, Aug. 20 (Xinhua) The number of active internet users in Brazil jumped to 36.4 million in July, up 10 percent from June, according to a survey released on Thursday by consulting company Ibope Nielsen Online.
+Brazil	1	7	36.4 million	152	164	POP
+inverse_false|LOCATION|*LONG*|NUMBER  62835.0
+_____________________________________________________
+_____________________________________________________
+Brazil has 36.4 million active internet users in July: survey RIO DE JANEIRO, Aug. 20 (Xinhua) The number of active internet users in Brazil jumped to 36.4 million in July, up 10 percent from June, according to a survey released on Thursday by consulting company Ibope Nielsen Online.
+RIO de JANEIRO	63	77	36.4 million	152	164	POP
+dir:->|LOCATION|->-><-<-|NUMBER  35333.0
+dir:LOCATION|->-><-<-|NUMBER|->  0.0
+inverse_false|LOCATION|*LONG*|NUMBER  62835.0
+key: survey  -13314.0
+_____________________________________________________
+_____________________________________________________
+Brazil has 36.4 million active internet users in July: survey RIO DE JANEIRO, Aug. 20 (Xinhua) The number of active internet users in Brazil jumped to 36.4 million in July, up 10 percent from June, according to a survey released on Thursday by consulting company Ibope Nielsen Online.
+Brazil	135	141	10 percent	177	187	INTERNET
+key: number  25786.0
+_____________________________________________________
+_____________________________________________________
+Brazil has 36.4 million active internet users in July: survey RIO DE JANEIRO, Aug. 20 (Xinhua) The number of active internet users in Brazil jumped to 36.4 million in July, up 10 percent from June, according to a survey released on Thursday by consulting company Ibope Nielsen Online.
+Ibope Nielsen Online	264	284	10 percent	177	187	INTERNET
+inverse_true|PERCENT|*LONG*|ORGANIZATION  119787.0
+key: survey  0.0
+_____________________________________________________
+_____________________________________________________
+Greece has an area of approximately 132,000 square kilometers and a population of 11.31 million, of which 98 percent are Greeks.
+Greece	1	7	132,000	37	44	AGL
+dep:LOCATION|[nsubj]->[root]<-[dobj]<-[prep]<-[pobj]<-|NUMBER|[quantmod]->  13145.0
+dir:LOCATION|-><-<-<-<-|NUMBER|->  13145.0
+key: area  -9130.0
+str:LOCATION|[nsubj]->have[root]<-area[dobj]<-of[prep]<-kilometer[pobj]<-|NUMBER  13145.0
+_____________________________________________________
+_____________________________________________________
+The states of Brazil's more developed southeast had the highest Internet use -- 48.1 percent, compared to 30 percent in the poorer northeast, the agency said.
+Brazil	15	21	48.1 percent	81	93	INTERNET
+inverse_false|LOCATION|'s more developed southeast have the highest internet use --|PERCENT  26338.0
+key: southeast  506.0
+key: use  26338.0
+_____________________________________________________
+_____________________________________________________
+Studies cited by the ITU indicated that 93 percent of US teenagers use the Internet, while in South Korea, 30 percent of under-18s spend at least two hours a day online.
+US	55	57	30 percent	108	118	INTERNET
+inverse_false|LOCATION|teenager use the internet , while in South Korea ,|PERCENT  -40220.0
+key: percent  114960.0
+_____________________________________________________
+_____________________________________________________
+Indonesian internet users rise up 17 percent to 2.3 million.
+indonesian	1	11	17 percent	35	45	INTERNET
+dir:LOCATION|->-><-<-|PERCENT|->  26208.0
+_____________________________________________________
+_____________________________________________________
+By the end of last year, the number of Internet users in China had reached 384 million users, covering about 28.9 percent of the country's total population.
+China	58	63	28.9 percent	110	122	INTERNET
+inverse_false|LOCATION|have reach 384 million user , cover about|PERCENT  25786.0
+key: number  25786.0
+_____________________________________________________
+_____________________________________________________
+By June 2010, China had 440 million netizens, accounting for 33 percent of its total population, said Hu Qiheng, chairwoman of the Internet Society of China, at the forum.
+China	15	20	33 percent	62	72	INTERNET
+inverse_false|LOCATION|have 440 million netizen , account for|PERCENT  12893.0
+_____________________________________________________
+_____________________________________________________
+By June 2010, China had 440 million netizens, accounting for 33 percent of its total population, said Hu Qiheng, chairwoman of the Internet Society of China, at the forum.
+China	152	157	440 million	25	36	POP
+inverse_true|NUMBER|*LONG*|LOCATION  6335.0
+key: chairwoman  0.0
+_____________________________________________________
+_____________________________________________________
+The number of active internet users in Brazil jumped to 36.4 million in July, up 10 percent from June, according to a survey released on Thursday by consulting company Ibope Nielsen Online.
+Brazil	40	46	10 percent	82	92	INTERNET
+key: number  25786.0
+_____________________________________________________
+_____________________________________________________
+The number of active internet users in Brazil jumped to 36.4 million in July, up 10 percent from June, according to a survey released on Thursday by consulting company Ibope Nielsen Online.
+Ibope Nielsen Online	169	189	10 percent	82	92	INTERNET
+inverse_true|PERCENT|*LONG*|ORGANIZATION  119787.0
+key: survey  0.0
+_____________________________________________________
+_____________________________________________________
+According to the International Telecommunication Union, as of June 2010, Singapore Internet usage has a 77.8 percent penetration rate, said Dr Sundeep Muppidi of the Asian Media Information and Communication Center (AMIC).
+Singapore	74	83	77.8 percent	105	117	INTERNET
+inverse_false|LOCATION|Internet usage have a|PERCENT  32450.0
+key: rate  -80932.0
+key: usage  32450.0
+str:LOCATION|[nn]->usage[nsubj]->have[ccomp]<-rate[dobj]<-|PERCENT  32450.0
+_____________________________________________________
+_____________________________________________________
+According to the International Telecommunication Union, as of June 2010, Singapore Internet usage has a 77.8 percent penetration rate, said Dr Sundeep Muppidi of the Asian Media Information and Communication Center (AMIC).
+AMIC	217	221	77.8 percent	105	117	INTERNET
+inverse_true|PERCENT|*LONG*|ORGANIZATION  119787.0
+key: rate  -80932.0
+_____________________________________________________
+_____________________________________________________
+Along with early retirement, Greece has one of Europe's highest longevity rates -- with an average life expectancy of 77.1 years for men and 81.9 for women.
+Greece	30	36	77.1	119	123	LIFE
+inverse_false|,|LOCATION|*LONG*|DURATION|year  0.0
+inverse_false|LOCATION|*LONG*|DURATION  13089.0
+inverse_false|retirement ,|LOCATION|*LONG*|DURATION|year for  0.0
+key: expectancy  12970.0
+str:LOCATION|[nsubj]->have[root]<-with[prep]<-expectancy[pobj]<-of[prep]<-year[pobj]<-|DURATION  0.0
+_____________________________________________________
+_____________________________________________________
+Along with early retirement, Greece has one of Europe's highest longevity rates -- with an average life expectancy of 77.1 years for men and 81.9 for women.
+Europe	48	54	77.1	119	123	LIFE
+inverse_false|LOCATION|*LONG*|DURATION  13089.0
+inverse_false|of|LOCATION|*LONG*|DURATION|year  26444.0
+key: expectancy  12970.0
+_____________________________________________________
+_____________________________________________________
+Along with early retirement, Greece has one of Europe's highest longevity rates -- with an average life expectancy of 77.1 years for men and 81.9 for women.
+Europe	48	54	81.9	142	146	POP
+dir:->|LOCATION|->->->-><-<-<-<-<-|NUMBER  -7695.0
+inverse_false|LOCATION|*LONG*|NUMBER  62835.0
+key: expectancy  -24252.0
+_____________________________________________________
+_____________________________________________________
+With a total area of about 88,300 square km, Serbia has a population of about 9.9 million.
+Serbia	46	52	88,300	28	34	AGL
+dep:LOCATION|[nsubj]->[root]<-[prep]<-[pobj]<-[prep]<-[pobj]<-|NUMBER|[quantmod]->  13274.0
+dir:LOCATION|-><-<-<-<-<-|NUMBER|->  13274.0
+inverse_true|NUMBER|square km ,|LOCATION  0.0
+inverse_true|about|NUMBER|square km ,|LOCATION|have  0.0
+inverse_true|of about|NUMBER|square km ,|LOCATION|have a  0.0
+key: area  -9130.0
+key: km  10215.0
+str:LOCATION|[nsubj]->have[root]<-with[prep]<-area[pobj]<-of[prep]<-km[pobj]<-|NUMBER  0.0
+str:LOCATION|[nsubj]->have[root]<-with[prep]<-area[pobj]<-of[prep]<-km[pobj]<-|NUMBER|[quantmod]->about  0.0
+_____________________________________________________
+_____________________________________________________
+Cuba has a work force of 4.9 million people, a life expectancy of 77 years, and an infant mortality rate of 5.8 per 1,000 live births.
+Cuba	1	5	77	67	69	LIFE
+inverse_false|B_-1|LOCATION|*LONG*|DURATION|year  -26427.0
+inverse_false|LOCATION|*LONG*|DURATION  13089.0
+key: expectancy  12970.0
+key: force  12970.0
+_____________________________________________________
+_____________________________________________________
+Cuba has a work force of 4.9 million people, a life expectancy of 77 years, and an infant mortality rate of 5.8 per 1,000 live births.
+Cuba	1	5	5.8	109	112	POP
+inverse_false|LOCATION|*LONG*|NUMBER  62835.0
+key: force  -24756.0
+key: rate  -11579.0
+_____________________________________________________
+_____________________________________________________
+Cuba has a work force of 4.9 million people, a life expectancy of 77 years, and an infant mortality rate of 5.8 per 1,000 live births.
+Cuba	1	5	1,000	117	122	POP
+dir:LOCATION|-><-<-<-<-<-|NUMBER|->  -24252.0
+inverse_false|LOCATION|*LONG*|NUMBER  62835.0
+key: force  -24756.0
+key: rate  -11579.0
+_____________________________________________________
+_____________________________________________________
+Sweden has a total area of 449,964 square km with Stockholm as its capital.
+Sweden	1	7	449,964	28	35	AGL
+key: area  -9130.0
+key: km  10215.0
+_____________________________________________________
+_____________________________________________________
+Sweden has a total area of 449,964 square km with Stockholm as its capital.
+Stockholm	51	60	449,964	28	35	AGL
+key: km  10215.0
+_____________________________________________________
+_____________________________________________________
+In stark contrast to the leaders, in Zimbabwe life expectancy is just 47 years and per capita income 176 dollars.
+Zimbabwe	38	46	47	71	73	LIFE
+inverse_false|, in|LOCATION|life expectancy be just|DURATION|year and  0.0
+inverse_false|LOCATION|life expectancy be just|DURATION  0.0
+inverse_false|in|LOCATION|life expectancy be just|DURATION|year  0.0
+key: expectancy  12970.0
+str:LOCATION|[nn]->expectancy[pobj]->in[prep]->year[root]<-|DURATION  0.0
+_____________________________________________________
+_____________________________________________________
+It does not top any individual category -- average income in Liechtenstein is a wallet-busting 81,011 dollars and Japan's life expectancy is 83.6 years -- but Norway's all-round performance gave it superiority in the UN Development Programme (UNDP) 20th annual rankings.
+Liechtenstein	62	75	83.6	142	146	LIFE
+inverse_false|LOCATION|*LONG*|DURATION  13089.0
+key: income  13072.0
+_____________________________________________________
+_____________________________________________________
+It does not top any individual category -- average income in Liechtenstein is a wallet-busting 81,011 dollars and Japan's life expectancy is 83.6 years -- but Norway's all-round performance gave it superiority in the UN Development Programme (UNDP) 20th annual rankings.
+Japan	115	120	83.6	142	146	LIFE
+key: expectancy  12970.0
+_____________________________________________________
+_____________________________________________________
+Life expectancy in Zimbabwe, plagued by AIDS and poverty, has fallen to 47 years from 61 years over the past quarter century.
+Zimbabwe	20	28	47	73	75	LIFE
+inverse_false|LOCATION|, plague by aid and poverty , have fall to|DURATION  0.0
+inverse_false|expectancy in|LOCATION|, plague by aid and poverty , have fall to|DURATION|year from  0.0
+inverse_false|in|LOCATION|, plague by aid and poverty , have fall to|DURATION|year  0.0
+key: expectancy  12970.0
+str:LOCATION|[pobj]->in[prep]->expectancy[nsubj]->fall[root]<-to[prep]<-year[pobj]<-|DURATION  0.0
+_____________________________________________________
+_____________________________________________________
+Life expectancy in Zimbabwe, plagued by AIDS and poverty, has fallen to 47 years from 61 years over the past quarter century.
+Zimbabwe	20	28	61 year over the past quarter century	87	125	LIFE
+inverse_false|LOCATION|*LONG*|DATE  13070.0
+key: expectancy  12970.0
+_____________________________________________________
+_____________________________________________________
+The average life expectancy in Guinea-Bissau is just 46 years.
+Guinea-Bissau	32	45	46	54	56	LIFE
+key: expectancy  12970.0
+_____________________________________________________
+_____________________________________________________
+Japan has the world's highest life expectancy -- early 83 years -- according to the World Bank.
+Japan	1	6	83	56	58	LIFE
+key: expectancy  12970.0
+_____________________________________________________
+_____________________________________________________
+Japan has the world's highest life expectancy -- early 83 years -- according to the World Bank.
+World Bank	85	95	83	56	58	LIFE
+key: expectancy  12970.0
+_____________________________________________________
+_____________________________________________________
+Indian wholesale inflation continued to slow to 8.51 percent in August from 9.78 percent in July on cheaper manufactured products, fuels and non-food articles, said a release by the Ministry Commerce and Industry Tuesday.
+indian	1	7	8.51 percent	49	61	INTERNET
+inverse_false|MISC|wholesale inflation continue to slow to|PERCENT  487248.0
+key: inflation  546397.0
+_____________________________________________________
+_____________________________________________________
+Indian wholesale inflation continued to slow to 8.51 percent in August from 9.78 percent in July on cheaper manufactured products, fuels and non-food articles, said a release by the Ministry Commerce and Industry Tuesday.
+indian	1	7	9.78 percent	77	89	INTERNET
+inverse_false|MISC|*LONG*|PERCENT  487248.0
+key: inflation  546397.0
+_____________________________________________________
+_____________________________________________________
+Indian wholesale inflation continued to slow to 8.51 percent in August from 9.78 percent in July on cheaper manufactured products, fuels and non-food articles, said a release by the Ministry Commerce and Industry Tuesday.
+Ministry Commerce	183	200	8.51 percent	49	61	INTERNET
+inverse_true|PERCENT|*LONG*|ORGANIZATION  119787.0
+_____________________________________________________
+_____________________________________________________
+Indian wholesale inflation continued to slow to 8.51 percent in August from 9.78 percent in July on cheaper manufactured products, fuels and non-food articles, said a release by the Ministry Commerce and Industry Tuesday.
+Ministry Commerce	183	200	9.78 percent	77	89	INTERNET
+inverse_true|PERCENT|*LONG*|ORGANIZATION  119787.0
+_____________________________________________________
+_____________________________________________________
+Israel in September said its population was 7.6 million, which includes 5.8 million Jews, a figure which counts the 300,000 West Bank settlers, and 1.6 million Arabs.
+Israel	1	7	5.8 million	73	84	POP
+dir:LOCATION|-><-<-<-<-|NUMBER|->  0.0
+inverse_false|LOCATION|*LONG*|NUMBER  62835.0
+_____________________________________________________
+_____________________________________________________
+Israel in September said its population was 7.6 million, which includes 5.8 million Jews, a figure which counts the 300,000 West Bank settlers, and 1.6 million Arabs.
+Israel	1	7	300,000	117	124	POP
+inverse_false|LOCATION|*LONG*|NUMBER  62835.0
+key: figure  -25685.0
+_____________________________________________________
+_____________________________________________________
+Israel in September said its population was 7.6 million, which includes 5.8 million Jews, a figure which counts the 300,000 West Bank settlers, and 1.6 million Arabs.
+Israel	1	7	1.6 million	149	160	POP
+dir:LOCATION|-><-<-<-<-<-|NUMBER|->  -24252.0
+inverse_false|LOCATION|*LONG*|NUMBER  62835.0
+_____________________________________________________
+_____________________________________________________
+China has the world's most-populous mobile phone market, with more than 700 million accounts and increasingly prosperous customers who readily pay for the latest technology and services.
+China	1	6	700 million	73	84	POP
+inverse_false|LOCATION|*LONG*|NUMBER  62835.0
+_____________________________________________________
+_____________________________________________________
+Spain's population has grown to just under 47 million, of which 5.7 million are foreigners, mainly from Romania, Morocco, Ecuador and Britain, the national statistics institute INE said Thursday.
+Spain	1	6	47 million	44	54	POP
+dir:->|LOCATION|->-><-<-|NUMBER  35333.0
+dir:LOCATION|->-><-<-|NUMBER|->  0.0
+key: population  -16173.0
+_____________________________________________________
+_____________________________________________________
+Spain's population has grown to just under 47 million, of which 5.7 million are foreigners, mainly from Romania, Morocco, Ecuador and Britain, the national statistics institute INE said Thursday.
+Spain	1	6	5.7 million	65	76	POP
+dir:->|LOCATION|->-><-<-<-<-|NUMBER  0.0
+inverse_false|LOCATION|*LONG*|NUMBER  62835.0
+key: population  -16173.0
+_____________________________________________________
+_____________________________________________________
+Spain's population has grown to just under 47 million, of which 5.7 million are foreigners, mainly from Romania, Morocco, Ecuador and Britain, the national statistics institute INE said Thursday.
+Romania	105	112	47 million	44	54	POP
+dir:->|LOCATION|->-><-<-|NUMBER  35333.0
+dir:LOCATION|->-><-<-|NUMBER|->  0.0
+_____________________________________________________
+_____________________________________________________
+Spain's population has grown to just under 47 million, of which 5.7 million are foreigners, mainly from Romania, Morocco, Ecuador and Britain, the national statistics institute INE said Thursday.
+Ecuador	123	130	47 million	44	54	POP
+inverse_true|NUMBER|*LONG*|LOCATION  6335.0
+_____________________________________________________
+_____________________________________________________
+Spain's population has grown to just under 47 million, of which 5.7 million are foreigners, mainly from Romania, Morocco, Ecuador and Britain, the national statistics institute INE said Thursday.
+Britain	135	142	5.7 million	65	76	POP
+inverse_true|NUMBER|*LONG*|LOCATION  6335.0
+_____________________________________________________
+_____________________________________________________
+There is growing worry that the below-normal rains could jeopardise India's nascent economic recovery by hitting consumer demand in rural areas, where 70 percent of the nearly 1.2 billion population live.
+India	69	74	1.2 billion	177	188	POP
+inverse_false|LOCATION|*LONG*|NUMBER  62835.0
+key: percent  3670.0
+key: population  -16173.0
+key: recovery  0.0
+_____________________________________________________
+_____________________________________________________
+There are 124 million credit cards in Brazil, which has a population of 190 million, Febraban said.
+Brazil	39	45	124 million	11	22	POP
+dir:->|LOCATION|->-><-<-|NUMBER  35333.0
+dir:LOCATION|->-><-<-|NUMBER|->  0.0
+_____________________________________________________
+_____________________________________________________
+he telecommunications sector has emerged as a key driver of the economy in Bangladesh, one of the world's poorest countries, with nearly 40 percent of its 144 million population surviving on less than a dollar day.
+Bangladesh	76	86	144 million	156	167	POP
+inverse_false|LOCATION|*LONG*|NUMBER  62835.0
+key: percent  3670.0
+key: population  -16173.0
+_____________________________________________________
+_____________________________________________________
+Rising food and electricity costs pushed up Kenya's annual inflation in August to 18.4 percent from 17.8 percent in the previous month, the country's statistics bureau said on Tuesday.
+Kenya	45	50	18.4 percent	83	95	INTERNET
+dir:->|LOCATION|->-><-<-|PERCENT  -18290.0
+dir:LOCATION|->-><-<-|PERCENT|->  26208.0
+inverse_false|LOCATION|'s annual inflation in August to|PERCENT  -103763.0
+key: inflation  546397.0
+_____________________________________________________
+_____________________________________________________
+Rising food and electricity costs pushed up Kenya's annual inflation in August to 18.4 percent from 17.8 percent in the previous month, the country's statistics bureau said on Tuesday.
+Kenya	45	50	17.8 percent	101	113	INTERNET
+dir:->|LOCATION|->-><-<-|PERCENT  -18290.0
+dir:LOCATION|->-><-<-|PERCENT|->  26208.0
+inverse_false|LOCATION|'s annual inflation in August to 18.4 percent from|PERCENT  -103763.0
+key: inflation  546397.0
+_____________________________________________________
+_____________________________________________________
+Indian wholesale inflation continued to slow to 8.51 percent in August from 9.78 percent in July on cheaper manufactured products, fuels and non-food articles, said a release by the Ministry Commerce and Industry Tuesday.
+indian	1	7	8.51 percent	49	61	INTERNET
+inverse_false|MISC|wholesale inflation continue to slow to|PERCENT  487248.0
+key: inflation  546397.0
+_____________________________________________________
+_____________________________________________________
+Indian wholesale inflation continued to slow to 8.51 percent in August from 9.78 percent in July on cheaper manufactured products, fuels and non-food articles, said a release by the Ministry Commerce and Industry Tuesday.
+indian	1	7	9.78 percent	77	89	INTERNET
+inverse_false|MISC|*LONG*|PERCENT  487248.0
+key: inflation  546397.0
+_____________________________________________________
+_____________________________________________________
+Indian wholesale inflation continued to slow to 8.51 percent in August from 9.78 percent in July on cheaper manufactured products, fuels and non-food articles, said a release by the Ministry Commerce and Industry Tuesday.
+Ministry Commerce	183	200	8.51 percent	49	61	INTERNET
+inverse_true|PERCENT|*LONG*|ORGANIZATION  119787.0
+_____________________________________________________
+_____________________________________________________
+Indian wholesale inflation continued to slow to 8.51 percent in August from 9.78 percent in July on cheaper manufactured products, fuels and non-food articles, said a release by the Ministry Commerce and Industry Tuesday.
+Ministry Commerce	183	200	9.78 percent	77	89	INTERNET
+inverse_true|PERCENT|*LONG*|ORGANIZATION  119787.0
+_____________________________________________________
+_____________________________________________________
+According to Bruckbauer's estimate, Austria's inflation for this year and next will remain at the low rates of 1.8 percent and 2 percent, respectively.
+Bruckbauer	14	24	2 percent	128	137	INTERNET
+inverse_false|PERSON|*LONG*|PERCENT  0.0
+key: percent  114960.0
+_____________________________________________________
+_____________________________________________________
+According to Bruckbauer's estimate, Austria's inflation for this year and next will remain at the low rates of 1.8 percent and 2 percent, respectively.
+Austria	37	44	1.8 percent	112	123	INTERNET
+dir:->|LOCATION|->-><-<-<-<-|PERCENT  -34309.0
+dir:LOCATION|->-><-<-<-<-|PERCENT|->  0.0
+inverse_false|LOCATION|*LONG*|PERCENT  -128411.0
+key: inflation  546397.0
+_____________________________________________________
+_____________________________________________________
+According to Bruckbauer's estimate, Austria's inflation for this year and next will remain at the low rates of 1.8 percent and 2 percent, respectively.
+Austria	37	44	2 percent	128	137	INTERNET
+dep:[possessive]->|LOCATION|[poss]->[nsubj]->[root]<-[prep]<-[pobj]<-[prep]<-[pobj]<-|PERCENT  -26642.0
+dir:->|LOCATION|->-><-<-<-<-<-|PERCENT  202378.0
+inverse_false|LOCATION|*LONG*|PERCENT  -128411.0
+key: inflation  546397.0
+key: percent  114960.0
+str:'s[possessive]->|LOCATION|[poss]->inflation[nsubj]->remain[root]<-at[prep]<-rate[pobj]<-of[prep]<-percent[pobj]<-|PERCENT  -14077.0
+str:LOCATION|[poss]->inflation[nsubj]->remain[root]<-at[prep]<-rate[pobj]<-of[prep]<-percent[pobj]<-|PERCENT  -14077.0
+_____________________________________________________
+_____________________________________________________
+According to the BBS statistics, Nahar said Bangladesh's annual average food inflation was recorded at 7.18 percent in the last fiscal year 2008-09, compared with 12.28 percent in the previous 2007-08 fiscal year.
+Bangladesh	45	55	7.18 percent	104	116	INTERNET
+dir:->|LOCATION|->-><-<-|PERCENT  -18290.0
+dir:LOCATION|->-><-<-|PERCENT|->  26208.0
+inverse_false|LOCATION|'s annual average food inflation be record at|PERCENT  230188.0
+key: inflation  546397.0
+_____________________________________________________
+_____________________________________________________
+According to the BBS statistics, Nahar said Bangladesh's annual average food inflation was recorded at 7.18 percent in the last fiscal year 2008-09, compared with 12.28 percent in the previous 2007-08 fiscal year.
+Bangladesh	45	55	12.28 percent	164	177	INTERNET
+dir:->|LOCATION|->-><-<-<-|PERCENT  7172.0
+inverse_false|LOCATION|*LONG*|PERCENT  -128411.0
+key: inflation  546397.0
+_____________________________________________________
+_____________________________________________________
+According to the bank, Brazil's inflation will return to the target of 4.5 percent set by the government in 2012.
+Brazil	24	30	4.5 percent	72	83	INTERNET
+dir:->|LOCATION|->-><-<-<-<-|PERCENT  -34309.0
+dir:LOCATION|->-><-<-<-<-|PERCENT|->  0.0
+inverse_false|LOCATION|'s inflation will return to the target of|PERCENT  -12565.0
+key: inflation  546397.0
+key: target  -38826.0
+_____________________________________________________
+_____________________________________________________
+The biggest domestic economic issue for India is inflation, which hit double figures earlier this year but dropped to 8.51 percent year-on-year in August.
+India	41	46	8.51 percent	119	131	INTERNET
+inverse_false|LOCATION|*LONG*|PERCENT  -128411.0
+key: inflation  546397.0
+key: issue  208174.0
+_____________________________________________________
+_____________________________________________________
+Annual average inflation -- a different measure that is crucial for countries like Lithuania aiming to adopt the euro -- fell to 7.9 percent in July from 8.7 percent in June and 9.4 percent in May.
+Lithuania	84	93	7.9 percent	130	141	INTERNET
+inverse_false|LOCATION|aim to adopt the euro -- fall to|PERCENT  -139838.0
+key: inflation  546397.0
+key: measure  -127259.0
+_____________________________________________________
+_____________________________________________________
+Annual average inflation -- a different measure that is crucial for countries like Lithuania aiming to adopt the euro -- fell to 7.9 percent in July from 8.7 percent in June and 9.4 percent in May.
+Lithuania	84	93	8.7 percent	155	166	INTERNET
+inverse_false|LOCATION|*LONG*|PERCENT  -128411.0
+key: inflation  546397.0
+key: measure  -127259.0
+_____________________________________________________
+_____________________________________________________
+Annual average inflation -- a different measure that is crucial for countries like Lithuania aiming to adopt the euro -- fell to 7.9 percent in July from 8.7 percent in June and 9.4 percent in May.
+Lithuania	84	93	9.4 percent	179	190	INTERNET
+inverse_false|LOCATION|*LONG*|PERCENT  -128411.0
+key: inflation  546397.0
+key: measure  -127259.0
+key: percent  114960.0
+str:LOCATION|[pobj]->like[prep]->country[pobj]->for[prep]->crucial[rcmod]->measure[dep]->inflation[nsubj]->fall[root]<-from[prep]<-percent[pobj]<-|PERCENT  -95774.0
+_____________________________________________________
+_____________________________________________________
+Annual inflation in Azerbaijan remained in single digits up to 2008 when it suddenly spiked to 16.70 percent followed 2009's 20.80 percent record high in a decade.
+Azerbaijan	21	31	16.70 percent	96	109	INTERNET
+dir:LOCATION|->->-><-<-<-|PERCENT|->  25786.0
+inverse_false|LOCATION|*LONG*|PERCENT  -128411.0
+key: inflation  546397.0
+_____________________________________________________
+_____________________________________________________
+Annual inflation in Azerbaijan remained in single digits up to 2008 when it suddenly spiked to 16.70 percent followed 2009's 20.80 percent record high in a decade.
+Azerbaijan	21	31	20.80 percent	126	139	POP
+inverse_false|LOCATION|*LONG*|PERCENT  0.0
+key: inflation  0.0
+key: percent  3670.0
+_____________________________________________________
+_____________________________________________________
+Annual inflation in recession-hit Britain had surged to 2.9 percent in December, partly due to higher crude costs and changes in taxation levels, official data showed last month.
+Britain	35	42	2.9 percent	57	68	INTERNET
+inverse_false|LOCATION|have surge to|PERCENT  -7170.0
+key: inflation  546397.0
+_____________________________________________________
+_____________________________________________________
+Another indicator of private consumption, namely sales of passenger cars, rose by 15.1 percent year-on-year in May 2010, said the MIER, adding that the inflation in Malaysia was expected to be at 2.2 percent for the year 2010.
+Malaysia	166	174	15.1 percent	83	95	INTERNET
+inverse_true|PERCENT|*LONG*|LOCATION  -169176.0
+inverse_true|by|PERCENT|*LONG*|LOCATION|be  -161369.0
+inverse_true|rise by|PERCENT|*LONG*|LOCATION|be expect  -161369.0
+key: inflation  546397.0
+_____________________________________________________
+_____________________________________________________
+Another indicator of private consumption, namely sales of passenger cars, rose by 15.1 percent year-on-year in May 2010, said the MIER, adding that the inflation in Malaysia was expected to be at 2.2 percent for the year 2010.
+Malaysia	166	174	2.2 percent	197	208	INTERNET
+inverse_false|LOCATION|be expect to be at|PERCENT  -161009.0
+key: inflation  546397.0
+_____________________________________________________

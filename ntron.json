@@ -1,11 +1,11 @@
 {
   "corpusPath" :
-"jdbc:derby:/mnt/a99/d0/aman/MultirExperiments/data/numbers_corpus",
+"jdbc:derby:/mnt/a99/d0/aman/MultirExperiments/data/gold_set",
   "train" : "true",
   "testDocumentsFile" :
 "data/emptyFile",
   "fg" :
-"edu.washington.multirframework.featuregeneration.DefaultFeatureGenerator",
+"main.java.iitb.neo.pretrain.featuregeneration.NumbertronFeatureGenerator",
   "ai" :
 "edu.washington.multirframework.argumentidentification.NERArgumentIdentification",
   "rm" :
@@ -21,13 +21,13 @@
 "edu.washington.multirframework.argumentidentification.DefaultSententialInstanceGeneration"
 ],
   "dsFiles" : [
-"data/full_instances_20perc.tsv"
+"data/gold_set_20perc_key_feat_instances.tsv"
 ],
   "featureFiles" : [
-"data/full_features_20perc.tsv"
+"data/gold_set_20perc_key_feat_features.tsv"
 ],
   "models" : [
-"data/full-extractor-20perc" ],
+"data/gold_set-20perc-key_feat" ],
   "cis" :
 "edu.washington.multirframework.corpus.DefaultCorpusInformationSpecification",
   "si" : [

@@ -5,7 +5,7 @@
   "testDocumentsFile" :
 "data/emptyFile",
   "fg" :
-  "main.java.iitb.neo.pretrain.featuregeneration",
+  "main.java.iitb.neo.pretrain.featuregeneration.NumbertronFeatureGenerator",
   "ai" :
 "edu.washington.multirframework.argumentidentification.NERAndNumberArgumentIdentification",
   "targetRelFile" : "/mnt/a99/d0/aman/MultirExperiments/data/numericalkb/target_relations.tsv",
@@ -14,7 +14,7 @@
 "edu.washington.multirframework.argumentidentification.DefaultSententialInstanceGeneration"
 ],
   "models" : [
-"/mnt/a99/d0/aman/numbertron/data/full-extractor" ],
+"/mnt/a99/d0/ashishm/workspace/numbertron/data/gold_set-20perc-key_feat" ],
   "cis" :
 "edu.washington.multirframework.corpus.DefaultCorpusInformationSpecification",
   "ti" : [ "edu.washington.multirframework.corpus.TokenChunkInformation" ],
