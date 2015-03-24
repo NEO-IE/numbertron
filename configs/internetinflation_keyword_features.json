@@ -1,0 +1,40 @@
+{
+  "corpusPath" :
+"jdbc:derby:/mnt/a99/d0/aman/MultirExperiments/data/internetinflationderby",
+  "train" : "true",
+  "testDocumentsFile" :
+"data/emptyFile",
+  "fg" :
+"main.java.iitb.neo.pretrain.featuregeneration.NumbertronFeatureGenerator",
+  "ai" :
+"edu.washington.multirframework.argumentidentification.NERArgumentIdentification",
+  "rm" :
+"edu.washington.multirframework.argumentidentification.NERRelationMatching",
+  "nec" :
+"edu.washington.multirframework.distantsupervision.NegativeExampleCollectionByRatio",
+  "necRatio" : "0.25",	
+  "kbRelFile" : "/mnt/a99/d0/aman/MultirExperiments/data/numericalkb/kb-facts-train.tsv.gz",
+  "kbEntityFile" : "/mnt/a99/d0/aman/MultirExperiments/data/numericalkb/entity-names-train.tsv.gz",
+  "targetRelFile" : "/mnt/a99/d0/aman/MultirExperiments/data/numericalkb/target_relations.tsv",
+  "typeRelMap" : null,
+  "sigs" : [
+"edu.washington.multirframework.argumentidentification.DefaultSententialInstanceGeneration"
+],
+  "dsFiles" : [
+"data/internetinflation_20perc_instances.tsv"
+],
+  "featureFiles" : [
+"data/internetinflation_20perc_features.tsv"
+],
+  "models" : [
+"data/internetinflation-20perc" ],
+  "cis" :
+"edu.washington.multirframework.corpus.DefaultCorpusInformationSpecification",
+  "si" : [
+"edu.washington.multirframework.corpus.SentNamedEntityLinkingInformation",
+"edu.washington.multirframework.corpus.SentFreebaseNotableTypeInformation"
+],
+  "ti" : [ "edu.washington.multirframework.corpus.TokenChunkInformation" ],
+  "di" : [ ],
+  "useFiger" : "false"
+}
