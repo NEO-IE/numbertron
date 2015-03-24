@@ -126,7 +126,7 @@ public class PerSpotFeatureGeneration {
 
 	private List<SententialArgumentPair> getSaps(List<String> dsFileNames,
 			List<String> featureFileNames) throws FileNotFoundException, IOException {
-    	List<SententialArgumentPair> saps = new ArrayList<>();
+    	List<SententialArgumentPair> saps = new ArrayList<>(); 
     	
     	for(int i =0; i < dsFileNames.size(); i++){
     		

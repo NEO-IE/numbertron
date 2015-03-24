@@ -1,5 +1,6 @@
 package main.java.iitb.neo.training.algorithm.lpercp;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -65,6 +66,9 @@ public class LocalAveragedPerceptron {
 		for (int i = 0; i < maxIterations; i++){
 			System.out.println("Iteration: " + i);
 			trainingIteration(i, trainingData);
+			String base = "data/internetinflation-20perc";
+			this.iterParameters.serialize(base + File.separatorChar + "params");
+			NtronExperiment.writeFeatureWeights(base + File.separatorChar + "mapping", base + File.separatorChar + "params", base + File.separatorChar + "model", "wt_" + i);
 		}
 		if (computeAvgParameters)
 			finalizeRel();
@@ -172,15 +176,15 @@ public class LocalAveragedPerceptron {
 		return true;
 	}
 
-	private void updateRel(int toState, SparseBinaryVector features,
+	private void updateRel(int relNumber, SparseBinaryVector features,
 			double delta, boolean useIterAverage) {
-		iterParameters.relParameters[toState].addSparse(features, delta);
+		iterParameters.relParameters[relNumber].addSparse(features, delta);
 		// useIterAverage = false;
 		if (useIterAverage) {
-			DenseVector lastUpdatesIter = (DenseVector) avgParamsLastUpdatesIter.relParameters[toState];
-			DenseVector lastUpdates = (DenseVector) avgParamsLastUpdates.relParameters[toState];
-			DenseVector avg = (DenseVector) avgParameters.relParameters[toState];
-			DenseVector iter = (DenseVector) iterParameters.relParameters[toState];
+			DenseVector lastUpdatesIter = (DenseVector) avgParamsLastUpdatesIter.relParameters[relNumber];
+			DenseVector lastUpdates = (DenseVector) avgParamsLastUpdates.relParameters[relNumber];
+			DenseVector avg = (DenseVector) avgParameters.relParameters[relNumber];
+			DenseVector iter = (DenseVector) iterParameters.relParameters[relNumber];
 			for (int j = 0; j < features.num; j++) {
 				int id = features.ids[j];
 				if (lastUpdates.vals[id] != 0)

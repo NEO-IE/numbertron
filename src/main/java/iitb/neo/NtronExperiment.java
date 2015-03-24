@@ -352,10 +352,12 @@ public class NtronExperiment {
 			//skip relation names
 			relNumNameMapping.put(i, featureReader.readLine());
 		}
+		int numFeatures = Integer.parseInt(featureReader.readLine());
 		String ftr = null;
 		HashMap<Integer, String> featureList = new HashMap<Integer, String>();
 		int fno = 0;
-		while((ftr = featureReader.readLine()) != null) {
+		while(fno < numFeatures) {
+			ftr = featureReader.readLine();
 			featureList.put(fno, ftr);
 			fno++;
 		}
@@ -363,12 +365,11 @@ public class NtronExperiment {
 		p.model  = new Model();
 		p.model.read(modelFile);
 		p.deserialize(parametersFile);
-		int numfeatures = fno - 1;
 		for(int r = 0; r < p.model.numRelations; r++) {
 			String relName = relNumNameMapping.get(r);
 			DenseVector dv = p.relParameters[r];
 			System.out.println(dv.vals.length);
-			for(int i = 0; i < numfeatures; i++) {
+			for(int i = 0; i < numFeatures; i++) {
 				bw.write(relName + "\t" + featureList.get(i) + "\t" + dv.vals[i] + "\n");
 			}
 		}
