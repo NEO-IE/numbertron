@@ -146,6 +146,13 @@ public class NumbertronFeatureGenerator implements FeatureGenerator {
 
 		List<String> features = new ArrayList<String>();
 
+		//Adding NN as keywords for sentences.
+		for(int i = 0; i < postags.length; i++){
+			if(postags[i].equals("NN")){
+				features.add("key: "+tokens[i]);
+			}
+		}
+		
 		// it's easier to deal with first, second
 		int[] first = arg1Pos, second = arg2Pos;
 		String firstNer = arg1ner, secondNer = arg2ner;
@@ -274,7 +281,7 @@ public class NumbertronFeatureGenerator implements FeatureGenerator {
 		StringBuilder middleRels = new StringBuilder();
 		StringBuilder middleStrs = new StringBuilder();
 
-		ArrayList<String> keywords = new ArrayList<String>();
+		//ArrayList<String> keywords = new ArrayList<String>();
 		
 		if (lcaUp + lcaDown < 12) {
 			
@@ -287,9 +294,10 @@ public class NumbertronFeatureGenerator implements FeatureGenerator {
 				 * adding keywords as features.
 				 * Intuition: NN phrases in dependency path form good keywords.
 				 */
-				if(i > 0 && postags[path1[i]].equals("NN")){
+			/*	if(i > 0 && postags[path1[i]].equals("NN")){
 					keywords.add(tokens[path1[i]]);
-				}	
+				}
+			*/		
 			}
 			for (int j=0; j < lcaDown; j++) {
 			//for (int j=lcaDown-1; j >= 0; j--) {
@@ -299,15 +307,15 @@ public class NumbertronFeatureGenerator implements FeatureGenerator {
 				//System.out.println("[" + depTypes[path2[j]] + "]<-");
 				/*
 				 * adding keywords as features
-				 */
 				if(lcaUp + j > 0 && postags[path2[lcaDown-j]].equals("NN")){
 					keywords.add(tokens[path2[lcaDown-j]]);
 				}
+				*/
 			}
 			
-			for(String keyword: keywords){
+			/*for(String keyword: keywords){
 				features.add("key: "+keyword);
-			}
+			}*/
 			
 			for (int i=0; i < dirs.length; i++) {
 				middleDirs.append(dirs[i]);
