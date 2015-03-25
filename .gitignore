@@ -12,6 +12,7 @@ local.properties
 .settings/
 .loadpath
 derby.log
+*.json
 # Eclipse Core
 .project
 graph
