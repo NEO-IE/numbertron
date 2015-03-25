@@ -14,10 +14,14 @@
 "edu.washington.multirframework.argumentidentification.DefaultSententialInstanceGeneration"
 ],
   "models" : [
-"/mnt/a99/d0/ashishm/workspace/numbertron/data/gold_set-20perc-key_feat" ],
+"/mnt/a99/d0/aman/numbertron/data/full_20perc_keywordfeatures" ],
   "cis" :
 "edu.washington.multirframework.corpus.DefaultCorpusInformationSpecification",
   "ti" : [ "edu.washington.multirframework.corpus.TokenChunkInformation" ],
   "di" : [ ],
-  "useFiger" : "false"
+  "useFiger" : "false",
+  "resultsFile" : "fullcorpus_20perc_cutoff_minus_0.5_keywordfeatures_extractions.tsv",
+  "verboseExtractionFile" : "fullcorpus_20perc_cutoff_minus_0.5_keywordfeatures_verbose_extractions",
+  "cutoff_score" : "-0.5",
+  "cutoff_confidence" : "1"
 }

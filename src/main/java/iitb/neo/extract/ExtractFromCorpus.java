@@ -58,15 +58,18 @@ public class ExtractFromCorpus {
 	private UnitExtractor ue;
 	private Set<String> relations;
 	private static final Pattern yearPat = Pattern.compile("^19[56789]\\d|20[01]\\d$");
-	private static String resultsFile;
-	private static final double CUTOFF_SCORE = 0.0;
-	private static final double CUTOFF_CONF = 0.7;
+	private String resultsFile;
+	private String verboseExtractionsFile;
+	private double cutoff_confidence;
+	private double cutoff_score;
 
 	public ExtractFromCorpus(String propertiesFile) throws Exception {
 		String jsonProperties = IOUtils.toString(new FileInputStream(new File(propertiesFile)));
 		Map<String, Object> properties = JsonReader.jsonToMaps(jsonProperties);
 		corpusPath = getStringProperty(properties, "corpusPath");
-
+		cutoff_confidence = Double.parseDouble(getStringProperty(properties, "cutoff_confidence"));
+		cutoff_score = Double.parseDouble(getStringProperty(properties, "cutoff_score"));
+		
 		String featureGeneratorClass = getStringProperty(properties, "fg");
 		if (featureGeneratorClass != null) {
 			fg = (FeatureGenerator) ClassLoader.getSystemClassLoader().loadClass(featureGeneratorClass).newInstance();
@@ -98,6 +101,7 @@ public class ExtractFromCorpus {
 		ue = new UnitExtractor();
 		relations = RelationMetadata.getRelations();
 		resultsFile = getStringProperty(properties, "resultsFile");
+		verboseExtractionsFile = getStringProperty(properties, "verboseExtractionFile");
 	}
 
 	public static void main(String[] args) throws Exception {
@@ -105,7 +109,7 @@ public class ExtractFromCorpus {
 		ExtractFromCorpus efc = new ExtractFromCorpus(args[0]);
 		Corpus c = new Corpus(efc.corpusPath, efc.cis, true);
 		c.setCorpusToDefault();
-		BufferedWriter bw = new BufferedWriter(new FileWriter(new File(resultsFile)));
+		BufferedWriter bw = new BufferedWriter(new FileWriter(new File(efc.resultsFile)));
 
 		List<Extraction> extrs = efc.getExtractions(c, efc.ai, efc.fg, efc.sigs, efc.multirDirs, bw);
 		System.out.println("Total extractions : " + extrs.size());
@@ -175,8 +179,8 @@ public class ExtractFromCorpus {
 		boolean ANALYZE = true;
 		BufferedWriter analysis_writer = null;
 		if (ANALYZE) {
-			String outFile = "analyze";
-			analysis_writer = new BufferedWriter(new FileWriter(outFile));
+			
+			analysis_writer = new BufferedWriter(new FileWriter(verboseExtractionsFile));
 		}
 
 		List<Extraction> extrs = new ArrayList<Extraction>();
@@ -238,7 +242,7 @@ public class ExtractFromCorpus {
 						}
 						double conf = (extrScore - min) / (max - min);
 
-						if (extrScore <= CUTOFF_SCORE) { // no compatible
+						if (extrScore <= cutoff_score) { // no compatible
 															// extraction ||
 							continue;
 						}
