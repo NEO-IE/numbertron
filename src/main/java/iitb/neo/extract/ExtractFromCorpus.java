@@ -58,7 +58,7 @@ public class ExtractFromCorpus {
 	private UnitExtractor ue;
 	private Set<String> relations;
 	private static final Pattern yearPat = Pattern.compile("^19[56789]\\d|20[01]\\d$");
-
+	private static String resultsFile;
 	private static final double CUTOFF_SCORE = 0.0;
 	private static final double CUTOFF_CONF = 0.7;
 
@@ -97,6 +97,7 @@ public class ExtractFromCorpus {
 		}
 		ue = new UnitExtractor();
 		relations = RelationMetadata.getRelations();
+		resultsFile = getStringProperty(properties, "resultsFile");
 	}
 
 	public static void main(String[] args) throws Exception {
@@ -104,7 +105,7 @@ public class ExtractFromCorpus {
 		ExtractFromCorpus efc = new ExtractFromCorpus(args[0]);
 		Corpus c = new Corpus(efc.corpusPath, efc.cis, true);
 		c.setCorpusToDefault();
-		BufferedWriter bw = new BufferedWriter(new FileWriter(new File("cutoff_0")));
+		BufferedWriter bw = new BufferedWriter(new FileWriter(new File(resultsFile)));
 
 		List<Extraction> extrs = efc.getExtractions(c, efc.ai, efc.fg, efc.sigs, efc.multirDirs, bw);
 		System.out.println("Total extractions : " + extrs.size());
