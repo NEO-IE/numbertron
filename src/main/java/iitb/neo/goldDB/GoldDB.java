@@ -15,11 +15,12 @@ public class GoldDB {
 	 */
 	
 	private static String goldDBloc = "data/kb-facts-train.tsv";
-	private static HashMap<Pair<String,String>,ArrayList<Double>> goldDB;
+	//Map from country, relation to the list of values
+	private static HashMap<Pair<String, String>, ArrayList<Double>> goldDB;
 	
 	
 	static{
-		goldDB = new HashMap<Pair<String,String>,ArrayList<Double>>();
+		goldDB = new HashMap<Pair<String, String>, ArrayList<Double>>();
 		
 		File goldDBFile = new File(goldDBloc);
 		BufferedReader br = null;
@@ -31,7 +32,7 @@ public class GoldDB {
 	        	if(parts.length == 3){
 	        		String rel = RelationMetadata.getShortenedRelation(parts[2]);
 	        		Double value = Double.parseDouble(parts[1]);
-	        		Pair<String,String> entityRel = new Pair<String,String>(parts[0],rel);
+	        		Pair<String,String> entityRel = new Pair<String, String>(parts[0], rel);
 	        		if(goldDB.containsKey(entityRel)){
 	        			goldDB.get(entityRel).add(0, value); //insert at front, so that latest values are in front.
 	        		}else{

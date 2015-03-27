@@ -16,6 +16,7 @@ derby.log
 *.json
 # Eclipse Core
 .project
+analyze*
 graph
 nonzfeatures
 wt*
