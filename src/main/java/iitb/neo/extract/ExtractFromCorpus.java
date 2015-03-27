@@ -246,6 +246,7 @@ public class ExtractFromCorpus {
 															// extraction ||
 							continue;
 						}
+						System.out.println(extrScore);
 						// System.out.println(extrResult);
 						// prepare extraction
 						if(ANALYZE && null != relStr) {
