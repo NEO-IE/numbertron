@@ -32,8 +32,16 @@ import edu.washington.multirframework.util.BufferedIOUtils;
 public class PerSpotFeatureGeneration {
 	
 	private FeatureGenerator fg;
+	private NumberFeatures nfg;
+	private boolean enableNumFeatures = true;
+	/*
+	 * @todo : Get this from json.
+	 */
+	private String numFeatureFile = "data/numFeatureFile";
+	
 	public PerSpotFeatureGeneration(FeatureGenerator fg){
 		this.fg = fg;
+		this.nfg = new NumberFeatures();
 	}
 	
 	public void run(List<String> dsFileNames, List<String> featureFileNames, Corpus c, CorpusInformationSpecification cis) throws FileNotFoundException, IOException, SQLException, InterruptedException, ExecutionException{
@@ -74,6 +82,7 @@ public class PerSpotFeatureGeneration {
     		writerMap.put(dsFileName, bw);
     	}
     	
+    	BufferedWriter nw = new BufferedWriter(new FileWriter(new File(numFeatureFile)));
     	//iterate over corpus
     	Iterator<Annotation> di = c.getDocumentIterator();
     	int docCount =0;
@@ -89,8 +98,10 @@ public class PerSpotFeatureGeneration {
     				//System.out.println(sentence);
     				List<SententialArgumentPair> sentenceSaps = sapMap.get(currSentID);
     				writeFeatures(sentenceSaps,doc,sentence,writerMap);
+    				
+    				writeNumericFeatures(sentenceSaps, doc, sentence, nw);
     			}
-    		}
+    		}	
     		docCount++;
     		if(docCount % 100000 == 0){
     			end = System.currentTimeMillis();
@@ -105,10 +116,25 @@ public class PerSpotFeatureGeneration {
     		BufferedWriter bw = writerMap.get(key);
     		bw.close();
     	}
+    	nw.close();
 		
     	end = System.currentTimeMillis();
     	System.out.println("Feature Generation took " + (end-originalStart) + " millisseconds");
     	
+	}
+
+	private void writeNumericFeatures(
+			List<SententialArgumentPair> sentenceSaps, Annotation doc,
+			CoreMap sentence, BufferedWriter nw) throws IOException {
+		// TODO Auto-generated method stub
+		for(SententialArgumentPair sap : sentenceSaps){
+
+			List<String> features = nfg.generateFeatures(sap.arg1Offsets.first,sap.arg1Offsets.second
+					,sap.arg2Offsets.first,sap.arg2Offsets.second,sap.arg1ID,sap.arg2ID,sentence,doc);
+			nw.write(makeFeatureString(sap,features)+"\n");
+		}
+
+		
 	}
 
 	private void writeFeatures(List<SententialArgumentPair> currentSaps,

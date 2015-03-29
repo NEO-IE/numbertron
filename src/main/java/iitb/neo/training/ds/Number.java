@@ -34,7 +34,7 @@ public class Number {
 		
 	}
 	
-	public Double getDoubleValue(String num){
+	public static Double getDoubleValue(String num){
 		java.lang.Number number = null;
 		for (Locale l : Locale.getAvailableLocales()) {
 			NumberFormat format = NumberFormat.getInstance(l);
