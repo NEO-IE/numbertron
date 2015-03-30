@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
+import main.java.iitb.neo.pretrain.featuregeneration.NumFeatureGenerator;
 import main.java.iitb.neo.pretrain.featuregeneration.PerSpotFeatureGeneration;
 import main.java.iitb.neo.pretrain.process.MakeGraph;
 import main.java.iitb.neo.pretrain.spotting.Spotting;
@@ -54,7 +55,7 @@ public class NtronExperiment {
 	private String corpusPath;
 	private String typeRelMapPath;
 	private ArgumentIdentification ai;
-	private FeatureGenerator fg;
+	private NumFeatureGenerator fg;
 	private List<SententialInstanceGeneration> sigs;
 	private List<String> DSFiles;
 	private List<String> oldFeatureFiles;
@@ -69,11 +70,14 @@ public class NtronExperiment {
 	private String evalOutputName;
 	private boolean train = false;
 	private boolean useFiger = false;
+	private boolean useNumberFeatures = false;
+	private boolean useKeywordFeatures = false;
 
 	private Integer featureThreshold = 2;
 	private boolean strictNegativeGeneration = false;
 	private RuleBasedDriver rbased;
 	private Map<String, String> countryFreebaseIdMap;
+	
 
 	public NtronExperiment() {
 	}
@@ -144,9 +148,25 @@ public class NtronExperiment {
 				this.useFiger = true;
 			}
 		}
+		
+		String useNumberFeature = getStringProperty(properties, "useNumberFeatures");
+		if(useNumberFeature != null){
+			if(useNumberFeature.equals("true")){
+				this.useNumberFeatures = true;
+			}
+		}
+		
+		String useKeywordFeature = getStringProperty(properties, "useKeywordFeatures");
+		if(useKeywordFeature != null){
+			if(useKeywordFeature.equals("true")){
+				this.useKeywordFeatures = true;
+			}
+		}
+		
 		String featureGeneratorClass = getStringProperty(properties, "fg");
 		if (featureGeneratorClass != null) {
-			fg = (FeatureGenerator) ClassLoader.getSystemClassLoader().loadClass(featureGeneratorClass).newInstance();
+			fg = (NumFeatureGenerator) ClassLoader.getSystemClassLoader().loadClass(featureGeneratorClass).newInstance();
+			fg.useKeywordAsFeature(this.useKeywordFeatures);
 		}
 
 		String aiClass = getStringProperty(properties, "ai");
@@ -292,7 +312,7 @@ public class NtronExperiment {
 		boolean runFG = !filesExist(featureFiles);
 		if (runFG) {
 			System.err.println("Running Feature Generation");
-			PerSpotFeatureGeneration fGeneration = new PerSpotFeatureGeneration(fg);
+			PerSpotFeatureGeneration fGeneration = new PerSpotFeatureGeneration(fg, this.useNumberFeatures, this.useKeywordFeatures);
 			fGeneration.run(DSFiles, featureFiles, c, cis);
 		}
 

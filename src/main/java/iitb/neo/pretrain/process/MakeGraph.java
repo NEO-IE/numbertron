@@ -16,7 +16,7 @@ import java.util.Random;
 
 import main.java.iitb.neo.training.ds.LRGraph;
 import main.java.iitb.neo.training.ds.Number;
-import edu.washington.multir.development.Preprocess;
+import main.java.iitb.neo.pretrain.featuregeneration.Preprocess;
 import edu.washington.multirframework.multiralgorithm.Mappings;
 import edu.washington.multirframework.multiralgorithm.Model;
 import edu.washington.multirframework.multiralgorithm.SparseBinaryVector;
@@ -164,7 +164,11 @@ public class MakeGraph {
 																	// appears
 		while ((line = br.readLine()) != null) {
 
-			String[] values = line.split("\t");
+			String[] parts = line.split("@@");
+			
+			//parts[1] is number features. TODO from here.
+			
+			String[] values = parts[0].split("\t");
 			String location = values[1];
 			String number = values[2];
 			String relString = values[3];
