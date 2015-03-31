@@ -33,7 +33,6 @@ public class PerSpotFeatureGeneration {
 	
 	private NumFeatureGenerator fg;
 	private NumberFeatures nfg;
-	private boolean useNumFeatures = false;
 	private boolean useKeywordFeatures = false;
 	/*
 	 * @todo : Get this from json.
@@ -44,11 +43,8 @@ public class PerSpotFeatureGeneration {
 		this.nfg = new NumberFeatures();
 	}
 	
-	public PerSpotFeatureGeneration(NumFeatureGenerator fg,
-			boolean useNumberFeatures, boolean useKeywordFeatures) {
-		this(fg);
+	public void setUseKeywordFeatures(boolean useKeywordFeatures){
 		this.useKeywordFeatures = useKeywordFeatures;
-		this.useNumFeatures = useNumberFeatures;
 	}
 
 	public void run(List<String> dsFileNames, List<String> featureFileNames, Corpus c, CorpusInformationSpecification cis) throws FileNotFoundException, IOException, SQLException, InterruptedException, ExecutionException{
@@ -152,13 +148,12 @@ public class PerSpotFeatureGeneration {
 			bw.write(makeFeatureString(sap,features));
 			
 			//generate numeric features
-			if(this.useNumFeatures){
-				List<String> numFeatures = nfg.generateFeatures(sap.arg1Offsets.first,sap.arg1Offsets.second
+			List<String> numFeatures = nfg.generateFeatures(sap.arg1Offsets.first,sap.arg1Offsets.second
 						,sap.arg2Offsets.first,sap.arg2Offsets.second,sap.arg1ID,sap.arg2ID,sentence,doc);
 				
-				//write numericFeatures.
-				bw.write(makeNumFeatureString(sap, numFeatures));
-			}
+			//write numericFeatures.
+			bw.write(makeNumFeatureString(sap, numFeatures));
+			
 			bw.write("\n");
 		}
 	}

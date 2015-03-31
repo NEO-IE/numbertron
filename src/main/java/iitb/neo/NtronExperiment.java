@@ -70,7 +70,6 @@ public class NtronExperiment {
 	private String evalOutputName;
 	private boolean train = false;
 	private boolean useFiger = false;
-	private boolean useNumberFeatures = false;
 	private boolean useKeywordFeatures = false;
 
 	private Integer featureThreshold = 2;
@@ -146,13 +145,6 @@ public class NtronExperiment {
 		if (useFiger != null) {
 			if (useFiger.equals("true")) {
 				this.useFiger = true;
-			}
-		}
-		
-		String useNumberFeature = getStringProperty(properties, "useNumberFeatures");
-		if(useNumberFeature != null){
-			if(useNumberFeature.equals("true")){
-				this.useNumberFeatures = true;
 			}
 		}
 		
@@ -312,7 +304,8 @@ public class NtronExperiment {
 		boolean runFG = !filesExist(featureFiles);
 		if (runFG) {
 			System.err.println("Running Feature Generation");
-			PerSpotFeatureGeneration fGeneration = new PerSpotFeatureGeneration(fg, this.useNumberFeatures, this.useKeywordFeatures);
+			PerSpotFeatureGeneration fGeneration = new PerSpotFeatureGeneration(fg);
+			fGeneration.setUseKeywordFeatures(useKeywordFeatures);
 			fGeneration.run(DSFiles, featureFiles, c, cis);
 		}
 
