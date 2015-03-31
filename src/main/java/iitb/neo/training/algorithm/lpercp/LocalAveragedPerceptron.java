@@ -15,7 +15,8 @@ import edu.washington.multirframework.multiralgorithm.SparseBinaryVector;
 
 /**
  * Simple percepton-ish algorithm for learning weights. Averaged because the
- * parameters are averaged across the runs
+ * parameters are averaged across the runs Almost a copy paste from
+ * AveragedPerceptron from multirframework
  * 
  * @author aman/ashish
  * 
@@ -23,8 +24,8 @@ import edu.washington.multirframework.multiralgorithm.SparseBinaryVector;
 public class LocalAveragedPerceptron {
 	public int maxIterations = 50;
 	public boolean computeAvgParameters = true;
-	public boolean updateOnTrueY = true;
-	public double delta = 1;
+	private double delta = 1;
+	private double regulaizer = 0.50;
 
 	private Scorer scorer;
 	private Model model;
@@ -46,7 +47,7 @@ public class LocalAveragedPerceptron {
 	private Parameters iterParameters;
 
 	public Parameters train(Dataset trainingData) throws IOException {
-
+		
 		if (computeAvgParameters) {
 			avgParameters = new Parameters();
 			avgParameters.model = model;
@@ -63,12 +64,15 @@ public class LocalAveragedPerceptron {
 		iterParameters.model = model;
 		iterParameters.init();
 
-		for (int i = 0; i < maxIterations; i++){
+		for (int i = 0; i < maxIterations; i++) {
 			System.out.println("Iteration: " + i);
 			trainingIteration(i, trainingData);
-			String base = "data/internetinflation-20perc";
-			this.iterParameters.serialize(base + File.separatorChar + "params");
-			NtronExperiment.writeFeatureWeights(base + File.separatorChar + "mapping", base + File.separatorChar + "params", base + File.separatorChar + "model", "wt_" + i);
+			// String base = "data/internetinflation-20perc";
+			// this.iterParameters.serialize(base + File.separatorChar +
+			// "params");
+			// NtronExperiment.writeFeatureWeights(base + File.separatorChar +
+			// "mapping", base + File.separatorChar + "params", base +
+			// File.separatorChar + "model", "wt_" + i);
 		}
 		if (computeAvgParameters)
 			finalizeRel();
@@ -79,25 +83,23 @@ public class LocalAveragedPerceptron {
 	int avgIteration = 0;
 
 	@SuppressWarnings("unchecked")
-	public void trainingIteration(int iteration,
-			@SuppressWarnings("rawtypes") Dataset trainingData) {
-		System.out.println("iteration " + iteration);
+	public void trainingIteration(int iteration, @SuppressWarnings("rawtypes") Dataset trainingData) {
+		
 
 		LRGraph lrg = new LRGraph();
 
 		trainingData.shuffle(random);
 
 		trainingData.reset();
-
+		int i = 0;
 		while (trainingData.next(lrg)) {
+			System.out.println("training data instance " + i++);
 			if (lrg.features.length == 0) {
 				continue;
 			}
 			// compute most likely label under current parameters
-			Parse predictedParse = FullInference.infer(lrg, scorer,
-					iterParameters);
-			Parse trueParse = ConditionalInference.infer(lrg, scorer,
-					iterParameters);
+			Parse predictedParse = FullInference.infer(lrg, scorer, iterParameters);
+			Parse trueParse = ConditionalInference.infer(lrg, scorer, iterParameters);
 
 			if (!NsAgree(predictedParse, trueParse)) {
 				// if this is the first avgIteration, then we need to initialize
@@ -121,20 +123,18 @@ public class LocalAveragedPerceptron {
 		LRGraph lrg = predictedParse.graph;
 		int numMentions = lrg.numMentions;
 		for (int i = 0; i < numMentions; i++) {
-			SparseBinaryVector v1a = scorer.getMentionRelationFeatures(lrg, i,
-					lrg.relNumber);
+			SparseBinaryVector v1a = scorer.getMentionRelationFeatures(lrg, i, lrg.relNumber);
 
 			if (trueParse.z_states[i] == true) {
 				// increase weight for the incorrect mention
-				
+
 				updateRel(lrg.relNumber, v1a, delta, computeAvgParameters);
-				
 
 			}
 			if (predictedParse.z_states[i] == true) {
 				// decrease weight for the incorrect mention
 				updateRel(lrg.relNumber, v1a, -delta, computeAvgParameters);
-		
+
 			}
 		}
 	}
@@ -165,8 +165,7 @@ public class LocalAveragedPerceptron {
 	private boolean NsAgree(Parse predictedParse, Parse trueParse) {
 		int numN = predictedParse.n_states.length;
 		if (numN != trueParse.n_states.length) {
-			throw new IllegalArgumentException(
-					"Something is not right in LocalAveragedPerceptron");
+			throw new IllegalArgumentException("Something is not right in LocalAveragedPerceptron");
 		}
 		for (int i = 0; i < numN; i++) {
 			if (predictedParse.n_states[i] != trueParse.n_states[i]) {
@@ -176,8 +175,7 @@ public class LocalAveragedPerceptron {
 		return true;
 	}
 
-	private void updateRel(int relNumber, SparseBinaryVector features,
-			double delta, boolean useIterAverage) {
+	private void updateRel(int relNumber, SparseBinaryVector features, double delta, boolean useIterAverage) {
 		iterParameters.relParameters[relNumber].addSparse(features, delta);
 		// useIterAverage = false;
 		if (useIterAverage) {
@@ -188,7 +186,8 @@ public class LocalAveragedPerceptron {
 			for (int j = 0; j < features.num; j++) {
 				int id = features.ids[j];
 				if (lastUpdates.vals[id] != 0)
-					avg.vals[id] += (avgIteration - lastUpdatesIter.vals[id]) * lastUpdates.vals[id];
+					//avg.vals[id] += (avgIteration - lastUpdatesIter.vals[id]) * lastUpdates.vals[id];
+					avg.vals[id] = (1 - regulaizer) * avg.vals[id] + (avgIteration - lastUpdatesIter.vals[id]) * lastUpdates.vals[id];
 
 				lastUpdatesIter.vals[id] = avgIteration;
 				lastUpdates.vals[id] = iter.vals[id];
@@ -203,10 +202,10 @@ public class LocalAveragedPerceptron {
 			DenseVector avg = (DenseVector) avgParameters.relParameters[s];
 			for (int id = 0; id < avg.vals.length; id++) {
 				if (lastUpdates.vals[id] != 0) {
-					avg.vals[id] += (avgIteration - lastUpdatesIter.vals[id])
-							* lastUpdates.vals[id];
-						lastUpdatesIter.vals[id] = avgIteration;
-					}
+					avg.vals[id] = (1 - regulaizer) * avg.vals[id] +  (avgIteration - lastUpdatesIter.vals[id]) * lastUpdates.vals[id];
+
+					lastUpdatesIter.vals[id] = avgIteration;
+				}
 			}
 		}
 	}

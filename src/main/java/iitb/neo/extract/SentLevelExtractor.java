@@ -156,12 +156,25 @@ public class SentLevelExtractor {
 		SparseBinaryVector sv = lrg.features[0];
 		
 		DenseVector p = params.relParameters[mapping.getRelationID(rel, false)];
+		
+		DenseVector featuresForInf = params.relParameters[mapping.getRelationID("INF", false)];
+		
 		Map<Integer, String> ftID2ftMap = ModelUtils.getFeatureIDToFeatureMap(getMapping());
+		
 		for(Integer featureNumber: sv.ids) {
 			if(featureNumber == -1) { 
 				continue;	
 			}
 			bw.write(ftID2ftMap.get(featureNumber) + "  " + p.vals[featureNumber] + "\n");
+		}
+		bw.write("_____________________________________________________\n");
+	
+		bw.write("For inflation: \n");
+		for(Integer featureNumber: sv.ids) {
+			if(featureNumber == -1) { 
+				continue;	
+			}
+			bw.write(ftID2ftMap.get(featureNumber) + "  " + featuresForInf.vals[featureNumber] + "\n");
 		}
 		bw.write("_____________________________________________________\n");
 	

@@ -2,7 +2,11 @@ package main.java.iitb.neo.training.algorithm.lpercp;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -27,8 +31,9 @@ public class FullInference {
 		int numZ = lrg.Z.length;
 		for (int z = 0; z < numZ; z++) {
 			double bestScore = 0.0;
-			
-			//There can be multiple "best" relations. It is okay if we get anyone of them
+
+			// There can be multiple "best" relations. It is okay if we get
+			// anyone of them
 			ArrayList<Integer> bestRels = new ArrayList<Integer>();
 			for (int r = 0; r < params.model.numRelations; r++) {
 				double currScore = scorer.scoreMentionRelation(lrg, z, r);
@@ -36,7 +41,7 @@ public class FullInference {
 					bestRels.clear();
 					bestRels.add(r);
 					bestScore = currScore;
-				} else if(bestScore > 0 && currScore == bestScore) {
+				} else if (bestScore > 0 && currScore == bestScore) {
 					bestRels.add(r);
 				}
 			}
@@ -64,6 +69,22 @@ public class FullInference {
 		return p;
 	}
 
+	public static <K, V extends Comparable<? super V>> Map<K, V> sortByValue(Map<K, V> map) {
+		List<Map.Entry<K, V>> list = new LinkedList<>(map.entrySet());
+		Collections.sort(list, new Comparator<Map.Entry<K, V>>() {
+			@Override
+			public int compare(Map.Entry<K, V> o1, Map.Entry<K, V> o2) {
+				return (o2.getValue()).compareTo(o1.getValue());
+			}
+		});
+
+		Map<K, V> result = new LinkedHashMap<>();
+		for (Map.Entry<K, V> entry : list) {
+			result.put(entry.getKey(), entry.getValue());
+		}
+		return result;
+	}
+
 	/**
 	 * Returns a map with score of all the relations
 	 * 
@@ -78,7 +99,7 @@ public class FullInference {
 		p.graph = lrg;
 		scorer.setParameters(params);
 		p.z_states = new boolean[lrg.Z.length];
-	
+
 		/* iterate over the Z nodes and set them to true whenever applicable */
 		int numZ = lrg.Z.length;
 		assert (numZ == 1);
@@ -86,8 +107,7 @@ public class FullInference {
 		for (int r = 0; r < params.model.numRelations; r++) {
 			relationScoreMap.put(r, scorer.scoreMentionRelation(lrg, 0, r));
 		}
-		Map<Integer, Double> newMap = new TreeMap(Collections.reverseOrder());
-		newMap.putAll(relationScoreMap);
-		return newMap;
+		
+		return sortByValue(relationScoreMap);
 	}
 }

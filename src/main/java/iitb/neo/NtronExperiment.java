@@ -52,29 +52,18 @@ import edu.washington.multirframework.multiralgorithm.Parameters;
 
 public class NtronExperiment {
 	private String corpusPath;
-	private String typeRelMapPath;
-	private ArgumentIdentification ai;
 	private FeatureGenerator fg;
 	private List<SententialInstanceGeneration> sigs;
 	private List<String> DSFiles;
-	private List<String> oldFeatureFiles;
+
 	private List<String> featureFiles;
 	private List<String> ntronModelDirs;
-	private List<String> oldMultirDirs;
-	private RelationMatching rm;
 	private NegativeExampleCollection nec;
-	private KnowledgeBase kb;
-	private String testDocumentsFile;
 	private CorpusInformationSpecification cis;
-	private String evalOutputName;
-	private boolean train = false;
-	private boolean useFiger = false;
-
-	private Integer featureThreshold = 2;
-	private boolean strictNegativeGeneration = false;
 	private RuleBasedDriver rbased;
 	private Map<String, String> countryFreebaseIdMap;
-
+	
+	
 	public NtronExperiment() {
 	}
 
@@ -86,9 +75,7 @@ public class NtronExperiment {
 
 		rbased = new RuleBasedDriver(true);
 		corpusPath = getStringProperty(properties, "corpusPath");
-		evalOutputName = getStringProperty(properties, "evalOutputName");
-		testDocumentsFile = getStringProperty(properties, "testDocumentsFile");
-		String train = getStringProperty(properties, "train");
+		
 
 		/**
 		 * Create the entity name to id map
@@ -117,68 +104,12 @@ public class NtronExperiment {
 		 * end creating the map
 		 */
 
-		double necRatio = 4.0;
-		if (train != null) {
-			if (train.equals("false")) {
-				this.train = false;
-			} else if (train.equals("true")) {
-				this.train = true;
-			}
-		}
-
-		String strictNegativeGenerationString = getStringProperty(properties, "strictNegativeGeneration");
-		if (strictNegativeGenerationString != null) {
-			if (strictNegativeGenerationString.equals("true")) {
-				strictNegativeGeneration = true;
-			}
-		}
-
-		String featThresholdString = getStringProperty(properties, "featureThreshold");
-		if (featThresholdString != null) {
-			this.featureThreshold = Integer.parseInt(featThresholdString);
-		}
-
-		String useFiger = getStringProperty(properties, "useFiger");
-		if (useFiger != null) {
-			if (useFiger.equals("true")) {
-				this.useFiger = true;
-			}
-		}
-		String featureGeneratorClass = getStringProperty(properties, "fg");
+			String featureGeneratorClass = getStringProperty(properties, "fg");
 		if (featureGeneratorClass != null) {
 			fg = (FeatureGenerator) ClassLoader.getSystemClassLoader().loadClass(featureGeneratorClass).newInstance();
 		}
 
-		String aiClass = getStringProperty(properties, "ai");
-		if (aiClass != null) {
-			ai = (ArgumentIdentification) ClassLoader.getSystemClassLoader().loadClass(aiClass)
-					.getMethod("getInstance").invoke(null);
-		}
-
-		String rmClass = getStringProperty(properties, "rm");
-		if (rmClass != null) {
-			rm = (RelationMatching) ClassLoader.getSystemClassLoader().loadClass(rmClass).getMethod("getInstance")
-					.invoke(null);
-		}
-
-		String necRatioString = getStringProperty(properties, "necRatio");
-		if (necRatioString != null) {
-			necRatio = Double.parseDouble(necRatioString);
-		}
-
-		String necClass = getStringProperty(properties, "nec");
-		if (necClass != null) {
-			nec = (NegativeExampleCollection) ClassLoader.getSystemClassLoader().loadClass(necClass)
-					.getMethod("getInstance", double.class).invoke(null, necRatio);
-		}
-
-		String kbRelFile = getStringProperty(properties, "kbRelFile");
-		String kbEntityFile = getStringProperty(properties, "kbEntityFile");
-		String targetRelFile = getStringProperty(properties, "targetRelFile");
-		if (kbRelFile != null && kbEntityFile != null && targetRelFile != null) {
-			kb = new KnowledgeBase(kbRelFile, kbEntityFile, targetRelFile);
-		}
-
+			
 		List<String> sigClasses = getListProperty(properties, "sigs");
 		sigs = new ArrayList<>();
 		for (String sigClass : sigClasses) {
@@ -192,22 +123,11 @@ public class NtronExperiment {
 			DSFiles.add(dsFileName);
 		}
 
-		List<String> oldFeatureFileNames = getListProperty(properties, "oldFeatureFiles");
-		oldFeatureFiles = new ArrayList<>();
-		for (String oldFeatureFileName : oldFeatureFileNames) {
-			oldFeatureFiles.add(oldFeatureFileName);
-		}
-
+		
 		List<String> featureFileNames = getListProperty(properties, "featureFiles");
 		featureFiles = new ArrayList<>();
 		for (String featureFileName : featureFileNames) {
 			featureFiles.add(featureFileName);
-		}
-
-		List<String> oldMultirDirNames = getListProperty(properties, "oldModels");
-		oldMultirDirs = new ArrayList<>();
-		for (String oldMultirDirName : oldMultirDirNames) {
-			oldMultirDirs.add(oldMultirDirName);
 		}
 
 		ntronModelDirs = new ArrayList<>();
@@ -251,7 +171,7 @@ public class NtronExperiment {
 		ccis.addTokenInformation(tokenInfoList);
 		ccis.addSentenceInformation(sentInfoList);
 
-		typeRelMapPath = getStringProperty(properties, "typeRelMap");
+
 
 	}
 
@@ -322,13 +242,14 @@ public class NtronExperiment {
 		bw.close();
 		/**/
 		LperceptTrain.train(modelFile.getAbsoluteFile().toString(),new Random(1));
-		writeFeatureWeights(ntronModelDirs.get(0) + File.separatorChar + "mapping", ntronModelDirs.get(0) + File.separatorChar + "params", ntronModelDirs.get(0) + File.separatorChar + "model", "wt");
+		
 	}
 
 	public static void main(String args[]) throws Exception {
 		System.out.println("sg");
 		NtronExperiment irb = new NtronExperiment(args[0]);
 		irb.run();
+		writeFeatureWeights(irb.ntronModelDirs.get(0) + File.separatorChar + "mapping", irb.ntronModelDirs.get(0) + File.separatorChar + "params", irb.ntronModelDirs.get(0) + File.separatorChar + "model", irb.ntronModelDirs.get(0) + File.separatorChar + "weights");
 	}
 
 	private boolean filesExist(List<String> dsFiles) {

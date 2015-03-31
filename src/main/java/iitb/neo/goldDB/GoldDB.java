@@ -1,4 +1,5 @@
 package main.java.iitb.neo.goldDB;
+import iitb.rbased.meta.RelationMetadata;
 import iitb.rbased.util.Pair;
 
 import java.io.BufferedReader;
@@ -6,8 +7,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import iitb.rbased.meta.RelationMetadata;
+import java.util.HashSet;
 
 public class GoldDB {
 	/*
@@ -16,11 +16,11 @@ public class GoldDB {
 	
 	private static String goldDBloc = "data/kb-facts-train.tsv";
 	private static HashMap<Pair<String,String>,ArrayList<Double>> goldDB;
-	
+	private static HashSet<String> countries;
 	
 	static{
 		goldDB = new HashMap<Pair<String,String>,ArrayList<Double>>();
-		
+		countries = new HashSet<String>();
 		File goldDBFile = new File(goldDBloc);
 		BufferedReader br = null;
 		try{
@@ -30,6 +30,7 @@ public class GoldDB {
 	        	String parts[] = line.split("\\t");
 	        	if(parts.length == 3){
 	        		String rel = RelationMetadata.getShortenedRelation(parts[2]);
+	        		countries.add(parts[0]);
 	        		Double value = Double.parseDouble(parts[1]);
 	        		Pair<String,String> entityRel = new Pair<String,String>(parts[0],rel);
 	        		if(goldDB.containsKey(entityRel)){
@@ -83,6 +84,9 @@ public class GoldDB {
 		return null;
 	}
 	
+	public static HashSet<String> getCountries() {
+		return countries;
+	}
 	public static void main(String args[]){
 		System.out.println(GoldDB.getGoldDBValue("/m/01z88t","FDI"));
 	}
