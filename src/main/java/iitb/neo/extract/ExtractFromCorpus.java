@@ -53,7 +53,7 @@ public class ExtractFromCorpus {
 	private ArgumentIdentification ai;
 	private FeatureGenerator fg;
 	private List<SententialInstanceGeneration> sigs;
-	private List<String> multirDirs;
+	private List<String> ntronModelDir;
 	private String corpusPath;
 	private UnitExtractor ue;
 	private Set<String> relations;
@@ -62,6 +62,7 @@ public class ExtractFromCorpus {
 	private String verboseExtractionsFile;
 	private double cutoff_confidence;
 	private double cutoff_score;
+	private String weightFile;
 
 	public ExtractFromCorpus(String propertiesFile) throws Exception {
 		String jsonProperties = IOUtils.toString(new FileInputStream(new File(propertiesFile)));
@@ -86,11 +87,12 @@ public class ExtractFromCorpus {
 			sigs.add((SententialInstanceGeneration) ClassLoader.getSystemClassLoader().loadClass(sigClass)
 					.getMethod("getInstance").invoke(null));
 		}
-		multirDirs = new ArrayList<>();
+		ntronModelDir = new ArrayList<>();
 		List<String> multirDirNames = getListProperty(properties, "models");
 		for (String multirDirName : multirDirNames) {
-			multirDirs.add(multirDirName);
+			ntronModelDir.add(multirDirName);
 		}
+		weightFile = ntronModelDir.get(0) + "_weights";
 		cis = new CustomCorpusInformationSpecification();
 
 		String altCisString = getStringProperty(properties, "cis");
@@ -111,7 +113,7 @@ public class ExtractFromCorpus {
 		c.setCorpusToDefault();
 		BufferedWriter bw = new BufferedWriter(new FileWriter(new File(efc.resultsFile)));
 
-		List<Extraction> extrs = efc.getExtractions(c, efc.ai, efc.fg, efc.sigs, efc.multirDirs, bw);
+		List<Extraction> extrs = efc.getExtractions(c, efc.ai, efc.fg, efc.sigs, efc.ntronModelDir, bw);
 		System.out.println("Total extractions : " + extrs.size());
 		bw.close();
 
@@ -200,9 +202,11 @@ public class ExtractFromCorpus {
 				Annotation doc = docs.next();
 				List<CoreMap> sentences = doc.get(CoreAnnotations.SentencesAnnotation.class);
 				for (CoreMap sentence : sentences) {
+					
 					// argument identification
 					List<Argument> arguments = ai.identifyArguments(doc, sentence);
 					// sentential instance generation
+					System.out.println("sent: " + sentence);
 					List<Pair<Argument, Argument>> sententialInstances = sig.generateSententialInstances(arguments,
 							sentence);
 					for (Pair<Argument, Argument> p : sententialInstances) {
@@ -211,7 +215,6 @@ public class ExtractFromCorpus {
 						}
 						Map<Integer, Double> perRelationScoreMap = sle
 								.extractFromSententialInstanceWithAllRelationScores(p.first, p.second, sentence, doc);
-						
 						ArrayList<Integer> compatRels = unitsCompatible(p.second, sentence, sle.getMapping()
 								.getRel2RelID());
 						String relStr = null;
@@ -230,17 +233,17 @@ public class ExtractFromCorpus {
 						Integer sentNum = sentence.get(SentGlobalID.class);
 						double max, min;
 						ArrayList<Double> scores = new ArrayList<Double>(perRelationScoreMap.values());
-						max = min = scores.get(0);
-						for (int i1 = 1, l = scores.size(); i1 < l; i1++) {
-							if (max < scores.get(i1)) {
-								max = scores.get(i1);
-							}
-							if (min > scores.get(i1)) {
-								min = scores.get(i1);
-							}
-
-						}
-						double conf = (extrScore - min) / (max - min);
+//						max = min = scores.get(0);
+//						for (int i1 = 1, l = scores.size(); i1 < l; i1++) {
+//							if (max < scores.get(i1)) {
+//								max = scores.get(i1);
+//							}
+//							if (min > scores.get(i1)) {
+//								min = scores.get(i1);
+//							}
+//
+//						}
+//						double conf = (extrScore - min) / (max - min);
 
 						if (extrScore <= cutoff_score) { // no compatible
 															// extraction ||
@@ -258,7 +261,8 @@ public class ExtractFromCorpus {
 
 						extrs.add(e);
 
-						bw.write(formatExtractionString(c, e) + " " + conf + "\n");
+//						bw.write(formatExtractionString(c, e) + " " + conf + "\n");
+						bw.write(formatExtractionString(c, e) + "\n");
 					}
 
 				}

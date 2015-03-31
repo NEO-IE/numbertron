@@ -13,7 +13,7 @@ import main.java.iitb.neo.training.ds.LRGraph;
 public class GoldDbInference {
 	
 	private static int K = 3;
-	private static final double MARGIN = 0.20; //allow true values to be within 20%
+	private static final double MARGIN = 0.2; //allow true values to be within 20%
 	public static Parse infer(LRGraph lrg) {
 		Parse p = new Parse();
 		p.graph = lrg;
@@ -30,7 +30,7 @@ public class GoldDbInference {
 		return p;
 	}
 
-	private static boolean closeEnough(Double value, String rel, String entity) {
+	public static boolean closeEnough(Double value, String rel, String entity) {
 		// TODO Auto-generated method stub
 		rel = rel.split("&")[0];
 		ArrayList<Double> goldValues = GoldDB.getGoldDBValue(entity, rel, K);
@@ -40,6 +40,9 @@ public class GoldDbInference {
 			Double valueSlack = MARGIN * val; // +- 5 percent
 			//System.out.print(val + "\t");
 			if((value > (val- valueSlack)) && (value < (val + valueSlack))){	
+				if(rel.equals("INTERNET") || rel.equals("INF")) {
+					System.out.println("Returning True for " + rel);
+				}
 				return true;
 			}
 		}
