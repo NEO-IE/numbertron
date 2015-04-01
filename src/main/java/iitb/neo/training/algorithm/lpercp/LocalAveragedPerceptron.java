@@ -91,9 +91,7 @@ public class LocalAveragedPerceptron {
 		trainingData.shuffle(random);
 
 		trainingData.reset();
-		int i = 0;
 		while (trainingData.next(lrg)) {
-			System.out.println("training data instance " + i++);
 			if (lrg.features.length == 0) {
 				continue;
 			}

@@ -40,9 +40,6 @@ public class GoldDbInference {
 			Double valueSlack = MARGIN * val; // +- 5 percent
 			//System.out.print(val + "\t");
 			if((value > (val- valueSlack)) && (value < (val + valueSlack))){	
-				if(rel.equals("INTERNET") || rel.equals("INF")) {
-					System.out.println("Returning True for " + rel);
-				}
 				return true;
 			}
 		}
