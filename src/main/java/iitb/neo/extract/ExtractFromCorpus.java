@@ -233,19 +233,19 @@ public class ExtractFromCorpus {
 						Integer sentNum = sentence.get(SentGlobalID.class);
 						double max, min;
 						ArrayList<Double> scores = new ArrayList<Double>(perRelationScoreMap.values());
-//						max = min = scores.get(0);
-//						for (int i1 = 1, l = scores.size(); i1 < l; i1++) {
-//							if (max < scores.get(i1)) {
-//								max = scores.get(i1);
-//							}
-//							if (min > scores.get(i1)) {
-//								min = scores.get(i1);
-//							}
-//
-//						}
-//						double conf = (extrScore - min) / (max - min);
+						max = min = scores.get(0);
+						for (int i1 = 1, l = scores.size(); i1 < l; i1++) {
+							if (max < scores.get(i1)) {
+								max = scores.get(i1);
+							}
+							if (min > scores.get(i1)) {
+								min = scores.get(i1);
+							}
 
-						if (extrScore <= cutoff_score) { // no compatible
+						}
+						double conf = (extrScore - min) / (max - min);
+
+						if (conf <= 0.95) { // no compatible
 															// extraction ||
 							continue;
 						}

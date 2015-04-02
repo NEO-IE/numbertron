@@ -22,10 +22,10 @@ import edu.washington.multirframework.multiralgorithm.SparseBinaryVector;
  * 
  */
 public class LocalAveragedPerceptron {
-	public int maxIterations = 50;
+	public int maxIterations = 100;
 	public boolean computeAvgParameters = true;
 	private double delta = 1;
-	private double regulaizer = 0.50;
+	private double regulaizer = 0.5;
 
 	private Scorer scorer;
 	private Model model;

@@ -1,10 +1,13 @@
 package main.java.iitb.neo.extract;
 
+import iitb.rbased.meta.RelationMetadata;
+
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -157,8 +160,6 @@ public class SentLevelExtractor {
 		
 		DenseVector p = params.relParameters[mapping.getRelationID(rel, false)];
 		
-		DenseVector featuresForInf = params.relParameters[mapping.getRelationID("INF", false)];
-		
 		Map<Integer, String> ftID2ftMap = ModelUtils.getFeatureIDToFeatureMap(getMapping());
 		
 		for(Integer featureNumber: sv.ids) {
@@ -168,14 +169,25 @@ public class SentLevelExtractor {
 			bw.write(ftID2ftMap.get(featureNumber) + "  " + p.vals[featureNumber] + "\n");
 		}
 		bw.write("_____________________________________________________\n");
-	
-		bw.write("For inflation: \n");
-		for(Integer featureNumber: sv.ids) {
-			if(featureNumber == -1) { 
-				continue;	
+		
+		//now writing for all the other relations
+		Set<String> relNames = RelationMetadata.getRelations();
+		
+		for(String relName: relNames) {
+			bw.write("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-\n");			
+			bw.write(relName +"\n");
+			DenseVector featuresForInf = params.relParameters[mapping.getRelationID("INF", false)];
+			for(Integer featureNumber: sv.ids) {
+				if(featureNumber == -1) { 
+					continue;	
+				}
+				bw.write(ftID2ftMap.get(featureNumber) + "  " + featuresForInf.vals[featureNumber] + "\n");
 			}
-			bw.write(ftID2ftMap.get(featureNumber) + "  " + featuresForInf.vals[featureNumber] + "\n");
+			bw.write("_____________________________________________________\n");
+			
 		}
+		
+		bw.write("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
 		bw.write("_____________________________________________________\n");
 	
 	}
