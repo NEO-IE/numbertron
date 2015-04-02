@@ -21,13 +21,13 @@
 "edu.washington.multirframework.argumentidentification.DefaultSententialInstanceGeneration"
 ],
   "dsFiles" : [
-"data/full_20perc_keywordfeatures_instances.tsv"
+"data/instances.tsv"
 ],
   "featureFiles" : [
-"data/full_20perc_keywordfeatures_features.tsv"
+"data/features_mintz_keywords.tsv"
 ],
   "models" : [
-"data/full_20perc_keywordfeatures_withavg" ],
+"data/model_features_mintz_keywords_match20perc_regul0.5" ],
   "cis" :
 "edu.washington.multirframework.corpus.DefaultCorpusInformationSpecification",
   "si" : [

@@ -105,6 +105,7 @@ public class Spotting {
 			//System.out.println("Got " + sentences.size() + " sentences");
 			
 			for (CoreMap sentence : sentences) {
+				System.err.println(sentence);
 				numProcessed++;
 			
 				sentID = sentence.get(SentGlobalID.class);

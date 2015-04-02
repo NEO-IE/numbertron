@@ -31,11 +31,22 @@ import edu.washington.multirframework.util.BufferedIOUtils;
 
 public class PerSpotFeatureGeneration {
 	
-	private FeatureGenerator fg;
-	public PerSpotFeatureGeneration(FeatureGenerator fg){
+	private NumFeatureGenerator fg;
+	private NumberFeatures nfg;
+	private boolean useKeywordFeatures = false;
+	/*
+	 * @todo : Get this from json.
+	 */
+	
+	public PerSpotFeatureGeneration(NumFeatureGenerator fg){
 		this.fg = fg;
+		this.nfg = new NumberFeatures();
 	}
 	
+	public void setUseKeywordFeatures(boolean useKeywordFeatures){
+		this.useKeywordFeatures = useKeywordFeatures;
+	}
+
 	public void run(List<String> dsFileNames, List<String> featureFileNames, Corpus c, CorpusInformationSpecification cis) throws FileNotFoundException, IOException, SQLException, InterruptedException, ExecutionException{
 		
 		long originalStart = System.currentTimeMillis();
@@ -90,7 +101,7 @@ public class PerSpotFeatureGeneration {
     				List<SententialArgumentPair> sentenceSaps = sapMap.get(currSentID);
     				writeFeatures(sentenceSaps,doc,sentence,writerMap);
     			}
-    		}
+    		}	
     		docCount++;
     		if(docCount % 100000 == 0){
     			end = System.currentTimeMillis();
@@ -105,22 +116,45 @@ public class PerSpotFeatureGeneration {
     		BufferedWriter bw = writerMap.get(key);
     		bw.close();
     	}
-		
+    	
     	end = System.currentTimeMillis();
     	System.out.println("Feature Generation took " + (end-originalStart) + " millisseconds");
     	
 	}
 
+	/*
+	private void writeNumericFeatures(
+			List<SententialArgumentPair> sentenceSaps, Annotation doc,
+			CoreMap sentence, BufferedWriter nw) throws IOException {
+		// TODO Auto-generated method stub
+		for(SententialArgumentPair sap : sentenceSaps){
+
+			List<String> features = nfg.generateFeatures(sap.arg1Offsets.first,sap.arg1Offsets.second
+					,sap.arg2Offsets.first,sap.arg2Offsets.second,sap.arg1ID,sap.arg2ID,sentence,doc);
+			nw.write(makeFeatureString(sap,features)+"\n");
+		}
+	}
+	*/
+
 	private void writeFeatures(List<SententialArgumentPair> currentSaps,
-			Annotation doc, CoreMap sentence,
-			Map<String, BufferedWriter> writerMap) throws IOException {
+			Annotation doc, CoreMap sentence, Map<String, BufferedWriter> writerMap) throws IOException {
 		//System.out.println(currentSaps.size());
 		for(SententialArgumentPair sap : currentSaps){
 			BufferedWriter bw = writerMap.get(sap.partitionID);
 
 			List<String> features = fg.generateFeatures(sap.arg1Offsets.first,sap.arg1Offsets.second
 					,sap.arg2Offsets.first,sap.arg2Offsets.second,sap.arg1ID,sap.arg2ID,sentence,doc);
-			bw.write(makeFeatureString(sap,features)+"\n");
+			
+			bw.write(makeFeatureString(sap,features));
+			
+			//generate numeric features
+			List<String> numFeatures = nfg.generateFeatures(sap.arg1Offsets.first,sap.arg1Offsets.second
+						,sap.arg2Offsets.first,sap.arg2Offsets.second,sap.arg1ID,sap.arg2ID,sentence,doc);
+				
+			//write numericFeatures.
+			bw.write(makeNumFeatureString(sap, numFeatures));
+			
+			bw.write("\n");
 		}
 	}
 
@@ -185,5 +219,16 @@ public class PerSpotFeatureGeneration {
 		return sb.toString().trim();
 	}
 	
+	private String makeNumFeatureString(SententialArgumentPair sap, List<String> numFeatures){
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("@@");
+		for(String f: numFeatures){
+			sb.append(f);
+			sb.append("\t");
+		}
+		
+		return sb.toString().trim();
+	}
 	
 }

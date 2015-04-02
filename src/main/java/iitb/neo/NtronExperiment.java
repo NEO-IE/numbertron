@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
+import main.java.iitb.neo.pretrain.featuregeneration.NumFeatureGenerator;
 import main.java.iitb.neo.pretrain.featuregeneration.PerSpotFeatureGeneration;
 import main.java.iitb.neo.pretrain.process.MakeGraph;
 import main.java.iitb.neo.pretrain.spotting.Spotting;
@@ -52,7 +53,11 @@ import edu.washington.multirframework.multiralgorithm.Parameters;
 
 public class NtronExperiment {
 	private String corpusPath;
-	private FeatureGenerator fg;
+
+	private String typeRelMapPath;
+	private ArgumentIdentification ai;
+	private NumFeatureGenerator fg;
+
 	private List<SententialInstanceGeneration> sigs;
 	private List<String> DSFiles;
 
@@ -60,9 +65,16 @@ public class NtronExperiment {
 	private List<String> ntronModelDirs;
 	private NegativeExampleCollection nec;
 	private CorpusInformationSpecification cis;
+
+	private String evalOutputName;
+	private boolean train = false;
+	private boolean useFiger = false;
+	private boolean useKeywordFeatures = false;
+
+	private Integer featureThreshold = 2;
+	private boolean strictNegativeGeneration = false;
 	private RuleBasedDriver rbased;
 	private Map<String, String> countryFreebaseIdMap;
-	
 	
 	public NtronExperiment() {
 	}
@@ -104,9 +116,38 @@ public class NtronExperiment {
 		 * end creating the map
 		 */
 
-			String featureGeneratorClass = getStringProperty(properties, "fg");
+
+		String strictNegativeGenerationString = getStringProperty(properties, "strictNegativeGeneration");
+		if (strictNegativeGenerationString != null) {
+			if (strictNegativeGenerationString.equals("true")) {
+				strictNegativeGeneration = true;
+			}
+		}
+
+		String featThresholdString = getStringProperty(properties, "featureThreshold");
+		if (featThresholdString != null) {
+			this.featureThreshold = Integer.parseInt(featThresholdString);
+		}
+
+		String useFiger = getStringProperty(properties, "useFiger");
+		if (useFiger != null) {
+			if (useFiger.equals("true")) {
+				this.useFiger = true;
+			}
+		}
+		
+		String useKeywordFeature = getStringProperty(properties, "useKeywordFeatures");
+		if(useKeywordFeature != null){
+			if(useKeywordFeature.equals("true")){
+				this.useKeywordFeatures = true;
+			}
+		}
+		
+		String featureGeneratorClass = getStringProperty(properties, "fg");
+
 		if (featureGeneratorClass != null) {
-			fg = (FeatureGenerator) ClassLoader.getSystemClassLoader().loadClass(featureGeneratorClass).newInstance();
+			fg = (NumFeatureGenerator) ClassLoader.getSystemClassLoader().loadClass(featureGeneratorClass).newInstance();
+			fg.useKeywordAsFeature(this.useKeywordFeatures);
 		}
 
 			
@@ -213,6 +254,7 @@ public class NtronExperiment {
 		if (runFG) {
 			System.err.println("Running Feature Generation");
 			PerSpotFeatureGeneration fGeneration = new PerSpotFeatureGeneration(fg);
+			fGeneration.setUseKeywordFeatures(useKeywordFeatures);
 			fGeneration.run(DSFiles, featureFiles, c, cis);
 		}
 

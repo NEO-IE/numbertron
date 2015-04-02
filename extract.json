@@ -14,14 +14,14 @@
 "edu.washington.multirframework.argumentidentification.DefaultSententialInstanceGeneration"
 ],
   "models" : [
-"/mnt/a99/d0/aman/numbertron/data/full_20perc_keywordfeatures_withavg" ],
+"/mnt/a99/d0/aman/numbertron/data/model_features_mintz_match20perc_regul0.5_noconfusion" ],
   "cis" :
 "edu.washington.multirframework.corpus.DefaultCorpusInformationSpecification",
   "ti" : [ "edu.washington.multirframework.corpus.TokenChunkInformation" ],
   "di" : [ ],
   "useFiger" : "false",
-  "resultsFile" : "results/fullcorpus_20perc_cutoff_0_keywordfeatures_extractions_averaged.tsv",
-  "verboseExtractionFile" : "results/verbose/fullcorpus_20perc_cutoff_0_keywordfeatures_verbose_extractions.txt",
+  "resultsFile" : "results/model_features_mintz_match20perc_regul0.5_noconfusion_results.tsv",
+  "verboseExtractionFile" : "results/verbose/model_features_mintz_match20perc_regul0.5_noconfusion_results_verbose.txt",
   "cutoff_score" : "0.0",
   "cutoff_confidence" : "1"
 }
