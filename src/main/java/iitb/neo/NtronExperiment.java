@@ -225,7 +225,7 @@ public class NtronExperiment {
 			File modelFile = new File(ntronModelDirs.get(i));
 			if (!modelFile.exists())
 				modelFile.mkdir();
-			MakeGraph.run(featureFiles.get(0), ntronModelDirs.get(0));
+			MakeGraph.run(featureFiles.get(0), ntronModelDirs.get(0) + File.separatorChar + "mapping", ntronModelDirs.get(0) + File.separatorChar + "train", ntronModelDirs.get(0));
 		}
 		File modelFile = new File(ntronModelDirs.get(0));
 //		//Step 3.2: Now run the super naive training algorithm

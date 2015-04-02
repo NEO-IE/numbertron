@@ -24,7 +24,7 @@ public class LperceptTrain {
 		
 		LocalAveragedPerceptron lpton = new LocalAveragedPerceptron(model, r);
 		
-		Dataset train = (Dataset) new LRGraphMemoryDatasetWithoutConfusedLocationRels(dir + File.separatorChar + "train");
+		Dataset train = (Dataset) new LRGraphMemoryDataset(dir + File.separatorChar + "train");
 
 		System.out.println("starting training");
 		

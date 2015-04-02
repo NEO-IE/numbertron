@@ -25,7 +25,7 @@ public class LocalAveragedPerceptron {
 	public int maxIterations = 100;
 	public boolean computeAvgParameters = true;
 	private double delta = 1;
-	private double regulaizer = 0.5;
+	private double regulaizer = 0;
 
 	private Scorer scorer;
 	private Model model;

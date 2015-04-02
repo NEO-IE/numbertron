@@ -59,34 +59,47 @@ public class MakeGraph {
 
 	}
 
-	public static void run(String featureFile, String trainDir) throws IOException {
-		run(featureFile, trainDir, FEATURE_THRESHOLD);
+	public static void run(String featureFile, String mappingFile, String graphFile, String trainDir)
+			throws IOException {
+		run(featureFile, mappingFile, graphFile, trainDir, FEATURE_THRESHOLD);
 	}
 
-	public static void run(String featureFile, String trainDir, Integer threshold) throws IOException {
+	public static void run(String featureFile, String mappingFile, String graphFile, String trainDir, Integer threshold)
+			throws IOException {
 		FEATURE_THRESHOLD = threshold;
 		long start = System.currentTimeMillis();
-
+		boolean generateMapping = false;
 		Preprocess.printMemoryStatistics();
 
-		String trainFile = featureFile;
 		String outDir = trainDir;
-		String mappingFile = outDir + File.separatorChar + "mapping";
+
 		String modelFile = outDir + File.separatorChar + "model";
 
 		System.out.println("GETTING Mapping form training data");
-		Mappings mapping = Preprocess.getMappingFromTrainingData(trainFile, mappingFile);
+		// Check if mapping file already exists
+		File mappingFileHandle = new File(mappingFile);
+		Mappings mapping = null;
+		if (mappingFileHandle.exists()) { // directly read
+			mapping = new Mappings();
+			mapping.read(mappingFile);
+		} else {
+			mapping = Preprocess.getMappingFromTrainingData(featureFile, mappingFile);
+			generateMapping = true;
+		}
 
 		System.out.println("PREPROCESSING TRAIN FEATURES");
 		{
-			String output1 = outDir + File.separatorChar + "train";
-			convertFeatureFileToLRGraph(trainFile, output1, mapping);
+			File graphFileHandle = new File(graphFile);
+			if (!graphFileHandle.exists()) {
+				String output1 = outDir + File.separatorChar + "train";
+				convertFeatureFileToLRGraph(featureFile, output1, mapping);
+			}
+
 		}
 
 		System.out.println("FINISHED PREPROCESSING TRAIN FEATURES");
 		Preprocess.printMemoryStatistics();
 		Preprocess.keyToIntegerMap.clear();
-
 		Preprocess.intToKeyMap.clear();
 
 		System.out.println("Writing model and mapping file");
@@ -99,7 +112,9 @@ public class MakeGraph {
 			for (int i = 0; i < m.numRelations; i++)
 				m.numFeaturesPerRelation[i] = mapping.numFeatures();
 			m.write(modelFile);
-			mapping.write(mappingFile);
+			if (generateMapping) {
+				mapping.write(mappingFile);
+			}
 		}
 
 		long end = System.currentTimeMillis();
@@ -109,7 +124,6 @@ public class MakeGraph {
 
 	private static void convertFeatureFileToLRGraph(String input, String output, Mappings m) throws IOException {
 
-	
 		Comparator<String> locationRelationPairComparator = new Comparator<String>() {
 			@Override
 			public int compare(String line1, String line2) {
@@ -168,7 +182,7 @@ public class MakeGraph {
 			String location = values[1];
 			String number = values[2];
 			String relString = values[3];
-			
+
 			String key = location + "%" + relString;
 			m.getRelationID(relString, true); // add the relation to the list of
 												// relations
