@@ -43,6 +43,9 @@ public class LocalAveragedPerceptron {
 	private Parameters avgParamsLastUpdatesIter;
 	private Parameters avgParamsLastUpdates;
 
+	//The following parameter array stores the number of times a particular parameter
+	//has been updated, used for regularization in some sense.
+	private Parameters countUpdates;
 	private Parameters avgParameters;
 	private Parameters iterParameters;
 
@@ -58,6 +61,10 @@ public class LocalAveragedPerceptron {
 			avgParamsLastUpdatesIter.model = avgParamsLastUpdates.model = model;
 			avgParamsLastUpdatesIter.init();
 			avgParamsLastUpdates.init();
+			
+			countUpdates= new Parameters();
+			countUpdates.model = model;
+			countUpdates.init();
 		}
 
 		iterParameters = new Parameters();
@@ -181,12 +188,15 @@ public class LocalAveragedPerceptron {
 			DenseVector lastUpdates = (DenseVector) avgParamsLastUpdates.relParameters[relNumber];
 			DenseVector avg = (DenseVector) avgParameters.relParameters[relNumber];
 			DenseVector iter = (DenseVector) iterParameters.relParameters[relNumber];
+			
+			DenseVector countUpdatesRel = (DenseVector) countUpdates.relParameters[relNumber];
 			for (int j = 0; j < features.num; j++) {
 				int id = features.ids[j];
-				if (lastUpdates.vals[id] != 0)
+				if (lastUpdates.vals[id] != 0) {
 					//avg.vals[id] += (avgIteration - lastUpdatesIter.vals[id]) * lastUpdates.vals[id];
 					avg.vals[id] = (1 - regulaizer) * avg.vals[id] + (avgIteration - lastUpdatesIter.vals[id]) * lastUpdates.vals[id];
-
+					countUpdatesRel.vals[id] += 1; //also update the number of times this parameter was updated
+				}
 				lastUpdatesIter.vals[id] = avgIteration;
 				lastUpdates.vals[id] = iter.vals[id];
 			}
@@ -198,10 +208,12 @@ public class LocalAveragedPerceptron {
 			DenseVector lastUpdatesIter = (DenseVector) avgParamsLastUpdatesIter.relParameters[s];
 			DenseVector lastUpdates = (DenseVector) avgParamsLastUpdates.relParameters[s];
 			DenseVector avg = (DenseVector) avgParameters.relParameters[s];
+			DenseVector countUpdatesRel = (DenseVector) countUpdates.relParameters[s];
+			
 			for (int id = 0; id < avg.vals.length; id++) {
 				if (lastUpdates.vals[id] != 0) {
 					avg.vals[id] = (1 - regulaizer) * avg.vals[id] +  (avgIteration - lastUpdatesIter.vals[id]) * lastUpdates.vals[id];
-
+					avg.vals[id] = (countUpdatesRel.vals[id] == 0) ? 0 : (avg.vals[id] / countUpdatesRel.vals[id]);
 					lastUpdatesIter.vals[id] = avgIteration;
 				}
 			}

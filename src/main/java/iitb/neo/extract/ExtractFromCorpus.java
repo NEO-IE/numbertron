@@ -243,8 +243,10 @@ public class ExtractFromCorpus {
 							}
 
 						}
-						double conf = (extrScore - min) / (max - min);
-
+						double conf = 0.0;
+						if(max != min) {
+							conf = (extrScore - min) / (max - min);
+						}
 						if (conf <= 0.95) { // no compatible
 															// extraction ||
 							continue;
@@ -254,7 +256,7 @@ public class ExtractFromCorpus {
 						// prepare extraction
 						if(ANALYZE && null != relStr) {
 							sle.firedFeaturesScores(p.first, p.second, sentence, doc, relStr, analysis_writer);
-							analysis_writer.flush();
+							
 						}
 						
 						Extraction e = new Extraction(p.first, p.second, docName, relStr, sentNum, extrScore, senText);
@@ -269,13 +271,15 @@ public class ExtractFromCorpus {
 			}
 			
 			
-
+			
 			docCount++;
 			if (docCount % 100 == 0) {
 				System.out.println(docCount + " docs processed");
 				bw.flush();
 			}
 		}
+		bw.close();
+		analysis_writer.close();
 		
 		return extrs;
 	}
