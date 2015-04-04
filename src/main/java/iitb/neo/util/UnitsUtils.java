@@ -43,6 +43,23 @@ public class UnitsUtils {
 	 * percent as a unit, the returned list will have Internet and inflation. 
 	 */
 	public static ArrayList<Integer> unitsCompatible(Argument numArg, CoreMap sentence, Map<String, Integer> map) {
+		ArrayList<String> validRelationsStrs = unitsCompatible(numArg, sentence);
+		ArrayList<Integer> validRelations = new ArrayList<Integer>();
+		for (String rel: validRelationsStrs) {
+			validRelations.add(map.get(rel));
+		}
+		return validRelations;
+	}
+	
+	/**
+	 * Find out all the relations that can possibly go with a particular relation
+	 * 
+	 * @param numArg The argument (a number)
+	 * @param sentence
+	 * @return A list of relation names that can be possibly associated with this number. For example, if the Argument has
+	 * percent as a unit, the returned list will have INTERNET and INF. 
+	 */
+	public static ArrayList<String> unitsCompatible(Argument numArg, CoreMap sentence) {
 		
 		String sentString = sentence.toString();
 		String tokenStr = numArg.getArgName();
@@ -69,10 +86,10 @@ public class UnitsUtils {
 			unit = unitsS.get(0).getKey().getBaseName();
 		}
 
-		ArrayList<Integer> validRelations = new ArrayList<Integer>();
+		ArrayList<String> validRelations = new ArrayList<String>();
 		for (String rel : relations) {
 			if (unitRelationMatch(rel, unit)) {
-				validRelations.add(map.get(rel));
+				validRelations.add(rel);
 			}
 		}
 		return validRelations;

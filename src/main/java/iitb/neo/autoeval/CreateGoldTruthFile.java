@@ -19,6 +19,7 @@ import main.java.iitb.neo.NtronExperiment;
 import main.java.iitb.neo.extract.SentLevelExtractor;
 import main.java.iitb.neo.pretrain.spotting.Spotting;
 import main.java.iitb.neo.util.RegExpUtils;
+import main.java.iitb.neo.util.UnitsUtils;
 
 import org.apache.commons.io.IOUtils;
 
@@ -28,16 +29,16 @@ import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.util.CoreMap;
 import edu.stanford.nlp.util.Pair;
+import edu.washington.multir.extractor.ExtractFromCorpus;
 import edu.washington.multirframework.argumentidentification.ArgumentIdentification;
 import edu.washington.multirframework.argumentidentification.SententialInstanceGeneration;
 import edu.washington.multirframework.corpus.Corpus;
 import edu.washington.multirframework.corpus.CorpusInformationSpecification;
-import edu.washington.multirframework.corpus.CustomCorpusInformationSpecification;
 import edu.washington.multirframework.corpus.CorpusInformationSpecification.SentDocNameInformation.SentDocName;
 import edu.washington.multirframework.corpus.CorpusInformationSpecification.SentGlobalIDInformation.SentGlobalID;
+import edu.washington.multirframework.corpus.CustomCorpusInformationSpecification;
 import edu.washington.multirframework.data.Argument;
 import edu.washington.multirframework.data.Extraction;
-import edu.washington.multirframework.featuregeneration.FeatureGenerator;
 
 /**
  * This class creates a gold test set to be fed to an automatic evaluator
@@ -50,6 +51,7 @@ public class CreateGoldTruthFile {
 	private CorpusInformationSpecification cis;
 	private RuleBasedDriver rbased;
 	private String outFile;
+	private ArgumentIdentification ai;
 	private List<SententialInstanceGeneration> sigs;
 	
 	public CreateGoldTruthFile(String propertiesFile) throws FileNotFoundException, IOException, InstantiationException, IllegalAccessException, ClassNotFoundException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
@@ -74,16 +76,23 @@ public class CreateGoldTruthFile {
 					.getMethod("getInstance").invoke(null));
 		}
 		
+		String aiClass = NtronExperiment.getStringProperty(properties, "ai");
+		if (aiClass != null) {
+			ai = (ArgumentIdentification) ClassLoader.getSystemClassLoader().loadClass(aiClass)
+					.getMethod("getInstance").invoke(null);
+		}
+		
 		outFile = NtronExperiment.getStringProperty(properties, "resultFile");
 		
 	}
 	
-	private void generateGoldFile(Corpus c, ArgumentIdentification ai, List<SententialInstanceGeneration> sigs, List<String> modelPaths, BufferedWriter bw) {
+	private void generateGoldFile(Corpus c) throws IOException, SQLException {
 		List<Extraction> extrs = new ArrayList<Extraction>();
+		BufferedWriter bw = new BufferedWriter(new FileWriter(outFile));
 		for (int i = 0; i < sigs.size(); i++) {
 			Iterator<Annotation> docs = c.getDocumentIterator();
 			SententialInstanceGeneration sig = sigs.get(i);
-			SentLevelExtractor sle = new SentLevelExtractor(modelPath, fg, ai, sig);
+			SentLevelExtractor sle = new SentLevelExtractor("data/model_features_mintz_match20perc_regul0.5", null, ai, sig);
 			int docCount = 0;
 			while (docs.hasNext()) {
 				Annotation doc = docs.next();
@@ -100,56 +109,21 @@ public class CreateGoldTruthFile {
 						if (!(RegExpUtils.exactlyOneNumber(p) && RegExpUtils.secondNumber(p) && !RegExpUtils.isYear(p.second.getArgName()))) {
 							continue;
 						}
-						ArrayList<Integer> compatRels = unitsCompatible(p.second, sentence, sle.getMapping()
-								.getRel2RelID());
-						String relStr = null;
-						Double extrScore = -1.0;
-						for (Integer rel : perRelationScoreMap.keySet()) {
-							if (compatRels.contains(rel)) {
-								relStr = sle.relID2rel.get(rel);
-								extrScore = perRelationScoreMap.get(rel);
-								break;
-							}
-						}
-						
-						String senText = sentence.get(CoreAnnotations.TextAnnotation.class);
+						ArrayList<String> compatibleRels = UnitsUtils.unitsCompatible(p.second, sentence);
+											String senText = sentence.get(CoreAnnotations.TextAnnotation.class);
 						String docName = sentence.get(SentDocName.class);
 
 						Integer sentNum = sentence.get(SentGlobalID.class);
-						double max, min;
-						ArrayList<Double> scores = new ArrayList<Double>(perRelationScoreMap.values());
-						max = min = scores.get(0);
-						for (int i1 = 1, l = scores.size(); i1 < l; i1++) {
-							if (max < scores.get(i1)) {
-								max = scores.get(i1);
-							}
-							if (min > scores.get(i1)) {
-								min = scores.get(i1);
-							}
-
-						}
-						double conf = 0.0;
-						if(max != min) {
-							conf = (extrScore - min) / (max - min);
-						}
-						if (conf <= 0.95) { // no compatible
-															// extraction ||
-							continue;
-						}
-						System.out.println(extrScore);
-						// System.out.println(extrResult);
-						// prepare extraction
-						if(ANALYZE && null != relStr) {
-							sle.firedFeaturesScores(p.first, p.second, sentence, doc, relStr, analysis_writer);
-							
+						for(String compatibleRel: compatibleRels) {
+							Extraction e = new Extraction(p.first, p.second, docName, compatibleRel, sentNum, 0.0, senText);
+							bw.write(ExtractFromCorpus.formatExtractionString(c, e) + "\n");
+							extrs.add(e);
 						}
 						
-						Extraction e = new Extraction(p.first, p.second, docName, relStr, sentNum, extrScore, senText);
 
-						extrs.add(e);
 
 //						bw.write(formatExtractionString(c, e) + " " + conf + "\n");
-						bw.write(formatExtractionString(c, e) + "\n");
+						
 					}
 
 				}
@@ -164,19 +138,16 @@ public class CreateGoldTruthFile {
 			}
 		}
 		bw.close();
-		analysis_writer.close();
-		
-		return extrs;
 		
 	}
 	public void run() throws SQLException, IOException {
 		Spotting spotter = new Spotting(corpusPath, cis, rbased);
 		Corpus c = new Corpus(corpusPath, cis, true);
-		spotter.iterateAndSpot(outFile, c);
+	    generateGoldFile(c);
 		
 	}
 	
-	public static void main(String args[]) throws FileNotFoundException, InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, SQLException {
+	public static void main(String args[]) throws FileNotFoundException, InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, SQLException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		CreateGoldTruthFile createTruth = new CreateGoldTruthFile(args[0]);
 		createTruth.run();
 	}
