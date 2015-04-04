@@ -92,7 +92,7 @@ public class CreateGoldTruthFile {
 		for (int i = 0; i < sigs.size(); i++) {
 			Iterator<Annotation> docs = c.getDocumentIterator();
 			SententialInstanceGeneration sig = sigs.get(i);
-			SentLevelExtractor sle = new SentLevelExtractor("data/model_features_mintz_match20perc_regul0.5", null, ai, sig);
+			SentLevelExtractor sle = new SentLevelExtractor("data/model_cut_time", null, ai, sig);
 			int docCount = 0;
 			while (docs.hasNext()) {
 				Annotation doc = docs.next();
@@ -105,15 +105,18 @@ public class CreateGoldTruthFile {
 					System.out.println("sent: " + sentence);
 					List<Pair<Argument, Argument>> sententialInstances = sig.generateSententialInstances(arguments,
 							sentence);
+
+					Integer sentNum = sentence.get(SentGlobalID.class);
+					String docName = sentence.get(SentDocName.class);
+
+					System.out.println("Processing sentence number " + sentNum);
 					for (Pair<Argument, Argument> p : sententialInstances) {
 						if (!(RegExpUtils.exactlyOneNumber(p) && RegExpUtils.secondNumber(p) && !RegExpUtils.isYear(p.second.getArgName()))) {
 							continue;
 						}
 						ArrayList<String> compatibleRels = UnitsUtils.unitsCompatible(p.second, sentence);
 											String senText = sentence.get(CoreAnnotations.TextAnnotation.class);
-						String docName = sentence.get(SentDocName.class);
 
-						Integer sentNum = sentence.get(SentGlobalID.class);
 						for(String compatibleRel: compatibleRels) {
 							Extraction e = new Extraction(p.first, p.second, docName, compatibleRel, sentNum, 0.0, senText);
 							bw.write(ExtractFromCorpus.formatExtractionString(c, e) + "\n");
