@@ -18,6 +18,7 @@ import java.util.Map;
 import main.java.iitb.neo.NtronExperiment;
 import main.java.iitb.neo.extract.SentLevelExtractor;
 import main.java.iitb.neo.pretrain.spotting.Spotting;
+import main.java.iitb.neo.util.RegExpUtils;
 
 import org.apache.commons.io.IOUtils;
 
@@ -82,7 +83,7 @@ public class CreateGoldTruthFile {
 		for (int i = 0; i < sigs.size(); i++) {
 			Iterator<Annotation> docs = c.getDocumentIterator();
 			SententialInstanceGeneration sig = sigs.get(i);
-			
+			SentLevelExtractor sle = new SentLevelExtractor(modelPath, fg, ai, sig);
 			int docCount = 0;
 			while (docs.hasNext()) {
 				Annotation doc = docs.next();
@@ -96,11 +97,9 @@ public class CreateGoldTruthFile {
 					List<Pair<Argument, Argument>> sententialInstances = sig.generateSententialInstances(arguments,
 							sentence);
 					for (Pair<Argument, Argument> p : sententialInstances) {
-						if (!(exactlyOneNumber(p) && secondNumber(p) && !isYear(p.second.getArgName()))) {
+						if (!(RegExpUtils.exactlyOneNumber(p) && RegExpUtils.secondNumber(p) && !RegExpUtils.isYear(p.second.getArgName()))) {
 							continue;
 						}
-						Map<Integer, Double> perRelationScoreMap = sle
-								.extractFromSententialInstanceWithAllRelationScores(p.first, p.second, sentence, doc);
 						ArrayList<Integer> compatRels = unitsCompatible(p.second, sentence, sle.getMapping()
 								.getRel2RelID());
 						String relStr = null;

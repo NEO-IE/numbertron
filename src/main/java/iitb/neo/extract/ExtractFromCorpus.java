@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
 
 import main.java.iitb.neo.NtronExperiment;
 import main.java.iitb.neo.util.RegExpUtils;
+import main.java.iitb.neo.util.UnitsUtils;
 
 import org.apache.commons.io.IOUtils;
 
@@ -58,7 +59,7 @@ public class ExtractFromCorpus {
 	private List<SententialInstanceGeneration> sigs;
 	private List<String> ntronModelDir;
 	private String corpusPath;
-	private UnitExtractor ue;
+
 	private Set<String> relations;
 
 	private String resultsFile;
@@ -103,7 +104,7 @@ public class ExtractFromCorpus {
 			cis = (CustomCorpusInformationSpecification) ClassLoader.getSystemClassLoader().loadClass(altCisString)
 					.newInstance();
 		}
-		ue = new UnitExtractor();
+	
 		relations = RelationMetadata.getRelations();
 		resultsFile = NtronExperiment.getStringProperty(properties, "resultsFile");
 		verboseExtractionsFile = NtronExperiment.getStringProperty(properties, "verboseExtractionFile");
@@ -207,7 +208,7 @@ public class ExtractFromCorpus {
 						}
 						Map<Integer, Double> perRelationScoreMap = sle
 								.extractFromSententialInstanceWithAllRelationScores(p.first, p.second, sentence, doc);
-						ArrayList<Integer> compatRels = unitsCompatible(p.second, sentence, sle.getMapping()
+						ArrayList<Integer> compatRels = UnitsUtils.unitsCompatible(p.second, sentence, sle.getMapping()
 								.getRel2RelID());
 						String relStr = null;
 						Double extrScore = -1.0;
@@ -277,69 +278,6 @@ public class ExtractFromCorpus {
 	}
 
 
-	/*
-	 * returns the list of relation compatible with numeric argument
-	 */
-	private ArrayList<Integer> unitsCompatible(Argument numArg, CoreMap sentence, Map<String, Integer> map) {
-		String sentString = sentence.toString();
-		String tokenStr = numArg.getArgName();
-		String parts[] = tokenStr.split("\\s+");
-		int beginIdx = sentString.indexOf(parts[0]);
-		int endIdx = beginIdx + parts[0].length();
-
-		String front = sentString.substring(0, beginIdx);
-		if (front.length() > 20) {
-			front = front.substring(front.length() - 20);
-		}
-		String back = sentString.substring(endIdx);
-		if (back.length() > 20) {
-			back = back.substring(0, 20);
-		}
-		String utString = front + "<b>" + parts[0] + "</b>" + back;
-		float values[][] = new float[1][1];
-		List<? extends EntryWithScore<Unit>> unitsS = ue.parser.getTopKUnitsValues(utString, "b", 1, 0, values);
-
-		// check for unit here....
-
-		String unit = "";
-		if (unitsS != null && unitsS.size() > 0) {
-			unit = unitsS.get(0).getKey().getBaseName();
-		}
-
-		ArrayList<Integer> validRelations = new ArrayList<Integer>();
-		for (String rel : relations) {
-			if (unitRelationMatch(rel, unit)) {
-				validRelations.add(map.get(rel));
-			}
-		}
-		return validRelations;
-	}
-
-	public boolean unitRelationMatch(String rel, String unitStr) {
-		Unit unit = ue.quantDict.getUnitFromBaseName(unitStr);
-		if (unit != null && !unit.getBaseName().equals("")) {
-			Unit SIUnit = unit.getParentQuantity().getCanonicalUnit();
-			if (SIUnit != null && !RelationMetadata.getUnit(rel).equals(SIUnit.getBaseName()) || SIUnit == null
-					&& !RelationMetadata.getUnit(rel).equals(unit.getBaseName())) {
-				return false; // Incorrect unit, this cannot be the relation.
-
-			}
-		} else if (unit == null && !unitStr.equals("") && RelationMetadata.getUnit(rel).equals(unitStr)) { // for
-																											// the
-																											// cases
-																											// where
-																											// units
-																											// are
-																											// compound
-																											// units.
-			return true;
-		} else {
-			if (!RelationMetadata.getUnit(rel).equals("")) {
-				return false; // this cannot be the correct relation.
-			}
-		}
-		return true;
-	}
 
 	private static double sigmoid(double score) {
 		return 1 / (1 + Math.exp(-score));

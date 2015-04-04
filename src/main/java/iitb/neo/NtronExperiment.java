@@ -213,7 +213,7 @@ public class NtronExperiment {
 			System.err.println("Running Feature Generation");
 			PerSpotFeatureGeneration fGeneration = new PerSpotFeatureGeneration(fg);
 			fGeneration.run(DSFiles, featureFiles, c, cis);
-		}
+		}	
 
 		System.err.println("Training");
 		/* Step 3: Training and weight learning */
