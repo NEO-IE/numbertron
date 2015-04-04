@@ -106,7 +106,6 @@ public class Spotting {
 			
 			for (CoreMap sentence : sentences) {
 				numProcessed++;
-			
 				sentID = sentence.get(SentGlobalID.class);
 				if(numProcessed % 1000 == 0) {
 					System.out.println("Processed: " + numProcessed + " , ignored: " + ignored);

@@ -174,7 +174,7 @@ public class NtronExperiment {
 
 	}
 
-	private List<String> getListProperty(Map<String, Object> properties, String string) {
+	public static List<String> getListProperty(Map<String, Object> properties, String string) {
 		if (properties.containsKey(string)) {
 			JsonObject obj = (JsonObject) properties.get(string);
 			List<String> returnValues = new ArrayList<>();

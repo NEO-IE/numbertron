@@ -16,6 +16,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import main.java.iitb.neo.NtronExperiment;
+
 import org.apache.commons.io.IOUtils;
 
 import catalog.Unit;
@@ -67,43 +69,43 @@ public class ExtractFromCorpus {
 	public ExtractFromCorpus(String propertiesFile) throws Exception {
 		String jsonProperties = IOUtils.toString(new FileInputStream(new File(propertiesFile)));
 		Map<String, Object> properties = JsonReader.jsonToMaps(jsonProperties);
-		corpusPath = getStringProperty(properties, "corpusPath");
-		cutoff_confidence = Double.parseDouble(getStringProperty(properties, "cutoff_confidence"));
-		cutoff_score = Double.parseDouble(getStringProperty(properties, "cutoff_score"));
+		corpusPath = NtronExperiment.getStringProperty(properties, "corpusPath");
+		cutoff_confidence = Double.parseDouble(NtronExperiment.getStringProperty(properties, "cutoff_confidence"));
+		cutoff_score = Double.parseDouble(NtronExperiment.getStringProperty(properties, "cutoff_score"));
 		
-		String featureGeneratorClass = getStringProperty(properties, "fg");
+		String featureGeneratorClass = NtronExperiment.getStringProperty(properties, "fg");
 		if (featureGeneratorClass != null) {
 			fg = (FeatureGenerator) ClassLoader.getSystemClassLoader().loadClass(featureGeneratorClass).newInstance();
 		}
 
-		String aiClass = getStringProperty(properties, "ai");
+		String aiClass = NtronExperiment.getStringProperty(properties, "ai");
 		if (aiClass != null) {
 			ai = (ArgumentIdentification) ClassLoader.getSystemClassLoader().loadClass(aiClass)
 					.getMethod("getInstance").invoke(null);
 		}
-		List<String> sigClasses = getListProperty(properties, "sigs");
+		List<String> sigClasses = NtronExperiment.getListProperty(properties, "sigs");
 		sigs = new ArrayList<>();
 		for (String sigClass : sigClasses) {
 			sigs.add((SententialInstanceGeneration) ClassLoader.getSystemClassLoader().loadClass(sigClass)
 					.getMethod("getInstance").invoke(null));
 		}
 		ntronModelDir = new ArrayList<>();
-		List<String> multirDirNames = getListProperty(properties, "models");
+		List<String> multirDirNames = NtronExperiment.getListProperty(properties, "models");
 		for (String multirDirName : multirDirNames) {
 			ntronModelDir.add(multirDirName);
 		}
 		weightFile = ntronModelDir.get(0) + "_weights";
 		cis = new CustomCorpusInformationSpecification();
 
-		String altCisString = getStringProperty(properties, "cis");
+		String altCisString = NtronExperiment.getStringProperty(properties, "cis");
 		if (altCisString != null) {
 			cis = (CustomCorpusInformationSpecification) ClassLoader.getSystemClassLoader().loadClass(altCisString)
 					.newInstance();
 		}
 		ue = new UnitExtractor();
 		relations = RelationMetadata.getRelations();
-		resultsFile = getStringProperty(properties, "resultsFile");
-		verboseExtractionsFile = getStringProperty(properties, "verboseExtractionFile");
+		resultsFile = NtronExperiment.getStringProperty(properties, "resultsFile");
+		verboseExtractionsFile = NtronExperiment.getStringProperty(properties, "verboseExtractionFile");
 	}
 
 	public static void main(String[] args) throws Exception {
@@ -117,17 +119,6 @@ public class ExtractFromCorpus {
 		System.out.println("Total extractions : " + extrs.size());
 		bw.close();
 
-	}
-
-	private String getStringProperty(Map<String, Object> properties, String str) {
-		if (properties.containsKey(str)) {
-			if (properties.get(str) == null) {
-				return null;
-			} else {
-				return properties.get(str).toString();
-			}
-		}
-		return null;
 	}
 
 	public static String formatExtractionString(Corpus c, Extraction e) throws SQLException {
@@ -361,18 +352,6 @@ public class ExtractFromCorpus {
 
 	private static double sigmoid(double score) {
 		return 1 / (1 + Math.exp(-score));
-	}
-
-	private List<String> getListProperty(Map<String, Object> properties, String string) {
-		if (properties.containsKey(string)) {
-			JsonObject obj = (JsonObject) properties.get(string);
-			List<String> returnValues = new ArrayList<>();
-			for (Object o : obj.getArray()) {
-				returnValues.add(o.toString());
-			}
-			return returnValues;
-		}
-		return new ArrayList<>();
 	}
 
 	public boolean isYear(String token) {
