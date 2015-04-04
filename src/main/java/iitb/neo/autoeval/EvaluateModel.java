@@ -82,5 +82,10 @@ public class EvaluateModel {
 		return pr;
 	}
 	
+	public static void main(String args[]) throws FileNotFoundException, InstantiationException, IllegalAccessException, ClassNotFoundException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, IOException {
+		EvaluateModel emodel = new EvaluateModel(args[0]);
+		
+	}
+	
 	
 }

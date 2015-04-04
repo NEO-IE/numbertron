@@ -17,6 +17,7 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 import main.java.iitb.neo.NtronExperiment;
+import main.java.iitb.neo.util.RegExpUtils;
 
 import org.apache.commons.io.IOUtils;
 
@@ -59,7 +60,7 @@ public class ExtractFromCorpus {
 	private String corpusPath;
 	private UnitExtractor ue;
 	private Set<String> relations;
-	private static final Pattern yearPat = Pattern.compile("^19[56789]\\d|20[01]\\d$");
+
 	private String resultsFile;
 	private String verboseExtractionsFile;
 	private double cutoff_confidence;
@@ -201,7 +202,7 @@ public class ExtractFromCorpus {
 					List<Pair<Argument, Argument>> sententialInstances = sig.generateSententialInstances(arguments,
 							sentence);
 					for (Pair<Argument, Argument> p : sententialInstances) {
-						if (!(exactlyOneNumber(p) && secondNumber(p) && !isYear(p.second.getArgName()))) {
+						if (!(RegExpUtils.exactlyOneNumber(p) && RegExpUtils.secondNumber(p) && !RegExpUtils.isYear(p.second.getArgName()))) {
 							continue;
 						}
 						Map<Integer, Double> perRelationScoreMap = sle
@@ -275,16 +276,6 @@ public class ExtractFromCorpus {
 		return extrs;
 	}
 
-	private static boolean exactlyOneNumber(Pair<Argument, Argument> p) {
-		boolean firstHasNumber = p.first.getArgName().matches(".*\\d.*");
-		boolean secondHasNumber = p.second.getArgName().matches(".*\\d.*");
-		return firstHasNumber ^ secondHasNumber;
-	}
-
-	private static boolean secondNumber(Pair<Argument, Argument> p) {
-		boolean secondHasNumber = p.second.getArgName().matches(".*\\d.*");
-		return secondHasNumber;
-	}
 
 	/*
 	 * returns the list of relation compatible with numeric argument
@@ -354,7 +345,5 @@ public class ExtractFromCorpus {
 		return 1 / (1 + Math.exp(-score));
 	}
 
-	public boolean isYear(String token) {
-		return yearPat.matcher(token).matches();
-	}
+	
 }
