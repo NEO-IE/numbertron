@@ -69,7 +69,6 @@ public class NtronExperiment {
 
 	public NtronExperiment(String propertiesFile) throws Exception {
 
-		System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");
 		String jsonProperties = IOUtils.toString(new FileInputStream(new File(propertiesFile)));
 		Map<String, Object> properties = JsonReader.jsonToMaps(jsonProperties);
 
@@ -187,7 +186,7 @@ public class NtronExperiment {
 		return new ArrayList<>();
 	}
 
-	private String getStringProperty(Map<String, Object> properties, String str) {
+	public static String getStringProperty(Map<String, Object> properties, String str) {
 		if (properties.containsKey(str)) {
 			if (properties.get(str) == null) {
 				return null;
