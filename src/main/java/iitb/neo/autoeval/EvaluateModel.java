@@ -1,15 +1,15 @@
 package main.java.iitb.neo.autoeval;
 
+import iitb.rbased.meta.RelationMetadata;
 import iitb.rbased.util.Pair;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -32,13 +32,58 @@ import edu.washington.multirframework.data.Extraction;
 public class EvaluateModel {
 	ExtractFromCorpus efc;
 	HashSet<Extraction> trueExtractions;
+	EvaluateModel.Results  res;
+	private class Results
+	{
+		HashMap<String, Integer> perRelationCorrect;
+		HashMap<String, Integer> perRelationTrue;
+		HashMap<String, Integer> perRelationExtracted;
+		int totalExtracted;
+		int totalFacts;
+		int totalCorrectExtracted;
+		
+		public void dumpResults() {
+			Double precision = (totalCorrectExtracted * 1.0) / totalExtracted;
+			Double recall = (totalCorrectExtracted * 1.0) / totalFacts;
+			System.out.println("Precision = " + precision + ", Recall = " + recall + ", F-Score = " + f(precision, recall));
+			System.out.println("----Per Relation P/R");
+			for(String relName: RelationMetadata.getRelations()) {
+				Integer totalCorr = perRelationCorrect.get(relName);
+				Integer totalExtr = perRelationExtracted.get(relName);
+				Integer totalTrue = perRelationTrue.get(relName);
+				totalCorr = (totalCorr == null) ? 0 : (totalCorr);
+				if(null == totalExtr) {
+					precision = -1.0;
+				} else {
+					precision = (totalCorr * 1.0) / totalExtr;
+				}
+				recall = (totalCorr * 1.0) / totalTrue;
+				System.out.println("Relation = " + relName + ", Precision = " + precision + ", Recall = " + recall + ", F-Score = " + f(precision, recall));
+					
+				
+			}
+		}
+		
+		double f(double p, double r) {
+			assert(p + r > 0);
+			if(p + r == 0) {
+				return 0;
+			}
+			return (2 * p * r) / (p + r);
+		}
+	}
 	
 	public EvaluateModel(String propertiesFile) throws Exception {
-
+		res = new Results();
+		res.perRelationCorrect = new HashMap<String, Integer>();
+		res.perRelationExtracted = new HashMap<String, Integer>();
+		res.perRelationTrue = new HashMap<String, Integer>();
+			
 		String jsonProperties = IOUtils.toString(new FileInputStream(new File(propertiesFile)));
 		Map<String, Object> properties = JsonReader.jsonToMaps(jsonProperties);
 		String trueFile = NtronExperiment.getStringProperty(properties, "trueFile");
 		efc = new ExtractFromCorpus(propertiesFile);
+		
 		readTrueExtractions(trueFile);
 	}
 	private void readTrueExtractions(String trueFile) throws IOException {
@@ -67,23 +112,33 @@ public class EvaluateModel {
 			
 			
 			String relName = lineSplit[8];
-			
 			String senText = lineSplit[10];
+			
+			Integer currCount = res.perRelationTrue.get(relName);
+			res.perRelationTrue.put(relName, null == currCount ? 1 : currCount + 1);
+			
 			trueExtractions.add(new Extraction(arg1, arg2, docName, relName, sendId, senText));
 		}
 	}
 	
-	private Pair<Double, Double> precisionRecall(List<Extraction> modelExtractions) {
+	private void fillResult(List<Extraction> modelExtractions) {
 
 		assert(modelExtractions.size() > 0);
 		int correct = 0;
 		for(Extraction e: modelExtractions) {
+			String relName = e.getRelation();
+			Integer currCount = res.perRelationExtracted.get(relName);
+			res.perRelationExtracted.put(relName, null == currCount ? 1 : currCount + 1);
 			if(isTrueExtr(e)) {
+				
+				currCount = res.perRelationCorrect.get(relName);
+				res.perRelationCorrect.put(relName, null == currCount ? 1 : currCount + 1);
 				correct++;
 			}
 		}
-		Pair<Double, Double> pr = new Pair<Double, Double>((correct * 1.0) / (modelExtractions.size()), (correct * 1.0) / trueExtractions.size());
-		return pr;
+		res.totalFacts = trueExtractions.size();
+		res.totalCorrectExtracted = correct;
+		res.totalExtracted = modelExtractions.size();
 	}
 	
 	boolean isTrueExtr(Extraction e) {
@@ -96,9 +151,9 @@ public class EvaluateModel {
 	}
 	
 	public void evaluate() throws SQLException, IOException {
-		List<Extraction> modelExtractions = efc.getExtractions("extrs1", true);
-		Pair<Double, Double> pr = precisionRecall(modelExtractions);
-		System.out.println("Precision = " + pr.first + ", Recall = " + pr.second);
+		List<Extraction> modelExtractions = efc.getExtractions("extrs2", true);
+		fillResult(modelExtractions);
+		res.dumpResults();
 	}
 	public static void main(String args[]) throws Exception {
 		EvaluateModel emodel = new EvaluateModel(args[0]);

@@ -137,7 +137,7 @@ public class ExtractFromCorpus {
 	public List<Extraction> getExtractions(Corpus c, ArgumentIdentification ai, FeatureGenerator fg,
 			List<SententialInstanceGeneration> sigs, List<String> modelPaths) throws SQLException,
 			IOException {
-		boolean ANALYZE = true;
+		boolean ANALYZE = false;
 		BufferedWriter analysis_writer = null;
 		if (ANALYZE) {
 			
@@ -188,7 +188,8 @@ public class ExtractFromCorpus {
 						
 						String senText = sentence.get(CoreAnnotations.TextAnnotation.class);
 						String docName = sentence.get(SentDocName.class);
-
+						sentence.get(SentStartOffset.class);
+					
 						Integer sentNum = sentence.get(SentGlobalID.class);
 						double max, min;
 						ArrayList<Double> scores = new ArrayList<Double>(perRelationScoreMap.values());
@@ -233,8 +234,9 @@ public class ExtractFromCorpus {
 				System.out.println(docCount + " docs processed");
 			}
 		}
-		
-		analysis_writer.close();
+		if(ANALYZE) {
+			analysis_writer.close();
+		}
 		
 		return extrs;
 	}
@@ -292,4 +294,41 @@ public class ExtractFromCorpus {
 
 	}
 	
+	public static String formatExtractionStringOriginalOffset(Corpus c, Extraction e) throws SQLException {
+		StringBuilder sb = new StringBuilder();
+		String[] eValues = e.toString().split("\t");
+		String arg1Name = eValues[0];
+		String arg2Name = eValues[3];
+		String docName = eValues[6].replaceAll("__", "_");
+		String rel = eValues[7];
+		String sentenceText = eValues[9];
+
+		Integer sentNum = Integer.parseInt(eValues[8]);
+		Integer arg1SentStartOffset = Integer.parseInt(eValues[1]);
+		Integer arg1SentEndOffset = Integer.parseInt(eValues[2]);
+		Integer arg2SentStartOffset = Integer.parseInt(eValues[4]);
+		Integer arg2SentEndOffset = Integer.parseInt(eValues[5]);
+		sb.append(arg1Name);
+		sb.append("\t");
+		sb.append(arg1SentStartOffset);
+		sb.append("\t");
+		sb.append(arg1SentEndOffset);
+		sb.append("\t");
+		sb.append(arg2Name);
+		sb.append("\t");
+		sb.append(arg2SentStartOffset);
+		sb.append("\t");
+		sb.append(arg2SentEndOffset);
+		sb.append("\t");
+		sb.append(sentNum);
+		sb.append("\t");
+		sb.append(docName);
+		sb.append("\t");
+		sb.append(rel);
+		sb.append("\t");
+		sb.append(e.getScore());
+		sb.append("\t");
+		sb.append(sentenceText);
+		return sb.toString().trim();
+	}
 }

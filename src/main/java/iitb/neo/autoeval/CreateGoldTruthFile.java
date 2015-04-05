@@ -99,18 +99,19 @@ public class CreateGoldTruthFile {
 				Annotation doc = docs.next();
 				List<CoreMap> sentences = doc.get(CoreAnnotations.SentencesAnnotation.class);
 				for (CoreMap sentence : sentences) {
-
+					System.out.println("sent: " + sentence);
 					// argument identification
 					List<Argument> arguments = ai.identifyArguments(doc, sentence);
 					// sentential instance generation
-					System.out.println("sent: " + sentence);
+			
 					List<Pair<Argument, Argument>> sententialInstances = sig.generateSententialInstances(arguments,
 							sentence);
 
 					Integer sentNum = sentence.get(SentGlobalID.class);
 					String docName = sentence.get(SentDocName.class);
-
+		
 					System.out.println("Processing sentence number " + sentNum);
+				
 					for (Pair<Argument, Argument> p : sententialInstances) {
 						if (!(RegExpUtils.exactlyOneNumber(p) && RegExpUtils.secondNumber(p) && !RegExpUtils
 								.isYear(p.second.getArgName()))) {
@@ -122,7 +123,7 @@ public class CreateGoldTruthFile {
 						for (String compatibleRel : compatibleRels) {
 							Extraction e = new Extraction(p.first, p.second, docName, compatibleRel, sentNum, 0.0,
 									senText);
-							bw.write(main.java.iitb.neo.extract.ExtractFromCorpus.formatExtractionString(c, e) + "\n");
+							bw.write(main.java.iitb.neo.extract.ExtractFromCorpus.formatExtractionStringOriginalOffset(c, e) + "\n");
 							extrs.add(e);
 						}
 					}
