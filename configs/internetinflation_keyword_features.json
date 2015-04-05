@@ -36,5 +36,6 @@
 ],
   "ti" : [ "edu.washington.multirframework.corpus.TokenChunkInformation" ],
   "di" : [ ],
-  "useFiger" : "false"
+  "useFiger" : "false",
+  "useKeywordFeatures" : "true"
 }
