@@ -149,7 +149,7 @@ public class Spotting {
 			KBArgument countryArg = new KBArgument(new Argument(
 					location.getVal(), location.getStartOff(),
 					location.getEndOff()), countryId);
-			KBArgument numberArg = new KBArgument(new Argument(number.getVal(),
+			KBArgument numberArg = new KBArgument(new Argument(Double.toString(number.getFlatVal()),
 					number.getStartOff(), number.getEndOff()), Double.toString(number.getFlatVal()));
 			Triple<KBArgument, KBArgument, String> relTrip = new Triple<KBArgument, KBArgument, String>(
 					countryArg, numberArg, relName);
@@ -177,7 +177,7 @@ public class Spotting {
 			try {
 				dsWriter.write(arg1.getKbId()); // for missing countries
 			} catch (Exception e) {
-				e.printStackTrace();
+				System.err.println("Country missing: " + arg1.getArgName());
 			}
 			dsWriter.write("\t");
 			dsWriter.write(String.valueOf(arg1.getStartOffset()));

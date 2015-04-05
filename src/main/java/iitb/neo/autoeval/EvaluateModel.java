@@ -9,17 +9,18 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
 import main.java.iitb.neo.NtronExperiment;
+import main.java.iitb.neo.extract.ExtractFromCorpus;
 
 import org.apache.commons.io.IOUtils;
 
 import com.cedarsoftware.util.io.JsonReader;
 
-import edu.washington.multir.extractor.ExtractFromCorpus;
 import edu.washington.multirframework.data.Argument;
 import edu.washington.multirframework.data.Extraction;
 
@@ -29,40 +30,43 @@ import edu.washington.multirframework.data.Extraction;
  *
  */
 public class EvaluateModel {
-	String trueFile;
-	String docName;
 	ExtractFromCorpus efc;
 	HashSet<Extraction> trueExtractions;
-	public EvaluateModel(String propertiesFile) throws FileNotFoundException, IOException, InstantiationException, IllegalAccessException, ClassNotFoundException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+	
+	public EvaluateModel(String propertiesFile) throws Exception {
 
 		String jsonProperties = IOUtils.toString(new FileInputStream(new File(propertiesFile)));
 		Map<String, Object> properties = JsonReader.jsonToMaps(jsonProperties);
-		docName = NtronExperiment.getStringProperty(properties, "docName");
-		trueFile = NtronExperiment.getStringProperty(properties, "trueFile");
+		String trueFile = NtronExperiment.getStringProperty(properties, "trueFile");
 		efc = new ExtractFromCorpus(propertiesFile);
-		readTrueExtractions();
+		readTrueExtractions(trueFile);
 	}
-	private void readTrueExtractions() throws IOException {
+	private void readTrueExtractions(String trueFile) throws IOException {
 		assert(trueExtractions == null);
 		trueExtractions = new HashSet<Extraction>();
 		BufferedReader br = new BufferedReader(new FileReader(trueFile));
 		String trueLine = null;
 		while(null != (trueLine = br.readLine())) {
 			String lineSplit[] = trueLine.split("\t");
-			String arg1Name = lineSplit[3];
+			String arg1Name = lineSplit[0];
 			int arg1StartOff = Integer.parseInt(lineSplit[1]);
 			int arg1EndOff = Integer.parseInt(lineSplit[2]);
 			
 			Argument arg1 = new Argument(arg1Name, arg1StartOff, arg1EndOff);
 		
-			String arg2Name = lineSplit[7];
-			int arg2StartOff = Integer.parseInt(lineSplit[5]);
-			int arg2EndOff = Integer.parseInt(lineSplit[6]);
+			String arg2Name = lineSplit[3];
+			int arg2StartOff = Integer.parseInt(lineSplit[4]);
+			int arg2EndOff = Integer.parseInt(lineSplit[5]);
+			
+			Integer sendId = Integer.parseInt(lineSplit[6]);
+			
+			String docName = lineSplit[7];
+			
+			
 			Argument arg2 = new Argument(arg2Name, arg2StartOff, arg2EndOff);
 			
-			Integer sendId = Integer.parseInt(lineSplit[8]);
 			
-			String relName = lineSplit[9];
+			String relName = lineSplit[8];
 			
 			String senText = lineSplit[10];
 			trueExtractions.add(new Extraction(arg1, arg2, docName, relName, sendId, senText));
@@ -70,21 +74,35 @@ public class EvaluateModel {
 	}
 	
 	private Pair<Double, Double> precisionRecall(List<Extraction> modelExtractions) {
-		int total = modelExtractions.size();
-		
+
+		assert(modelExtractions.size() > 0);
 		int correct = 0;
 		for(Extraction e: modelExtractions) {
-			if(trueExtractions.contains(e)) {
+			if(isTrueExtr(e)) {
 				correct++;
 			}
 		}
-		Pair<Double, Double> pr = new Pair<Double, Double>((correct * 1.0) / modelExtractions.size(), (correct * 1.0) / trueExtractions.size());
+		Pair<Double, Double> pr = new Pair<Double, Double>((correct * 1.0) / (modelExtractions.size()), (correct * 1.0) / trueExtractions.size());
 		return pr;
 	}
 	
-	public static void main(String args[]) throws FileNotFoundException, InstantiationException, IllegalAccessException, ClassNotFoundException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, IOException {
+	boolean isTrueExtr(Extraction e) {
+		for(Extraction t: trueExtractions) {
+			if(t.equals(e)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void evaluate() throws SQLException, IOException {
+		List<Extraction> modelExtractions = efc.getExtractions("extrs1", true);
+		Pair<Double, Double> pr = precisionRecall(modelExtractions);
+		System.out.println("Precision = " + pr.first + ", Recall = " + pr.second);
+	}
+	public static void main(String args[]) throws Exception {
 		EvaluateModel emodel = new EvaluateModel(args[0]);
-		
+		emodel.evaluate();
 	}
 	
 	

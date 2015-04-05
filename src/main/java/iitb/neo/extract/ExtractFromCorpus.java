@@ -1,7 +1,6 @@
 package main.java.iitb.neo.extract;
 
 import iitb.rbased.meta.RelationMetadata;
-import iitb.shared.EntryWithScore;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -14,7 +13,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.regex.Pattern;
 
 import main.java.iitb.neo.NtronExperiment;
 import main.java.iitb.neo.util.RegExpUtils;
@@ -22,9 +20,6 @@ import main.java.iitb.neo.util.UnitsUtils;
 
 import org.apache.commons.io.IOUtils;
 
-import catalog.Unit;
-
-import com.cedarsoftware.util.io.JsonObject;
 import com.cedarsoftware.util.io.JsonReader;
 
 import edu.stanford.nlp.ling.CoreAnnotations;
@@ -42,7 +37,6 @@ import edu.washington.multirframework.corpus.SentOffsetInformation.SentStartOffs
 import edu.washington.multirframework.data.Argument;
 import edu.washington.multirframework.data.Extraction;
 import edu.washington.multirframework.featuregeneration.FeatureGenerator;
-import eval.UnitExtractor;
 
 /**
  * The main method of this class will print to an output file all the
@@ -117,59 +111,31 @@ public class ExtractFromCorpus {
 		c.setCorpusToDefault();
 		BufferedWriter bw = new BufferedWriter(new FileWriter(new File(efc.resultsFile)));
 
-		List<Extraction> extrs = efc.getExtractions(c, efc.ai, efc.fg, efc.sigs, efc.ntronModelDir, bw);
+		List<Extraction> extrs = efc.getExtractions(c, efc.ai, efc.fg, efc.sigs, efc.ntronModelDir);
+		efc.writeExtractions(bw, c, extrs);
+		
 		System.out.println("Total extractions : " + extrs.size());
 		bw.close();
 
 	}
-
-	public static String formatExtractionString(Corpus c, Extraction e) throws SQLException {
-		StringBuilder sb = new StringBuilder();
-		String[] eValues = e.toString().split("\t");
-		String arg1Name = eValues[0];
-		String arg2Name = eValues[3];
-		String docName = eValues[6].replaceAll("__", "_");
-		String rel = eValues[7];
-		String sentenceText = eValues[9];
-
-		Integer sentNum = Integer.parseInt(eValues[8]);
-		Integer arg1SentStartOffset = Integer.parseInt(eValues[1]);
-		Integer arg1SentEndOffset = Integer.parseInt(eValues[2]);
-		Integer arg2SentStartOffset = Integer.parseInt(eValues[4]);
-		Integer arg2SentEndOffset = Integer.parseInt(eValues[5]);
-
-		CoreMap s = c.getSentence(sentNum);
-		Integer sentStartOffset = s.get(SentStartOffset.class);
-		Integer arg1DocStartOffset = sentStartOffset + arg1SentStartOffset;
-		Integer arg1DocEndOffset = sentStartOffset + arg1SentEndOffset;
-		Integer arg2DocStartOffset = sentStartOffset + arg2SentStartOffset;
-		Integer arg2DocEndOffset = sentStartOffset + arg2SentEndOffset;
-
-		sb.append(arg1Name);
-		sb.append("\t");
-		sb.append(arg1DocStartOffset);
-		sb.append("\t");
-		sb.append(arg1DocEndOffset);
-		sb.append("\t");
-		sb.append(arg2Name);
-		sb.append("\t");
-		sb.append(arg2DocStartOffset);
-		sb.append("\t");
-		sb.append(arg2DocEndOffset);
-		sb.append("\t");
-		sb.append(docName);
-		sb.append("\t");
-		sb.append(rel);
-		sb.append("\t");
-		sb.append(e.getScore());
-		sb.append("\t");
-		sb.append(sentenceText);
-		return sb.toString().trim();
-
+	
+	
+	public List<Extraction> getExtractions(String resultsFile, boolean writeExtractions) throws SQLException, IOException {
+		Corpus c = new Corpus(corpusPath, cis, true);
+		c.setCorpusToDefault();
+		
+		List<Extraction> extrs = getExtractions(c, ai, fg, sigs, ntronModelDir);
+		if(writeExtractions) {
+			BufferedWriter bw = new BufferedWriter(new FileWriter(new File(resultsFile)));
+			writeExtractions(bw, c, extrs);
+			bw.close();
+		}
+		
+		return extrs;
 	}
 
 	public List<Extraction> getExtractions(Corpus c, ArgumentIdentification ai, FeatureGenerator fg,
-			List<SententialInstanceGeneration> sigs, List<String> modelPaths, BufferedWriter bw) throws SQLException,
+			List<SententialInstanceGeneration> sigs, List<String> modelPaths) throws SQLException,
 			IOException {
 		boolean ANALYZE = true;
 		BufferedWriter analysis_writer = null;
@@ -255,9 +221,6 @@ public class ExtractFromCorpus {
 						Extraction e = new Extraction(p.first, p.second, docName, relStr, sentNum, extrScore, senText);
 
 						extrs.add(e);
-
-//						bw.write(formatExtractionString(c, e) + " " + conf + "\n");
-						bw.write(formatExtractionString(c, e) + "\n");
 					}
 
 				}
@@ -268,20 +231,65 @@ public class ExtractFromCorpus {
 			docCount++;
 			if (docCount % 100 == 0) {
 				System.out.println(docCount + " docs processed");
-				bw.flush();
 			}
 		}
-		bw.close();
+		
 		analysis_writer.close();
 		
 		return extrs;
 	}
 
-
-
-	private static double sigmoid(double score) {
-		return 1 / (1 + Math.exp(-score));
+	public void writeExtractions(BufferedWriter bw, Corpus c, List<Extraction> extractions) throws IOException, SQLException {
+		for(Extraction e: extractions) {
+			bw.write(formatExtractionString(c, e) + "\n");
+		}
 	}
+	
+	public static String formatExtractionString(Corpus c, Extraction e) throws SQLException {
+		StringBuilder sb = new StringBuilder();
+		String[] eValues = e.toString().split("\t");
+		String arg1Name = eValues[0];
+		String arg2Name = eValues[3];
+		String docName = eValues[6].replaceAll("__", "_");
+		String rel = eValues[7];
+		String sentenceText = eValues[9];
 
+		Integer sentNum = Integer.parseInt(eValues[8]);
+		Integer arg1SentStartOffset = Integer.parseInt(eValues[1]);
+		Integer arg1SentEndOffset = Integer.parseInt(eValues[2]);
+		Integer arg2SentStartOffset = Integer.parseInt(eValues[4]);
+		Integer arg2SentEndOffset = Integer.parseInt(eValues[5]);
+
+		CoreMap s = c.getSentence(sentNum);
+		Integer sentStartOffset = s.get(SentStartOffset.class);
+		Integer arg1DocStartOffset = sentStartOffset + arg1SentStartOffset;
+		Integer arg1DocEndOffset = sentStartOffset + arg1SentEndOffset;
+		Integer arg2DocStartOffset = sentStartOffset + arg2SentStartOffset;
+		Integer arg2DocEndOffset = sentStartOffset + arg2SentEndOffset;
+
+		sb.append(arg1Name);
+		sb.append("\t");
+		sb.append(arg1DocStartOffset);
+		sb.append("\t");
+		sb.append(arg1DocEndOffset);
+		sb.append("\t");
+		sb.append(arg2Name);
+		sb.append("\t");
+		sb.append(arg2DocStartOffset);
+		sb.append("\t");
+		sb.append(arg2DocEndOffset);
+		sb.append("\t");
+		sb.append(sentNum);
+		sb.append("\t");
+		sb.append(docName);
+		sb.append("\t");
+		sb.append(rel);
+		sb.append("\t");
+		sb.append(e.getScore());
+		sb.append("\t");
+		sb.append(sentenceText);
+		return sb.toString().trim();
+
+	}
 	
 }
