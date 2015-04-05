@@ -69,7 +69,6 @@ public class NtronExperiment {
 
 	public NtronExperiment(String propertiesFile) throws Exception {
 
-		System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");
 		String jsonProperties = IOUtils.toString(new FileInputStream(new File(propertiesFile)));
 		Map<String, Object> properties = JsonReader.jsonToMaps(jsonProperties);
 
@@ -175,7 +174,7 @@ public class NtronExperiment {
 
 	}
 
-	private List<String> getListProperty(Map<String, Object> properties, String string) {
+	public static List<String> getListProperty(Map<String, Object> properties, String string) {
 		if (properties.containsKey(string)) {
 			JsonObject obj = (JsonObject) properties.get(string);
 			List<String> returnValues = new ArrayList<>();
@@ -187,7 +186,7 @@ public class NtronExperiment {
 		return new ArrayList<>();
 	}
 
-	private String getStringProperty(Map<String, Object> properties, String str) {
+	public static String getStringProperty(Map<String, Object> properties, String str) {
 		if (properties.containsKey(str)) {
 			if (properties.get(str) == null) {
 				return null;
@@ -214,7 +213,7 @@ public class NtronExperiment {
 			System.err.println("Running Feature Generation");
 			PerSpotFeatureGeneration fGeneration = new PerSpotFeatureGeneration(fg);
 			fGeneration.run(DSFiles, featureFiles, c, cis);
-		}
+		}	
 
 		System.err.println("Training");
 		/* Step 3: Training and weight learning */

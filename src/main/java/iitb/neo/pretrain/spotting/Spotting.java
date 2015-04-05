@@ -64,7 +64,6 @@ public class Spotting {
 			}
 			br.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -106,7 +105,6 @@ public class Spotting {
 			
 			for (CoreMap sentence : sentences) {
 				numProcessed++;
-			
 				sentID = sentence.get(SentGlobalID.class);
 				if(numProcessed % 1000 == 0) {
 					System.out.println("Processed: " + numProcessed + " , ignored: " + ignored);
@@ -133,8 +131,8 @@ public class Spotting {
 					}
 					
 				} catch (Exception e) {
-					System.out.println(e);
-					continue; //ssh
+					//e.printStackTrace();
+					continue; //sshhh
 				}
 			
 			}
@@ -152,7 +150,7 @@ public class Spotting {
 					location.getVal(), location.getStartOff(),
 					location.getEndOff()), countryId);
 			KBArgument numberArg = new KBArgument(new Argument(number.getVal(),
-					number.getStartOff(), number.getEndOff()), number.getVal());
+					number.getStartOff(), number.getEndOff()), Double.toString(number.getFlatVal()));
 			Triple<KBArgument, KBArgument, String> relTrip = new Triple<KBArgument, KBArgument, String>(
 					countryArg, numberArg, relName);
 			Pair<Triple<KBArgument, KBArgument, String>, Integer> relTripSentIdPair = new Pair<>(
@@ -179,7 +177,7 @@ public class Spotting {
 			try {
 				dsWriter.write(arg1.getKbId()); // for missing countries
 			} catch (Exception e) {
-				continue;
+				e.printStackTrace();
 			}
 			dsWriter.write("\t");
 			dsWriter.write(String.valueOf(arg1.getStartOffset()));
