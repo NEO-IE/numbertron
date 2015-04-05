@@ -33,6 +33,10 @@ private Parameters params;
 		return doc.features[m];
 	}
 	
+	public SparseBinaryVector getMentionNumRelationFeatures(LRGraph doc, int m, int rel){
+		return doc.numFeatures[m];
+	}
+	
 	public void setParameters(Parameters params) {
 		this.params = params;
 	}
