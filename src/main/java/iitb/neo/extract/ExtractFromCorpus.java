@@ -155,7 +155,7 @@ public class ExtractFromCorpus {
 			// sle.getMapping().getRel2RelID();
 			// Map<Integer, String> ftID2ftMap =
 			// ModelUtils.getFeatureIDToFeatureMap(sle.getMapping());
-
+			int sentNumber = 0;
 			int docCount = 0;
 			while (docs.hasNext()) {
 				Annotation doc = docs.next();
@@ -165,7 +165,10 @@ public class ExtractFromCorpus {
 					// argument identification
 					List<Argument> arguments = ai.identifyArguments(doc, sentence);
 					// sentential instance generation
-					System.out.println("sent: " + sentence);
+					
+					if(sentNumber++ % 50 == 0) {
+						System.out.println("Extracting from sentence number " + sentNumber	);
+					}
 					List<Pair<Argument, Argument>> sententialInstances = sig.generateSententialInstances(arguments,
 							sentence);
 					for (Pair<Argument, Argument> p : sententialInstances) {
@@ -211,17 +214,18 @@ public class ExtractFromCorpus {
 															// extraction ||
 							continue;
 						}
-						System.out.println(extrScore);
 						// System.out.println(extrResult);
 						// prepare extraction
-						if(ANALYZE && null != relStr) {
-							sle.firedFeaturesScores(p.first, p.second, sentence, doc, relStr, analysis_writer);
+						if(null != relStr) {
+							if(ANALYZE) {
+								sle.firedFeaturesScores(p.first, p.second, sentence, doc, relStr, analysis_writer);
+							}
+							Extraction e = new Extraction(p.first, p.second, docName, relStr, sentNum, extrScore, senText);
+
+							extrs.add(e);
 							
 						}
-						
-						Extraction e = new Extraction(p.first, p.second, docName, relStr, sentNum, extrScore, senText);
 
-						extrs.add(e);
 					}
 
 				}
