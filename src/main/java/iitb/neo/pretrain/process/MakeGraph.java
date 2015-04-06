@@ -251,8 +251,8 @@ public class MakeGraph {
 				numbers.add(new Number(num, numberSentenceMap.get(num)));
 			}
 
-			constructLRGraph(numbers, featureLists, numberFeatureMap, v[0], v[1], m.getRelationID(v[1], false)).write(os);
-
+			LRGraph newGraph = constructLRGraph(numbers, featureLists, numberFeatureMap, v[0], v[1], m.getRelationID(v[1], false));
+			newGraph.write(os);	
 		}
 
 		br.close();
