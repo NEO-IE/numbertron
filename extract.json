@@ -1,0 +1,27 @@
+{
+  "corpusPath" :
+"jdbc:derby:/mnt/a99/d0/aman/numbertron/data/numbertrontestset",
+  "train" : "true",
+  "testDocumentsFile" :
+"data/emptyFile",
+  "fg" :
+  "main.java.iitb.neo.pretrain.featuregeneration.NumbertronFeatureGenerator",
+  "ai" :
+"edu.washington.multirframework.argumentidentification.NERAndNumberArgumentIdentification",
+  "targetRelFile" : "/mnt/a99/d0/aman/MultirExperiments/data/numericalkb/target_relations.tsv",
+  "typeRelMap" : null,
+  "sigs" : [
+"edu.washington.multirframework.argumentidentification.DefaultSententialInstanceGeneration"
+],
+  "models" : [
+"/mnt/a99/d0/aman/numbertron/data/model_features_mintz_match20perc_regul0.5_noconfusion" ],
+  "cis" :
+"edu.washington.multirframework.corpus.DefaultCorpusInformationSpecification",
+  "ti" : [ "edu.washington.multirframework.corpus.TokenChunkInformation" ],
+  "di" : [ ],
+  "useFiger" : "false",
+  "resultsFile" : "results/model_features_mintz_match20perc_regul0.5_noconfusion_results.tsv",
+  "verboseExtractionFile" : "results/verbose/model_features_mintz_match20perc_regul0.5_noconfusion_results_verbose.txt",
+  "cutoff_score" : "0.0",
+  "cutoff_confidence" : "1"
+}

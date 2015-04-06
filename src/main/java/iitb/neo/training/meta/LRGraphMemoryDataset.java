@@ -64,6 +64,12 @@ public class LRGraphMemoryDataset implements Dataset<LRGraph> {
 			doc.numMentions = d.numMentions;
 			doc.n = d.n;
 			doc.Z = d.Z;
+			
+			doc.N = d.N;
+			doc.numMentionIDs = d.numMentionIDs;
+			doc.numFeatures = d.numFeatures;
+			doc.numNodesCount = d.numNodesCount;
+			
 			return true;
 		}
 		return false;

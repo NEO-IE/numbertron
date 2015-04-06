@@ -16,7 +16,7 @@ import java.util.Random;
 
 import main.java.iitb.neo.training.ds.LRGraph;
 import main.java.iitb.neo.training.ds.Number;
-import edu.washington.multir.development.Preprocess;
+import main.java.iitb.neo.pretrain.featuregeneration.Preprocess;
 import edu.washington.multirframework.multiralgorithm.Mappings;
 import edu.washington.multirframework.multiralgorithm.Model;
 import edu.washington.multirframework.multiralgorithm.SparseBinaryVector;
@@ -37,7 +37,8 @@ public class MakeGraph {
 	private static final double GIGABYTE_DIVISOR = 1073741824;
 
 	static HashMap<String, Integer> relToRelnumberMap;
-	static int numRelations = 11;
+	static int numRelations = 11; 
+	
 	static {
 		relToRelnumberMap = new HashMap<String, Integer>();
 
@@ -176,9 +177,15 @@ public class MakeGraph {
 																	// current
 																	// number
 																	// appears
+		HashMap<String, List<Integer>> numberFeatureMap = null; //stores the features for the numbers
+		
 		while ((line = br.readLine()) != null) {
 
-			String[] values = line.split("\t");
+			String[] parts = line.split("@@");
+			
+			//parts[1] is number features. TODO from here.
+			
+			String[] values = parts[0].split("\t");
 			String location = values[1];
 			String number = values[2];
 			String relString = values[3];
@@ -191,8 +198,18 @@ public class MakeGraph {
 			for (int i = 4; i < values.length; i++) {
 				features.add(values[i]);
 			}
+			
+			List<String> numFeatures = new ArrayList<>();
+			if(parts.length == 2){
+				String[] vals = parts[1].split("\t");
+				for(int i = 0; i < vals.length; i++){
+					numFeatures.add(vals[i]);
+				}
+			}
+			
 			// convert to integer keys from the mappings m object
 			List<Integer> featureIntegers = Preprocess.convertFeaturesToIntegers(features, m);
+			List<Integer> numFeatureIntegers = Preprocess.convertFeaturesToIntegers(numFeatures, m);
 
 			if (key.equals(prevKey)) { // same location relation, add
 				featureLists.add(featureIntegers);
@@ -202,6 +219,7 @@ public class MakeGraph {
 					ArrayList<Integer> mentionIds = new ArrayList<Integer>();
 					mentionIds.add(mentionNumber);
 					numberSentenceMap.put(number, mentionIds);
+					numberFeatureMap.put(number, numFeatureIntegers);
 				}
 			} else {
 				// construct MILDoc from currentFeatureLists
@@ -213,16 +231,19 @@ public class MakeGraph {
 					}
 					// m/0154j AGL
 
-					constructLRGraph(numbers, featureLists, v[0], v[1], m.getRelationID(v[1], false)).write(os);
+					LRGraph lr = constructLRGraph(numbers, featureLists, numberFeatureMap, v[0], v[1], m.getRelationID(v[1], false));
+					lr.write(os);
 					mentionNumber = 0; // reset the mention number
 
 				}
-				// reste featureLists and prevKey
+				// reset featureLists and prevKey
 				numberSentenceMap = new HashMap<String, List<Integer>>();
 				ArrayList<Integer> mentionIds = new ArrayList<Integer>();
 				mentionIds.add(mentionNumber);
 				numberSentenceMap.put(number, mentionIds);
 
+				numberFeatureMap = new HashMap<>();
+				numberFeatureMap.put(number, numFeatureIntegers);
 				featureLists = new ArrayList<>();
 				featureLists.add(featureIntegers);
 				prevKey = key;
@@ -244,8 +265,8 @@ public class MakeGraph {
 				numbers.add(new Number(num, numberSentenceMap.get(num)));
 			}
 
-			constructLRGraph(numbers, featureLists, v[0], v[1], m.getRelationID(v[1], false)).write(os);
-
+			LRGraph newGraph = constructLRGraph(numbers, featureLists, numberFeatureMap, v[0], v[1], m.getRelationID(v[1], false));
+			newGraph.write(os);	
 		}
 
 		br.close();
@@ -253,17 +274,18 @@ public class MakeGraph {
 		tempSortedFeatureFile.delete();
 	}
 
-	private static LRGraph constructLRGraph(List<Number> numbers, List<List<Integer>> featureInts, String location,
-			String relation, int relNumber) {
+	private static LRGraph constructLRGraph(List<Number> numbers, 
+			List<List<Integer>> featureInts, HashMap<String, List<Integer>> numberFeatureMap, 
+			String location, String relation, int relNumber) {
 		LRGraph lrg = new LRGraph();
 		lrg.location = location;
 		lrg.relation = relation;
-
 		lrg.relNumber = relNumber;
 		// set number nodes
 
 		int numNodesCount = numbers.size();
 		lrg.n = new Number[numNodesCount];
+		
 		for (int i = 0; i < numNodesCount; i++) {
 			lrg.n[i] = numbers.get(i); // just for performance reasons, too
 										// early and perhaps evil. But worth a
@@ -272,32 +294,47 @@ public class MakeGraph {
 		// set mentions
 		lrg.setCapacity(featureInts.size());
 		lrg.numMentions = featureInts.size();
-
+		
 		for (int j = 0; j < featureInts.size(); j++) {
 			lrg.Z[j] = -1;
 			lrg.mentionIDs[j] = j;
-			SparseBinaryVector sv = lrg.features[j] = new SparseBinaryVector();
-
-			List<Integer> instanceFeatures = featureInts.get(j);
-			int[] fts = new int[instanceFeatures.size()];
-
-			for (int i = 0; i < instanceFeatures.size(); i++)
-				fts[i] = instanceFeatures.get(i);
-			Arrays.sort(fts);
-			int countUnique = 0;
-			for (int i = 0; i < fts.length; i++)
-				if (fts[i] != -1 && (i == 0 || fts[i - 1] != fts[i]))
-					countUnique++;
-			sv.num = countUnique;
-			sv.ids = new int[countUnique];
-			int pos = 0;
-			for (int i = 0; i < fts.length; i++)
-				if (fts[i] != -1 && (i == 0 || fts[i - 1] != fts[i]))
-					sv.ids[pos++] = fts[i];
-
+			lrg.features[j] = getSBVfromList(featureInts.get(j));
+		}
+		
+		//set num Mentions
+		lrg.setNumCapacity(numNodesCount);
+		lrg.numNodesCount = numNodesCount;
+		
+		for(int j = 0; j < numNodesCount; j++){
+			lrg.N[j] = -1;
+			lrg.numMentionIDs[j] = j;
+			lrg.numFeatures[j] = getSBVfromList(numberFeatureMap.get(lrg.n[j].svalue));
 		}
 
 		return lrg;
+	}
+	
+	public static SparseBinaryVector getSBVfromList(List<Integer> features){
+		SparseBinaryVector sv = new SparseBinaryVector();
+		
+		int[] fts = new int[features.size()];
+
+		for (int i = 0; i < features.size(); i++)
+			fts[i] = features.get(i);
+		Arrays.sort(fts);
+		int countUnique = 0;
+		for (int i = 0; i < fts.length; i++)
+			if (fts[i] != -1 && (i == 0 || fts[i - 1] != fts[i]))
+				countUnique++;
+		sv.num = countUnique;
+		sv.ids = new int[countUnique];
+		int pos = 0;
+		for (int i = 0; i < fts.length; i++)
+			if (fts[i] != -1 && (i == 0 || fts[i - 1] != fts[i]))
+				sv.ids[pos++] = fts[i];
+
+		
+		return sv;
 	}
 
 }
