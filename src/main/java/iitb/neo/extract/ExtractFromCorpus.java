@@ -210,7 +210,7 @@ public class ExtractFromCorpus {
 						if(max != min) {
 							conf = (extrScore - min) / (max - min);
 						}
-						if (conf <= 0.95) { // no compatible
+						if (conf <= cutoff_confidence) { // no compatible
 															// extraction ||
 							continue;
 						}

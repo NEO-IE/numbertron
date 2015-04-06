@@ -33,6 +33,7 @@ public class EvaluateModel {
 	ExtractFromCorpus efc;
 	HashSet<Extraction> trueExtractions;
 	EvaluateModel.Results  res;
+	String modelName; //model to be evaluated
 	private class Results
 	{
 		HashMap<String, Integer> perRelationCorrect;
@@ -57,7 +58,7 @@ public class EvaluateModel {
 				} else {
 					precision = (totalCorr * 1.0) / totalExtr;
 				}
-				recall = (totalCorr * 1.0) / (null == totalTrue ? 1 : totalTrue);
+				recall = (totalCorr * 1.0) / (totalTrue);
 				System.out.println("Relation = " + relName + ", Precision = " + precision + ", Recall = " + recall + ", F-Score = " + f(precision, recall));
 					
 				
@@ -82,6 +83,7 @@ public class EvaluateModel {
 		String jsonProperties = IOUtils.toString(new FileInputStream(new File(propertiesFile)));
 		Map<String, Object> properties = JsonReader.jsonToMaps(jsonProperties);
 		String trueFile = NtronExperiment.getStringProperty(properties, "trueFile");
+		modelName = NtronExperiment.getListProperty(properties, "models").get(0);
 		efc = new ExtractFromCorpus(propertiesFile);
 		
 		readTrueExtractions(trueFile);
@@ -151,7 +153,7 @@ public class EvaluateModel {
 	}
 	
 	public void evaluate() throws SQLException, IOException {
-		List<Extraction> modelExtractions = efc.getExtractions("extrs2", true);
+		List<Extraction> modelExtractions = efc.getExtractions("results_" + new File(modelName).getName(), true);
 		fillResult(modelExtractions);
 		res.dumpResults();
 	}

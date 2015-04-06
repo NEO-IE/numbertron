@@ -1,11 +1,8 @@
 package main.java.iitb.neo.training.algorithm.lpercp;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Random;
 
-import main.java.iitb.neo.NtronExperiment;
 import main.java.iitb.neo.training.ds.LRGraph;
 import edu.washington.multirframework.multiralgorithm.Dataset;
 import edu.washington.multirframework.multiralgorithm.DenseVector;
@@ -25,7 +22,7 @@ public class LocalAveragedPerceptron {
 	public int maxIterations = 100;
 	public boolean computeAvgParameters = true;
 	private double delta = 1;
-	private double regulaizer = 0;
+	private double regulaizer = 0.5;
 
 	private Scorer scorer;
 	private Model model;
