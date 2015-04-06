@@ -57,7 +57,7 @@ public class EvaluateModel {
 				} else {
 					precision = (totalCorr * 1.0) / totalExtr;
 				}
-				recall = (totalCorr * 1.0) / totalTrue;
+				recall = (totalCorr * 1.0) / (null == totalTrue ? 1 : totalTrue);
 				System.out.println("Relation = " + relName + ", Precision = " + precision + ", Recall = " + recall + ", F-Score = " + f(precision, recall));
 					
 				
