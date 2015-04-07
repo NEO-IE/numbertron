@@ -28,25 +28,23 @@ import edu.washington.multirframework.corpus.Corpus;
 import edu.washington.multirframework.corpus.CorpusInformationSpecification;
 import edu.washington.multirframework.corpus.CorpusInformationSpecification.SentGlobalIDInformation.SentGlobalID;
 import edu.washington.multirframework.featuregeneration.FeatureGeneration.SententialArgumentPair;
+import edu.washington.multirframework.featuregeneration.FeatureGenerator;
 import edu.washington.multirframework.util.BufferedIOUtils;
 
 public class NumbertronFeatureGenerationDriver {
 
-	private NumberFeatureGenerator fg;
-	private NumberFeatures nfg;
-	private boolean useKeywordFeatures = false;
+	private FeatureGenerator mintzKeywordsFg;
+	private FeatureGenerator numbersFg;
+	boolean useMintzKeywordsFeatures;
+	boolean useNumberFeatures;
+	
+	public static final String FEATURE_TYPE_SEPARATOR = "@@";
 
-	/*
-	 * @todo : Get this from json.
-	 */
-
-	public NumbertronFeatureGenerationDriver(NumberFeatureGenerator fg) {
-		this.fg = fg;
-		this.nfg = new NumberFeatures();
-	}
-
-	public void setUseKeywordFeatures(boolean useKeywordFeatures) {
-		this.useKeywordFeatures = useKeywordFeatures;
+	public NumbertronFeatureGenerationDriver(FeatureGenerator mintzKeywordsfg, FeatureGenerator numbersFg) {
+		this.mintzKeywordsFg = mintzKeywordsfg;
+		this.numbersFg = numbersFg;
+		useMintzKeywordsFeatures = !(null == this.mintzKeywordsFg);
+		useNumberFeatures = !(null == this.numbersFg);
 	}
 
 	public void run(List<String> dsFileNames, List<String> featureFileNames, Corpus c,
@@ -142,30 +140,35 @@ public class NumbertronFeatureGenerationDriver {
 			Map<String, BufferedWriter> writerMap) throws IOException {
 		// System.out.println(currentSaps.size());
 
-		//for a given sentential argument pair
+		// for a given sentential argument pair
 		for (SententialArgumentPair sap : currentSaps) {
 			BufferedWriter bw = writerMap.get(sap.partitionID);
 
 			// generate and write mintz features
-			List<String> features = fg.generateFeatures(sap.arg1Offsets.first, sap.arg1Offsets.second,
-					sap.arg2Offsets.first, sap.arg2Offsets.second, sap.arg1ID, sap.arg2ID, sentence, doc);
+			if (useMintzKeywordsFeatures) {
+				List<String> features = mintzKeywordsFg.generateFeatures(sap.arg1Offsets.first, sap.arg1Offsets.second,
+						sap.arg2Offsets.first, sap.arg2Offsets.second, sap.arg1ID, sap.arg2ID, sentence, doc);
 
-			bw.write(makeFeatureString(sap, features));
+				bw.write(makeFeatureString(sap, features));
+			}
 
-			// generate and write numeric features
-			List<String> numFeatures = nfg.generateFeatures(sap.arg1Offsets.first, sap.arg1Offsets.second,
-					sap.arg2Offsets.first, sap.arg2Offsets.second, sap.arg1ID, sap.arg2ID, sentence, doc);
+			if (useNumberFeatures) {
+				// generate and write numeric features
+				List<String> numFeatures = numbersFg.generateFeatures(sap.arg1Offsets.first, sap.arg1Offsets.second,
+						sap.arg2Offsets.first, sap.arg2Offsets.second, sap.arg1ID, sap.arg2ID, sentence, doc);
 
-		
-			bw.write("@@" + makeNumFeatureString(sap, numFeatures));
-			bw.write("\n");
-			
-			//that's all
+				bw.write(FEATURE_TYPE_SEPARATOR + makeNumFeatureString(sap, numFeatures));
+				bw.write("\n");
+			}
+
+			// that's all
 		}
 	}
 
 	/**
-	 * Meta method to get the list of sentential argument pairs to be passed to the feature generation code
+	 * Meta method to get the list of sentential argument pairs to be passed to
+	 * the feature generation code
+	 * 
 	 * @param dsFileNames
 	 * @param featureFileNames
 	 * @return
@@ -212,6 +215,7 @@ public class NumbertronFeatureGenerationDriver {
 
 	/**
 	 * Creates a feature string suitable to be written to the file
+	 * 
 	 * @param sap
 	 * @param features
 	 * @return
@@ -238,7 +242,9 @@ public class NumbertronFeatureGenerationDriver {
 	}
 
 	/**
-	 * Creates a feature string for numerical features suitable to be written to the file
+	 * Creates a feature string for numerical features suitable to be written to
+	 * the file
+	 * 
 	 * @param sap
 	 * @param numFeatures
 	 * @return
@@ -246,7 +252,8 @@ public class NumbertronFeatureGenerationDriver {
 	private String makeNumFeatureString(SententialArgumentPair sap, List<String> numFeatures) {
 		StringBuilder sb = new StringBuilder();
 
-//		sb.append("@@"); //this should be handled by whoever calls this function
+		// sb.append("@@"); //this should be handled by whoever calls this
+		// function
 		for (String f : numFeatures) {
 			sb.append(f);
 			sb.append("\t");

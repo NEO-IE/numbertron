@@ -24,11 +24,10 @@ import edu.washington.multirframework.featuregeneration.FeatureGenerator;
  */
 
 /**
- * In verbose, NumbertronFeatureGenerator is a number feature generator, and also
  * @author aman
  *
  */
-public class NumbertronFeatureGenerator implements NumberFeatureGenerator {
+public class MintzKeywordFeatureGenerator implements FeatureGenerator {
 	
 	private boolean useKeywordFeatures = false;
 	
