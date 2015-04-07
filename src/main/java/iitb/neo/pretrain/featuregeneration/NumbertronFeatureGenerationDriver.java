@@ -158,9 +158,10 @@ public class NumbertronFeatureGenerationDriver {
 						sap.arg2Offsets.first, sap.arg2Offsets.second, sap.arg1ID, sap.arg2ID, sentence, doc);
 
 				bw.write(FEATURE_TYPE_SEPARATOR + makeNumFeatureString(sap, numFeatures));
-				bw.write("\n");
+			
 			}
-
+			
+			bw.write("\n");
 			// that's all
 		}
 	}

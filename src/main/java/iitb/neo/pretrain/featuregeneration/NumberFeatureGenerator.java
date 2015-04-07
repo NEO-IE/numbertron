@@ -6,13 +6,14 @@ import java.util.List;
 import main.java.iitb.neo.training.ds.Number;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.util.CoreMap;
+import edu.washington.multirframework.featuregeneration.FeatureGenerator;
 
 /**
  * A class that generates the number features
  * @author ashish
  *
  */
-public class NumberFeatureGenerator {
+public class NumberFeatureGenerator implements FeatureGenerator {
 
 	public List<String> generateFeatures(Integer first, Integer second,
 			Integer first2, Integer second2, String arg1id, String arg2id,

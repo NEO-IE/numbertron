@@ -106,11 +106,11 @@ public class NtronExperiment {
 		String mintzFeatureGeneratorClass = JsonUtils.getStringProperty(properties, "mintzKeywordsFg");
 		String numbersFeatureGeneratorClass = JsonUtils.getStringProperty(properties, "numbersFg");
 		
-		if (mintzFeatureGeneratorClass != null) {
+		if (mintzFeatureGeneratorClass != null && !mintzFeatureGeneratorClass.isEmpty()) {
 			this.mintzKeywordsFg = (FeatureGenerator) ClassLoader.getSystemClassLoader().loadClass(mintzFeatureGeneratorClass).newInstance();
 			
 		}
-		if(numbersFeatureGeneratorClass != null) {
+		if(numbersFeatureGeneratorClass != null && !numbersFeatureGeneratorClass.isEmpty()) {
 			this.numberFg = (FeatureGenerator) ClassLoader.getSystemClassLoader().loadClass(numbersFeatureGeneratorClass).newInstance();
 		}
 		
