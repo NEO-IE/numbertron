@@ -41,6 +41,7 @@ import edu.washington.multirframework.corpus.CustomCorpusInformationSpecificatio
 import edu.washington.multirframework.corpus.DocumentInformationI;
 import edu.washington.multirframework.corpus.SentInformationI;
 import edu.washington.multirframework.corpus.TokenInformationI;
+import edu.washington.multirframework.featuregeneration.FeatureGenerator;
 import edu.washington.multirframework.multiralgorithm.Dataset;
 import edu.washington.multirframework.multiralgorithm.DenseVector;
 import edu.washington.multirframework.multiralgorithm.Model;
@@ -48,7 +49,7 @@ import edu.washington.multirframework.multiralgorithm.Parameters;
 
 public class NtronExperiment {
 	private String corpusPath;
-	private NumberFeatureGenerator fg;
+	private FeatureGenerator mintzKeywordsFg, numberFg;
 
 	private List<SententialInstanceGeneration> sigs;
 	private List<String> DSFiles;
@@ -109,12 +110,17 @@ public class NtronExperiment {
 			}
 		}
 		
-		String featureGeneratorClass = getStringProperty(properties, "fg");
-
-		if (featureGeneratorClass != null) {
-			fg = (NumberFeatureGenerator) ClassLoader.getSystemClassLoader().loadClass(featureGeneratorClass).newInstance();
-			fg.useKeywordAsFeature(this.useKeywordFeatures);
+		String mintzFeatureGeneratorClass = getStringProperty(properties, "mintzKeywordsFg");
+		String numbersFeatureGeneratorClass = getStringProperty(properties, "numbersFg");
+		
+		if (mintzFeatureGeneratorClass != null) {
+			this.mintzKeywordsFg = (FeatureGenerator) ClassLoader.getSystemClassLoader().loadClass(mintzFeatureGeneratorClass).newInstance();
+			
 		}
+		if(numbersFeatureGeneratorClass != null) {
+			this.numberFg = (FeatureGenerator) ClassLoader.getSystemClassLoader().loadClass(numbersFeatureGeneratorClass).newInstance();
+		}
+		
 
 			
 		List<String> sigClasses = getListProperty(properties, "sigs");
@@ -227,8 +233,7 @@ public class NtronExperiment {
 		boolean runFG = !filesExist(featureFiles);
 		if (runFG) {
 			System.err.println("Running Feature Generation");
-			NumbertronFeatureGenerationDriver fGeneration = new NumbertronFeatureGenerationDriver(fg);
-			fGeneration.setUseKeywordFeatures(useKeywordFeatures);
+			NumbertronFeatureGenerationDriver fGeneration = new NumbertronFeatureGenerationDriver(mintzKeywordsFg, numberFg);
 			fGeneration.run(DSFiles, featureFiles, c, cis);
 		}	
 
