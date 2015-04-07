@@ -22,6 +22,12 @@ import edu.washington.multirframework.featuregeneration.FeatureGenerator;
  * @author ashishm
  * 
  */
+
+/**
+ * In verbose, NumbertronFeatureGenerator is a number feature generator, and also
+ * @author aman
+ *
+ */
 public class NumbertronFeatureGenerator implements NumberFeatureGenerator {
 	
 	private boolean useKeywordFeatures = false;

@@ -34,8 +34,6 @@ import org.apache.commons.io.IOUtils;
 import com.cedarsoftware.util.io.JsonObject;
 import com.cedarsoftware.util.io.JsonReader;
 
-import edu.washington.multirframework.argumentidentification.ArgumentIdentification;
-import edu.washington.multirframework.argumentidentification.RelationMatching;
 import edu.washington.multirframework.argumentidentification.SententialInstanceGeneration;
 import edu.washington.multirframework.corpus.Corpus;
 import edu.washington.multirframework.corpus.CorpusInformationSpecification;
@@ -43,9 +41,6 @@ import edu.washington.multirframework.corpus.CustomCorpusInformationSpecificatio
 import edu.washington.multirframework.corpus.DocumentInformationI;
 import edu.washington.multirframework.corpus.SentInformationI;
 import edu.washington.multirframework.corpus.TokenInformationI;
-import edu.washington.multirframework.distantsupervision.NegativeExampleCollection;
-import edu.washington.multirframework.featuregeneration.FeatureGenerator;
-import edu.washington.multirframework.knowledgebase.KnowledgeBase;
 import edu.washington.multirframework.multiralgorithm.Dataset;
 import edu.washington.multirframework.multiralgorithm.DenseVector;
 import edu.washington.multirframework.multiralgorithm.Model;
@@ -53,9 +48,6 @@ import edu.washington.multirframework.multiralgorithm.Parameters;
 
 public class NtronExperiment {
 	private String corpusPath;
-
-	private String typeRelMapPath;
-	private ArgumentIdentification ai;
 	private NumberFeatureGenerator fg;
 
 	private List<SententialInstanceGeneration> sigs;
@@ -63,16 +55,10 @@ public class NtronExperiment {
 
 	private List<String> featureFiles;
 	private List<String> ntronModelDirs;
-	private NegativeExampleCollection nec;
 	private CorpusInformationSpecification cis;
 
-	private String evalOutputName;
-	private boolean train = false;
-	private boolean useFiger = false;
-	private boolean useKeywordFeatures = false;
 
-	private Integer featureThreshold = 2;
-	private boolean strictNegativeGeneration = false;
+	private boolean useKeywordFeatures = false;
 	private RuleBasedDriver rbased;
 	private Map<String, String> countryFreebaseIdMap;
 	
@@ -116,25 +102,6 @@ public class NtronExperiment {
 		 */
 
 
-		String strictNegativeGenerationString = getStringProperty(properties, "strictNegativeGeneration");
-		if (strictNegativeGenerationString != null) {
-			if (strictNegativeGenerationString.equals("true")) {
-				strictNegativeGeneration = true;
-			}
-		}
-
-		String featThresholdString = getStringProperty(properties, "featureThreshold");
-		if (featThresholdString != null) {
-			this.featureThreshold = Integer.parseInt(featThresholdString);
-		}
-
-		String useFiger = getStringProperty(properties, "useFiger");
-		if (useFiger != null) {
-			if (useFiger.equals("true")) {
-				this.useFiger = true;
-			}
-		}
-		
 		String useKeywordFeature = getStringProperty(properties, "useKeywordFeatures");
 		if(useKeywordFeature != null){
 			if(useKeywordFeature.equals("true")){
@@ -238,6 +205,14 @@ public class NtronExperiment {
 		return null;
 	}
 
+	/**
+	 * The orchestrator. Runs spotting, preprocessing, feature generation and training in this order. 
+	 * Only starts steps that are needed
+	 * @throws SQLException
+	 * @throws IOException
+	 * @throws InterruptedException
+	 * @throws ExecutionException
+	 */
 	public void run() throws SQLException, IOException, InterruptedException, ExecutionException {
 		Corpus c = new Corpus(corpusPath, cis, true);
 		/* Step 1: create a file of all the possible spots */
@@ -262,18 +237,17 @@ public class NtronExperiment {
 		// Step 3.1: From the feature file, generate graphs
 		// for each input feature training file
 		for (int i = 0; i < featureFiles.size(); i++) {
-			String featureFile = featureFiles.get(i);
 			File modelFile = new File(ntronModelDirs.get(i));
 			if (!modelFile.exists())
 				modelFile.mkdir();
-			MakeGraph.run(featureFiles.get(0), ntronModelDirs.get(0) + File.separatorChar + "mapping", ntronModelDirs.get(0) + File.separatorChar + "train", ntronModelDirs.get(0));
+			MakeGraph.run(featureFiles.get(i), ntronModelDirs.get(0) + File.separatorChar + "mapping", ntronModelDirs.get(0) + File.separatorChar + "train", ntronModelDirs.get(0));
 		}
 		File modelFile = new File(ntronModelDirs.get(0));
 //		//Step 3.2: Now run the super naive training algorithm
 //			
 		/**Print Graph*/
 		String dir = modelFile.getAbsoluteFile().toString();
-		Dataset train = new LRGraphMemoryDataset(dir + File.separatorChar + "train");
+		Dataset<LRGraph> train = new LRGraphMemoryDataset(dir + File.separatorChar + "train");
 		LRGraph lrg = new LRGraph();
 		BufferedWriter bw = new BufferedWriter(new FileWriter("graph"));
 		while(train.next(lrg)) {
@@ -304,6 +278,14 @@ public class NtronExperiment {
 		return true;
 	}
 	
+	/**
+	 * Just a meta function to facilitate debugging. Creates a fairly large feature weight file for each for the relations. 
+	 * @param mapping
+	 * @param parametersFile
+	 * @param modelFile
+	 * @param outFile
+	 * @throws IOException
+	 */
 	public static void writeFeatureWeights(String mapping, String parametersFile, String modelFile, String outFile) throws IOException {
 		BufferedWriter bw = new BufferedWriter(new FileWriter(outFile));
 		BufferedReader featureReader = new BufferedReader(new FileReader(mapping));
