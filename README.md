@@ -1,16 +1,16 @@
 sg
 
-```json
+```javascript
 
 {
   "corpusPath" :
-"jdbc:derby:/mnt/a99/d0/aman/MultirExperiments/data/numbers_corpus",
+"jdbc:derby:/mnt/a99/d0/aman/MultirExperiments/data/gold_set",
   "train" : "true",
   "testDocumentsFile" :
 "data/emptyFile",
-  "mintzfg" :
+  "mintzKeywordsFg" :
 "main.java.iitb.neo.pretrain.featuregeneration.MintzKeywordFeatureGenerator",
-"numberfg" :
+"numbersFg" :
 "main.java.iitb.neo.pretrain.featuregeneration.NumberFeatureGenerator",
 "countriesList":
 "/mnt/a99/d0/aman/MultirExperiments/data/numericalkb/countries_list_ids",
@@ -29,13 +29,13 @@ sg
 "edu.washington.multirframework.argumentidentification.DefaultSententialInstanceGeneration"
 ],
   "dsFiles" : [
-"data/instances.tsv"
+"data/test_num_feats_instances.tsv"
 ],
   "featureFiles" : [
-"data/features_mintz_keywords.tsv"
+"data/test_num_feats_features.tsv"
 ],
   "models" : [
-"data/model_features_mintz_keywords_match20perc_regul0.5" ],
+"data/test_num_features" ],
   "cis" :
 "edu.washington.multirframework.corpus.DefaultCorpusInformationSpecification",
   "si" : [
