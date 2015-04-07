@@ -31,14 +31,14 @@ import edu.washington.multirframework.util.BufferedIOUtils;
 
 public class PerSpotFeatureGeneration {
 	
-	private NumFeatureGenerator fg;
+	private NumberFeatureGenerator fg;
 	private NumberFeatures nfg;
 	private boolean useKeywordFeatures = false;
 	/*
 	 * @todo : Get this from json.
 	 */
 	
-	public PerSpotFeatureGeneration(NumFeatureGenerator fg){
+	public PerSpotFeatureGeneration(NumberFeatureGenerator fg){
 		this.fg = fg;
 		this.nfg = new NumberFeatures();
 	}

@@ -22,7 +22,7 @@ import edu.washington.multirframework.featuregeneration.FeatureGenerator;
  * @author ashishm
  * 
  */
-public class NumbertronFeatureGenerator implements NumFeatureGenerator {
+public class NumbertronFeatureGenerator implements NumberFeatureGenerator {
 	
 	private boolean useKeywordFeatures = false;
 	

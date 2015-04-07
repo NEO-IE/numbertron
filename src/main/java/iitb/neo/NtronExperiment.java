@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
-import main.java.iitb.neo.pretrain.featuregeneration.NumFeatureGenerator;
+import main.java.iitb.neo.pretrain.featuregeneration.NumberFeatureGenerator;
 import main.java.iitb.neo.pretrain.featuregeneration.PerSpotFeatureGeneration;
 import main.java.iitb.neo.pretrain.process.MakeGraph;
 import main.java.iitb.neo.pretrain.spotting.Spotting;
@@ -56,7 +56,7 @@ public class NtronExperiment {
 
 	private String typeRelMapPath;
 	private ArgumentIdentification ai;
-	private NumFeatureGenerator fg;
+	private NumberFeatureGenerator fg;
 
 	private List<SententialInstanceGeneration> sigs;
 	private List<String> DSFiles;
@@ -145,7 +145,7 @@ public class NtronExperiment {
 		String featureGeneratorClass = getStringProperty(properties, "fg");
 
 		if (featureGeneratorClass != null) {
-			fg = (NumFeatureGenerator) ClassLoader.getSystemClassLoader().loadClass(featureGeneratorClass).newInstance();
+			fg = (NumberFeatureGenerator) ClassLoader.getSystemClassLoader().loadClass(featureGeneratorClass).newInstance();
 			fg.useKeywordAsFeature(this.useKeywordFeatures);
 		}
 
