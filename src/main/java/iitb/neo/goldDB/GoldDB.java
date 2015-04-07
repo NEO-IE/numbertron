@@ -10,19 +10,21 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public class GoldDB {
+	
 	/*
 	 * @Todo: Read the gold database path from the json file.
 	 */
 	
-	private static String goldDBloc = "data/kb-facts-train.tsv";
+	private static String goldDBFileLoc = null;
 	private static HashMap<Pair<String,String>,ArrayList<Double>> goldDB;
 	private static HashSet<String> countries;
 	
-	static{
+	public static void initializeGoldDB(String goldBloc){
+		goldDBFileLoc = goldBloc;
 		goldDB = new HashMap<Pair<String,String>,ArrayList<Double>>();
 		countries = new HashSet<String>();
 
-		File goldDBFile = new File(goldDBloc);
+		File goldDBFile = new File(goldDBFileLoc);
 		BufferedReader br = null;
 		try{
 			br = new BufferedReader(new FileReader(goldDBFile));
@@ -49,7 +51,7 @@ public class GoldDB {
 			e.printStackTrace();
 		}	
 	}
-	
+
 	/*
 	 * function returns list of gold values for entity, relation pair
 	 */

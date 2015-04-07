@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
+import main.java.iitb.neo.goldDB.GoldDB;
 import main.java.iitb.neo.pretrain.featuregeneration.PerSpotFeatureGeneration;
 import main.java.iitb.neo.pretrain.process.MakeGraph;
 import main.java.iitb.neo.pretrain.spotting.Spotting;
@@ -79,7 +80,8 @@ public class NtronExperiment {
 		/**
 		 * Create the entity name to id map
 		 */
-		String countriesFile = "/mnt/a99/d0/aman/MultirExperiments/data/numericalkb/countries_list_ids";
+		///mnt/a99/d0/aman/MultirExperiments/data/numericalkb/entity-names-train.tsv.gz
+		String countriesFile = getStringProperty(properties,"kbEntityFile");
 
 		try {
 
@@ -88,10 +90,11 @@ public class NtronExperiment {
 			countryFreebaseIdMap = new HashMap<String, String>();
 			while ((countryRecord = br.readLine()) != null) {
 				String vars[] = countryRecord.split("\t");
-				String countryName = vars[1].toLowerCase();
-				String countryId = vars[0];
-				// System.out.println(countryName);
-				countryFreebaseIdMap.put(countryName, countryId);
+				if(vars.length == 2){
+					String countryName = vars[1].toLowerCase();
+					String countryId = vars[0];
+					countryFreebaseIdMap.put(countryName, countryId);
+				}
 			}
 			br.close();
 		} catch (IOException e) {
@@ -99,6 +102,9 @@ public class NtronExperiment {
 			e.printStackTrace();
 		}
 
+		String goldDBFileLoc = getStringProperty(properties,"kbRelFile");
+		GoldDB.initializeGoldDB(goldDBFileLoc);
+		
 		/**
 		 * end creating the map
 		 */

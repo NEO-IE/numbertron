@@ -34,7 +34,7 @@ public class GoldDbInference {
 		// TODO Auto-generated method stub
 		rel = rel.split("&")[0];
 		ArrayList<Double> goldValues = GoldDB.getGoldDBValue(entity, rel, K);
-		//System.out.println("\nTrue: " + value);
+		
 		for(Double val : goldValues){
 			
 			Double valueSlack = MARGIN * val; // +- 5 percent
