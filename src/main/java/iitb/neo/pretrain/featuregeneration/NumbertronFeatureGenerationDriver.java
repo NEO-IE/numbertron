@@ -2,6 +2,7 @@ package main.java.iitb.neo.pretrain.featuregeneration;
 /**
  * Copy pasted the default feature generation code to modify get SAPs
  * TODO: Refactor the multirframework to prevent this copy pasting
+ * UPDATE: We would need a copy pasting of sorts to add number features, so this is okay.
  */
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -29,7 +30,7 @@ import edu.washington.multirframework.featuregeneration.FeatureGeneration.Senten
 import edu.washington.multirframework.featuregeneration.FeatureGenerator;
 import edu.washington.multirframework.util.BufferedIOUtils;
 
-public class PerSpotFeatureGeneration {
+public class NumbertronFeatureGenerationDriver {
 	
 	private NumberFeatureGenerator fg;
 	private NumberFeatures nfg;
@@ -38,7 +39,7 @@ public class PerSpotFeatureGeneration {
 	 * @todo : Get this from json.
 	 */
 	
-	public PerSpotFeatureGeneration(NumberFeatureGenerator fg){
+	public NumbertronFeatureGenerationDriver(NumberFeatureGenerator fg){
 		this.fg = fg;
 		this.nfg = new NumberFeatures();
 	}

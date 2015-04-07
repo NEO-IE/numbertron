@@ -7,12 +7,17 @@ import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.util.CoreMap;
 import main.java.iitb.neo.training.ds.Number;
 
+/**
+ * A class that generates the number features
+ * @author ashish
+ *
+ */
 public class NumberFeatures {
 
 	public List<String> generateFeatures(Integer first, Integer second,
 			Integer first2, Integer second2, String arg1id, String arg2id,
 			CoreMap sentence, Annotation doc) {
-		// TODO Auto-generated method stub
+
 		
 		//List<CoreLabel> tokens = sentence.get(CoreAnnotations.TokensAnnotation.class);
 		List<String> features = new ArrayList<String>();

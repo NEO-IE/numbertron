@@ -22,7 +22,7 @@ import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
 import main.java.iitb.neo.pretrain.featuregeneration.NumberFeatureGenerator;
-import main.java.iitb.neo.pretrain.featuregeneration.PerSpotFeatureGeneration;
+import main.java.iitb.neo.pretrain.featuregeneration.NumbertronFeatureGenerationDriver;
 import main.java.iitb.neo.pretrain.process.MakeGraph;
 import main.java.iitb.neo.pretrain.spotting.Spotting;
 import main.java.iitb.neo.training.algorithm.lpercp.LperceptTrain;
@@ -252,7 +252,7 @@ public class NtronExperiment {
 		boolean runFG = !filesExist(featureFiles);
 		if (runFG) {
 			System.err.println("Running Feature Generation");
-			PerSpotFeatureGeneration fGeneration = new PerSpotFeatureGeneration(fg);
+			NumbertronFeatureGenerationDriver fGeneration = new NumbertronFeatureGenerationDriver(fg);
 			fGeneration.setUseKeywordFeatures(useKeywordFeatures);
 			fGeneration.run(DSFiles, featureFiles, c, cis);
 		}	
