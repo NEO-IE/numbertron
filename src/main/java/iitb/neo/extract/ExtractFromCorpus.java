@@ -1,7 +1,5 @@
 package main.java.iitb.neo.extract;
 
-import iitb.rbased.meta.RelationMetadata;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -11,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import main.java.iitb.neo.util.JsonUtils;
 import main.java.iitb.neo.util.RegExpUtils;
@@ -48,13 +45,12 @@ public class ExtractFromCorpus {
 	private List<String> ntronModelDir;
 	private String corpusPath;
 
-	private Set<String> relations;
 
 	private String resultsFile;
 	private String verboseExtractionsFile;
 	private double cutoff_confidence;
 	private double cutoff_score;
-	private String weightFile;
+
 
 	public ExtractFromCorpus(String propertiesFile) throws Exception {
 		
@@ -84,7 +80,7 @@ public class ExtractFromCorpus {
 		for (String multirDirName : multirDirNames) {
 			ntronModelDir.add(multirDirName);
 		}
-		weightFile = ntronModelDir.get(0) + "_weights";
+		
 		cis = new CustomCorpusInformationSpecification();
 
 		String altCisString = JsonUtils.getStringProperty(properties, "cis");
@@ -92,8 +88,7 @@ public class ExtractFromCorpus {
 			cis = (CustomCorpusInformationSpecification) ClassLoader.getSystemClassLoader().loadClass(altCisString)
 					.newInstance();
 		}
-	
-		relations = RelationMetadata.getRelations();
+
 		resultsFile = JsonUtils.getStringProperty(properties, "resultsFile");
 		verboseExtractionsFile = JsonUtils.getStringProperty(properties, "verboseExtractionFile");
 	}
@@ -143,7 +138,7 @@ public class ExtractFromCorpus {
 			Iterator<Annotation> docs = c.getDocumentIterator();
 			SententialInstanceGeneration sig = sigs.get(i);
 			String modelPath = modelPaths.get(i);
-			SentLevelExtractor sle = new SentLevelExtractor(modelPath, fg, ai, sig);
+			SentLevelExtractor sle = new SentLevelExtractor(modelPath, fg);
 
 			// Map<String, Integer> rel2RelIdMap =
 			// sle.getMapping().getRel2RelID();

@@ -48,8 +48,11 @@ public class LocalAveragedPerceptron {
 	private Parameters countUpdates;
 	private Parameters avgParameters;
 	private Parameters iterParameters;
+	
+	int avgIteration = 0;
+	
 
-	public Parameters train(Dataset trainingData) throws IOException {
+	public Parameters train(Dataset<LRGraph> trainingData) throws IOException {
 
 		if (computeAvgParameters) {
 			avgParameters = new Parameters();
@@ -89,7 +92,7 @@ public class LocalAveragedPerceptron {
 		return (computeAvgParameters) ? avgParameters : iterParameters;
 	}
 
-	int avgIteration = 0;
+
 
 	@SuppressWarnings("unchecked")
 	public void trainingIteration(int iteration, @SuppressWarnings("rawtypes") Dataset trainingData) {

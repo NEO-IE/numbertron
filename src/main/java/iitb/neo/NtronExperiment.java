@@ -9,7 +9,6 @@ import iitb.rbased.main.RuleBasedDriver;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -28,11 +27,6 @@ import main.java.iitb.neo.training.algorithm.lpercp.LperceptTrain;
 import main.java.iitb.neo.training.ds.LRGraph;
 import main.java.iitb.neo.training.meta.LRGraphMemoryDataset;
 import main.java.iitb.neo.util.JsonUtils;
-
-import org.apache.commons.io.IOUtils;
-
-import com.cedarsoftware.util.io.JsonReader;
-
 import edu.washington.multirframework.argumentidentification.SententialInstanceGeneration;
 import edu.washington.multirframework.corpus.Corpus;
 import edu.washington.multirframework.corpus.CorpusInformationSpecification;

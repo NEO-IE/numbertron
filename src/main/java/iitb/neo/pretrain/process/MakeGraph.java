@@ -14,9 +14,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+import main.java.iitb.neo.pretrain.featuregeneration.Preprocess;
 import main.java.iitb.neo.training.ds.LRGraph;
 import main.java.iitb.neo.training.ds.Number;
-import main.java.iitb.neo.pretrain.featuregeneration.Preprocess;
 import edu.washington.multirframework.multiralgorithm.Mappings;
 import edu.washington.multirframework.multiralgorithm.Model;
 import edu.washington.multirframework.multiralgorithm.SparseBinaryVector;
@@ -34,7 +34,7 @@ import edu.washington.multirframework.multiralgorithm.SparseBinaryVector;
 public class MakeGraph {
 
 	public static int FEATURE_THRESHOLD = 2;
-	private static final double GIGABYTE_DIVISOR = 1073741824;
+	//private static final double GIGABYTE_DIVISOR = 1073741824;
 
 	static HashMap<String, Integer> relToRelnumberMap;
 	static int numRelations = 11; 

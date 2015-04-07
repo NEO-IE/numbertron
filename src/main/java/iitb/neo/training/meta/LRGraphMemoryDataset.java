@@ -8,9 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import edu.washington.multirframework.multiralgorithm.Dataset;
-import edu.washington.multirframework.multiralgorithm.MILDocument;
 import main.java.iitb.neo.training.ds.LRGraph;
+import edu.washington.multirframework.multiralgorithm.Dataset;
 
 public class LRGraphMemoryDataset implements Dataset<LRGraph> {
 
