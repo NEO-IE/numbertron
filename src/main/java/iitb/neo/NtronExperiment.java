@@ -71,7 +71,7 @@ public class NtronExperiment {
 		/**
 		 * Create the entity name to id map
 		 */
-		String countriesFile = "/mnt/a99/d0/aman/MultirExperiments/data/numericalkb/countries_list_ids";
+		String countriesFile = JsonUtils.getStringProperty(properties, "countriesList");
 
 		try {
 
