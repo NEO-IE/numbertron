@@ -21,17 +21,16 @@ import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
-import main.java.iitb.neo.pretrain.featuregeneration.NumberFeatureGenerator;
 import main.java.iitb.neo.pretrain.featuregeneration.NumbertronFeatureGenerationDriver;
 import main.java.iitb.neo.pretrain.process.MakeGraph;
 import main.java.iitb.neo.pretrain.spotting.Spotting;
 import main.java.iitb.neo.training.algorithm.lpercp.LperceptTrain;
 import main.java.iitb.neo.training.ds.LRGraph;
 import main.java.iitb.neo.training.meta.LRGraphMemoryDataset;
+import main.java.iitb.neo.util.JsonUtils;
 
 import org.apache.commons.io.IOUtils;
 
-import com.cedarsoftware.util.io.JsonObject;
 import com.cedarsoftware.util.io.JsonReader;
 
 import edu.washington.multirframework.argumentidentification.SententialInstanceGeneration;
@@ -68,11 +67,11 @@ public class NtronExperiment {
 
 	public NtronExperiment(String propertiesFile) throws Exception {
 
-		String jsonProperties = IOUtils.toString(new FileInputStream(new File(propertiesFile)));
-		Map<String, Object> properties = JsonReader.jsonToMaps(jsonProperties);
+		
+		Map<String, Object> properties = JsonUtils.getJsonMap(propertiesFile);
 
 		rbased = new RuleBasedDriver(true);
-		corpusPath = getStringProperty(properties, "corpusPath");
+		corpusPath = JsonUtils.getStringProperty(properties, "corpusPath");
 		
 
 		/**
@@ -103,15 +102,15 @@ public class NtronExperiment {
 		 */
 
 
-		String useKeywordFeature = getStringProperty(properties, "useKeywordFeatures");
+		String useKeywordFeature = JsonUtils.getStringProperty(properties, "useKeywordFeatures");
 		if(useKeywordFeature != null){
 			if(useKeywordFeature.equals("true")){
 				this.useKeywordFeatures = true;
 			}
 		}
 		
-		String mintzFeatureGeneratorClass = getStringProperty(properties, "mintzKeywordsFg");
-		String numbersFeatureGeneratorClass = getStringProperty(properties, "numbersFg");
+		String mintzFeatureGeneratorClass = JsonUtils.getStringProperty(properties, "mintzKeywordsFg");
+		String numbersFeatureGeneratorClass = JsonUtils.getStringProperty(properties, "numbersFg");
 		
 		if (mintzFeatureGeneratorClass != null) {
 			this.mintzKeywordsFg = (FeatureGenerator) ClassLoader.getSystemClassLoader().loadClass(mintzFeatureGeneratorClass).newInstance();
@@ -123,56 +122,56 @@ public class NtronExperiment {
 		
 
 			
-		List<String> sigClasses = getListProperty(properties, "sigs");
+		List<String> sigClasses = JsonUtils.getListProperty(properties, "sigs");
 		sigs = new ArrayList<>();
 		for (String sigClass : sigClasses) {
 			sigs.add((SententialInstanceGeneration) ClassLoader.getSystemClassLoader().loadClass(sigClass)
 					.getMethod("getInstance").invoke(null));
 		}
 
-		List<String> dsFileNames = getListProperty(properties, "dsFiles");
+		List<String> dsFileNames = JsonUtils.getListProperty(properties, "dsFiles");
 		DSFiles = new ArrayList<>();
 		for (String dsFileName : dsFileNames) {
 			DSFiles.add(dsFileName);
 		}
 
 		
-		List<String> featureFileNames = getListProperty(properties, "featureFiles");
+		List<String> featureFileNames = JsonUtils.getListProperty(properties, "featureFiles");
 		featureFiles = new ArrayList<>();
 		for (String featureFileName : featureFileNames) {
 			featureFiles.add(featureFileName);
 		}
 
 		ntronModelDirs = new ArrayList<>();
-		List<String> multirDirNames = getListProperty(properties, "models");
+		List<String> multirDirNames = JsonUtils.getListProperty(properties, "models");
 		for (String multirDirName : multirDirNames) {
 			ntronModelDirs.add(multirDirName);
 		}
 
 		cis = new CustomCorpusInformationSpecification();
 
-		String altCisString = getStringProperty(properties, "cis");
+		String altCisString = JsonUtils.getStringProperty(properties, "cis");
 		if (altCisString != null) {
 			cis = (CustomCorpusInformationSpecification) ClassLoader.getSystemClassLoader().loadClass(altCisString)
 					.newInstance();
 		}
 
 		// CorpusInformationSpecification
-		List<String> tokenInformationClassNames = getListProperty(properties, "ti");
+		List<String> tokenInformationClassNames = JsonUtils.getListProperty(properties, "ti");
 		List<TokenInformationI> tokenInfoList = new ArrayList<>();
 		for (String tokenInformationClassName : tokenInformationClassNames) {
 			tokenInfoList.add((TokenInformationI) ClassLoader.getSystemClassLoader()
 					.loadClass(tokenInformationClassName).newInstance());
 		}
 
-		List<String> sentInformationClassNames = getListProperty(properties, "si");
+		List<String> sentInformationClassNames = JsonUtils.getListProperty(properties, "si");
 		List<SentInformationI> sentInfoList = new ArrayList<>();
 		for (String sentInformationClassName : sentInformationClassNames) {
 			sentInfoList.add((SentInformationI) ClassLoader.getSystemClassLoader().loadClass(sentInformationClassName)
 					.newInstance());
 		}
 
-		List<String> docInformationClassNames = getListProperty(properties, "di");
+		List<String> docInformationClassNames = JsonUtils.getListProperty(properties, "di");
 		List<DocumentInformationI> docInfoList = new ArrayList<>();
 		for (String docInformationClassName : docInformationClassNames) {
 			docInfoList.add((DocumentInformationI) ClassLoader.getSystemClassLoader()
@@ -188,28 +187,6 @@ public class NtronExperiment {
 
 	}
 
-	public static List<String> getListProperty(Map<String, Object> properties, String string) {
-		if (properties.containsKey(string)) {
-			JsonObject obj = (JsonObject) properties.get(string);
-			List<String> returnValues = new ArrayList<>();
-			for (Object o : obj.getArray()) {
-				returnValues.add(o.toString());
-			}
-			return returnValues;
-		}
-		return new ArrayList<>();
-	}
-
-	public static String getStringProperty(Map<String, Object> properties, String str) {
-		if (properties.containsKey(str)) {
-			if (properties.get(str) == null) {
-				return null;
-			} else {
-				return properties.get(str).toString();
-			}
-		}
-		return null;
-	}
 
 	/**
 	 * The orchestrator. Runs spotting, preprocessing, feature generation and training in this order. 
