@@ -44,15 +44,26 @@ public class LRGraph {
 	public int[] Z;
 	public Number[] n;
 	public SparseBinaryVector[] features;
+
+	//mentions of the number
+	public int[] N;
+	public int numNodesCount = 0;
+	public int[] numMentionIDs;
+	public SparseBinaryVector[] numFeatures;
 	
 	public LRGraph() {
 		mentionIDs = new int[MNT_CAPACITY];
 		Z = new int[MNT_CAPACITY];
 		features = new SparseBinaryVector[MNT_CAPACITY];
+		
+		numFeatures = new SparseBinaryVector[MNT_CAPACITY];
+		numMentionIDs = new int[MNT_CAPACITY];
+		N = new int[MNT_CAPACITY];
 	}
 	
 	public void clear() {
 		numMentions = 0;
+		numNodesCount = 0;
 	}
 	
 	public void setCapacity(int targetSize) {
@@ -70,6 +81,20 @@ public class LRGraph {
 	}
 	
 	
+	public void setNumCapacity(int targetSize){
+		int[] newNumMentionIDs = new int[targetSize];
+		int[] newN = new int[targetSize];
+		SparseBinaryVector[] newNumFeatures = new SparseBinaryVector[targetSize];
+		if(numNodesCount > 0){
+			System.arraycopy(numMentionIDs, 0, newNumMentionIDs, 0, numNodesCount);
+			System.arraycopy(N, 0, newN, 0, numNodesCount);
+			System.arraycopy(numFeatures, 0, newNumFeatures, 0, numNodesCount);
+		}
+		numMentionIDs = newNumMentionIDs;
+		N = newN;
+		numFeatures = newNumFeatures;
+	}
+	
 	public boolean read(DataInputStream dis) throws IOException {
 		try {
 			random = dis.readInt();
@@ -78,11 +103,25 @@ public class LRGraph {
 			relNumber = dis.readInt();
 		
 			int lenN = dis.readInt();
+			
 			n = new Number[lenN];
 			for (int i=0; i < lenN; i++) {
 				n[i] = new Number();
 				n[i].deserialize(dis);
 			};
+			
+			if(lenN > numMentionIDs.length) setNumCapacity(lenN);
+			this.numNodesCount = lenN;
+			
+			for(int i = 0; i < numNodesCount; i++){
+				numMentionIDs[i] = dis.readInt();
+				N[i] = dis.readInt();
+				if(numFeatures[i] == null){
+					numFeatures[i] = new SparseBinaryVector();
+				}
+				numFeatures[i].deserialize(dis);
+			}
+			
 			int numMentions = dis.readInt();
 			if (numMentions > mentionIDs.length) setCapacity(numMentions);
 			this.numMentions = numMentions;
@@ -109,6 +148,13 @@ public class LRGraph {
 		
 		for (int i=0; i < n.length; i++)
 			n[i].serialize(dos);
+		
+		for(int i = 0; i < numNodesCount; i++){
+			dos.writeInt(numMentionIDs[i]);
+			dos.writeInt(N[i]);
+			numFeatures[i].serialize(dos);
+		}
+		
 		dos.writeInt(numMentions);
 		for (int i=0; i < numMentions; i++) {
 			dos.writeInt(mentionIDs[i]);
@@ -131,6 +177,14 @@ public class LRGraph {
 		}
 		sb.setLength(sb.length()-1);
 		sb.append("\n");
+		for(int i = 0; i < numNodesCount; i++){
+			sb.append("Number  " + i + " ");
+			for(int feat: numFeatures[i].ids){
+				sb.append(feat);
+				sb.append(" ");
+			}
+			sb.append("\n");
+		}
 		for(int i = 0; i < numMentions; i++){
 			sb.append("Mention " + i+ " ");
 			for(int feat: features[i].ids){

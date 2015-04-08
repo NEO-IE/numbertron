@@ -22,8 +22,19 @@ import edu.washington.multirframework.featuregeneration.FeatureGenerator;
  * @author ashishm
  * 
  */
-public class NumbertronFeatureGenerator implements FeatureGenerator {
 
+/**
+ * @author aman
+ *
+ */
+public class MintzKeywordFeatureGenerator implements FeatureGenerator {
+	
+	private boolean useKeywordFeatures = false;
+	
+	public void useKeywordAsFeature(boolean useKeywordFeatures){
+		this.useKeywordFeatures = useKeywordFeatures;
+	}
+	
 	@Override
 	public List<String> generateFeatures(Integer arg1StartOffset,
 			Integer arg1EndOffset, Integer arg2StartOffset,
@@ -139,17 +150,19 @@ public class NumbertronFeatureGenerator implements FeatureGenerator {
 	 * @param arg2ner
 	 * @return
 	 */
-	public static  List<String> originalMultirFeatures( String[] tokens, 
+	public  List<String> originalMultirFeatures( String[] tokens, 
 			String[] postags,
 			int[] depParents, String[] depTypes,
 			int[] arg1Pos, int[] arg2Pos, String arg1ner, String arg2ner) {
 
 		List<String> features = new ArrayList<String>();
 
-		//Adding NN as keywords for sentences.
-		for(int i = 0; i < postags.length; i++){
-			if(postags[i].equals("NN")){
-				features.add("key: "+tokens[i]);
+		if (this.useKeywordFeatures) {
+			// Adding NN as keywords for sentences.
+			for (int i = 0; i < postags.length; i++) {
+				if (postags[i].equals("NN")) {
+					features.add("key: " + tokens[i]);
+				}
 			}
 		}
 		

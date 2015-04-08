@@ -18,8 +18,6 @@ import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.util.CoreMap;
 import edu.washington.multir.util.ModelUtils;
-import edu.washington.multirframework.argumentidentification.ArgumentIdentification;
-import edu.washington.multirframework.argumentidentification.SententialInstanceGeneration;
 import edu.washington.multirframework.data.Argument;
 import edu.washington.multirframework.data.KBArgument;
 import edu.washington.multirframework.featuregeneration.FeatureGenerator;
@@ -37,22 +35,17 @@ import edu.washington.multirframework.multiralgorithm.SparseBinaryVector;
 public class SentLevelExtractor {
 	
 	private FeatureGenerator fg;
-	private ArgumentIdentification ai;
-	private SententialInstanceGeneration sig;
 
 	private String dir;
 	private Mappings mapping;
 	private Model model;
 	private Parameters params;
 	private Scorer scorer;
-	private boolean analyse;
+	
 	public Map<Integer, String> relID2rel = new HashMap<Integer, String>();
 
-	public SentLevelExtractor(String pathToMultirFiles, FeatureGenerator fg,
-			ArgumentIdentification ai, SententialInstanceGeneration sig) {
+	public SentLevelExtractor(String pathToMultirFiles, FeatureGenerator fg) {
 		this.fg = fg;
-		this.ai = ai;
-		this.sig = sig;
 		dir = pathToMultirFiles;
 		try {
 			mapping = new Mappings();

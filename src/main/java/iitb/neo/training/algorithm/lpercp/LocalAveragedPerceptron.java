@@ -1,9 +1,11 @@
 package main.java.iitb.neo.training.algorithm.lpercp;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
 
 import main.java.iitb.neo.training.ds.LRGraph;
+import main.java.iitb.neo.training.ds.Number;
 import edu.washington.multirframework.multiralgorithm.Dataset;
 import edu.washington.multirframework.multiralgorithm.DenseVector;
 import edu.washington.multirframework.multiralgorithm.Model;
@@ -40,14 +42,18 @@ public class LocalAveragedPerceptron {
 	private Parameters avgParamsLastUpdatesIter;
 	private Parameters avgParamsLastUpdates;
 
-	//The following parameter array stores the number of times a particular parameter
-	//has been updated, used for regularization in some sense.
+	// The following parameter array stores the number of times a particular
+	// parameter
+	// has been updated, used for regularization in some sense.
 	private Parameters countUpdates;
 	private Parameters avgParameters;
 	private Parameters iterParameters;
+	
+	int avgIteration = 0;
+	
 
-	public Parameters train(Dataset trainingData) throws IOException {
-		
+	public Parameters train(Dataset<LRGraph> trainingData) throws IOException {
+
 		if (computeAvgParameters) {
 			avgParameters = new Parameters();
 			avgParameters.model = model;
@@ -58,8 +64,8 @@ public class LocalAveragedPerceptron {
 			avgParamsLastUpdatesIter.model = avgParamsLastUpdates.model = model;
 			avgParamsLastUpdatesIter.init();
 			avgParamsLastUpdates.init();
-			
-			countUpdates= new Parameters();
+
+			countUpdates = new Parameters();
 			countUpdates.model = model;
 			countUpdates.init();
 		}
@@ -71,12 +77,14 @@ public class LocalAveragedPerceptron {
 		for (int i = 0; i < maxIterations; i++) {
 			System.out.println("Iteration: " + i);
 			trainingIteration(i, trainingData);
+
 			// String base = "data/internetinflation-20perc";
 			// this.iterParameters.serialize(base + File.separatorChar +
 			// "params");
 			// NtronExperiment.writeFeatureWeights(base + File.separatorChar +
 			// "mapping", base + File.separatorChar + "params", base +
 			// File.separatorChar + "model", "wt_" + i);
+
 		}
 		if (computeAvgParameters)
 			finalizeRel();
@@ -84,11 +92,10 @@ public class LocalAveragedPerceptron {
 		return (computeAvgParameters) ? avgParameters : iterParameters;
 	}
 
-	int avgIteration = 0;
+
 
 	@SuppressWarnings("unchecked")
 	public void trainingIteration(int iteration, @SuppressWarnings("rawtypes") Dataset trainingData) {
-		
 
 		LRGraph lrg = new LRGraph();
 
@@ -123,21 +130,35 @@ public class LocalAveragedPerceptron {
 		if (computeAvgParameters && avgIteration == 0)
 			avgParamsLastUpdates.sum(iterParameters, 1.0f);
 		LRGraph lrg = predictedParse.graph;
-		int numMentions = lrg.numMentions;
+
+		int numMentions = lrg.numNodesCount;
 		for (int i = 0; i < numMentions; i++) {
-			SparseBinaryVector v1a = scorer.getMentionRelationFeatures(lrg, i, lrg.relNumber);
 
-			if (trueParse.z_states[i] == true) {
-				// increase weight for the incorrect mention
+			/*
+			 * get the numeric features.
+			 */
+			SparseBinaryVector v2a = scorer.getMentionNumRelationFeatures(lrg, i, lrg.relNumber);
 
-				updateRel(lrg.relNumber, v1a, delta, computeAvgParameters);
+			Number n = lrg.n[i];
+			ArrayList<Integer> z_s = n.zs_linked;
+			for (Integer z : z_s) {
+				SparseBinaryVector v1a = scorer.getMentionRelationFeatures(lrg, z, lrg.relNumber);
+
+				if (trueParse.z_states[z] == true) {
+					// increase weight for the incorrect mention
+
+					updateRel(lrg.relNumber, v1a, delta, computeAvgParameters);
+					updateRel(lrg.relNumber, v2a, delta, computeAvgParameters);
+				}
+				if (predictedParse.z_states[z] == true) {
+					// decrease weight for the incorrect mention
+					updateRel(lrg.relNumber, v1a, -delta, computeAvgParameters);
+					updateRel(lrg.relNumber, v2a, -delta, computeAvgParameters);
+
+				}
 
 			}
-			if (predictedParse.z_states[i] == true) {
-				// decrease weight for the incorrect mention
-				updateRel(lrg.relNumber, v1a, -delta, computeAvgParameters);
 
-			}
 		}
 	}
 
@@ -178,25 +199,35 @@ public class LocalAveragedPerceptron {
 	}
 
 	private void updateRel(int relNumber, SparseBinaryVector features, double delta, boolean useIterAverage) {
+
 		iterParameters.relParameters[relNumber].addSparse(features, delta);
+		/*
+		 * updating numeric features.
+		 */
+
 		// useIterAverage = false;
 		if (useIterAverage) {
 			DenseVector lastUpdatesIter = (DenseVector) avgParamsLastUpdatesIter.relParameters[relNumber];
 			DenseVector lastUpdates = (DenseVector) avgParamsLastUpdates.relParameters[relNumber];
 			DenseVector avg = (DenseVector) avgParameters.relParameters[relNumber];
 			DenseVector iter = (DenseVector) iterParameters.relParameters[relNumber];
-			
+
 			DenseVector countUpdatesRel = (DenseVector) countUpdates.relParameters[relNumber];
 			for (int j = 0; j < features.num; j++) {
 				int id = features.ids[j];
 				if (lastUpdates.vals[id] != 0) {
-					//avg.vals[id] += (avgIteration - lastUpdatesIter.vals[id]) * lastUpdates.vals[id];
-					avg.vals[id] = (1 - regulaizer) * avg.vals[id] + (avgIteration - lastUpdatesIter.vals[id]) * lastUpdates.vals[id];
-					countUpdatesRel.vals[id] += 1; //also update the number of times this parameter was updated
+					// avg.vals[id] += (avgIteration - lastUpdatesIter.vals[id])
+					// * lastUpdates.vals[id];
+					avg.vals[id] = (1 - regulaizer) * avg.vals[id] + (avgIteration - lastUpdatesIter.vals[id])
+							* lastUpdates.vals[id];
+					countUpdatesRel.vals[id] += 1; // also update the number of
+													// times this parameter was
+													// updated
 				}
 				lastUpdatesIter.vals[id] = avgIteration;
 				lastUpdates.vals[id] = iter.vals[id];
 			}
+
 		}
 	}
 
@@ -206,10 +237,11 @@ public class LocalAveragedPerceptron {
 			DenseVector lastUpdates = (DenseVector) avgParamsLastUpdates.relParameters[s];
 			DenseVector avg = (DenseVector) avgParameters.relParameters[s];
 			DenseVector countUpdatesRel = (DenseVector) countUpdates.relParameters[s];
-			
+
 			for (int id = 0; id < avg.vals.length; id++) {
 				if (lastUpdates.vals[id] != 0) {
-					avg.vals[id] = (1 - regulaizer) * avg.vals[id] +  (avgIteration - lastUpdatesIter.vals[id]) * lastUpdates.vals[id];
+					avg.vals[id] = (1 - regulaizer) * avg.vals[id] + (avgIteration - lastUpdatesIter.vals[id])
+							* lastUpdates.vals[id];
 					avg.vals[id] = (countUpdatesRel.vals[id] == 0) ? 0 : (avg.vals[id] / countUpdatesRel.vals[id]);
 					lastUpdatesIter.vals[id] = avgIteration;
 				}
