@@ -80,6 +80,8 @@ public class LocalAveragedPerceptron {
 		}
 		if (computeAvgParameters)
 			finalizeRel();
+		
+		GoldDbInference.printMatchStat();
 
 		return (computeAvgParameters) ? avgParameters : iterParameters;
 	}

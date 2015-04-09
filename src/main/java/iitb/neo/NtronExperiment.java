@@ -81,7 +81,7 @@ public class NtronExperiment {
 		 * Create the entity name to id map
 		 */
 		///mnt/a99/d0/aman/MultirExperiments/data/numericalkb/entity-names-train.tsv.gz
-		String countriesFile = getStringProperty(properties,"kbEntityFile");
+		String countriesFile = getStringProperty(properties,"countriesList");
 
 		try {
 
