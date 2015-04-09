@@ -72,13 +72,10 @@ public class NtronExperiment {
 		/**
 		 * Create the entity name to id map
 		 */
-<<<<<<< HEAD
-		///mnt/a99/d0/aman/MultirExperiments/data/numericalkb/entity-names-train.tsv.gz
-		String countriesFile = getStringProperty(properties,"countriesList");
-=======
 
+		///mnt/a99/d0/aman/MultirExperiments/data/numericalkb/entity-names-train.tsv.gz
 		String countriesFile = JsonUtils.getStringProperty(properties, "countriesList");
->>>>>>> 40f984c3870c5a1cf3af594706c1d0b32391c37c
+
 
 		try {
 
