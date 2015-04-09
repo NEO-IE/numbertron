@@ -22,6 +22,7 @@ import java.util.Locale;
 public class Number {
 
 	public Number(String num, List<Integer> list) {
+		
 		this.zs_linked = new ArrayList<Integer>(list);
 //		NumberFormat nf = NumberFormat.getInstance();
 //		String formatted = nf.format(num);

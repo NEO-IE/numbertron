@@ -52,13 +52,12 @@
             <version>2.6.0</version>
             <scope>compile</scope>
         </dependency>
-	<dependency>
-		<groupId>com.google.code.externalsortinginjava</groupId>
-		<artifactId>externalsortinginjava</artifactId>
-		<version>0.1.9</version>
-		<scope>compile</scope>
-	</dependency>
-        
+        <dependency>
+        	<groupId>com.google.code.externalsortinginjava</groupId>
+        	<artifactId>externalsortinginjava</artifactId>
+        	<version>0.1.9</version>
+        	<scope>compile</scope>
+        </dependency>
     </dependencies>
 
 </project>

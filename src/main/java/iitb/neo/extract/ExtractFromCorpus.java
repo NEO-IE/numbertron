@@ -1,10 +1,7 @@
 package main.java.iitb.neo.extract;
 
-import iitb.rbased.meta.RelationMetadata;
-
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -12,16 +9,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import main.java.iitb.neo.NtronExperiment;
+import main.java.iitb.neo.util.JsonUtils;
 import main.java.iitb.neo.util.RegExpUtils;
 import main.java.iitb.neo.util.UnitsUtils;
-
-import org.apache.commons.io.IOUtils;
-
-import com.cedarsoftware.util.io.JsonReader;
-
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.util.CoreMap;
@@ -54,54 +45,52 @@ public class ExtractFromCorpus {
 	private List<String> ntronModelDir;
 	private String corpusPath;
 
-	private Set<String> relations;
 
 	private String resultsFile;
 	private String verboseExtractionsFile;
 	private double cutoff_confidence;
 	private double cutoff_score;
-	private String weightFile;
+
 
 	public ExtractFromCorpus(String propertiesFile) throws Exception {
-		String jsonProperties = IOUtils.toString(new FileInputStream(new File(propertiesFile)));
-		Map<String, Object> properties = JsonReader.jsonToMaps(jsonProperties);
-		corpusPath = NtronExperiment.getStringProperty(properties, "corpusPath");
-		cutoff_confidence = Double.parseDouble(NtronExperiment.getStringProperty(properties, "cutoff_confidence"));
-		cutoff_score = Double.parseDouble(NtronExperiment.getStringProperty(properties, "cutoff_score"));
 		
-		String featureGeneratorClass = NtronExperiment.getStringProperty(properties, "fg");
+		Map<String, Object> properties = JsonUtils.getJsonMap(propertiesFile);
+		corpusPath = JsonUtils.getStringProperty(properties, "corpusPath");
+		cutoff_confidence = Double.parseDouble(JsonUtils.getStringProperty(properties, "cutoff_confidence"));
+		cutoff_score = Double.parseDouble(JsonUtils.getStringProperty(properties, "cutoff_score"));
+		
+		String featureGeneratorClass = JsonUtils.getStringProperty(properties, "fg");
 		if (featureGeneratorClass != null) {
 			fg = (FeatureGenerator) ClassLoader.getSystemClassLoader().loadClass(featureGeneratorClass).newInstance();
 		}
 
-		String aiClass = NtronExperiment.getStringProperty(properties, "ai");
+		String aiClass = JsonUtils.getStringProperty(properties, "ai");
 		if (aiClass != null) {
 			ai = (ArgumentIdentification) ClassLoader.getSystemClassLoader().loadClass(aiClass)
 					.getMethod("getInstance").invoke(null);
 		}
-		List<String> sigClasses = NtronExperiment.getListProperty(properties, "sigs");
+		List<String> sigClasses = JsonUtils.getListProperty(properties, "sigs");
 		sigs = new ArrayList<>();
 		for (String sigClass : sigClasses) {
 			sigs.add((SententialInstanceGeneration) ClassLoader.getSystemClassLoader().loadClass(sigClass)
 					.getMethod("getInstance").invoke(null));
 		}
 		ntronModelDir = new ArrayList<>();
-		List<String> multirDirNames = NtronExperiment.getListProperty(properties, "models");
+		List<String> multirDirNames = JsonUtils.getListProperty(properties, "models");
 		for (String multirDirName : multirDirNames) {
 			ntronModelDir.add(multirDirName);
 		}
-		weightFile = ntronModelDir.get(0) + "_weights";
+		
 		cis = new CustomCorpusInformationSpecification();
 
-		String altCisString = NtronExperiment.getStringProperty(properties, "cis");
+		String altCisString = JsonUtils.getStringProperty(properties, "cis");
 		if (altCisString != null) {
 			cis = (CustomCorpusInformationSpecification) ClassLoader.getSystemClassLoader().loadClass(altCisString)
 					.newInstance();
 		}
-	
-		relations = RelationMetadata.getRelations();
-		resultsFile = NtronExperiment.getStringProperty(properties, "resultsFile");
-		verboseExtractionsFile = NtronExperiment.getStringProperty(properties, "verboseExtractionFile");
+
+		resultsFile = JsonUtils.getStringProperty(properties, "resultsFile");
+		verboseExtractionsFile = JsonUtils.getStringProperty(properties, "verboseExtractionFile");
 	}
 
 	public static void main(String[] args) throws Exception {
@@ -149,7 +138,7 @@ public class ExtractFromCorpus {
 			Iterator<Annotation> docs = c.getDocumentIterator();
 			SententialInstanceGeneration sig = sigs.get(i);
 			String modelPath = modelPaths.get(i);
-			SentLevelExtractor sle = new SentLevelExtractor(modelPath, fg, ai, sig);
+			SentLevelExtractor sle = new SentLevelExtractor(modelPath, fg);
 
 			// Map<String, Integer> rel2RelIdMap =
 			// sle.getMapping().getRel2RelID();

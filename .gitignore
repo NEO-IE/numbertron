@@ -1,10 +1,12 @@
 *.pydevproject
 .metadata
 .gradle
+results*
 data/
 bin/
 tmp/
 results/
+ntron.json
 *.tmp
 *.bak
 *.swp

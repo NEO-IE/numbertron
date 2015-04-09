@@ -4,9 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 
-import main.java.iitb.neo.training.meta.LRGraphMemoryDataset;
+import main.java.iitb.neo.training.ds.LRGraph;
 import main.java.iitb.neo.training.meta.LRGraphMemoryDatasetWithoutConfusedLocationRels;
-import edu.washington.multirframework.multiralgorithm.AveragedPerceptron;
 import edu.washington.multirframework.multiralgorithm.Dataset;
 import edu.washington.multirframework.multiralgorithm.Model;
 import edu.washington.multirframework.multiralgorithm.Parameters;
@@ -24,7 +23,7 @@ public class LperceptTrain {
 		
 		LocalAveragedPerceptron lpton = new LocalAveragedPerceptron(model, r);
 		
-		Dataset train = (Dataset) new LRGraphMemoryDatasetWithoutConfusedLocationRels(dir + File.separatorChar + "train");
+		Dataset<LRGraph> train = (Dataset<LRGraph>) new LRGraphMemoryDatasetWithoutConfusedLocationRels(dir + File.separatorChar + "train");
 
 		System.out.println("starting training");
 		

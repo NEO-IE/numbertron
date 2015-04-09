@@ -1,11 +1,7 @@
 package main.java.iitb.neo.goldDB;
 
-import it.unimi.dsi.fastutil.Hash;
-
 import java.util.ArrayList;
 import java.util.HashSet;
-
-import scala.actors.IScheduler;
 
 /**
  * This class iterates over a knowledge base and determines which of the
@@ -56,8 +52,8 @@ public class ConfusedLocationUnits {
 	 * @return
 	 */
 	boolean isConfused(String country, String rel1, String rel2) {
-		ArrayList<Double> rel1Vals = gdb.getGoldDBValue(country, rel1);
-		ArrayList<Double> rel2Vals = gdb.getGoldDBValue(country, rel2);
+		ArrayList<Double> rel1Vals = GoldDB.getGoldDBValue(country, rel1);
+		ArrayList<Double> rel2Vals = GoldDB.getGoldDBValue(country, rel2);
 		
 		if(null == rel1Vals || null == rel2Vals) {
 			return false;
@@ -70,7 +66,7 @@ public class ConfusedLocationUnits {
 		String rel1 = "INTERNET";
 		String rel2 = "INF";
 		ConfusedLocationUnits crel = new ConfusedLocationUnits();
-		HashSet<String> countries = crel.gdb.getCountries();
+		HashSet<String> countries = GoldDB.getCountries();
 		for (String country : countries) {
 			if (crel.isConfused(country, rel1, rel2)) {
 				System.out.println(country);

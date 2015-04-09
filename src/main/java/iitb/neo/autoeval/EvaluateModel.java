@@ -1,11 +1,9 @@
 package main.java.iitb.neo.autoeval;
 
 import iitb.rbased.meta.RelationMetadata;
-import iitb.rbased.util.Pair;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -14,13 +12,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-import main.java.iitb.neo.NtronExperiment;
 import main.java.iitb.neo.extract.ExtractFromCorpus;
-
-import org.apache.commons.io.IOUtils;
-
-import com.cedarsoftware.util.io.JsonReader;
-
+import main.java.iitb.neo.util.JsonUtils;
 import edu.washington.multirframework.data.Argument;
 import edu.washington.multirframework.data.Extraction;
 
@@ -80,10 +73,10 @@ public class EvaluateModel {
 		res.perRelationExtracted = new HashMap<String, Integer>();
 		res.perRelationTrue = new HashMap<String, Integer>();
 			
-		String jsonProperties = IOUtils.toString(new FileInputStream(new File(propertiesFile)));
-		Map<String, Object> properties = JsonReader.jsonToMaps(jsonProperties);
-		String trueFile = NtronExperiment.getStringProperty(properties, "trueFile");
-		modelName = NtronExperiment.getListProperty(properties, "models").get(0);
+		
+		Map<String, Object> properties = JsonUtils.getJsonMap(propertiesFile);
+		String trueFile = JsonUtils.getStringProperty(properties, "trueFile");
+		modelName = JsonUtils.getListProperty(properties, "models").get(0);
 		efc = new ExtractFromCorpus(propertiesFile);
 		
 		readTrueExtractions(trueFile);
@@ -121,6 +114,7 @@ public class EvaluateModel {
 			
 			trueExtractions.add(new Extraction(arg1, arg2, docName, relName, sendId, senText));
 		}
+		br.close();
 	}
 	
 	private void fillResult(List<Extraction> modelExtractions) {
