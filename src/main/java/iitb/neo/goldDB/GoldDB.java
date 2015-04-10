@@ -19,8 +19,8 @@ public class GoldDB {
 	private static HashMap<Pair<String,String>,ArrayList<Double>> goldDB;
 	private static HashSet<String> countries;
 	
-	public static void initializeGoldDB(String goldBloc){
-		goldDBFileLoc = goldBloc;
+	public static void initializeGoldDB(String goldDBName){
+		goldDBFileLoc = goldDBName;
 		goldDB = new HashMap<Pair<String,String>,ArrayList<Double>>();
 		countries = new HashSet<String>();
 
