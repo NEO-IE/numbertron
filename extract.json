@@ -4,8 +4,10 @@
   "train" : "true",
   "testDocumentsFile" :
 "data/emptyFile",
-  "fg" :
-  "main.java.iitb.neo.pretrain.featuregeneration.NumbertronFeatureGenerator",
+   "mintzKeywordsFg" :
+"main.java.iitb.neo.pretrain.featuregeneration.MintzKeywordFeatureGenerator",
+"numbersFg" :
+"main.java.iitb.neo.pretrain.featuregeneration.NumberFeatureGenerator",
   "ai" :
 "edu.washington.multirframework.argumentidentification.NERAndNumberArgumentIdentification",
   "targetRelFile" : "/mnt/a99/d0/aman/MultirExperiments/data/numericalkb/target_relations.tsv",
