@@ -14,9 +14,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+import main.java.iitb.neo.pretrain.featuregeneration.NumbertronFeatureGenerationDriver;
 import main.java.iitb.neo.pretrain.featuregeneration.Preprocess;
 import main.java.iitb.neo.training.ds.LRGraph;
 import main.java.iitb.neo.training.ds.Number;
+import edu.stanford.nlp.ie.pascal.AcronymModel.Feature;
 import edu.washington.multirframework.multiralgorithm.Mappings;
 import edu.washington.multirframework.multiralgorithm.Model;
 import edu.washington.multirframework.multiralgorithm.SparseBinaryVector;
@@ -170,7 +172,7 @@ public class MakeGraph {
 
 		int mentionNumber = 0; // keeps track of the mention that is being
 								// processed for the current location relation.
-		HashMap<String, List<Integer>> numberSentenceMap = null; // stores the
+		HashMap<String, List<Integer>> numberMentionMap = null; // stores the
 																	// sentences
 																	// in which
 																	// the
@@ -181,7 +183,7 @@ public class MakeGraph {
 		
 		while ((line = br.readLine()) != null) {
 
-			String[] parts = line.split("@@");
+			String[] parts = line.split(NumbertronFeatureGenerationDriver.FEATURE_TYPE_SEPARATOR);
 			
 			//parts[1] is number features. TODO from here.
 			
@@ -200,7 +202,7 @@ public class MakeGraph {
 			}
 			
 			List<String> numFeatures = new ArrayList<>();
-			if(parts.length == 2){
+			if(parts.length == 2) { //if number features
 				String[] vals = parts[1].split("\t");
 				for(int i = 0; i < vals.length; i++){
 					numFeatures.add(vals[i]);
@@ -213,12 +215,12 @@ public class MakeGraph {
 
 			if (key.equals(prevKey)) { // same location relation, add
 				featureLists.add(featureIntegers);
-				if (numberSentenceMap.keySet().contains(number)) { // number
-					numberSentenceMap.get(number).add(mentionNumber);
+				if (numberMentionMap.keySet().contains(number)) { // number
+					numberMentionMap.get(number).add(mentionNumber);
 				} else { // need to add
 					ArrayList<Integer> mentionIds = new ArrayList<Integer>();
 					mentionIds.add(mentionNumber);
-					numberSentenceMap.put(number, mentionIds);
+					numberMentionMap.put(number, mentionIds);
 					numberFeatureMap.put(number, numFeatureIntegers);
 				}
 			} else {
@@ -226,8 +228,8 @@ public class MakeGraph {
 				if (!prevKey.equals("")) { // not first time round?
 					String[] v = prevKey.split("%");
 					ArrayList<Number> numbers = new ArrayList<Number>();
-					for (String num : numberSentenceMap.keySet()) {
-						numbers.add(new Number(num, numberSentenceMap.get(num)));
+					for (String num : numberMentionMap.keySet()) {
+						numbers.add(new Number(num, numberMentionMap.get(num)));
 					}
 					// m/0154j AGL
 
@@ -237,12 +239,12 @@ public class MakeGraph {
 
 				}
 				// reset featureLists and prevKey
-				numberSentenceMap = new HashMap<String, List<Integer>>();
+				numberMentionMap = new HashMap<String, List<Integer>>();
 				ArrayList<Integer> mentionIds = new ArrayList<Integer>();
 				mentionIds.add(mentionNumber);
-				numberSentenceMap.put(number, mentionIds);
+				numberMentionMap.put(number, mentionIds);
 
-				numberFeatureMap = new HashMap<>();
+				numberFeatureMap = new HashMap<String, List<Integer>>();
 				numberFeatureMap.put(number, numFeatureIntegers);
 				featureLists = new ArrayList<>();
 				featureLists.add(featureIntegers);
@@ -261,8 +263,8 @@ public class MakeGraph {
 		if (!prevKey.equals("")) {
 			String[] v = prevKey.split("%");
 			ArrayList<Number> numbers = new ArrayList<Number>();
-			for (String num : numberSentenceMap.keySet()) {
-				numbers.add(new Number(num, numberSentenceMap.get(num)));
+			for (String num : numberMentionMap.keySet()) {
+				numbers.add(new Number(num, numberMentionMap.get(num)));
 			}
 
 			LRGraph newGraph = constructLRGraph(numbers, featureLists, numberFeatureMap, v[0], v[1], m.getRelationID(v[1], false));

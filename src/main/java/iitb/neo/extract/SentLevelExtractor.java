@@ -169,7 +169,7 @@ public class SentLevelExtractor {
 		for(String relName: relNames) {
 			bw.write("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-\n");			
 			bw.write(relName +"\n");
-			DenseVector featuresForInf = params.relParameters[mapping.getRelationID("INF", false)];
+			DenseVector featuresForInf = params.relParameters[mapping.getRelationID(relName	, false)];
 			for(Integer featureNumber: sv.ids) {
 				if(featureNumber == -1) { 
 					continue;	

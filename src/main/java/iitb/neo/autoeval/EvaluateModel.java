@@ -37,11 +37,17 @@ public class EvaluateModel {
 		int totalCorrectExtracted;
 		
 		public void dumpResults() {
+			System.out.println("Total Extracted: " + totalExtracted);
+			System.out.println("Total Correct: " + totalCorrectExtracted);
+			System.out.println("Total Facts in the Corpus: " + totalFacts);
 			Double precision = (totalCorrectExtracted * 1.0) / totalExtracted;
 			Double recall = (totalCorrectExtracted * 1.0) / totalFacts;
 			System.out.println("Precision = " + precision + ", Recall = " + recall + ", F-Score = " + f(precision, recall));
 			System.out.println("----Per Relation P/R");
 			for(String relName: RelationMetadata.getRelations()) {
+				if(relName.equals("DIESEL") || relName.equals("ELEC")) {
+					continue;
+				}
 				Integer totalCorr = perRelationCorrect.get(relName);
 				Integer totalExtr = perRelationExtracted.get(relName);
 				Integer totalTrue = perRelationTrue.get(relName);
@@ -108,7 +114,6 @@ public class EvaluateModel {
 			
 			String relName = lineSplit[8];
 			String senText = lineSplit[10];
-			
 			Integer currCount = res.perRelationTrue.get(relName);
 			res.perRelationTrue.put(relName, null == currCount ? 1 : currCount + 1);
 			

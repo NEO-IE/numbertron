@@ -40,7 +40,7 @@ public class ExtractFromCorpus {
 
 	private CorpusInformationSpecification cis;
 	private ArgumentIdentification ai;
-	private FeatureGenerator fg;
+
 	private List<SententialInstanceGeneration> sigs;
 	private List<String> ntronModelDir;
 	private String corpusPath;
@@ -50,6 +50,8 @@ public class ExtractFromCorpus {
 	private String verboseExtractionsFile;
 	private double cutoff_confidence;
 	private double cutoff_score;
+	private FeatureGenerator mintzKeywordsFg;
+	private FeatureGenerator numberFg;
 
 
 	public ExtractFromCorpus(String propertiesFile) throws Exception {
@@ -58,11 +60,18 @@ public class ExtractFromCorpus {
 		corpusPath = JsonUtils.getStringProperty(properties, "corpusPath");
 		cutoff_confidence = Double.parseDouble(JsonUtils.getStringProperty(properties, "cutoff_confidence"));
 		cutoff_score = Double.parseDouble(JsonUtils.getStringProperty(properties, "cutoff_score"));
+
+		String mintzFeatureGeneratorClass = JsonUtils.getStringProperty(properties, "mintzKeywordsFg");
+		String numbersFeatureGeneratorClass = JsonUtils.getStringProperty(properties, "numbersFg");
 		
-		String featureGeneratorClass = JsonUtils.getStringProperty(properties, "fg");
-		if (featureGeneratorClass != null) {
-			fg = (FeatureGenerator) ClassLoader.getSystemClassLoader().loadClass(featureGeneratorClass).newInstance();
+		if (mintzFeatureGeneratorClass != null && !mintzFeatureGeneratorClass.isEmpty()) {
+			this.mintzKeywordsFg = (FeatureGenerator) ClassLoader.getSystemClassLoader().loadClass(mintzFeatureGeneratorClass).newInstance();
+			
 		}
+		if(numbersFeatureGeneratorClass != null && !numbersFeatureGeneratorClass.isEmpty()) {
+			this.numberFg = (FeatureGenerator) ClassLoader.getSystemClassLoader().loadClass(numbersFeatureGeneratorClass).newInstance();
+		}
+		
 
 		String aiClass = JsonUtils.getStringProperty(properties, "ai");
 		if (aiClass != null) {
@@ -100,7 +109,7 @@ public class ExtractFromCorpus {
 		c.setCorpusToDefault();
 		BufferedWriter bw = new BufferedWriter(new FileWriter(new File(efc.resultsFile)));
 
-		List<Extraction> extrs = efc.getExtractions(c, efc.ai, efc.fg, efc.sigs, efc.ntronModelDir);
+		List<Extraction> extrs = efc.getExtractions(c, efc.ai, efc.mintzKeywordsFg, efc.sigs, efc.ntronModelDir);
 		efc.writeExtractions(bw, c, extrs);
 		
 		System.out.println("Total extractions : " + extrs.size());
@@ -113,7 +122,7 @@ public class ExtractFromCorpus {
 		Corpus c = new Corpus(corpusPath, cis, true);
 		c.setCorpusToDefault();
 		
-		List<Extraction> extrs = getExtractions(c, ai, fg, sigs, ntronModelDir);
+		List<Extraction> extrs = getExtractions(c, ai, mintzKeywordsFg, sigs, ntronModelDir);
 		if(writeExtractions) {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(new File(resultsFile)));
 			writeExtractions(bw, c, extrs);
@@ -127,6 +136,8 @@ public class ExtractFromCorpus {
 			List<SententialInstanceGeneration> sigs, List<String> modelPaths) throws SQLException,
 			IOException {
 		boolean ANALYZE = false;
+		this.verboseExtractionsFile = "verb";
+		System.err.println("Extracting with a confidence of " + cutoff_confidence);
 		BufferedWriter analysis_writer = null;
 		if (ANALYZE) {
 			
@@ -161,7 +172,7 @@ public class ExtractFromCorpus {
 					List<Pair<Argument, Argument>> sententialInstances = sig.generateSententialInstances(arguments,
 							sentence);
 					for (Pair<Argument, Argument> p : sententialInstances) {
-						if (!(RegExpUtils.exactlyOneNumber(p) && RegExpUtils.secondNumber(p) && !RegExpUtils.isYear(p.second.getArgName()))) {
+						if (p.first.getArgName().equals("years") || !(RegExpUtils.exactlyOneNumber(p) && RegExpUtils.secondNumber(p) && !RegExpUtils.isYear(p.second.getArgName()))) {
 							continue;
 						}
 						Map<Integer, Double> perRelationScoreMap = sle
@@ -210,7 +221,6 @@ public class ExtractFromCorpus {
 								sle.firedFeaturesScores(p.first, p.second, sentence, doc, relStr, analysis_writer);
 							}
 							Extraction e = new Extraction(p.first, p.second, docName, relStr, sentNum, extrScore, senText);
-
 							extrs.add(e);
 							
 						}

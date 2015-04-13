@@ -12,8 +12,8 @@ import main.java.iitb.neo.training.ds.LRGraph;
  */
 public class GoldDbInference {
 	
-	private static int K = 3;
-	private static final double MARGIN = 0.2; //allow true values to be within 20%
+	private static int K = 10;
+	private static double MARGIN = 0.2; //allow true values to be within 20%
 	public static Parse infer(LRGraph lrg) {
 		Parse p = new Parse();
 		p.graph = lrg;
@@ -30,6 +30,22 @@ public class GoldDbInference {
 		return p;
 	}
 
+	/**
+	 * match with a specified cutoff
+	 * @param value
+	 * @param rel
+	 * @param entity
+	 * @param margin
+	 * @return
+	 */
+	public static boolean closeEnough(Double value, String rel, String entity, double margin) {
+		double bu = MARGIN;
+		MARGIN = margin;
+		boolean res = closeEnough(value, rel, entity);
+		MARGIN = bu;
+		return res;
+	}
+	
 	public static boolean closeEnough(Double value, String rel, String entity) {
 		// TODO Auto-generated method stub
 		rel = rel.split("&")[0];

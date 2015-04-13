@@ -21,7 +21,7 @@ import edu.washington.multirframework.multiralgorithm.SparseBinaryVector;
  * 
  */
 public class LocalAveragedPerceptron {
-	public int maxIterations = 100;
+	public int maxIterations = 10;
 	public boolean computeAvgParameters = true;
 	private double delta = 1;
 	private double regulaizer = 0.5;
@@ -94,8 +94,8 @@ public class LocalAveragedPerceptron {
 
 
 
-	@SuppressWarnings("unchecked")
-	public void trainingIteration(int iteration, @SuppressWarnings("rawtypes") Dataset trainingData) {
+	
+	public void trainingIteration(int iteration,  Dataset<LRGraph> trainingData) {
 
 		LRGraph lrg = new LRGraph();
 
@@ -131,32 +131,38 @@ public class LocalAveragedPerceptron {
 			avgParamsLastUpdates.sum(iterParameters, 1.0f);
 		LRGraph lrg = predictedParse.graph;
 
-		int numMentions = lrg.numNodesCount;
+		int numMentions = lrg.numMentions;
 		for (int i = 0; i < numMentions; i++) {
+//
+//			/*
+//			 * get the numeric features.
+//			 */
+//			SparseBinaryVector v2a = scorer.getMentionNumRelationFeatures(lrg, i, lrg.relNumber);
+//
+//			Number n = lrg.n[i];
+//			ArrayList<Integer> z_s = n.zs_linked;
+//			for (Integer z : z_s) {
+//				SparseBinaryVector v1a = scorer.getMentionRelationFeatures(lrg, z, lrg.relNumber);
+//
+//				if (trueParse.z_states[z] == true) {
+//					// increase weight for the incorrect mention
+//
+//					updateRel(lrg.relNumber, v1a, delta, computeAvgParameters);
+//					updateRel(lrg.relNumber, v2a, delta, computeAvgParameters);
+//				}
+//				if (predictedParse.z_states[z] == true) {
+//					// decrease weight for the incorrect mention
+//					updateRel(lrg.relNumber, v1a, -delta, computeAvgParameters);
+//					updateRel(lrg.relNumber, v2a, -delta, computeAvgParameters);
+//
+//				}
+			SparseBinaryVector v1a = scorer.getMentionRelationFeatures(lrg, i, lrg.relNumber);
+			if (trueParse.z_states[i] == true) {
+				updateRel(lrg.relNumber, v1a, delta, computeAvgParameters);
 
-			/*
-			 * get the numeric features.
-			 */
-			SparseBinaryVector v2a = scorer.getMentionNumRelationFeatures(lrg, i, lrg.relNumber);
-
-			Number n = lrg.n[i];
-			ArrayList<Integer> z_s = n.zs_linked;
-			for (Integer z : z_s) {
-				SparseBinaryVector v1a = scorer.getMentionRelationFeatures(lrg, z, lrg.relNumber);
-
-				if (trueParse.z_states[z] == true) {
-					// increase weight for the incorrect mention
-
-					updateRel(lrg.relNumber, v1a, delta, computeAvgParameters);
-					updateRel(lrg.relNumber, v2a, delta, computeAvgParameters);
-				}
-				if (predictedParse.z_states[z] == true) {
-					// decrease weight for the incorrect mention
-					updateRel(lrg.relNumber, v1a, -delta, computeAvgParameters);
-					updateRel(lrg.relNumber, v2a, -delta, computeAvgParameters);
-
-				}
-
+			}
+			if (predictedParse.z_states[i] == true) {
+				updateRel(lrg.relNumber, v1a, -delta, computeAvgParameters);
 			}
 
 		}
@@ -242,7 +248,7 @@ public class LocalAveragedPerceptron {
 				if (lastUpdates.vals[id] != 0) {
 					avg.vals[id] = (1 - regulaizer) * avg.vals[id] + (avgIteration - lastUpdatesIter.vals[id])
 							* lastUpdates.vals[id];
-					avg.vals[id] = (countUpdatesRel.vals[id] == 0) ? 0 : (avg.vals[id] / countUpdatesRel.vals[id]);
+					//avg.vals[id] = (countUpdatesRel.vals[id] == 0) ? 0 : (avg.vals[id] / countUpdatesRel.vals[id]);
 					lastUpdatesIter.vals[id] = avgIteration;
 				}
 			}

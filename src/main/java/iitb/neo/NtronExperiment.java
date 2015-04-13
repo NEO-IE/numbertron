@@ -23,7 +23,7 @@ import java.util.concurrent.ExecutionException;
 import main.java.iitb.neo.goldDB.GoldDB;
 import main.java.iitb.neo.pretrain.featuregeneration.NumbertronFeatureGenerationDriver;
 import main.java.iitb.neo.pretrain.process.MakeGraph;
-import main.java.iitb.neo.pretrain.spotting.Spotting;
+import main.java.iitb.neo.pretrain.spotting.UnitLocationSpotting;
 import main.java.iitb.neo.training.algorithm.lpercp.LperceptTrain;
 import main.java.iitb.neo.training.ds.LRGraph;
 import main.java.iitb.neo.training.meta.LRGraphMemoryDataset;
@@ -52,7 +52,7 @@ public class NtronExperiment {
 	private List<String> ntronModelDirs;
 	private CorpusInformationSpecification cis;
 
-
+	private String countriesFile;
 	private boolean useKeywordFeatures = false;
 	private RuleBasedDriver rbased;
 	private Map<String, String> countryFreebaseIdMap;
@@ -73,7 +73,7 @@ public class NtronExperiment {
 		 * Create the entity name to id map
 		 */
 
-		String countriesFile = JsonUtils.getStringProperty(properties, "countriesList");
+		countriesFile = JsonUtils.getStringProperty(properties, "countriesList");
 
 		try {
 
@@ -202,7 +202,7 @@ public class NtronExperiment {
 		boolean runDS = !filesExist(DSFiles);
 		if (runDS) {
 			System.err.println("Running DS");
-			Spotting spotting = new Spotting(corpusPath, cis, rbased);
+			UnitLocationSpotting spotting = new UnitLocationSpotting(corpusPath, cis, rbased, countriesFile);
 			spotting.iterateAndSpot(DSFiles.get(0), c);
 		}
 
@@ -225,7 +225,7 @@ public class NtronExperiment {
 			MakeGraph.run(featureFiles.get(i), ntronModelDirs.get(0) + File.separatorChar + "mapping", ntronModelDirs.get(0) + File.separatorChar + "train", ntronModelDirs.get(0));
 		}
 		File modelFile = new File(ntronModelDirs.get(0));
-//		//Step 3.2: Now run the super naive training algorithm
+//		//Step 3.2: Now run the super naive training algorithm	
 //			
 		/**Print Graph*/
 		String dir = modelFile.getAbsoluteFile().toString();

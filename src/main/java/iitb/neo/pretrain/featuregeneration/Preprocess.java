@@ -28,7 +28,7 @@ import edu.washington.multirframework.multiralgorithm.Mappings;
 public class Preprocess {
 	public static Map<String,Integer> keyToIntegerMap = new HashMap<String,Integer>();
 	public static Map<Integer,String> intToKeyMap = new HashMap<Integer,String>();
-    public static int FEATURE_THRESHOLD = 2;
+    public static int FEATURE_THRESHOLD = 1;
     
     private static final double GIGABYTE_DIVISOR = 1073741824;
 	/**
@@ -71,7 +71,7 @@ public class Preprocess {
 			/*
 			 * @ashishm: made changes to handle number features.
 			 */
-			String[] parts = nextLine.split("@@");
+			String[] parts = nextLine.split(NumbertronFeatureGenerationDriver.FEATURE_TYPE_SEPARATOR);
 			
 			String[]values = parts[0].split("\t");
 			for(int i = 4; i < values.length; i++){

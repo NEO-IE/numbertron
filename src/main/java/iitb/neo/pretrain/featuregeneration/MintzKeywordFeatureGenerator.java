@@ -1,5 +1,8 @@
 package main.java.iitb.neo.pretrain.featuregeneration;
 
+import iitb.rbased.meta.KeywordData;
+import iitb.rbased.meta.RelationMetadata;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,16 +27,12 @@ import edu.washington.multirframework.featuregeneration.FeatureGenerator;
  */
 
 /**
- * @author aman
- *
  */
 public class MintzKeywordFeatureGenerator implements FeatureGenerator {
 	
-	private boolean useKeywordFeatures = false;
+	private boolean useKeywordFeatures = true;
 	
-	public void useKeywordAsFeature(boolean useKeywordFeatures){
-		this.useKeywordFeatures = useKeywordFeatures;
-	}
+	
 	
 	@Override
 	public List<String> generateFeatures(Integer arg1StartOffset,
