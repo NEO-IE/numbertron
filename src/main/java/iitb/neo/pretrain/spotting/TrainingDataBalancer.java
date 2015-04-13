@@ -17,20 +17,29 @@ public class TrainingDataBalancer {
 
 	public static void main(String[] args) throws IOException {
 		
-		String instanceFile = "/mnt/a99/d0/aman/numbertron/data/instances_flat.tsv";
-		String outputInstanceFile = "data/instances_flat_balanced.tsv";
+		String instanceFile = "/mnt/a99/d0/aman/numbertron/data/train/instances_flat_fixed.tsv";
+		String featureFile = "/mnt/a99/d0/aman/numbertron/data/train/features_flat_fixed.tsv";
+		String outputInstanceFile = "data/instances_flat_fixed_balanced.tsv";
+		String outputFeatureFile = "data/features_flat_fixed_balanced.tsv";
 		
+		HashMap<String, String> instance_featureMap = new HashMap<String, String>();
 		
+		GoldDB.initializeGoldDB("/mnt/a99/d0/aman/MultirExperiments/data/numericalkb/kb-worldbank-SI.tsv");
+		PrintWriter pw = new PrintWriter(new FileWriter(outputInstanceFile));
+		PrintWriter opw = new PrintWriter(new FileWriter(outputFeatureFile));
+		
+		BufferedReader fbr = new BufferedReader(new FileReader(featureFile));
 		BufferedReader br = new BufferedReader(new FileReader(instanceFile));
 		String instanceLine = null;
+		String featureLine = null;
 		HashMap<String, ArrayList<String>> hits = new HashMap<>();
 		HashMap<String, ArrayList<String>> flops = new HashMap<>();
 		
-		GoldDB.initializeGoldDB("/mnt/a99/d0/aman/MultirExperiments/data/numericalkb/kb-worldbank-SI.tsv");
 		
-		PrintWriter pw = new PrintWriter(new FileWriter(outputInstanceFile));
 		
-		while((instanceLine = br.readLine()) != null) {
+		while((instanceLine = br.readLine()) != null && (featureLine = fbr.readLine()) != null) {
+			
+			instance_featureMap.put(instanceLine, featureLine);
 			String instanceLineSplit[] = instanceLine.split("\t");
 			Double value = Double.parseDouble(instanceLineSplit[4]);
 			String relString = instanceLineSplit[9];
@@ -82,11 +91,15 @@ public class TrainingDataBalancer {
 			shuffle(sentences);
 			for(String sentence: sentences){
 				pw.write(sentence+"\n");
+				opw.write(instance_featureMap.get(sentence)+"\n");
 			}
 			System.err.println("Total sentences in balanced: "+sentences.length);
 		}
+		
+		opw.close();
 		pw.close();
 		br.close();
+		fbr.close();
 	}
 
 	public static void shuffle(String[] sentences) {

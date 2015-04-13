@@ -20,7 +20,6 @@ public class FindMatches {
 		
 		GoldDB.initializeGoldDB("/mnt/a99/d0/aman/MultirExperiments/data/numericalkb/kb-worldbank-SI.tsv");
 		
-		PrintWriter pw = new PrintWriter(new FileWriter("sentence_hits.txt"));
 		while((instanceLine = br.readLine()) != null) {
 			String instanceLineSplit[] = instanceLine.split("\t");
 			Double value = Double.parseDouble(instanceLineSplit[4]);
@@ -36,17 +35,25 @@ public class FindMatches {
 					hits.get(relString).add(sentid);
 				}
 			}
-			
 		}
+		
 		for(String rel: hits.keySet()) {
-			pw.write(rel + ": ");
+			System.err.println("Proccesing: "+rel);
+			PrintWriter pw = new PrintWriter(new FileWriter("data/sentence_"+rel+".txt"));
 			pw.write("(");
-			for(Integer sentid: hits.get(rel)) {
-				pw.write(sentid + ", ");
+			int i = 0;
+			ArrayList<Integer> h = hits.get(rel);
+			for(Integer sentid: h) {
+				if(i == (h.size()-1)){
+					pw.write(sentid+" ");
+				}else{
+					pw.write(sentid + ", ");
+				}
+				i++;
 			}
 			pw.write(")\n");
+			pw.close();
 		}
-		pw.close();
 		br.close();
 	}
 

@@ -1,0 +1,819 @@
+1	AGL	2	Num: Hundreds	-142198.0
+1	AGL	3	Num: Integer	2600525.0
+1	AGL	5	Num: Million	812407.0
+1	AGL	6	Num: Ten Thousands	857803.0
+1	AGL	7	Num: Tens	-235857.0
+1	AGL	9	Num: Units	-307239.0
+1	AGL	16	dep:LOCATION|[nsubj]->[root]<-[dobj]<-[prep]<-[pobj]<-|NUMBER|[quantmod]->	13539.0
+1	AGL	17	dep:LOCATION|[nsubj]->[root]<-[dobj]<-|NUMBER|[quantmod]->	-13551.0
+1	AGL	20	dep:LOCATION|[nsubj]->[root]<-[prep]<-[pobj]<-[prep]<-[pobj]<-|NUMBER|[quantmod]->	13555.0
+1	AGL	149	dir:->|LOCATION|->->->->-><-<-<-|NUMBER	-31356.0
+1	AGL	153	dir:->|LOCATION|->->->-><-<-<-<-<-<-|NUMBER	-7819.0
+1	AGL	154	dir:->|LOCATION|->->->-><-<-<-<-<-|NUMBER	-7819.0
+1	AGL	162	dir:->|LOCATION|->->-><-<-|NUMBER	13399.0
+1	AGL	169	dir:->|LOCATION|->-><-<-<-<-<-<-|NUMBER	-11768.0
+1	AGL	172	dir:->|LOCATION|->-><-<-<-<-<-|NUMBER	25118.0
+1	AGL	177	dir:->|LOCATION|->-><-<-<-|NUMBER	13568.0
+1	AGL	186	dir:->|LOCATION|-><-<-<-<-<-|NUMBER	-11768.0
+1	AGL	189	dir:->|LOCATION|-><-<-<-<-|NUMBER	8963.0
+1	AGL	195	dir:->|LOCATION|-><-<-|NUMBER	13128.0
+1	AGL	239	dir:LOCATION|-><-<-<-<-<-|NUMBER|->	13555.0
+1	AGL	240	dir:LOCATION|-><-<-<-<-|NUMBER|->	13539.0
+1	AGL	242	dir:LOCATION|-><-<-|NUMBER|->	-13551.0
+1	AGL	260	inverse_false|,|LOCATION|*LONG*|NUMBER|million	-13572.0
+1	AGL	305	inverse_false|B_-1|LOCATION|*LONG*|NUMBER|sq	26058.0
+1	AGL	332	inverse_false|B_-2 B_-1|LOCATION|*LONG*|NUMBER|sq km	26058.0
+1	AGL	635	inverse_false|to|MISC|*LONG*|NUMBER|square	19536.0
+1	AGL	677	inverse_true|NUMBER|*LONG*|LOCATION	-7473.0
+1	AGL	753	inverse_true|of|NUMBER|*LONG*|LOCATION|'s	25118.0
+1	AGL	754	inverse_true|of|NUMBER|*LONG*|LOCATION|-rrb-	37756.0
+1	AGL	755	inverse_true|of|NUMBER|*LONG*|LOCATION|.	-12871.0
+1	AGL	875	str:LOCATION|*LONG-PATH*|NUMBER	-44582.0
+1	AGL	932	str:LOCATION|[nsubj]->have[root]<-area[dobj]<-of[prep]<-kilometer[pobj]<-|NUMBER	13539.0
+2	POP	0	Num: Bet0And1	-59917.0
+2	POP	1	Num: Billion	677446.0
+2	POP	2	Num: Hundreds	-612175.0
+2	POP	3	Num: Integer	1115286.0
+2	POP	4	Num: Lac	325959.0
+2	POP	5	Num: Million	819732.0
+2	POP	6	Num: Ten Thousands	612947.0
+2	POP	7	Num: Tens	-719811.0
+2	POP	8	Num: Thousands	-12342.0
+2	POP	9	Num: Units	-239714.0
+2	POP	28	dep:LOCATION|[pobj]->[prep]->[nsubj]->|NUMBER|[cop]->	44.0
+2	POP	29	dep:LOCATION|[pobj]->[prep]->[nsubj]->|NUMBER|[mark]->	13594.0
+2	POP	53	dep:[ccomp]<-|LOCATION|[pobj]->[prep]->[nsubj]->|NUMBER	13594.0
+2	POP	59	dep:[conj]->|LOCATION|[nsubj]->[root]<-[prep]<-[pobj]<-|NUMBER	-23197.0
+2	POP	62	dep:[conj]->|LOCATION|[pobj]->[prep]->[ccomp]<-[prep]<-[pobj]<-|NUMBER	-11957.0
+2	POP	63	dep:[conj]->|LOCATION|[pobj]->[prep]->[nsubj]<-[num]<-|NUMBER	-12335.0
+2	POP	89	dep:[possessive]->|LOCATION|*LONG-PATH*|NUMBER	-21796.0
+2	POP	135	dep:[possessive]->|LOCATION|[poss]->[pobj]<-[prep]<-[pobj]<-|NUMBER	-13472.0
+2	POP	136	dep:[possessive]->|LOCATION|[poss]->[pobj]<-|NUMBER	7116.0
+2	POP	146	dir:->|LOCATION|*LONG-PATH*|NUMBER	-21796.0
+2	POP	153	dir:->|LOCATION|->->->-><-<-<-<-<-<-|NUMBER	13506.0
+2	POP	154	dir:->|LOCATION|->->->-><-<-<-<-<-|NUMBER	-13556.0
+2	POP	162	dir:->|LOCATION|->->-><-<-|NUMBER	13573.0
+2	POP	167	dir:->|LOCATION|->-><-<-<-<-<-<-<-|NUMBER	-13312.0
+2	POP	177	dir:->|LOCATION|->-><-<-<-|NUMBER	3152.0
+2	POP	180	dir:->|LOCATION|->-><-<-|NUMBER	34677.0
+2	POP	193	dir:->|LOCATION|-><-<-<-|NUMBER	398.0
+2	POP	196	dir:->|LOCATION|-><-|NUMBER	7116.0
+2	POP	212	dir:<-|LOCATION|->->->|NUMBER	13594.0
+2	POP	217	dir:<-|LOCATION|<-<-<-<-|NUMBER	13617.0
+2	POP	224	dir:LOCATION|->->->->-><-<-|NUMBER|->	26946.0
+2	POP	229	dir:LOCATION|->->-><-<-<-<-<-<-|NUMBER|->	-11669.0
+2	POP	232	dir:LOCATION|->->->|NUMBER|->	44.0
+2	POP	237	dir:LOCATION|->->|NUMBER|->	13385.0
+2	POP	239	dir:LOCATION|-><-<-<-<-<-|NUMBER|->	-12342.0
+2	POP	258	inverse_false|,|LOCATION|*LONG*|NUMBER|,	24707.0
+2	POP	260	inverse_false|,|LOCATION|*LONG*|NUMBER|million	-13583.0
+2	POP	304	inverse_false|B_-1|LOCATION|*LONG*|NUMBER|million	-27126.0
+2	POP	390	inverse_false|LOCATION|'s|NUMBER	-6234.0
+2	POP	394	inverse_false|LOCATION|*LONG*|NUMBER	-2779.0
+2	POP	423	inverse_false|LOCATION|be|NUMBER	44.0
+2	POP	535	inverse_false|in|LOCATION|*LONG*|NUMBER|million	-14196.0
+2	POP	584	inverse_false|of|LOCATION|be|NUMBER|.	13594.0
+2	POP	594	inverse_false|population of|LOCATION|be|NUMBER|. B_1	13594.0
+2	POP	621	inverse_false|the|LOCATION|*LONG*|NUMBER|-rrb-	-31062.0
+2	POP	677	inverse_true|NUMBER|*LONG*|LOCATION	-2775.0
+2	POP	684	inverse_true|NUMBER|million people in|LOCATION	-12335.0
+2	POP	753	inverse_true|of|NUMBER|*LONG*|LOCATION|'s	-12985.0
+2	POP	755	inverse_true|of|NUMBER|*LONG*|LOCATION|.	-13556.0
+2	POP	793	inverse_true|under|NUMBER|*LONG*|LOCATION|,	-11957.0
+2	POP	803	str:'s[possessive]->|LOCATION|*LONG-PATH*|NUMBER	-21796.0
+2	POP	842	str:'s[possessive]->|LOCATION|[poss]->population[pobj]<-of[prep]<-million[pobj]<-|NUMBER	-13472.0
+2	POP	875	str:LOCATION|*LONG-PATH*|NUMBER	-21796.0
+2	POP	878	str:LOCATION|[conj]->China[poss]->republic[pobj]->with[prep]->share[partmod]->cover[root]<-area[dobj]<-of[prep]<-km[pobj]<-million[num]<-|NUMBER	-13583.0
+2	POP	895	str:LOCATION|[conj]->Romania[pobj]->from[prep]->grow[ccomp]<-to[prep]<-million[pobj]<-|NUMBER	-8187.0
+2	POP	903	str:LOCATION|[nn]->States[nsubj]->economy[root]<-with[prep]<-GDP[pobj]<-of[prep]<-$[pobj]<-due[amod]<-to[prep]<-income[pobj]<-|NUMBER	-20708.0
+2	POP	1006	str:LOCATION|[pobj]->in[prep]->people[nsubj]<-million[num]<-|NUMBER	-12335.0
+2	POP	1013	str:LOCATION|[pobj]->in[prep]->r[conj]->r[dobj]->cost[advcl]->price[root]<-at[prep]<-r[pobj]<-|NUMBER	-9834.0
+2	POP	1051	str:LOCATION|[pobj]->of[prep]->population[nsubj]->|NUMBER	13594.0
+2	POP	1052	str:LOCATION|[pobj]->of[prep]->population[nsubj]->|NUMBER|[cop]->be	13594.0
+2	POP	1053	str:LOCATION|[pobj]->of[prep]->population[nsubj]->|NUMBER|[mark]->that	13594.0
+2	POP	1090	str:LOCATION|[poss]->population[pobj]<-of[prep]<-million[pobj]<-|NUMBER	-13472.0
+3	INF	3	Num: Integer	-574585.0
+3	INF	9	Num: Units	692186.0
+3	INF	14	dep:LOCATION|[nn]->[pobj]->[prep]->[nsubj]->[root]<-[prep]<-[pobj]<-[rcmod]<-[prep]<-[pobj]<-|PERCENT|[quantmod]->	-10884.0
+3	INF	18	dep:LOCATION|[nsubj]->[root]<-[parataxis]<-[nsubj]<-|PERCENT|[quantmod]->	-13403.0
+3	INF	32	dep:LOCATION|[pobj]->[prep]->[pobj]->[prep]->[ccomp]->[root]<-[nsubj]<-|PERCENT|[quantmod]->	-13503.0
+3	INF	33	dep:LOCATION|[pobj]->[prep]->[pobj]->[prep]->[nsubj]->[root]<-[ccomp]<-[prep]<-[pobj]<-|PERCENT|[quantmod]->	-10212.0
+3	INF	36	dep:LOCATION|[pobj]->[prep]->[root]<-[prep]<-[pcomp]<-[nsubj]<-|PERCENT|[quantmod]->	-7572.0
+3	INF	39	dep:LOCATION|[poss]->[nsubj]->[root]<-[dobj]<-|PERCENT|[quantmod]->	-13461.0
+3	INF	43	dep:[amod]->|LOCATION|[pobj]->[prep]->[nsubj]->[ccomp]<-[prep]<-[pobj]<-|PERCENT	13498.0
+3	INF	46	dep:[appos]->|LOCATION|[nsubj]->[root]<-[dobj]<-[prep]<-[pobj]<-|PERCENT	-36909.0
+3	INF	47	dep:[appos]->|LOCATION|[pobj]->[prep]->[root]<-[prep]<-[pcomp]<-[nsubj]<-|PERCENT	-7572.0
+3	INF	48	dep:[appos]->|PERSON|[pobj]->[pcomp]->[prep]->[root]<-[prep]<-[pobj]<-|PERCENT	13586.0
+3	INF	49	dep:[cc]->|LOCATION|[nsubj]->[parataxis]->[root]<-[nsubj]<-[rcmod]<-[prep]<-[pobj]<-[conj]<-|PERCENT	13533.0
+3	INF	50	dep:[cc]->|LOCATION|[nsubj]->[parataxis]<-[ccomp]<-[nsubj]<-[poss]<-|PERCENT	-13533.0
+3	INF	51	dep:[cc]->|LOCATION|[nsubj]->[parataxis]<-[ccomp]<-[prep]<-[pobj]<-|PERCENT	-13533.0
+3	INF	55	dep:[conj]->|LOCATION|[nsubj]->[parataxis]->[root]<-[nsubj]<-[rcmod]<-[prep]<-[pobj]<-[conj]<-|PERCENT	13533.0
+3	INF	56	dep:[conj]->|LOCATION|[nsubj]->[parataxis]<-[ccomp]<-[nsubj]<-[poss]<-|PERCENT	-13533.0
+3	INF	57	dep:[conj]->|LOCATION|[nsubj]->[parataxis]<-[ccomp]<-[prep]<-[pobj]<-|PERCENT	-13533.0
+3	INF	69	dep:[dep]->|LOCATION|[nsubj]->[parataxis]->[root]<-[nsubj]<-[rcmod]<-[prep]<-[pobj]<-[conj]<-|PERCENT	13533.0
+3	INF	70	dep:[dep]->|LOCATION|[nsubj]->[parataxis]<-[ccomp]<-[nsubj]<-[poss]<-|PERCENT	-13533.0
+3	INF	71	dep:[dep]->|LOCATION|[nsubj]->[parataxis]<-[ccomp]<-[prep]<-[pobj]<-|PERCENT	-13533.0
+3	INF	72	dep:[det]->|LOCATION|[nsubj]->[advcl]->[ccomp]<-[dobj]<-[conj]<-|PERCENT	-36441.0
+3	INF	75	dep:[det]->|LOCATION|[nsubj]->[advcl]<-[dobj]<-[conj]<-|PERCENT	-13241.0
+3	INF	78	dep:[det]->|LOCATION|[pobj]->[prep]->[pobj]->[prep]->[ccomp]->[root]<-[nsubj]<-|PERCENT	-13503.0
+3	INF	83	dep:[nn]->|PERSON|[pobj]->[pcomp]->[prep]->[root]<-[prep]<-[pobj]<-|PERCENT	13586.0
+3	INF	91	dep:[possessive]->|LOCATION|[conj]->[poss]->[nsubj]->[ccomp]<-[prep]<-[pobj]<-|PERCENT	-33803.0
+3	INF	94	dep:[possessive]->|LOCATION|[poss]->[appos]->[nsubj]->[root]<-[prep]<-[pobj]<-|PERCENT	158447.0
+3	INF	95	dep:[possessive]->|LOCATION|[poss]->[dobj]->[ccomp]<-[prep]<-[pobj]<-|PERCENT	-63482.0
+3	INF	96	dep:[possessive]->|LOCATION|[poss]->[dobj]->[dep]<-[prep]<-[pcomp]<-[prep]<-[pobj]<-[rcmod]<-[nsubj]<-|PERCENT	-12968.0
+3	INF	97	dep:[possessive]->|LOCATION|[poss]->[dobj]->[root]<-[advcl]<-|PERCENT	13634.0
+3	INF	98	dep:[possessive]->|LOCATION|[poss]->[dobj]->[root]<-[prep]<-[pobj]<-|PERCENT	-32975.0
+3	INF	99	dep:[possessive]->|LOCATION|[poss]->[dobj]<-[prep]<-[pobj]<-|PERCENT	13498.0
+3	INF	101	dep:[possessive]->|LOCATION|[poss]->[nsubj]->[ccomp]<-[ccomp]<-[prep]<-[pobj]<-|PERCENT	-52825.0
+3	INF	102	dep:[possessive]->|LOCATION|[poss]->[nsubj]->[ccomp]<-[conj]<-|PERCENT	13523.0
+3	INF	103	dep:[possessive]->|LOCATION|[poss]->[nsubj]->[ccomp]<-[dobj]<-|PERCENT	13365.0
+3	INF	104	dep:[possessive]->|LOCATION|[poss]->[nsubj]->[ccomp]<-[prep]<-[pobj]<-|PERCENT	-22751.0
+3	INF	109	dep:[possessive]->|LOCATION|[poss]->[nsubj]->[rcmod]<-[prep]<-[pobj]<-[advmod]<-[prep]<-[pobj]<-|PERCENT	-21872.0
+3	INF	110	dep:[possessive]->|LOCATION|[poss]->[nsubj]->[rcmod]<-[prep]<-[pobj]<-|PERCENT	13461.0
+3	INF	111	dep:[possessive]->|LOCATION|[poss]->[nsubj]->[root]<-[ccomp]<-[prep]<-[pobj]<-[prep]<-[pobj]<-[appos]<-|PERCENT	-15668.0
+3	INF	113	dep:[possessive]->|LOCATION|[poss]->[nsubj]->[root]<-[ccomp]<-[xcomp]<-[dep]<-[prep]<-[pobj]<-[prep]<-[pobj]<-|PERCENT	13365.0
+3	INF	114	dep:[possessive]->|LOCATION|[poss]->[nsubj]->[root]<-[ccomp]<-[xcomp]<-[dobj]<-|PERCENT	13365.0
+3	INF	115	dep:[possessive]->|LOCATION|[poss]->[nsubj]->[root]<-[conj]<-[conj]<-[prep]<-[pobj]<-|PERCENT	205055.0
+3	INF	117	dep:[possessive]->|LOCATION|[poss]->[nsubj]->[root]<-[dobj]<-|PERCENT	-13544.0
+3	INF	118	dep:[possessive]->|LOCATION|[poss]->[nsubj]->[root]<-[prep]<-[pobj]<-[prep]<-[pobj]<-[conj]<-|PERCENT	13383.0
+3	INF	120	dep:[possessive]->|LOCATION|[poss]->[nsubj]->[root]<-[prep]<-[pobj]<-[prep]<-[pobj]<-|PERCENT	13523.0
+3	INF	122	dep:[possessive]->|LOCATION|[poss]->[nsubj]->[root]<-[prep]<-[pobj]<-|PERCENT	80607.0
+3	INF	123	dep:[possessive]->|LOCATION|[poss]->[nsubj]->[root]<-[xcomp]<-[dobj]<-[rcmod]<-[dobj]<-[infmod]<-[prep]<-[pobj]<-|PERCENT	-46012.0
+3	INF	127	dep:[possessive]->|LOCATION|[poss]->[nsubjpass]->[ccomp]<-[prep]<-[pcomp]<-[pobj]<-|PERCENT	13634.0
+3	INF	128	dep:[possessive]->|LOCATION|[poss]->[nsubjpass]->[ccomp]<-[prep]<-[pobj]<-|PERCENT	229267.0
+3	INF	129	dep:[possessive]->|LOCATION|[poss]->[pobj]->[prep]->[nsubj]->[ccomp]->[ccomp]<-[prep]<-[pobj]<-|PERCENT	-16979.0
+3	INF	131	dep:[possessive]->|LOCATION|[poss]->[pobj]->[prep]->[nsubj]->[ccomp]<-[prep]<-[pcomp]<-[pobj]<-|PERCENT	-16979.0
+3	INF	133	dep:[possessive]->|LOCATION|[poss]->[pobj]->[prep]->[partmod]->[pobj]->[pcomp]->[prep]->[root]<-[prep]<-[pobj]<-|PERCENT	13328.0
+3	INF	138	dep:[possessive]->|ORGANIZATION|*LONG-PATH*|PERCENT	13497.0
+3	INF	139	dep:[possessive]->|ORGANIZATION|[poss]->[pobj]->[prep]->[pobj]->[prep]->[appos]->[pobj]<-|PERCENT	13497.0
+3	INF	140	dep:[possessive]->|ORGANIZATION|[poss]->[pobj]->[prep]->[pobj]->[prep]->[dep]->[root]<-[prep]<-[pobj]<-|PERCENT	13497.0
+3	INF	142	dep:[rcmod]->|LOCATION|[nsubj]->[root]<-[parataxis]<-[ccomp]<-[nsubj]<-[poss]<-|PERCENT	-79375.0
+3	INF	143	dep:[rcmod]->|LOCATION|[nsubj]->[root]<-[parataxis]<-[ccomp]<-[prep]<-[pobj]<-|PERCENT	-31685.0
+3	INF	147	dir:->|LOCATION|->->->->->->-><-<-<-|PERCENT	13328.0
+3	INF	150	dir:->|LOCATION|->->->->-><-<-<-|PERCENT	-16979.0
+3	INF	151	dir:->|LOCATION|->->->->-><-<-|PERCENT	-13503.0
+3	INF	155	dir:->|LOCATION|->->->-><-<-<-<-|PERCENT	-16979.0
+3	INF	160	dir:->|LOCATION|->->-><-<-<-|PERCENT	138142.0
+3	INF	166	dir:->|LOCATION|->-><-<-<-<-<-<-<-<-|PERCENT	-32647.0
+3	INF	168	dir:->|LOCATION|->-><-<-<-<-<-<-<-|PERCENT	-28636.0
+3	INF	170	dir:->|LOCATION|->-><-<-<-<-<-<-|PERCENT	5044.0
+3	INF	173	dir:->|LOCATION|->-><-<-<-<-<-|PERCENT	218578.0
+3	INF	175	dir:->|LOCATION|->-><-<-<-<-|PERCENT	-33398.0
+3	INF	178	dir:->|LOCATION|->-><-<-<-|PERCENT	167686.0
+3	INF	181	dir:->|LOCATION|->-><-<-|PERCENT	26978.0
+3	INF	190	dir:->|LOCATION|-><-<-<-<-|PERCENT	-63975.0
+3	INF	194	dir:->|LOCATION|-><-<-<-|PERCENT	257.0
+3	INF	206	dir:->|ORGANIZATION|*LONG-PATH*|PERCENT	13497.0
+3	INF	207	dir:->|ORGANIZATION|->->->->->-><-<-<-|PERCENT	13497.0
+3	INF	208	dir:->|ORGANIZATION|->->->->->-><-|PERCENT	13497.0
+3	INF	211	dir:->|PERSON|->->-><-<-<-|PERCENT	13586.0
+3	INF	223	dir:LOCATION|->->->->-><-<-<-<-|PERCENT|->	-10212.0
+3	INF	225	dir:LOCATION|->->->->-><-<-|PERCENT|->	-13503.0
+3	INF	227	dir:LOCATION|->->->-><-<-<-<-<-<-|PERCENT|->	-10884.0
+3	INF	233	dir:LOCATION|->-><-<-<-<-|PERCENT|->	-7572.0
+3	INF	235	dir:LOCATION|->-><-<-|PERCENT|->	-13461.0
+3	INF	241	dir:LOCATION|-><-<-<-|PERCENT|->	-13403.0
+3	INF	246	inverse_false|, and|LOCATION|'s population would fall by|PERCENT|percent .	-33803.0
+3	INF	250	inverse_false|,|LOCATION|'s export rise|PERCENT|percent	-13606.0
+3	INF	251	inverse_false|,|LOCATION|'s inflation rate drop to|PERCENT|percent	-55228.0
+3	INF	252	inverse_false|,|LOCATION|'s inflation rate will reach|PERCENT|percent	13523.0
+3	INF	253	inverse_false|,|LOCATION|'s inflation will return to the target of|PERCENT|percent	13523.0
+3	INF	254	inverse_false|,|LOCATION|'s main cost-of-living measure , be at|PERCENT|percent	158447.0
+3	INF	262	inverse_false|,|LOCATION|*LONG*|PERCENT|percent	13383.0
+3	INF	269	inverse_false|-- and|LOCATION|*LONG*|PERCENT|percent .	-26854.0
+3	INF	272	inverse_false|-rrb- in|LOCATION|*LONG*|PERCENT|percent of	-10884.0
+3	INF	280	inverse_false|2014|LOCATION|*LONG*|PERCENT|percent	-28599.0
+3	INF	289	inverse_false|;|LOCATION|*LONG*|PERCENT|percent	-27066.0
+3	INF	291	inverse_false|August ,|LOCATION|'s inflation rate drop to|PERCENT|percent ,	-55228.0
+3	INF	293	inverse_false|B_-1|LOCATION|'s economy decline by|PERCENT|percent	-55819.0
+3	INF	294	inverse_false|B_-1|LOCATION|'s household have access to Internet rise to|PERCENT|percent	-13474.0
+3	INF	297	inverse_false|B_-1|LOCATION|'s inflation rate track down to|PERCENT|percent	26538.0
+3	INF	308	inverse_false|B_-1|LOCATION|*LONG*|PERCENT|%	-15668.0
+3	INF	309	inverse_false|B_-1|LOCATION|*LONG*|PERCENT|percent	126006.0
+3	INF	313	inverse_false|B_-1|LOCATION|inflation jump to|PERCENT|percent	13497.0
+3	INF	319	inverse_false|B_-2 B_-1|LOCATION|'s economy decline by|PERCENT|percent ,	-55819.0
+3	INF	320	inverse_false|B_-2 B_-1|LOCATION|'s household have access to Internet rise to|PERCENT|percent from	-13474.0
+3	INF	323	inverse_false|B_-2 B_-1|LOCATION|'s inflation rate track down to|PERCENT|percent in	26538.0
+3	INF	334	inverse_false|B_-2 B_-1|LOCATION|*LONG*|PERCENT|% -rrb-	-15668.0
+3	INF	335	inverse_false|B_-2 B_-1|LOCATION|*LONG*|PERCENT|percent ,	139177.0
+3	INF	337	inverse_false|B_-2 B_-1|LOCATION|*LONG*|PERCENT|percent and	-36909.0
+3	INF	338	inverse_false|B_-2 B_-1|LOCATION|*LONG*|PERCENT|percent as	222006.0
+3	INF	339	inverse_false|B_-2 B_-1|LOCATION|*LONG*|PERCENT|percent at	13365.0
+3	INF	340	inverse_false|B_-2 B_-1|LOCATION|*LONG*|PERCENT|percent be	-94451.0
+3	INF	342	inverse_false|B_-2 B_-1|LOCATION|*LONG*|PERCENT|percent in	13365.0
+3	INF	343	inverse_false|B_-2 B_-1|LOCATION|*LONG*|PERCENT|percent last	-13461.0
+3	INF	344	inverse_false|B_-2 B_-1|LOCATION|*LONG*|PERCENT|percent of	-13403.0
+3	INF	345	inverse_false|B_-2 B_-1|LOCATION|*LONG*|PERCENT|percent register	-39351.0
+3	INF	347	inverse_false|B_-2 B_-1|LOCATION|*LONG*|PERCENT|percent target	-46012.0
+3	INF	351	inverse_false|B_-2 B_-1|LOCATION|inflation jump to|PERCENT|percent SUVA	13497.0
+3	INF	357	inverse_false|Bank Negara|PERSON|*LONG*|PERCENT|percent ,	13586.0
+3	INF	367	inverse_false|LOCATION|'s annual average food inflation be record at|PERCENT	229267.0
+3	INF	368	inverse_false|LOCATION|'s annual inflation in August to 18.4 percent from|PERCENT	-31741.0
+3	INF	369	inverse_false|LOCATION|'s annual inflation in August to|PERCENT	-31741.0
+3	INF	370	inverse_false|LOCATION|'s economy decline by|PERCENT	-55819.0
+3	INF	372	inverse_false|LOCATION|'s export rise|PERCENT	-13606.0
+3	INF	373	inverse_false|LOCATION|'s household have access to Internet rise to|PERCENT	-13474.0
+3	INF	374	inverse_false|LOCATION|'s inflation rate at|PERCENT	13498.0
+3	INF	375	inverse_false|LOCATION|'s inflation rate drop to|PERCENT	-55228.0
+3	INF	376	inverse_false|LOCATION|'s inflation rate jump to 2.7 percent in February from|PERCENT	-36212.0
+3	INF	377	inverse_false|LOCATION|'s inflation rate jump to|PERCENT	26922.0
+3	INF	380	inverse_false|LOCATION|'s inflation rate track down to|PERCENT	26538.0
+3	INF	381	inverse_false|LOCATION|'s inflation rate will reach|PERCENT	13523.0
+3	INF	382	inverse_false|LOCATION|'s inflation rate will remain between 4 percent and|PERCENT	13523.0
+3	INF	384	inverse_false|LOCATION|'s inflation will return to the target of|PERCENT	13523.0
+3	INF	385	inverse_false|LOCATION|'s main cost-of-living measure , be at|PERCENT	158447.0
+3	INF	387	inverse_false|LOCATION|'s point-to-point inflation dip to|PERCENT	-32975.0
+3	INF	388	inverse_false|LOCATION|'s population would fall by|PERCENT	-33803.0
+3	INF	395	inverse_false|LOCATION|*LONG*|PERCENT	65227.0
+3	INF	434	inverse_false|LOCATION|have surge to|PERCENT	13498.0
+3	INF	438	inverse_false|LOCATION|inflation jump to|PERCENT	13497.0
+3	INF	444	inverse_false|LOCATION|make slightly less ,|PERCENT	-13241.0
+3	INF	446	inverse_false|LOCATION|more than double in August to|PERCENT	26994.0
+3	INF	461	inverse_false|Nahar say|LOCATION|'s annual average food inflation be record at|PERCENT|percent in	229267.0
+3	INF	462	inverse_false|Nahar say|LOCATION|*LONG*|PERCENT|percent in	13634.0
+3	INF	463	inverse_false|Negara|PERSON|*LONG*|PERCENT|percent	13586.0
+3	INF	468	inverse_false|PERSON|*LONG*|PERCENT	13586.0
+3	INF	470	inverse_false|also show|LOCATION|'s point-to-point inflation dip to|PERCENT|percent in	-32975.0
+3	INF	471	inverse_false|also show|LOCATION|*LONG*|PERCENT|percent in	13634.0
+3	INF	473	inverse_false|and|LOCATION|'s population would fall by|PERCENT|percent	-33803.0
+3	INF	474	inverse_false|and|LOCATION|*LONG*|PERCENT|percent	-26854.0
+3	INF	477	inverse_false|authority in|LOCATION|*LONG*|PERCENT|percent in	-4841.0
+3	INF	478	inverse_false|bank ,|LOCATION|'s inflation will return to the target of|PERCENT|percent set	13523.0
+3	INF	483	inverse_false|by|LOCATION|*LONG*|PERCENT|percent	13328.0
+3	INF	484	inverse_false|could jeopardise|LOCATION|*LONG*|PERCENT|percent of	-12968.0
+3	INF	485	inverse_false|country like|LOCATION|*LONG*|PERCENT|percent in	-41804.0
+3	INF	489	inverse_false|economy in|LOCATION|*LONG*|PERCENT|percent of	-7572.0
+3	INF	491	inverse_false|estimate ,|LOCATION|*LONG*|PERCENT|percent ,	13383.0
+3	INF	498	inverse_false|for|LOCATION|*LONG*|PERCENT|percent	218373.0
+3	INF	499	inverse_false|fourth time|LOCATION|*LONG*|PERCENT|percent for	-30453.0
+3	INF	502	inverse_false|help keep|LOCATION|'s inflation rate at|PERCENT|percent in	13498.0
+3	INF	506	inverse_false|in 2014|LOCATION|*LONG*|PERCENT|percent or	-28599.0
+3	INF	509	inverse_false|in recession-hit|LOCATION|have surge to|PERCENT|percent in	13498.0
+3	INF	518	inverse_false|inflation ,|LOCATION|'s main cost-of-living measure , be at|PERCENT|percent ,	158447.0
+3	INF	522	inverse_false|inflation in|LOCATION|more than double in August to|PERCENT|percent ,	26994.0
+3	INF	536	inverse_false|in|LOCATION|*LONG*|PERCENT|percent	-53129.0
+3	INF	564	inverse_false|in|LOCATION|more than double in August to|PERCENT|percent	26994.0
+3	INF	567	inverse_false|issue for|LOCATION|*LONG*|PERCENT|percent year-on-year	218373.0
+3	INF	568	inverse_false|jeopardise|LOCATION|*LONG*|PERCENT|percent	-12968.0
+3	INF	569	inverse_false|keep|LOCATION|'s inflation rate at|PERCENT|percent	13498.0
+3	INF	572	inverse_false|like|LOCATION|*LONG*|PERCENT|percent	-41804.0
+3	INF	575	inverse_false|meanwhile ,|LOCATION|'s export rise|PERCENT|percent to	-13606.0
+3	INF	577	inverse_false|news that|LOCATION|'s inflation rate jump to 2.7 percent in February from|PERCENT|percent in	-36212.0
+3	INF	578	inverse_false|news that|LOCATION|'s inflation rate jump to|PERCENT|percent in	13461.0
+3	INF	583	inverse_false|of|LOCATION|*LONG*|PERCENT|percent	-33958.0
+3	INF	591	inverse_false|percent ;|LOCATION|*LONG*|PERCENT|percent ,	-13533.0
+3	INF	592	inverse_false|percent ;|LOCATION|*LONG*|PERCENT|percent .	-13533.0
+3	INF	595	inverse_false|push up|LOCATION|'s annual inflation in August to 18.4 percent from|PERCENT|percent in	-31741.0
+3	INF	596	inverse_false|push up|LOCATION|'s annual inflation in August to|PERCENT|percent from	-31741.0
+3	INF	597	inverse_false|recession-hit|LOCATION|have surge to|PERCENT|percent	13498.0
+3	INF	598	inverse_false|release by|LOCATION|*LONG*|PERCENT|percent drive	13328.0
+3	INF	601	inverse_false|say|LOCATION|'s annual average food inflation be record at|PERCENT|percent	229267.0
+3	INF	602	inverse_false|say|LOCATION|*LONG*|PERCENT|percent	13634.0
+3	INF	603	inverse_false|show that|LOCATION|'s inflation rate jump to|PERCENT|percent in	13461.0
+3	INF	604	inverse_false|show that|LOCATION|*LONG*|PERCENT|percent in	-21872.0
+3	INF	605	inverse_false|show|LOCATION|'s point-to-point inflation dip to|PERCENT|percent	-32975.0
+3	INF	606	inverse_false|show|LOCATION|*LONG*|PERCENT|percent	13634.0
+3	INF	609	inverse_false|state of|LOCATION|*LONG*|PERCENT|percent in	-33958.0
+3	INF	610	inverse_false|state that|LOCATION|'s inflation rate will remain between 4 percent and|PERCENT|percent both	13523.0
+3	INF	614	inverse_false|survey ,|LOCATION|'s inflation rate will reach|PERCENT|percent in	13523.0
+3	INF	615	inverse_false|that|LOCATION|'s inflation rate jump to 2.7 percent in February from|PERCENT|percent	-36212.0
+3	INF	616	inverse_false|that|LOCATION|'s inflation rate jump to|PERCENT|percent	26922.0
+3	INF	617	inverse_false|that|LOCATION|'s inflation rate will remain between 4 percent and|PERCENT|percent	13523.0
+3	INF	619	inverse_false|that|LOCATION|*LONG*|PERCENT|percent	-21872.0
+3	INF	628	inverse_false|the|LOCATION|make slightly less ,|PERCENT|percent	-13241.0
+3	INF	632	inverse_false|time|LOCATION|*LONG*|PERCENT|percent	-30453.0
+3	INF	637	inverse_false|up|LOCATION|'s annual inflation in August to 18.4 percent from|PERCENT|percent	-31741.0
+3	INF	638	inverse_false|up|LOCATION|'s annual inflation in August to|PERCENT|percent	-31741.0
+3	INF	639	inverse_false|user in|LOCATION|*LONG*|PERCENT|percent in	-10212.0
+3	INF	646	inverse_false|while the|LOCATION|make slightly less ,|PERCENT|percent or	-13241.0
+3	INF	663	inverse_true|August to|PERCENT|*LONG*|ORGANIZATION|'s September	26994.0
+3	INF	666	inverse_true|B_-1 almost|PERCENT|*LONG*|LOCATION|. B_1	-13503.0
+3	INF	691	inverse_true|PERCENT|*LONG*|LOCATION	-13473.0
+3	INF	694	inverse_true|PERCENT|*LONG*|ORGANIZATION	203428.0
+3	INF	696	inverse_true|PERCENT|percent SUVA , Oct. 14 -lrb- Xinhua -rrb- inflation in|LOCATION	13497.0
+3	INF	697	inverse_true|PERCENT|percent as food price soar in the|O	13542.0
+3	INF	703	inverse_true|PERCENT|percent of the world 's purchasing-power-adjusted GDP , while the|LOCATION	-36441.0
+3	INF	705	inverse_true|States be|PERCENT|*LONG*|LOCATION|government on	-13503.0
+3	INF	716	inverse_true|almost|PERCENT|*LONG*|LOCATION|.	-13503.0
+3	INF	720	inverse_true|and|PERCENT|*LONG*|LOCATION|--	13533.0
+3	INF	723	inverse_true|at|PERCENT|*LONG*|ORGANIZATION|'s	-76113.0
+3	INF	729	inverse_true|be|PERCENT|*LONG*|LOCATION|government	-13503.0
+3	INF	747	inverse_true|jump to|PERCENT|*LONG*|ORGANIZATION|'s September	13497.0
+3	INF	748	inverse_true|jump to|PERCENT|percent SUVA , Oct. 14 -lrb- Xinhua -rrb- inflation in|LOCATION|more than	13497.0
+3	INF	750	inverse_true|level to|PERCENT|percent as food price soar in the|O|asian country	13542.0
+3	INF	759	inverse_true|or|PERCENT|percent of the world 's purchasing-power-adjusted GDP , while the|LOCATION|make	-36441.0
+3	INF	763	inverse_true|remain at|PERCENT|*LONG*|ORGANIZATION|'s 2	-76113.0
+3	INF	787	inverse_true|to|PERCENT|*LONG*|ORGANIZATION|'s	40491.0
+3	INF	790	inverse_true|to|PERCENT|percent SUVA , Oct. 14 -lrb- Xinhua -rrb- inflation in|LOCATION|more	13497.0
+3	INF	791	inverse_true|to|PERCENT|percent as food price soar in the|O|asian	13542.0
+3	INF	792	inverse_true|trillion or|PERCENT|percent of the world 's purchasing-power-adjusted GDP , while the|LOCATION|make slightly	-36441.0
+3	INF	801	inverse_true|year and|PERCENT|*LONG*|LOCATION|-- Africa	13533.0
+3	INF	805	str:'s[possessive]->|LOCATION|[conj]->percent[poss]->population[nsubj]->fall[ccomp]<-by[prep]<-percent[pobj]<-|PERCENT	-33803.0
+3	INF	809	str:'s[possessive]->|LOCATION|[poss]->Department[pobj]->by[prep]->release[partmod]->figure[pobj]->to[pcomp]->accord[prep]->stand[root]<-at[prep]<-percent[pobj]<-|PERCENT	13328.0
+3	INF	810	str:'s[possessive]->|LOCATION|[poss]->bank[nsubj]->raise[root]<-high[conj]<-stand[conj]<-at[prep]<-percent[pobj]<-|PERCENT	205055.0
+3	INF	811	str:'s[possessive]->|LOCATION|[poss]->bank[nsubj]->say[root]<-expect[ccomp]<-reach[xcomp]<-lower[dep]<-than[prep]<-target[pobj]<-of[prep]<-percent[pobj]<-|PERCENT	13365.0
+3	INF	812	str:'s[possessive]->|LOCATION|[poss]->bank[nsubj]->say[root]<-expect[ccomp]<-reach[xcomp]<-percent[dobj]<-|PERCENT	13365.0
+3	INF	813	str:'s[possessive]->|LOCATION|[poss]->dip[dobj]->show[root]<-percent[advcl]<-|PERCENT	13634.0
+3	INF	814	str:'s[possessive]->|LOCATION|[poss]->dip[dobj]->show[root]<-to[prep]<-percent[pobj]<-|PERCENT	-32975.0
+3	INF	815	str:'s[possessive]->|LOCATION|[poss]->economy[nsubj]->decline[root]<-by[prep]<-percent[pobj]<-|PERCENT	-55819.0
+3	INF	816	str:'s[possessive]->|LOCATION|[poss]->electricity[nsubj]->generate[root]<-amount[ccomp]<-to[prep]<-kwh[pobj]<-include[prep]<-twh[pobj]<-%[appos]<-|PERCENT	-15668.0
+3	INF	820	str:'s[possessive]->|LOCATION|[poss]->export[nsubj]->rise[root]<-percent[dobj]<-|PERCENT	-13606.0
+3	INF	823	str:'s[possessive]->|LOCATION|[poss]->household[nsubj]->have[ccomp]<-rise[ccomp]<-from[prep]<-register[pobj]<-|PERCENT	-39351.0
+3	INF	824	str:'s[possessive]->|LOCATION|[poss]->household[nsubj]->have[ccomp]<-rise[ccomp]<-to[prep]<-percent[pobj]<-|PERCENT	-13474.0
+3	INF	825	str:'s[possessive]->|LOCATION|[poss]->index[nsubj]->rise[ccomp]<-percent[dobj]<-|PERCENT	13365.0
+3	INF	826	str:'s[possessive]->|LOCATION|[poss]->inflation[dobj]->push[ccomp]<-from[prep]<-percent[pobj]<-|PERCENT	-31741.0
+3	INF	827	str:'s[possessive]->|LOCATION|[poss]->inflation[dobj]->push[ccomp]<-to[prep]<-percent[pobj]<-|PERCENT	-31741.0
+3	INF	828	str:'s[possessive]->|LOCATION|[poss]->inflation[nsubj]->remain[root]<-at[prep]<-rate[pobj]<-of[prep]<-percent[pobj]<-percent[conj]<-|PERCENT	13383.0
+3	INF	830	str:'s[possessive]->|LOCATION|[poss]->inflation[nsubj]->return[root]<-to[prep]<-target[pobj]<-of[prep]<-percent[pobj]<-|PERCENT	13523.0
+3	INF	831	str:'s[possessive]->|LOCATION|[poss]->inflation[nsubj]->surge[root]<-to[prep]<-percent[pobj]<-|PERCENT	222006.0
+3	INF	832	str:'s[possessive]->|LOCATION|[poss]->inflation[nsubjpass]->record[ccomp]<-at[prep]<-percent[pobj]<-|PERCENT	229267.0
+3	INF	833	str:'s[possessive]->|LOCATION|[poss]->inflation[nsubjpass]->record[ccomp]<-compare[prep]<-with[pcomp]<-percent[pobj]<-|PERCENT	13634.0
+3	INF	834	str:'s[possessive]->|LOCATION|[poss]->measure[appos]->inflation[nsubj]->be[root]<-at[prep]<-percent[pobj]<-|PERCENT	158447.0
+3	INF	838	str:'s[possessive]->|LOCATION|[poss]->population[nsubj]->soar[root]<-percent[dobj]<-|PERCENT	-13461.0
+3	INF	839	str:'s[possessive]->|LOCATION|[poss]->population[nsubj]->soar[root]<-percent[dobj]<-|PERCENT|[quantmod]->nearly	-13461.0
+3	INF	847	str:'s[possessive]->|LOCATION|[poss]->rate[dobj]<-at[prep]<-percent[pobj]<-|PERCENT	13498.0
+3	INF	848	str:'s[possessive]->|LOCATION|[poss]->rate[nsubj]->drop[root]<-to[prep]<-accord[pobj]<-|PERCENT	-55228.0
+3	INF	849	str:'s[possessive]->|LOCATION|[poss]->rate[nsubj]->jump[ccomp]<-from[prep]<-percent[pobj]<-|PERCENT	-36212.0
+3	INF	850	str:'s[possessive]->|LOCATION|[poss]->rate[nsubj]->jump[ccomp]<-to[prep]<-percent[pobj]<-|PERCENT	13461.0
+3	INF	851	str:'s[possessive]->|LOCATION|[poss]->rate[nsubj]->jump[rcmod]<-over[prep]<-year[pobj]<-earlier[advmod]<-from[prep]<-percent[pobj]<-|PERCENT	-21872.0
+3	INF	852	str:'s[possessive]->|LOCATION|[poss]->rate[nsubj]->jump[rcmod]<-to[prep]<-percent[pobj]<-|PERCENT	13461.0
+3	INF	853	str:'s[possessive]->|LOCATION|[poss]->rate[nsubj]->percent[ccomp]<-percent[conj]<-|PERCENT	13523.0
+3	INF	855	str:'s[possessive]->|LOCATION|[poss]->rate[nsubj]->reach[root]<-percent[dobj]<-|PERCENT	13523.0
+3	INF	857	str:'s[possessive]->|LOCATION|[poss]->rate[nsubj]->remain[root]<-surprising[xcomp]<-economist[dobj]<-forecast[rcmod]<-measure[dobj]<-fall[infmod]<-below[prep]<-target[pobj]<-|PERCENT	-46012.0
+3	INF	860	str:'s[possessive]->|LOCATION|[poss]->rate[nsubj]->track[root]<-to[prep]<-percent[pobj]<-|PERCENT	26538.0
+3	INF	861	str:'s[possessive]->|LOCATION|[poss]->recovery[dobj]->jeopardise[dep]<-by[prep]<-hit[pcomp]<-in[prep]<-area[pobj]<-live[rcmod]<-percent[nsubj]<-|PERCENT	-12968.0
+3	INF	862	str:'s[possessive]->|LOCATION|[poss]->southeast[pobj]->of[prep]->state[nsubj]->have[ccomp]->compare[ccomp]<-to[prep]<-percent[pobj]<-|PERCENT	-16979.0
+3	INF	863	str:'s[possessive]->|LOCATION|[poss]->southeast[pobj]->of[prep]->state[nsubj]->have[ccomp]<-compare[prep]<-to[pcomp]<-percent[pobj]<-|PERCENT	-16979.0
+3	INF	865	str:'s[possessive]->|ORGANIZATION|*LONG-PATH*|PERCENT	13497.0
+3	INF	866	str:'s[possessive]->|ORGANIZATION|[poss]->review[pobj]->of[prep]->Bank[pobj]->to[prep]->accord[appos]->percent[pobj]<-|PERCENT	13497.0
+3	INF	867	str:'s[possessive]->|ORGANIZATION|[poss]->review[pobj]->of[prep]->Bank[pobj]->to[prep]->accord[dep]->double[root]<-to[prep]<-percent[pobj]<-|PERCENT	13497.0
+3	INF	868	str:Bank[nn]->|PERSON|[pobj]->to[pcomp]->accord[prep]->moderate[root]<-to[prep]<-percent[pobj]<-|PERCENT	13586.0
+3	INF	869	str:Ethiopia[conj]->|LOCATION|[nsubj]->lose[parataxis]->lose[root]<-Zimbabwe[nsubj]<-be[rcmod]<-around[prep]<-year[pobj]<-percent[conj]<-|PERCENT	13533.0
+3	INF	870	str:Ethiopia[conj]->|LOCATION|[nsubj]->lose[parataxis]<-fall[ccomp]<-by[prep]<-percent[pobj]<-|PERCENT	-13533.0
+3	INF	871	str:Ethiopia[conj]->|LOCATION|[nsubj]->lose[parataxis]<-fall[ccomp]<-population[nsubj]<-percent[poss]<-|PERCENT	-13533.0
+3	INF	876	str:LOCATION|*LONG-PATH*|PERCENT	-25878.0
+3	INF	887	str:LOCATION|[conj]->Nigeria[nsubj]->lose[parataxis]<-fall[ccomp]<-by[prep]<-percent[pobj]<-|PERCENT	-26854.0
+3	INF	897	str:LOCATION|[conj]->percent[poss]->population[nsubj]->fall[ccomp]<-by[prep]<-percent[pobj]<-|PERCENT	-33803.0
+3	INF	911	str:LOCATION|[nn]->business[pobj]->in[prep]->investment[nsubj]->reach[root]<-at[prep]<-end[pobj]<-equivalent[rcmod]<-to[prep]<-percent[pobj]<-|PERCENT	-10884.0
+3	INF	912	str:LOCATION|[nn]->business[pobj]->in[prep]->investment[nsubj]->reach[root]<-at[prep]<-end[pobj]<-equivalent[rcmod]<-to[prep]<-percent[pobj]<-|PERCENT|[quantmod]->about	-10884.0
+3	INF	917	str:LOCATION|[nn]->government[pobj]->by[prep]->publish[advcl]->%[root]<-|PERCENT	-13503.0
+3	INF	918	str:LOCATION|[nn]->inflation[nsubj]->jump[root]<-double[dep]<-to[prep]<-percent[pobj]<-|PERCENT	13497.0
+3	INF	919	str:LOCATION|[nn]->inflation[nsubj]->jump[root]<-to[prep]<-SUVA[pobj]<-|PERCENT	13497.0
+3	INF	933	str:LOCATION|[nsubj]->have[root]<-area[dobj]<-population[conj]<-of[prep]<-million[pobj]<-Greeks[rcmod]<-percent[nsubj]<-|PERCENT	-94451.0
+3	INF	936	str:LOCATION|[nsubj]->have[root]<-penetration[dobj]<-of[prep]<-percent[pobj]<-|PERCENT	-36909.0
+3	INF	943	str:LOCATION|[nsubj]->lose[parataxis]->lose[root]<-Zimbabwe[nsubj]<-be[rcmod]<-around[prep]<-year[pobj]<-percent[conj]<-|PERCENT	13533.0
+3	INF	944	str:LOCATION|[nsubj]->lose[parataxis]<-fall[ccomp]<-by[prep]<-percent[pobj]<-|PERCENT	-13533.0
+3	INF	945	str:LOCATION|[nsubj]->lose[parataxis]<-fall[ccomp]<-population[nsubj]<-percent[poss]<-|PERCENT	-13533.0
+3	INF	946	str:LOCATION|[nsubj]->lose[root]<-lose[parataxis]<-fall[ccomp]<-by[prep]<-percent[pobj]<-|PERCENT	-31685.0
+3	INF	947	str:LOCATION|[nsubj]->lose[root]<-lose[parataxis]<-fall[ccomp]<-population[nsubj]<-percent[poss]<-|PERCENT	-79375.0
+3	INF	948	str:LOCATION|[nsubj]->make[advcl]->reach[ccomp]<-$[dobj]<-percent[conj]<-|PERCENT	-36441.0
+3	INF	951	str:LOCATION|[nsubj]->make[advcl]<-less[dobj]<-percent[conj]<-|PERCENT	-13241.0
+3	INF	952	str:LOCATION|[nsubj]->one[root]<-have[parataxis]<-percent[nsubj]<-|PERCENT	-13403.0
+3	INF	953	str:LOCATION|[nsubj]->one[root]<-have[parataxis]<-percent[nsubj]<-|PERCENT|[quantmod]->about	-13403.0
+3	INF	957	str:LOCATION|[nsubj]->reach[ccomp]<-make[advcl]<-less[dobj]<-percent[conj]<-|PERCENT	-28599.0
+3	INF	961	str:LOCATION|[nsubj]->record[rcmod]<-after[prep]<-period[pobj]<-percent[rcmod]<-|PERCENT	-30453.0
+3	INF	967	str:LOCATION|[pobj]->for[prep]->issue[nsubj]->inflation[root]<-hit[rcmod]<-drop[conj]<-to[prep]<-percent[pobj]<-|PERCENT	218373.0
+3	INF	977	str:LOCATION|[pobj]->in[prep]->authority[nsubj]->start[ccomp]<-figure[dep]<-show[dobj]<-jump[rcmod]<-to[prep]<-percent[pobj]<-|PERCENT	21037.0
+3	INF	980	str:LOCATION|[pobj]->in[prep]->emerge[root]<-with[prep]<-survive[pcomp]<-percent[nsubj]<-|PERCENT	-7572.0
+3	INF	981	str:LOCATION|[pobj]->in[prep]->emerge[root]<-with[prep]<-survive[pcomp]<-percent[nsubj]<-|PERCENT|[quantmod]->nearly	-7572.0
+3	INF	991	str:LOCATION|[pobj]->in[prep]->inflation[dep]->Oct.[appos]->SUVA[pobj]->to[prep]->jump[root]<-double[dep]<-to[prep]<-percent[pobj]<-|PERCENT	13497.0
+3	INF	992	str:LOCATION|[pobj]->in[prep]->inflation[dep]->Oct.[appos]->SUVA[pobj]<-|PERCENT	13497.0
+3	INF	994	str:LOCATION|[pobj]->in[prep]->inflation[nsubj]->double[root]<-to[prep]<-percent[pobj]<-|PERCENT	13497.0
+3	INF	996	str:LOCATION|[pobj]->in[prep]->inflation[nsubj]->surge[ccomp]<-to[prep]<-percent[pobj]<-|PERCENT	13498.0
+3	INF	1007	str:LOCATION|[pobj]->in[prep]->percent[pobj]->with[prep]->compare[ccomp]->say[root]<-percent[nsubj]<-|PERCENT	-13503.0
+3	INF	1008	str:LOCATION|[pobj]->in[prep]->percent[pobj]->with[prep]->compare[ccomp]->say[root]<-percent[nsubj]<-|PERCENT|[quantmod]->almost	-13503.0
+3	INF	1024	str:LOCATION|[pobj]->in[prep]->user[pobj]->of[prep]->percent[nsubj]->say[root]<-compare[ccomp]<-with[prep]<-percent[pobj]<-|PERCENT	-10212.0
+3	INF	1025	str:LOCATION|[pobj]->in[prep]->user[pobj]->of[prep]->percent[nsubj]->say[root]<-compare[ccomp]<-with[prep]<-percent[pobj]<-|PERCENT|[quantmod]->than	-10212.0
+3	INF	1044	str:LOCATION|[pobj]->like[prep]->country[pobj]->for[prep]->crucial[rcmod]->measure[dep]->inflation[nsubj]->fall[root]<-from[prep]<-percent[pobj]<-percent[conj]<-|PERCENT	-20902.0
+3	INF	1045	str:LOCATION|[pobj]->like[prep]->country[pobj]->for[prep]->crucial[rcmod]->measure[dep]->inflation[nsubj]->fall[root]<-from[prep]<-percent[pobj]<-|PERCENT	-20902.0
+3	INF	1057	str:LOCATION|[poss]->Department[pobj]->by[prep]->release[partmod]->figure[pobj]->to[pcomp]->accord[prep]->stand[root]<-at[prep]<-percent[pobj]<-|PERCENT	13328.0
+3	INF	1058	str:LOCATION|[poss]->bank[nsubj]->raise[root]<-high[conj]<-stand[conj]<-at[prep]<-percent[pobj]<-|PERCENT	205055.0
+3	INF	1059	str:LOCATION|[poss]->bank[nsubj]->say[root]<-expect[ccomp]<-reach[xcomp]<-lower[dep]<-than[prep]<-target[pobj]<-of[prep]<-percent[pobj]<-|PERCENT	13365.0
+3	INF	1060	str:LOCATION|[poss]->bank[nsubj]->say[root]<-expect[ccomp]<-reach[xcomp]<-percent[dobj]<-|PERCENT	13365.0
+3	INF	1061	str:LOCATION|[poss]->dip[dobj]->show[root]<-percent[advcl]<-|PERCENT	13634.0
+3	INF	1062	str:LOCATION|[poss]->dip[dobj]->show[root]<-to[prep]<-percent[pobj]<-|PERCENT	-32975.0
+3	INF	1063	str:LOCATION|[poss]->economy[nsubj]->decline[root]<-by[prep]<-percent[pobj]<-|PERCENT	-55819.0
+3	INF	1064	str:LOCATION|[poss]->electricity[nsubj]->generate[root]<-amount[ccomp]<-to[prep]<-kwh[pobj]<-include[prep]<-twh[pobj]<-%[appos]<-|PERCENT	-15668.0
+3	INF	1068	str:LOCATION|[poss]->export[nsubj]->rise[root]<-percent[dobj]<-|PERCENT	-13606.0
+3	INF	1071	str:LOCATION|[poss]->household[nsubj]->have[ccomp]<-rise[ccomp]<-from[prep]<-register[pobj]<-|PERCENT	-39351.0
+3	INF	1072	str:LOCATION|[poss]->household[nsubj]->have[ccomp]<-rise[ccomp]<-to[prep]<-percent[pobj]<-|PERCENT	-13474.0
+3	INF	1073	str:LOCATION|[poss]->index[nsubj]->rise[ccomp]<-percent[dobj]<-|PERCENT	13365.0
+3	INF	1074	str:LOCATION|[poss]->inflation[dobj]->push[ccomp]<-from[prep]<-percent[pobj]<-|PERCENT	-31741.0
+3	INF	1075	str:LOCATION|[poss]->inflation[dobj]->push[ccomp]<-to[prep]<-percent[pobj]<-|PERCENT	-31741.0
+3	INF	1076	str:LOCATION|[poss]->inflation[nsubj]->remain[root]<-at[prep]<-rate[pobj]<-of[prep]<-percent[pobj]<-percent[conj]<-|PERCENT	13383.0
+3	INF	1078	str:LOCATION|[poss]->inflation[nsubj]->return[root]<-to[prep]<-target[pobj]<-of[prep]<-percent[pobj]<-|PERCENT	13523.0
+3	INF	1079	str:LOCATION|[poss]->inflation[nsubj]->surge[root]<-to[prep]<-percent[pobj]<-|PERCENT	222006.0
+3	INF	1080	str:LOCATION|[poss]->inflation[nsubjpass]->record[ccomp]<-at[prep]<-percent[pobj]<-|PERCENT	229267.0
+3	INF	1081	str:LOCATION|[poss]->inflation[nsubjpass]->record[ccomp]<-compare[prep]<-with[pcomp]<-percent[pobj]<-|PERCENT	13634.0
+3	INF	1082	str:LOCATION|[poss]->measure[appos]->inflation[nsubj]->be[root]<-at[prep]<-percent[pobj]<-|PERCENT	158447.0
+3	INF	1086	str:LOCATION|[poss]->population[nsubj]->soar[root]<-percent[dobj]<-|PERCENT	-13461.0
+3	INF	1087	str:LOCATION|[poss]->population[nsubj]->soar[root]<-percent[dobj]<-|PERCENT|[quantmod]->nearly	-13461.0
+3	INF	1095	str:LOCATION|[poss]->rate[dobj]<-at[prep]<-percent[pobj]<-|PERCENT	13498.0
+3	INF	1096	str:LOCATION|[poss]->rate[nsubj]->drop[root]<-to[prep]<-accord[pobj]<-|PERCENT	-55228.0
+3	INF	1097	str:LOCATION|[poss]->rate[nsubj]->jump[ccomp]<-from[prep]<-percent[pobj]<-|PERCENT	-36212.0
+3	INF	1098	str:LOCATION|[poss]->rate[nsubj]->jump[ccomp]<-to[prep]<-percent[pobj]<-|PERCENT	13461.0
+3	INF	1099	str:LOCATION|[poss]->rate[nsubj]->jump[rcmod]<-over[prep]<-year[pobj]<-earlier[advmod]<-from[prep]<-percent[pobj]<-|PERCENT	-21872.0
+3	INF	1100	str:LOCATION|[poss]->rate[nsubj]->jump[rcmod]<-to[prep]<-percent[pobj]<-|PERCENT	13461.0
+3	INF	1101	str:LOCATION|[poss]->rate[nsubj]->percent[ccomp]<-percent[conj]<-|PERCENT	13523.0
+3	INF	1103	str:LOCATION|[poss]->rate[nsubj]->reach[root]<-percent[dobj]<-|PERCENT	13523.0
+3	INF	1105	str:LOCATION|[poss]->rate[nsubj]->remain[root]<-surprising[xcomp]<-economist[dobj]<-forecast[rcmod]<-measure[dobj]<-fall[infmod]<-below[prep]<-target[pobj]<-|PERCENT	-46012.0
+3	INF	1108	str:LOCATION|[poss]->rate[nsubj]->track[root]<-to[prep]<-percent[pobj]<-|PERCENT	26538.0
+3	INF	1109	str:LOCATION|[poss]->recovery[dobj]->jeopardise[dep]<-by[prep]<-hit[pcomp]<-in[prep]<-area[pobj]<-live[rcmod]<-percent[nsubj]<-|PERCENT	-12968.0
+3	INF	1110	str:LOCATION|[poss]->southeast[pobj]->of[prep]->state[nsubj]->have[ccomp]->compare[ccomp]<-to[prep]<-percent[pobj]<-|PERCENT	-16979.0
+3	INF	1111	str:LOCATION|[poss]->southeast[pobj]->of[prep]->state[nsubj]->have[ccomp]<-compare[prep]<-to[pcomp]<-percent[pobj]<-|PERCENT	-16979.0
+3	INF	1120	str:Negara[nn]->|PERSON|[pobj]->to[pcomp]->accord[prep]->moderate[root]<-to[prep]<-percent[pobj]<-|PERCENT	13586.0
+3	INF	1121	str:ORGANIZATION|*LONG-PATH*|PERCENT	-62616.0
+3	INF	1125	str:ORGANIZATION|[poss]->review[pobj]->of[prep]->Bank[pobj]->to[prep]->accord[appos]->percent[pobj]<-|PERCENT	13497.0
+3	INF	1126	str:ORGANIZATION|[poss]->review[pobj]->of[prep]->Bank[pobj]->to[prep]->accord[dep]->double[root]<-to[prep]<-percent[pobj]<-|PERCENT	13497.0
+3	INF	1128	str:O|[amod]->country[pobj]->in[prep]->soar[advcl]->surge[root]<-to[prep]<-percent[pobj]<-|PERCENT	13542.0
+3	INF	1131	str:PERSON|[pobj]->to[pcomp]->accord[prep]->moderate[root]<-to[prep]<-percent[pobj]<-|PERCENT	13586.0
+3	INF	1135	str:and[cc]->|LOCATION|[nsubj]->lose[parataxis]->lose[root]<-Zimbabwe[nsubj]<-be[rcmod]<-around[prep]<-year[pobj]<-percent[conj]<-|PERCENT	13533.0
+3	INF	1136	str:and[cc]->|LOCATION|[nsubj]->lose[parataxis]<-fall[ccomp]<-by[prep]<-percent[pobj]<-|PERCENT	-13533.0
+3	INF	1137	str:and[cc]->|LOCATION|[nsubj]->lose[parataxis]<-fall[ccomp]<-population[nsubj]<-percent[poss]<-|PERCENT	-13533.0
+3	INF	1140	str:bank[appos]->|PERSON|[pobj]->to[pcomp]->accord[prep]->moderate[root]<-to[prep]<-percent[pobj]<-|PERCENT	13586.0
+3	INF	1144	str:be[rcmod]->|LOCATION|[nsubj]->lose[root]<-lose[parataxis]<-fall[ccomp]<-by[prep]<-percent[pobj]<-|PERCENT	-31685.0
+3	INF	1145	str:be[rcmod]->|LOCATION|[nsubj]->lose[root]<-lose[parataxis]<-fall[ccomp]<-population[nsubj]<-percent[poss]<-|PERCENT	-79375.0
+3	INF	1147	str:country[appos]->|LOCATION|[nsubj]->have[root]<-penetration[dobj]<-of[prep]<-percent[pobj]<-|PERCENT	-36909.0
+3	INF	1156	str:nation[dep]->|LOCATION|[nsubj]->lose[parataxis]->lose[root]<-Zimbabwe[nsubj]<-be[rcmod]<-around[prep]<-year[pobj]<-percent[conj]<-|PERCENT	13533.0
+3	INF	1157	str:nation[dep]->|LOCATION|[nsubj]->lose[parataxis]<-fall[ccomp]<-by[prep]<-percent[pobj]<-|PERCENT	-13533.0
+3	INF	1158	str:nation[dep]->|LOCATION|[nsubj]->lose[parataxis]<-fall[ccomp]<-population[nsubj]<-percent[poss]<-|PERCENT	-13533.0
+3	INF	1159	str:one[appos]->|LOCATION|[pobj]->in[prep]->emerge[root]<-with[prep]<-survive[pcomp]<-percent[nsubj]<-|PERCENT	-7572.0
+3	INF	1160	str:one[appos]->|LOCATION|[pobj]->in[prep]->emerge[root]<-with[prep]<-survive[pcomp]<-percent[nsubj]<-|PERCENT|[quantmod]->nearly	-7572.0
+3	INF	1161	str:recession-hit[amod]->|LOCATION|[pobj]->in[prep]->inflation[nsubj]->surge[ccomp]<-to[prep]<-percent[pobj]<-|PERCENT	13498.0
+3	INF	1165	str:the[det]->|LOCATION|[nsubj]->make[advcl]->reach[ccomp]<-$[dobj]<-percent[conj]<-|PERCENT	-36441.0
+3	INF	1168	str:the[det]->|LOCATION|[nsubj]->make[advcl]<-less[dobj]<-percent[conj]<-|PERCENT	-13241.0
+3	INF	1173	str:the[det]->|LOCATION|[pobj]->in[prep]->percent[pobj]->with[prep]->compare[ccomp]->say[root]<-percent[nsubj]<-|PERCENT	-13503.0
+3	INF	1174	str:the[det]->|LOCATION|[pobj]->in[prep]->percent[pobj]->with[prep]->compare[ccomp]->say[root]<-percent[nsubj]<-|PERCENT|[quantmod]->almost	-13503.0
+4	INTERNET	3	Num: Integer	-388767.0
+4	INTERNET	9	Num: Units	352639.0
+4	INTERNET	14	dep:LOCATION|[nn]->[pobj]->[prep]->[nsubj]->[root]<-[prep]<-[pobj]<-[rcmod]<-[prep]<-[pobj]<-|PERCENT|[quantmod]->	-9642.0
+4	INTERNET	15	dep:LOCATION|[nn]->[pobj]->[prep]->[pobj]<-|PERCENT|[quantmod]->	-25939.0
+4	INTERNET	18	dep:LOCATION|[nsubj]->[root]<-[parataxis]<-[nsubj]<-|PERCENT|[quantmod]->	13428.0
+4	INTERNET	26	dep:LOCATION|[pobj]->[prep]->[nsubj]->[root]<-[dep]<-[dobj]<-|PERCENT|[quantmod]->	13421.0
+4	INTERNET	27	dep:LOCATION|[pobj]->[prep]->[nsubj]->[root]<-[partmod]<-[dobj]<-|PERCENT|[quantmod]->	13421.0
+4	INTERNET	32	dep:LOCATION|[pobj]->[prep]->[pobj]->[prep]->[ccomp]->[root]<-[nsubj]<-|PERCENT|[quantmod]->	13482.0
+4	INTERNET	33	dep:LOCATION|[pobj]->[prep]->[pobj]->[prep]->[nsubj]->[root]<-[ccomp]<-[prep]<-[pobj]<-|PERCENT|[quantmod]->	-13421.0
+4	INTERNET	35	dep:LOCATION|[pobj]->[prep]->[pobj]<-|PERCENT|[quantmod]->	-13146.0
+4	INTERNET	37	dep:LOCATION|[pobj]->[prep]->[root]<-|PERCENT|[quantmod]->	13421.0
+4	INTERNET	42	dep:[advmod]->|LOCATION|[nn]->[pobj]->[prep]->[pobj]<-|PERCENT	-12793.0
+4	INTERNET	45	dep:[appos]->|LOCATION|[nsubj]->[root]<-[dobj]<-[prep]<-[pobj]<-[conj]<-|PERCENT	26667.0
+4	INTERNET	46	dep:[appos]->|LOCATION|[nsubj]->[root]<-[dobj]<-[prep]<-[pobj]<-|PERCENT	-35833.0
+4	INTERNET	50	dep:[cc]->|LOCATION|[nsubj]->[parataxis]<-[ccomp]<-[nsubj]<-[poss]<-|PERCENT	-8624.0
+4	INTERNET	51	dep:[cc]->|LOCATION|[nsubj]->[parataxis]<-[ccomp]<-[prep]<-[pobj]<-|PERCENT	-8624.0
+4	INTERNET	56	dep:[conj]->|LOCATION|[nsubj]->[parataxis]<-[ccomp]<-[nsubj]<-[poss]<-|PERCENT	-8624.0
+4	INTERNET	57	dep:[conj]->|LOCATION|[nsubj]->[parataxis]<-[ccomp]<-[prep]<-[pobj]<-|PERCENT	-8624.0
+4	INTERNET	70	dep:[dep]->|LOCATION|[nsubj]->[parataxis]<-[ccomp]<-[nsubj]<-[poss]<-|PERCENT	-8624.0
+4	INTERNET	71	dep:[dep]->|LOCATION|[nsubj]->[parataxis]<-[ccomp]<-[prep]<-[pobj]<-|PERCENT	-8624.0
+4	INTERNET	78	dep:[det]->|LOCATION|[pobj]->[prep]->[pobj]->[prep]->[ccomp]->[root]<-[nsubj]<-|PERCENT	13482.0
+4	INTERNET	79	dep:[det]->|LOCATION|[pobj]->[prep]->[pobj]<-|PERCENT	336.0
+4	INTERNET	87	dep:[nsubj]<-|LOCATION|[nsubj]<-[rcmod]<-[prep]<-[pobj]<-[conj]<-|PERCENT	13535.0
+4	INTERNET	90	dep:[possessive]->|LOCATION|[conj]->[poss]->[nsubj]->[ccomp]->[parataxis]->[root]<-[nsubj]<-[rcmod]<-[prep]<-[pobj]<-[conj]<-|PERCENT	-13411.0
+4	INTERNET	91	dep:[possessive]->|LOCATION|[conj]->[poss]->[nsubj]->[ccomp]<-[prep]<-[pobj]<-|PERCENT	-24641.0
+4	INTERNET	93	dep:[possessive]->|LOCATION|[nn]->[pobj]->[prep]->[pobj]<-|PERCENT	-12793.0
+4	INTERNET	94	dep:[possessive]->|LOCATION|[poss]->[appos]->[nsubj]->[root]<-[prep]<-[pobj]<-|PERCENT	160845.0
+4	INTERNET	95	dep:[possessive]->|LOCATION|[poss]->[dobj]->[ccomp]<-[prep]<-[pobj]<-|PERCENT	-56604.0
+4	INTERNET	98	dep:[possessive]->|LOCATION|[poss]->[dobj]->[root]<-[prep]<-[pobj]<-|PERCENT	-31831.0
+4	INTERNET	101	dep:[possessive]->|LOCATION|[poss]->[nsubj]->[ccomp]<-[ccomp]<-[prep]<-[pobj]<-|PERCENT	-25563.0
+4	INTERNET	104	dep:[possessive]->|LOCATION|[poss]->[nsubj]->[ccomp]<-[prep]<-[pobj]<-|PERCENT	-32375.0
+4	INTERNET	106	dep:[possessive]->|LOCATION|[poss]->[nsubj]->[ccomp]<-|PERCENT	-13265.0
+4	INTERNET	109	dep:[possessive]->|LOCATION|[poss]->[nsubj]->[rcmod]<-[prep]<-[pobj]<-[advmod]<-[prep]<-[pobj]<-|PERCENT	-19109.0
+4	INTERNET	111	dep:[possessive]->|LOCATION|[poss]->[nsubj]->[root]<-[ccomp]<-[prep]<-[pobj]<-[prep]<-[pobj]<-[appos]<-|PERCENT	-17413.0
+4	INTERNET	116	dep:[possessive]->|LOCATION|[poss]->[nsubj]->[root]<-[dep]<-[dobj]<-[prep]<-[pobj]<-|PERCENT	-25232.0
+4	INTERNET	122	dep:[possessive]->|LOCATION|[poss]->[nsubj]->[root]<-[prep]<-[pobj]<-|PERCENT	73356.0
+4	INTERNET	128	dep:[possessive]->|LOCATION|[poss]->[nsubjpass]->[ccomp]<-[prep]<-[pobj]<-|PERCENT	232992.0
+4	INTERNET	129	dep:[possessive]->|LOCATION|[poss]->[pobj]->[prep]->[nsubj]->[ccomp]->[ccomp]<-[prep]<-[pobj]<-|PERCENT	-12391.0
+4	INTERNET	130	dep:[possessive]->|LOCATION|[poss]->[pobj]->[prep]->[nsubj]->[ccomp]<-[dobj]<-[dep]<-|PERCENT	27238.0
+4	INTERNET	131	dep:[possessive]->|LOCATION|[poss]->[pobj]->[prep]->[nsubj]->[ccomp]<-[prep]<-[pcomp]<-[pobj]<-|PERCENT	-12391.0
+4	INTERNET	142	dep:[rcmod]->|LOCATION|[nsubj]->[root]<-[parataxis]<-[ccomp]<-[nsubj]<-[poss]<-|PERCENT	-74609.0
+4	INTERNET	148	dir:->|LOCATION|->->->->-><-<-<-<-<-<-|PERCENT	-13411.0
+4	INTERNET	150	dir:->|LOCATION|->->->->-><-<-<-|PERCENT	-12391.0
+4	INTERNET	151	dir:->|LOCATION|->->->->-><-<-|PERCENT	13482.0
+4	INTERNET	155	dir:->|LOCATION|->->->-><-<-<-<-|PERCENT	-12391.0
+4	INTERNET	156	dir:->|LOCATION|->->->-><-<-<-|PERCENT	27238.0
+4	INTERNET	160	dir:->|LOCATION|->->-><-<-<-|PERCENT	136204.0
+4	INTERNET	165	dir:->|LOCATION|->->-><-|PERCENT	47.0
+4	INTERNET	168	dir:->|LOCATION|->-><-<-<-<-<-<-<-|PERCENT	-29303.0
+4	INTERNET	170	dir:->|LOCATION|->-><-<-<-<-<-<-|PERCENT	-19109.0
+4	INTERNET	173	dir:->|LOCATION|->-><-<-<-<-<-|PERCENT	197138.0
+4	INTERNET	175	dir:->|LOCATION|->-><-<-<-<-|PERCENT	-34263.0
+4	INTERNET	178	dir:->|LOCATION|->-><-<-<-|PERCENT	154378.0
+4	INTERNET	183	dir:->|LOCATION|->-><-|PERCENT	-12929.0
+4	INTERNET	187	dir:->|LOCATION|-><-<-<-<-<-|PERCENT	-82442.0
+4	INTERNET	190	dir:->|LOCATION|-><-<-<-<-|PERCENT	-53081.0
+4	INTERNET	215	dir:<-|LOCATION|<-<-<-<-<-|PERCENT	13535.0
+4	INTERNET	223	dir:LOCATION|->->->->-><-<-<-<-|PERCENT|->	-13421.0
+4	INTERNET	225	dir:LOCATION|->->->->-><-<-|PERCENT|->	13482.0
+4	INTERNET	227	dir:LOCATION|->->->-><-<-<-<-<-<-|PERCENT|->	-9642.0
+4	INTERNET	230	dir:LOCATION|->->-><-<-<-|PERCENT|->	26842.0
+4	INTERNET	231	dir:LOCATION|->->-><-|PERCENT|->	-13099.0
+4	INTERNET	236	dir:LOCATION|->-><-|PERCENT|->	275.0
+4	INTERNET	241	dir:LOCATION|-><-<-<-|PERCENT|->	13428.0
+4	INTERNET	246	inverse_false|, and|LOCATION|'s population would fall by|PERCENT|percent .	-24641.0
+4	INTERNET	251	inverse_false|,|LOCATION|'s inflation rate drop to|PERCENT|percent	-51815.0
+4	INTERNET	254	inverse_false|,|LOCATION|'s main cost-of-living measure , be at|PERCENT|percent	160845.0
+4	INTERNET	263	inverse_false|,|LOCATION|Internet usage have a|PERCENT|percent	26852.0
+4	INTERNET	265	inverse_false|,|LOCATION|have 440 million netizen , account for|PERCENT|percent	13421.0
+4	INTERNET	272	inverse_false|-rrb- in|LOCATION|*LONG*|PERCENT|percent of	-9642.0
+4	INTERNET	277	inverse_false|2010 ,|LOCATION|Internet usage have a|PERCENT|percent penetration	26852.0
+4	INTERNET	278	inverse_false|2010 ,|LOCATION|have 440 million netizen , account for|PERCENT|percent of	13421.0
+4	INTERNET	280	inverse_false|2014|LOCATION|*LONG*|PERCENT|percent	-26238.0
+4	INTERNET	289	inverse_false|;|LOCATION|*LONG*|PERCENT|percent	-17248.0
+4	INTERNET	291	inverse_false|August ,|LOCATION|'s inflation rate drop to|PERCENT|percent ,	-51815.0
+4	INTERNET	293	inverse_false|B_-1|LOCATION|'s economy decline by|PERCENT|percent	-52217.0
+4	INTERNET	294	inverse_false|B_-1|LOCATION|'s household have access to Internet rise to|PERCENT|percent	19068.0
+4	INTERNET	295	inverse_false|B_-1|LOCATION|'s inflation rate remain at|PERCENT|percent	-52649.0
+4	INTERNET	308	inverse_false|B_-1|LOCATION|*LONG*|PERCENT|%	-17413.0
+4	INTERNET	309	inverse_false|B_-1|LOCATION|*LONG*|PERCENT|percent	126157.0
+4	INTERNET	310	inverse_false|B_-1|LOCATION|, where life expectancy be around 47 year and|PERCENT|percent	13535.0
+4	INTERNET	317	inverse_false|B_-1|MISC|*LONG*|PERCENT|percent	27092.0
+4	INTERNET	318	inverse_false|B_-1|MISC|wholesale inflation continue to slow to|PERCENT|percent	27092.0
+4	INTERNET	319	inverse_false|B_-2 B_-1|LOCATION|'s economy decline by|PERCENT|percent ,	-52217.0
+4	INTERNET	320	inverse_false|B_-2 B_-1|LOCATION|'s household have access to Internet rise to|PERCENT|percent from	19068.0
+4	INTERNET	321	inverse_false|B_-2 B_-1|LOCATION|'s inflation rate remain at|PERCENT|percent in	-52649.0
+4	INTERNET	334	inverse_false|B_-2 B_-1|LOCATION|*LONG*|PERCENT|% -rrb-	-17413.0
+4	INTERNET	335	inverse_false|B_-2 B_-1|LOCATION|*LONG*|PERCENT|percent ,	116052.0
+4	INTERNET	337	inverse_false|B_-2 B_-1|LOCATION|*LONG*|PERCENT|percent and	-35833.0
+4	INTERNET	338	inverse_false|B_-2 B_-1|LOCATION|*LONG*|PERCENT|percent as	230037.0
+4	INTERNET	340	inverse_false|B_-2 B_-1|LOCATION|*LONG*|PERCENT|percent be	-90621.0
+4	INTERNET	341	inverse_false|B_-2 B_-1|LOCATION|*LONG*|PERCENT|percent from	-25232.0
+4	INTERNET	344	inverse_false|B_-2 B_-1|LOCATION|*LONG*|PERCENT|percent of	13428.0
+4	INTERNET	345	inverse_false|B_-2 B_-1|LOCATION|*LONG*|PERCENT|percent register	-44631.0
+4	INTERNET	346	inverse_false|B_-2 B_-1|LOCATION|*LONG*|PERCENT|percent respectively	26667.0
+4	INTERNET	348	inverse_false|B_-2 B_-1|LOCATION|, where life expectancy be around 47 year and|PERCENT|percent of	13535.0
+4	INTERNET	355	inverse_false|B_-2 B_-1|MISC|*LONG*|PERCENT|percent in	27092.0
+4	INTERNET	356	inverse_false|B_-2 B_-1|MISC|wholesale inflation continue to slow to|PERCENT|percent in	27092.0
+4	INTERNET	367	inverse_false|LOCATION|'s annual average food inflation be record at|PERCENT	232992.0
+4	INTERNET	368	inverse_false|LOCATION|'s annual inflation in August to 18.4 percent from|PERCENT	-28302.0
+4	INTERNET	369	inverse_false|LOCATION|'s annual inflation in August to|PERCENT	-28302.0
+4	INTERNET	370	inverse_false|LOCATION|'s economy decline by|PERCENT	-52217.0
+4	INTERNET	373	inverse_false|LOCATION|'s household have access to Internet rise to|PERCENT	19068.0
+4	INTERNET	375	inverse_false|LOCATION|'s inflation rate drop to|PERCENT	-51815.0
+4	INTERNET	376	inverse_false|LOCATION|'s inflation rate jump to 2.7 percent in February from|PERCENT	-32375.0
+4	INTERNET	378	inverse_false|LOCATION|'s inflation rate remain at|PERCENT	-52649.0
+4	INTERNET	383	inverse_false|LOCATION|'s inflation rate will remain between|PERCENT	-13265.0
+4	INTERNET	385	inverse_false|LOCATION|'s main cost-of-living measure , be at|PERCENT	160845.0
+4	INTERNET	386	inverse_false|LOCATION|'s more developed southeast have the highest internet use --|PERCENT	27238.0
+4	INTERNET	387	inverse_false|LOCATION|'s point-to-point inflation dip to|PERCENT	-31831.0
+4	INTERNET	388	inverse_false|LOCATION|'s population would fall by|PERCENT	-24641.0
+4	INTERNET	395	inverse_false|LOCATION|*LONG*|PERCENT	51879.0
+4	INTERNET	402	inverse_false|LOCATION|, where life expectancy be around 47 year and|PERCENT	13535.0
+4	INTERNET	405	inverse_false|LOCATION|Internet usage have a|PERCENT	26852.0
+4	INTERNET	406	inverse_false|LOCATION|Korea ,|PERCENT	13382.0
+4	INTERNET	416	inverse_false|LOCATION|be 33.9 percent -- above the world average of|PERCENT	13421.0
+4	INTERNET	424	inverse_false|LOCATION|be|PERCENT	13421.0
+4	INTERNET	430	inverse_false|LOCATION|have 440 million netizen , account for|PERCENT	13421.0
+4	INTERNET	432	inverse_false|LOCATION|have reach 384 million user , cover about|PERCENT	26842.0
+4	INTERNET	455	inverse_false|LOCATION|use the internet , or|PERCENT	13486.0
+4	INTERNET	458	inverse_false|MISC|*LONG*|PERCENT	27092.0
+4	INTERNET	460	inverse_false|MISC|wholesale inflation continue to slow to|PERCENT	27092.0
+4	INTERNET	461	inverse_false|Nahar say|LOCATION|'s annual average food inflation be record at|PERCENT|percent in	232992.0
+4	INTERNET	470	inverse_false|also show|LOCATION|'s point-to-point inflation dip to|PERCENT|percent in	-31831.0
+4	INTERNET	473	inverse_false|and|LOCATION|'s population would fall by|PERCENT|percent	-24641.0
+4	INTERNET	477	inverse_false|authority in|LOCATION|*LONG*|PERCENT|percent in	-21405.0
+4	INTERNET	485	inverse_false|country like|LOCATION|*LONG*|PERCENT|percent in	-36034.0
+4	INTERNET	498	inverse_false|for|LOCATION|*LONG*|PERCENT|percent	222413.0
+4	INTERNET	503	inverse_false|help keep|LOCATION|*LONG*|PERCENT|percent ,	-37018.0
+4	INTERNET	506	inverse_false|in 2014|LOCATION|*LONG*|PERCENT|percent or	-26238.0
+4	INTERNET	518	inverse_false|inflation ,|LOCATION|'s main cost-of-living measure , be at|PERCENT|percent ,	160845.0
+4	INTERNET	519	inverse_false|inflation in|LOCATION|*LONG*|PERCENT|percent follow	-7301.0
+4	INTERNET	523	inverse_false|internet in|LOCATION|be 33.9 percent -- above the world average of|PERCENT|percent ,	13421.0
+4	INTERNET	524	inverse_false|internet in|LOCATION|be|PERCENT|percent --	13421.0
+4	INTERNET	536	inverse_false|in|LOCATION|*LONG*|PERCENT|percent	-60469.0
+4	INTERNET	544	inverse_false|in|LOCATION|Korea ,|PERCENT|percent	13382.0
+4	INTERNET	549	inverse_false|in|LOCATION|be 33.9 percent -- above the world average of|PERCENT|percent	13421.0
+4	INTERNET	555	inverse_false|in|LOCATION|be|PERCENT|percent	13421.0
+4	INTERNET	559	inverse_false|in|LOCATION|have reach 384 million user , cover about|PERCENT|percent	26842.0
+4	INTERNET	566	inverse_false|in|LOCATION|use the internet , or|PERCENT|percent	13486.0
+4	INTERNET	567	inverse_false|issue for|LOCATION|*LONG*|PERCENT|percent year-on-year	222413.0
+4	INTERNET	570	inverse_false|keep|LOCATION|*LONG*|PERCENT|percent	-37018.0
+4	INTERNET	572	inverse_false|like|LOCATION|*LONG*|PERCENT|percent	-36034.0
+4	INTERNET	577	inverse_false|news that|LOCATION|'s inflation rate jump to 2.7 percent in February from|PERCENT|percent in	-32375.0
+4	INTERNET	580	inverse_false|of|LOCATION|'s more developed southeast have the highest internet use --|PERCENT|percent	27238.0
+4	INTERNET	583	inverse_false|of|LOCATION|*LONG*|PERCENT|percent	-24782.0
+4	INTERNET	590	inverse_false|people in|LOCATION|use the internet , or|PERCENT|percent of	13486.0
+4	INTERNET	591	inverse_false|percent ;|LOCATION|*LONG*|PERCENT|percent ,	-8624.0
+4	INTERNET	592	inverse_false|percent ;|LOCATION|*LONG*|PERCENT|percent .	-8624.0
+4	INTERNET	595	inverse_false|push up|LOCATION|'s annual inflation in August to 18.4 percent from|PERCENT|percent in	-28302.0
+4	INTERNET	596	inverse_false|push up|LOCATION|'s annual inflation in August to|PERCENT|percent from	-28302.0
+4	INTERNET	601	inverse_false|say|LOCATION|'s annual average food inflation be record at|PERCENT|percent	232992.0
+4	INTERNET	604	inverse_false|show that|LOCATION|*LONG*|PERCENT|percent in	-19109.0
+4	INTERNET	605	inverse_false|show|LOCATION|'s point-to-point inflation dip to|PERCENT|percent	-31831.0
+4	INTERNET	608	inverse_false|state of|LOCATION|'s more developed southeast have the highest internet use --|PERCENT|percent ,	27238.0
+4	INTERNET	609	inverse_false|state of|LOCATION|*LONG*|PERCENT|percent in	-24782.0
+4	INTERNET	611	inverse_false|state that|LOCATION|'s inflation rate will remain between|PERCENT|percent and	-13265.0
+4	INTERNET	615	inverse_false|that|LOCATION|'s inflation rate jump to 2.7 percent in February from|PERCENT|percent	-32375.0
+4	INTERNET	618	inverse_false|that|LOCATION|'s inflation rate will remain between|PERCENT|percent	-13265.0
+4	INTERNET	619	inverse_false|that|LOCATION|*LONG*|PERCENT|percent	-19109.0
+4	INTERNET	637	inverse_false|up|LOCATION|'s annual inflation in August to 18.4 percent from|PERCENT|percent	-28302.0
+4	INTERNET	638	inverse_false|up|LOCATION|'s annual inflation in August to|PERCENT|percent	-28302.0
+4	INTERNET	639	inverse_false|user in|LOCATION|*LONG*|PERCENT|percent in	-13421.0
+4	INTERNET	641	inverse_false|user in|LOCATION|have reach 384 million user , cover about|PERCENT|percent of	26842.0
+4	INTERNET	644	inverse_false|while in|LOCATION|Korea ,|PERCENT|percent of	13382.0
+4	INTERNET	660	inverse_true|,|PERCENT|% of|MISC|adult	13482.0
+4	INTERNET	666	inverse_true|B_-1 almost|PERCENT|*LONG*|LOCATION|. B_1	13482.0
+4	INTERNET	688	inverse_true|PERCENT|% in the|LOCATION	13482.0
+4	INTERNET	689	inverse_true|PERCENT|% in|LOCATION	13421.0
+4	INTERNET	690	inverse_true|PERCENT|% of|MISC	13482.0
+4	INTERNET	691	inverse_true|PERCENT|*LONG*|LOCATION	65.0
+4	INTERNET	693	inverse_true|PERCENT|*LONG*|O	65.0
+4	INTERNET	694	inverse_true|PERCENT|*LONG*|ORGANIZATION	181368.0
+4	INTERNET	699	inverse_true|PERCENT|percent in the|LOCATION	-13146.0
+4	INTERNET	704	inverse_true|PERCENT|percent of|LOCATION	383.0
+4	INTERNET	706	inverse_true|a record|PERCENT|*LONG*|ORGANIZATION|. B_1	246843.0
+4	INTERNET	712	inverse_true|about|PERCENT|percent of|LOCATION|'s	47.0
+4	INTERNET	713	inverse_true|about|PERCENT|percent of|LOCATION|gross	-13146.0
+4	INTERNET	714	inverse_true|account for|PERCENT|*LONG*|LOCATION|, at	13421.0
+4	INTERNET	716	inverse_true|almost|PERCENT|*LONG*|LOCATION|.	13482.0
+4	INTERNET	719	inverse_true|and|PERCENT|*LONG*|LOCATION|'s	-13411.0
+4	INTERNET	721	inverse_true|and|PERCENT|*LONG*|LOCATION|would	-13427.0
+4	INTERNET	723	inverse_true|at|PERCENT|*LONG*|ORGANIZATION|'s	-65475.0
+4	INTERNET	725	inverse_true|be only|PERCENT|% in|LOCATION|compare to	13421.0
+4	INTERNET	731	inverse_true|compare to|PERCENT|% in the|LOCATION|. B_1	13482.0
+4	INTERNET	736	inverse_true|drop to|PERCENT|*LONG*|O|National Statistical	-13388.0
+4	INTERNET	739	inverse_true|for about|PERCENT|percent of|LOCATION|'s mostly	-12793.0
+4	INTERNET	740	inverse_true|for|PERCENT|*LONG*|LOCATION|,	13421.0
+4	INTERNET	746	inverse_true|indicate that|PERCENT|percent of|LOCATION|teenager use	13482.0
+4	INTERNET	749	inverse_true|less than|PERCENT|percent in the|LOCATION|. B_1	-13146.0
+4	INTERNET	758	inverse_true|only|PERCENT|% in|LOCATION|compare	13421.0
+4	INTERNET	762	inverse_true|record|PERCENT|*LONG*|ORGANIZATION|.	246843.0
+4	INTERNET	763	inverse_true|remain at|PERCENT|*LONG*|ORGANIZATION|'s 2	-65475.0
+4	INTERNET	767	inverse_true|rise to|PERCENT|*LONG*|O|Statistical Institute	13453.0
+4	INTERNET	776	inverse_true|survey ,|PERCENT|% of|MISC|adult use	13482.0
+4	INTERNET	778	inverse_true|than|PERCENT|percent in the|LOCATION|.	-13146.0
+4	INTERNET	780	inverse_true|that|PERCENT|percent of|LOCATION|teenager	13482.0
+4	INTERNET	782	inverse_true|to about|PERCENT|percent of|LOCATION|gross domestic	-13146.0
+4	INTERNET	784	inverse_true|to|PERCENT|% in the|LOCATION|.	13482.0
+4	INTERNET	788	inverse_true|to|PERCENT|*LONG*|O|National	-13388.0
+4	INTERNET	789	inverse_true|to|PERCENT|*LONG*|O|Statistical	13453.0
+4	INTERNET	800	inverse_true|year and|PERCENT|*LONG*|LOCATION|'s population	-13411.0
+4	INTERNET	802	inverse_true|year and|PERCENT|*LONG*|LOCATION|would each	-13427.0
+4	INTERNET	804	str:'s[possessive]->|LOCATION|[conj]->percent[poss]->population[nsubj]->fall[ccomp]->lose[parataxis]->lose[root]<-Zimbabwe[nsubj]<-be[rcmod]<-around[prep]<-year[pobj]<-percent[conj]<-|PERCENT	-13411.0
+4	INTERNET	805	str:'s[possessive]->|LOCATION|[conj]->percent[poss]->population[nsubj]->fall[ccomp]<-by[prep]<-percent[pobj]<-|PERCENT	-24641.0
+4	INTERNET	807	str:'s[possessive]->|LOCATION|[nn]->population[pobj]->of[prep]->percent[pobj]<-|PERCENT	-12793.0
+4	INTERNET	808	str:'s[possessive]->|LOCATION|[nn]->population[pobj]->of[prep]->percent[pobj]<-|PERCENT|[quantmod]->about	-12793.0
+4	INTERNET	814	str:'s[possessive]->|LOCATION|[poss]->dip[dobj]->show[root]<-to[prep]<-percent[pobj]<-|PERCENT	-31831.0
+4	INTERNET	815	str:'s[possessive]->|LOCATION|[poss]->economy[nsubj]->decline[root]<-by[prep]<-percent[pobj]<-|PERCENT	-52217.0
+4	INTERNET	816	str:'s[possessive]->|LOCATION|[poss]->electricity[nsubj]->generate[root]<-amount[ccomp]<-to[prep]<-kwh[pobj]<-include[prep]<-twh[pobj]<-%[appos]<-|PERCENT	-17413.0
+4	INTERNET	823	str:'s[possessive]->|LOCATION|[poss]->household[nsubj]->have[ccomp]<-rise[ccomp]<-from[prep]<-register[pobj]<-|PERCENT	-44631.0
+4	INTERNET	824	str:'s[possessive]->|LOCATION|[poss]->household[nsubj]->have[ccomp]<-rise[ccomp]<-to[prep]<-percent[pobj]<-|PERCENT	19068.0
+4	INTERNET	826	str:'s[possessive]->|LOCATION|[poss]->inflation[dobj]->push[ccomp]<-from[prep]<-percent[pobj]<-|PERCENT	-28302.0
+4	INTERNET	827	str:'s[possessive]->|LOCATION|[poss]->inflation[dobj]->push[ccomp]<-to[prep]<-percent[pobj]<-|PERCENT	-28302.0
+4	INTERNET	831	str:'s[possessive]->|LOCATION|[poss]->inflation[nsubj]->surge[root]<-to[prep]<-percent[pobj]<-|PERCENT	230037.0
+4	INTERNET	832	str:'s[possessive]->|LOCATION|[poss]->inflation[nsubjpass]->record[ccomp]<-at[prep]<-percent[pobj]<-|PERCENT	232992.0
+4	INTERNET	834	str:'s[possessive]->|LOCATION|[poss]->measure[appos]->inflation[nsubj]->be[root]<-at[prep]<-percent[pobj]<-|PERCENT	160845.0
+4	INTERNET	848	str:'s[possessive]->|LOCATION|[poss]->rate[nsubj]->drop[root]<-to[prep]<-accord[pobj]<-|PERCENT	-51815.0
+4	INTERNET	849	str:'s[possessive]->|LOCATION|[poss]->rate[nsubj]->jump[ccomp]<-from[prep]<-percent[pobj]<-|PERCENT	-32375.0
+4	INTERNET	851	str:'s[possessive]->|LOCATION|[poss]->rate[nsubj]->jump[rcmod]<-over[prep]<-year[pobj]<-earlier[advmod]<-from[prep]<-percent[pobj]<-|PERCENT	-19109.0
+4	INTERNET	854	str:'s[possessive]->|LOCATION|[poss]->rate[nsubj]->percent[ccomp]<-|PERCENT	-13265.0
+4	INTERNET	856	str:'s[possessive]->|LOCATION|[poss]->rate[nsubj]->remain[root]<-at[prep]<-percent[pobj]<-|PERCENT	-52649.0
+4	INTERNET	858	str:'s[possessive]->|LOCATION|[poss]->rate[nsubj]->track[root]<-follow[dep]<-increase[dobj]<-to[prep]<-percent[pobj]<-|PERCENT	-25232.0
+4	INTERNET	862	str:'s[possessive]->|LOCATION|[poss]->southeast[pobj]->of[prep]->state[nsubj]->have[ccomp]->compare[ccomp]<-to[prep]<-percent[pobj]<-|PERCENT	-12391.0
+4	INTERNET	863	str:'s[possessive]->|LOCATION|[poss]->southeast[pobj]->of[prep]->state[nsubj]->have[ccomp]<-compare[prep]<-to[pcomp]<-percent[pobj]<-|PERCENT	-12391.0
+4	INTERNET	864	str:'s[possessive]->|LOCATION|[poss]->southeast[pobj]->of[prep]->state[nsubj]->have[ccomp]<-use[dobj]<-percent[dep]<-|PERCENT	27238.0
+4	INTERNET	870	str:Ethiopia[conj]->|LOCATION|[nsubj]->lose[parataxis]<-fall[ccomp]<-by[prep]<-percent[pobj]<-|PERCENT	-8624.0
+4	INTERNET	871	str:Ethiopia[conj]->|LOCATION|[nsubj]->lose[parataxis]<-fall[ccomp]<-population[nsubj]<-percent[poss]<-|PERCENT	-8624.0
+4	INTERNET	876	str:LOCATION|*LONG-PATH*|PERCENT	-17413.0
+4	INTERNET	886	str:LOCATION|[conj]->Nigeria[nsubj]->lose[parataxis]->lose[root]<-Zimbabwe[nsubj]<-be[rcmod]<-around[prep]<-year[pobj]<-percent[conj]<-|PERCENT	-13427.0
+4	INTERNET	896	str:LOCATION|[conj]->percent[poss]->population[nsubj]->fall[ccomp]->lose[parataxis]->lose[root]<-Zimbabwe[nsubj]<-be[rcmod]<-around[prep]<-year[pobj]<-percent[conj]<-|PERCENT	-13411.0
+4	INTERNET	897	str:LOCATION|[conj]->percent[poss]->population[nsubj]->fall[ccomp]<-by[prep]<-percent[pobj]<-|PERCENT	-24641.0
+4	INTERNET	900	str:LOCATION|[dep]->teenager[pobj]->of[prep]->percent[nsubj]<-|PERCENT	13482.0
+4	INTERNET	902	str:LOCATION|[nn]->Korea[pobj]->in[prep]->spend[advcl]<-percent[nsubj]<-|PERCENT	13382.0
+4	INTERNET	911	str:LOCATION|[nn]->business[pobj]->in[prep]->investment[nsubj]->reach[root]<-at[prep]<-end[pobj]<-equivalent[rcmod]<-to[prep]<-percent[pobj]<-|PERCENT	-9642.0
+4	INTERNET	912	str:LOCATION|[nn]->business[pobj]->in[prep]->investment[nsubj]->reach[root]<-at[prep]<-end[pobj]<-equivalent[rcmod]<-to[prep]<-percent[pobj]<-|PERCENT|[quantmod]->about	-9642.0
+4	INTERNET	918	str:LOCATION|[nn]->inflation[nsubj]->jump[root]<-double[dep]<-to[prep]<-percent[pobj]<-|PERCENT	-31709.0
+4	INTERNET	920	str:LOCATION|[nn]->population[pobj]->of[prep]->percent[pobj]<-|PERCENT	-12793.0
+4	INTERNET	921	str:LOCATION|[nn]->population[pobj]->of[prep]->percent[pobj]<-|PERCENT|[quantmod]->about	-12793.0
+4	INTERNET	923	str:LOCATION|[nn]->product[pobj]->of[prep]->percent[pobj]<-|PERCENT	-13146.0
+4	INTERNET	924	str:LOCATION|[nn]->product[pobj]->of[prep]->percent[pobj]<-|PERCENT|[quantmod]->about	-13146.0
+4	INTERNET	926	str:LOCATION|[nn]->usage[nsubj]->have[ccomp]<-rate[dobj]<-|PERCENT	26852.0
+4	INTERNET	933	str:LOCATION|[nsubj]->have[root]<-area[dobj]<-population[conj]<-of[prep]<-million[pobj]<-Greeks[rcmod]<-percent[nsubj]<-|PERCENT	-90621.0
+4	INTERNET	935	str:LOCATION|[nsubj]->have[root]<-penetration[dobj]<-of[prep]<-percent[pobj]<-percent[conj]<-|PERCENT	26667.0
+4	INTERNET	936	str:LOCATION|[nsubj]->have[root]<-penetration[dobj]<-of[prep]<-percent[pobj]<-|PERCENT	-35833.0
+4	INTERNET	944	str:LOCATION|[nsubj]->lose[parataxis]<-fall[ccomp]<-by[prep]<-percent[pobj]<-|PERCENT	-8624.0
+4	INTERNET	945	str:LOCATION|[nsubj]->lose[parataxis]<-fall[ccomp]<-population[nsubj]<-percent[poss]<-|PERCENT	-8624.0
+4	INTERNET	947	str:LOCATION|[nsubj]->lose[root]<-lose[parataxis]<-fall[ccomp]<-population[nsubj]<-percent[poss]<-|PERCENT	-74609.0
+4	INTERNET	952	str:LOCATION|[nsubj]->one[root]<-have[parataxis]<-percent[nsubj]<-|PERCENT	13428.0
+4	INTERNET	953	str:LOCATION|[nsubj]->one[root]<-have[parataxis]<-percent[nsubj]<-|PERCENT|[quantmod]->about	13428.0
+4	INTERNET	957	str:LOCATION|[nsubj]->reach[ccomp]<-make[advcl]<-less[dobj]<-percent[conj]<-|PERCENT	-26238.0
+4	INTERNET	964	str:LOCATION|[nsubj]->say[root]<-netizen[dobj]<-account[prep]<-for[pcomp]<-percent[pobj]<-|PERCENT	13421.0
+4	INTERNET	966	str:LOCATION|[nsubj]<-be[rcmod]<-around[prep]<-year[pobj]<-percent[conj]<-|PERCENT	13535.0
+4	INTERNET	967	str:LOCATION|[pobj]->for[prep]->issue[nsubj]->inflation[root]<-hit[rcmod]<-drop[conj]<-to[prep]<-percent[pobj]<-|PERCENT	222413.0
+4	INTERNET	971	str:LOCATION|[pobj]->in[prep]->%[pobj]<-|PERCENT	13482.0
+4	INTERNET	973	str:LOCATION|[pobj]->in[prep]->%[root]<-|PERCENT	13421.0
+4	INTERNET	974	str:LOCATION|[pobj]->in[prep]->%[root]<-|PERCENT|[quantmod]->only	13421.0
+4	INTERNET	977	str:LOCATION|[pobj]->in[prep]->authority[nsubj]->start[ccomp]<-figure[dep]<-show[dobj]<-jump[rcmod]<-to[prep]<-percent[pobj]<-|PERCENT	-3992.0
+4	INTERNET	995	str:LOCATION|[pobj]->in[prep]->inflation[nsubj]->remain[root]<-spike[advcl]<-to[prep]<-percent[pobj]<-|PERCENT	-7301.0
+4	INTERNET	1000	str:LOCATION|[pobj]->in[prep]->number[nsubj]->reach[root]<-cover[dep]<-percent[dobj]<-|PERCENT	13421.0
+4	INTERNET	1001	str:LOCATION|[pobj]->in[prep]->number[nsubj]->reach[root]<-cover[dep]<-percent[dobj]<-|PERCENT|[quantmod]->about	13421.0
+4	INTERNET	1002	str:LOCATION|[pobj]->in[prep]->number[nsubj]->reach[root]<-cover[partmod]<-percent[dobj]<-|PERCENT	13421.0
+4	INTERNET	1003	str:LOCATION|[pobj]->in[prep]->number[nsubj]->reach[root]<-cover[partmod]<-percent[dobj]<-|PERCENT|[quantmod]->about	13421.0
+4	INTERNET	1005	str:LOCATION|[pobj]->in[prep]->people[nsubj]->use[ccomp]<-internet[dobj]<-percent[conj]<-|PERCENT	13486.0
+4	INTERNET	1007	str:LOCATION|[pobj]->in[prep]->percent[pobj]->with[prep]->compare[ccomp]->say[root]<-percent[nsubj]<-|PERCENT	13482.0
+4	INTERNET	1008	str:LOCATION|[pobj]->in[prep]->percent[pobj]->with[prep]->compare[ccomp]->say[root]<-percent[nsubj]<-|PERCENT|[quantmod]->almost	13482.0
+4	INTERNET	1009	str:LOCATION|[pobj]->in[prep]->percent[pobj]<-|PERCENT	-13146.0
+4	INTERNET	1010	str:LOCATION|[pobj]->in[prep]->percent[pobj]<-|PERCENT|[quantmod]->than	-13146.0
+4	INTERNET	1019	str:LOCATION|[pobj]->in[prep]->rate[nsubj]->percent[root]<-tell[dep]<-above[prep]<-average[pobj]<-of[prep]<-percent[pobj]<-|PERCENT	13421.0
+4	INTERNET	1020	str:LOCATION|[pobj]->in[prep]->rate[nsubj]->percent[root]<-|PERCENT	13421.0
+4	INTERNET	1024	str:LOCATION|[pobj]->in[prep]->user[pobj]->of[prep]->percent[nsubj]->say[root]<-compare[ccomp]<-with[prep]<-percent[pobj]<-|PERCENT	-13421.0
+4	INTERNET	1025	str:LOCATION|[pobj]->in[prep]->user[pobj]->of[prep]->percent[nsubj]->say[root]<-compare[ccomp]<-with[prep]<-percent[pobj]<-|PERCENT|[quantmod]->than	-13421.0
+4	INTERNET	1044	str:LOCATION|[pobj]->like[prep]->country[pobj]->for[prep]->crucial[rcmod]->measure[dep]->inflation[nsubj]->fall[root]<-from[prep]<-percent[pobj]<-percent[conj]<-|PERCENT	-18017.0
+4	INTERNET	1045	str:LOCATION|[pobj]->like[prep]->country[pobj]->for[prep]->crucial[rcmod]->measure[dep]->inflation[nsubj]->fall[root]<-from[prep]<-percent[pobj]<-|PERCENT	-18017.0
+4	INTERNET	1048	str:LOCATION|[pobj]->of[prep]->Society[pobj]->of[prep]->chairwoman[appos]->Qiheng[dobj]->say[root]<-netizen[dobj]<-account[prep]<-for[pcomp]<-percent[pobj]<-|PERCENT	13421.0
+4	INTERNET	1062	str:LOCATION|[poss]->dip[dobj]->show[root]<-to[prep]<-percent[pobj]<-|PERCENT	-31831.0
+4	INTERNET	1063	str:LOCATION|[poss]->economy[nsubj]->decline[root]<-by[prep]<-percent[pobj]<-|PERCENT	-52217.0
+4	INTERNET	1064	str:LOCATION|[poss]->electricity[nsubj]->generate[root]<-amount[ccomp]<-to[prep]<-kwh[pobj]<-include[prep]<-twh[pobj]<-%[appos]<-|PERCENT	-17413.0
+4	INTERNET	1071	str:LOCATION|[poss]->household[nsubj]->have[ccomp]<-rise[ccomp]<-from[prep]<-register[pobj]<-|PERCENT	-44631.0
+4	INTERNET	1072	str:LOCATION|[poss]->household[nsubj]->have[ccomp]<-rise[ccomp]<-to[prep]<-percent[pobj]<-|PERCENT	19068.0
+4	INTERNET	1074	str:LOCATION|[poss]->inflation[dobj]->push[ccomp]<-from[prep]<-percent[pobj]<-|PERCENT	-28302.0
+4	INTERNET	1075	str:LOCATION|[poss]->inflation[dobj]->push[ccomp]<-to[prep]<-percent[pobj]<-|PERCENT	-28302.0
+4	INTERNET	1079	str:LOCATION|[poss]->inflation[nsubj]->surge[root]<-to[prep]<-percent[pobj]<-|PERCENT	230037.0
+4	INTERNET	1080	str:LOCATION|[poss]->inflation[nsubjpass]->record[ccomp]<-at[prep]<-percent[pobj]<-|PERCENT	232992.0
+4	INTERNET	1082	str:LOCATION|[poss]->measure[appos]->inflation[nsubj]->be[root]<-at[prep]<-percent[pobj]<-|PERCENT	160845.0
+4	INTERNET	1096	str:LOCATION|[poss]->rate[nsubj]->drop[root]<-to[prep]<-accord[pobj]<-|PERCENT	-51815.0
+4	INTERNET	1097	str:LOCATION|[poss]->rate[nsubj]->jump[ccomp]<-from[prep]<-percent[pobj]<-|PERCENT	-32375.0
+4	INTERNET	1099	str:LOCATION|[poss]->rate[nsubj]->jump[rcmod]<-over[prep]<-year[pobj]<-earlier[advmod]<-from[prep]<-percent[pobj]<-|PERCENT	-19109.0
+4	INTERNET	1102	str:LOCATION|[poss]->rate[nsubj]->percent[ccomp]<-|PERCENT	-13265.0
+4	INTERNET	1104	str:LOCATION|[poss]->rate[nsubj]->remain[root]<-at[prep]<-percent[pobj]<-|PERCENT	-52649.0
+4	INTERNET	1106	str:LOCATION|[poss]->rate[nsubj]->track[root]<-follow[dep]<-increase[dobj]<-to[prep]<-percent[pobj]<-|PERCENT	-25232.0
+4	INTERNET	1110	str:LOCATION|[poss]->southeast[pobj]->of[prep]->state[nsubj]->have[ccomp]->compare[ccomp]<-to[prep]<-percent[pobj]<-|PERCENT	-12391.0
+4	INTERNET	1111	str:LOCATION|[poss]->southeast[pobj]->of[prep]->state[nsubj]->have[ccomp]<-compare[prep]<-to[pcomp]<-percent[pobj]<-|PERCENT	-12391.0
+4	INTERNET	1112	str:LOCATION|[poss]->southeast[pobj]->of[prep]->state[nsubj]->have[ccomp]<-use[dobj]<-percent[dep]<-|PERCENT	27238.0
+4	INTERNET	1116	str:MISC|[amod]->adult[pobj]->of[prep]->%[nsubj]<-|PERCENT	13482.0
+4	INTERNET	1118	str:MISC|[amod]->inflation[xsubj]->slow[xcomp]<-from[prep]<-percent[pobj]<-|PERCENT	27092.0
+4	INTERNET	1119	str:MISC|[amod]->inflation[xsubj]->slow[xcomp]<-to[prep]<-percent[pobj]<-|PERCENT	27092.0
+4	INTERNET	1121	str:ORGANIZATION|*LONG-PATH*|PERCENT	-65475.0
+4	INTERNET	1123	str:ORGANIZATION|[pobj]->of[prep]->Bank[pobj]->to[prep]->accord[dobj]->soar[root]<-at[prep]<-end[pobj]<-to[prep]<-percent[pobj]<-|PERCENT	246843.0
+4	INTERNET	1127	str:O|[amod]->Service[pobj]->to[prep]->drop[root]<-to[prep]<-accord[pobj]<-|PERCENT	-13388.0
+4	INTERNET	1130	str:O|[amod]->show[pobj]->by[prep]->carry[root]<-have[ccomp]<-rise[ccomp]<-to[prep]<-percent[pobj]<-|PERCENT	13453.0
+4	INTERNET	1134	str:Zimbabwe[nsubj]<-|LOCATION|[nsubj]<-be[rcmod]<-around[prep]<-year[pobj]<-percent[conj]<-|PERCENT	13535.0
+4	INTERNET	1136	str:and[cc]->|LOCATION|[nsubj]->lose[parataxis]<-fall[ccomp]<-by[prep]<-percent[pobj]<-|PERCENT	-8624.0
+4	INTERNET	1137	str:and[cc]->|LOCATION|[nsubj]->lose[parataxis]<-fall[ccomp]<-population[nsubj]<-percent[poss]<-|PERCENT	-8624.0
+4	INTERNET	1145	str:be[rcmod]->|LOCATION|[nsubj]->lose[root]<-lose[parataxis]<-fall[ccomp]<-population[nsubj]<-percent[poss]<-|PERCENT	-74609.0
+4	INTERNET	1146	str:country[appos]->|LOCATION|[nsubj]->have[root]<-penetration[dobj]<-of[prep]<-percent[pobj]<-percent[conj]<-|PERCENT	26667.0
+4	INTERNET	1147	str:country[appos]->|LOCATION|[nsubj]->have[root]<-penetration[dobj]<-of[prep]<-percent[pobj]<-|PERCENT	-35833.0
+4	INTERNET	1154	str:mostly[advmod]->|LOCATION|[nn]->population[pobj]->of[prep]->percent[pobj]<-|PERCENT	-12793.0
+4	INTERNET	1155	str:mostly[advmod]->|LOCATION|[nn]->population[pobj]->of[prep]->percent[pobj]<-|PERCENT|[quantmod]->about	-12793.0
+4	INTERNET	1157	str:nation[dep]->|LOCATION|[nsubj]->lose[parataxis]<-fall[ccomp]<-by[prep]<-percent[pobj]<-|PERCENT	-8624.0
+4	INTERNET	1158	str:nation[dep]->|LOCATION|[nsubj]->lose[parataxis]<-fall[ccomp]<-population[nsubj]<-percent[poss]<-|PERCENT	-8624.0
+4	INTERNET	1171	str:the[det]->|LOCATION|[pobj]->in[prep]->%[pobj]<-|PERCENT	13482.0
+4	INTERNET	1173	str:the[det]->|LOCATION|[pobj]->in[prep]->percent[pobj]->with[prep]->compare[ccomp]->say[root]<-percent[nsubj]<-|PERCENT	13482.0
+4	INTERNET	1174	str:the[det]->|LOCATION|[pobj]->in[prep]->percent[pobj]->with[prep]->compare[ccomp]->say[root]<-percent[nsubj]<-|PERCENT|[quantmod]->almost	13482.0
+4	INTERNET	1175	str:the[det]->|LOCATION|[pobj]->in[prep]->percent[pobj]<-|PERCENT	-13146.0
+4	INTERNET	1176	str:the[det]->|LOCATION|[pobj]->in[prep]->percent[pobj]<-|PERCENT|[quantmod]->than	-13146.0
+9	LIFE	3	Num: Integer	802409.0
+9	LIFE	7	Num: Tens	3573151.0
+9	LIFE	12	dep:LOCATION|[conj]->[pobj]->[prep]->[pobj]->[prep]->[xcomp]->[root]<-[ccomp]<-[prep]<-[pobj]<-|DURATION|[dep]->	13508.0
+9	LIFE	13	dep:LOCATION|[conj]->[pobj]->[prep]->[pobj]->[prep]->[xcomp]->[root]<-[ccomp]<-[prep]<-[pobj]<-|DURATION|[number]->	13508.0
+9	LIFE	38	dep:LOCATION|[pobj]<-[rcmod]<-|DURATION|[quantmod]->	27174.0
+9	LIFE	88	dep:[pobj]<-|LOCATION|[pobj]<-[rcmod]<-|DURATION	27174.0
+9	LIFE	141	dep:[prep]<-|LOCATION|[pobj]<-[rcmod]<-|DURATION	27174.0
+9	LIFE	144	dep:[rcmod]->|LOCATION|[nsubj]->[root]<-[prep]<-[pobj]<-|DURATION	-27138.0
+9	LIFE	171	dir:->|LOCATION|->-><-<-<-<-<-|DURATION	-193.0
+9	LIFE	181	dir:->|LOCATION|->-><-<-|PERCENT	26237.0
+9	LIFE	191	dir:->|LOCATION|-><-<-<-|DURATION	-27138.0
+9	LIFE	220	dir:<-|LOCATION|<-<-|DURATION	27174.0
+9	LIFE	221	dir:LOCATION|->->->->->-><-<-<-<-|DURATION|->	13508.0
+9	LIFE	238	dir:LOCATION|-><-<-<-<-<-|DURATION|->	-13133.0
+9	LIFE	243	dir:LOCATION|<-<-|DURATION|->	27174.0
+9	LIFE	248	inverse_false|, in|LOCATION|life expectancy be just|DURATION|year and	26954.0
+9	LIFE	256	inverse_false|,|LOCATION|*LONG*|DURATION|year	27064.0
+9	LIFE	298	inverse_false|B_-1|LOCATION|*LONG*|DURATION|year	-13814.0
+9	LIFE	309	inverse_false|B_-1|LOCATION|*LONG*|PERCENT|percent	13477.0
+9	LIFE	324	inverse_false|B_-2 B_-1|LOCATION|*LONG*|DURATION|year for	-27138.0
+9	LIFE	391	inverse_false|LOCATION|*LONG*|DATE	13646.0
+9	LIFE	392	inverse_false|LOCATION|*LONG*|DURATION	26887.0
+9	LIFE	395	inverse_false|LOCATION|*LONG*|PERCENT	13477.0
+9	LIFE	398	inverse_false|LOCATION|, plague by aid and poverty , have fall to|DURATION	26954.0
+9	LIFE	403	inverse_false|LOCATION|, where male life expectancy be about|DURATION	27174.0
+9	LIFE	442	inverse_false|LOCATION|life expectancy be just|DURATION	26954.0
+9	LIFE	487	inverse_false|death in|LOCATION|, where male life expectancy be about|DURATION|year ,	27174.0
+9	LIFE	495	inverse_false|expectancy in|LOCATION|, plague by aid and poverty , have fall to|DURATION|year from	26954.0
+9	LIFE	539	inverse_false|in|LOCATION|, plague by aid and poverty , have fall to|DURATION|year	26954.0
+9	LIFE	543	inverse_false|in|LOCATION|, where male life expectancy be about|DURATION|year	27174.0
+9	LIFE	563	inverse_false|in|LOCATION|life expectancy be just|DURATION|year	26954.0
+9	LIFE	599	inverse_false|retirement ,|LOCATION|*LONG*|DURATION|year for	27064.0
+9	LIFE	669	inverse_true|DURATION|*LONG*|LOCATION	122.0
+9	LIFE	890	str:LOCATION|[conj]->Rica[pobj]->in[prep]->year[pobj]->to[prep]->rise[xcomp]->note[root]<-climb[ccomp]<-from[prep]<-year[pobj]<-|DURATION	13508.0
+9	LIFE	891	str:LOCATION|[conj]->Rica[pobj]->in[prep]->year[pobj]->to[prep]->rise[xcomp]->note[root]<-climb[ccomp]<-from[prep]<-year[pobj]<-|DURATION|[dep]->to	13508.0
+9	LIFE	892	str:LOCATION|[conj]->Rica[pobj]->in[prep]->year[pobj]->to[prep]->rise[xcomp]->note[root]<-climb[ccomp]<-from[prep]<-year[pobj]<-|DURATION|[number]->60	13508.0
+9	LIFE	893	str:LOCATION|[conj]->Rica[pobj]->in[prep]->year[pobj]<-|DURATION	13508.0
+9	LIFE	915	str:LOCATION|[nn]->expectancy[pobj]->in[prep]->year[root]<-|DURATION	26954.0
+9	LIFE	934	str:LOCATION|[nsubj]->have[root]<-at[prep]<-year[pobj]<-|DURATION	-27138.0
+9	LIFE	940	str:LOCATION|[nsubj]->have[root]<-with[prep]<-expectancy[pobj]<-of[prep]<-year[pobj]<-|DURATION	27064.0
+9	LIFE	984	str:LOCATION|[pobj]->in[prep]->expectancy[nsubj]->fall[root]<-to[prep]<-year[pobj]<-|DURATION	26954.0
+9	LIFE	1055	str:LOCATION|[pobj]<-year[rcmod]<-|DURATION	27174.0
+9	LIFE	1056	str:LOCATION|[pobj]<-year[rcmod]<-|DURATION|[quantmod]->about	27174.0
+9	LIFE	1132	str:Russia[pobj]<-|LOCATION|[pobj]<-year[rcmod]<-|DURATION	27174.0
+9	LIFE	1133	str:Russia[pobj]<-|LOCATION|[pobj]<-year[rcmod]<-|DURATION|[quantmod]->about	27174.0
+9	LIFE	1152	str:in[prep]<-|LOCATION|[pobj]<-year[rcmod]<-|DURATION	27174.0
+9	LIFE	1153	str:in[prep]<-|LOCATION|[pobj]<-year[rcmod]<-|DURATION|[quantmod]->about	27174.0
+9	LIFE	1164	str:rural[rcmod]->|LOCATION|[nsubj]->have[root]<-at[prep]<-year[pobj]<-|DURATION	-27138.0
+11	DIESEL	9	Num: Units	27206.0
+11	DIESEL	415	inverse_false|LOCATION|be $|MONEY	13603.0
+11	DIESEL	488	inverse_false|diesel in|LOCATION|be $|MONEY|per liter	13603.0
+11	DIESEL	548	inverse_false|in|LOCATION|be $|MONEY|per	13603.0
+11	DIESEL	654	inverse_true|$|MONEY|per liter , while the average price of diesel in|LOCATION|be	13603.0
+11	DIESEL	676	inverse_true|MONEY|per liter , while the average price of diesel in|LOCATION	13603.0
+11	DIESEL	722	inverse_true|at $|MONEY|per liter , while the average price of diesel in|LOCATION|be $	13603.0
+11	DIESEL	978	str:LOCATION|[pobj]->in[prep]->diesel[pobj]->of[prep]->price[nsubj]->$[advcl]->sell[root]<-at[prep]<-$[pobj]<-|MONEY	13603.0
+11	DIESEL	979	str:LOCATION|[pobj]->in[prep]->diesel[pobj]->of[prep]->price[nsubj]->$[advcl]<-|MONEY	13603.0
