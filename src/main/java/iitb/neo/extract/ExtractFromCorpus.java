@@ -135,8 +135,8 @@ public class ExtractFromCorpus {
 	public List<Extraction> getExtractions(Corpus c, ArgumentIdentification ai, FeatureGenerator fg,
 			List<SententialInstanceGeneration> sigs, List<String> modelPaths) throws SQLException,
 			IOException {
-		boolean ANALYZE = true;
-		this.verboseExtractionsFile = "verb";
+		boolean ANALYZE = false;
+		this.verboseExtractionsFile = "verb2";
 		System.err.println("Extracting with a confidence of " + cutoff_confidence);
 		BufferedWriter analysis_writer = null;
 		if (ANALYZE) {
@@ -149,7 +149,7 @@ public class ExtractFromCorpus {
 			Iterator<Annotation> docs = c.getDocumentIterator();
 			SententialInstanceGeneration sig = sigs.get(i);
 			String modelPath = modelPaths.get(i);
-			SentLevelExtractor sle = new SentLevelExtractor(modelPath, fg);
+			SentLevelExtractor sle = new SentLevelExtractor(modelPath, mintzKeywordsFg, numberFg);
 
 			// Map<String, Integer> rel2RelIdMap =
 			// sle.getMapping().getRel2RelID();

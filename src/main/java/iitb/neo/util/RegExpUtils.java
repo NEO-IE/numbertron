@@ -11,7 +11,7 @@ import edu.washington.multirframework.data.Argument;
  *
  */
 public class RegExpUtils {
-	public static final Pattern yearPat = Pattern.compile("^19[56789]\\d|20[01]\\d$");
+	public static final Pattern yearPat = Pattern.compile("^19[56789]\\d|20[012345]\\d$");
 	
 	public static boolean exactlyOneNumber(Pair<Argument, Argument> p) {
 		boolean firstHasNumber = p.first.getArgName().matches(".*\\d.*");

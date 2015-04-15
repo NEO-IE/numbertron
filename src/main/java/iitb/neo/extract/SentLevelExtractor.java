@@ -4,6 +4,7 @@ import iitb.rbased.meta.RelationMetadata;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +35,7 @@ import edu.washington.multirframework.multiralgorithm.SparseBinaryVector;
  */
 public class SentLevelExtractor {
 	
-	private FeatureGenerator fg;
+	private FeatureGenerator numFg, mintzFg;
 
 	private String dir;
 	private Mappings mapping;
@@ -44,8 +45,10 @@ public class SentLevelExtractor {
 	
 	public Map<Integer, String> relID2rel = new HashMap<Integer, String>();
 
-	public SentLevelExtractor(String pathToMultirFiles, FeatureGenerator fg) {
-		this.fg = fg;
+	public SentLevelExtractor(String pathToMultirFiles, FeatureGenerator mintzFg, FeatureGenerator numFg) {
+		this.numFg = numFg;
+		this.mintzFg = mintzFg;
+		
 		dir = pathToMultirFiles;
 		try {
 			mapping = new Mappings();
@@ -80,9 +83,21 @@ public class SentLevelExtractor {
 		if (arg2 instanceof KBArgument) {
 			arg2ID = ((KBArgument) arg2).getKbId();
 		}
-		return fg.generateFeatures(arg1.getStartOffset(),
-				arg1.getEndOffset(), arg2.getStartOffset(),
-				arg2.getEndOffset(), arg1ID, arg2ID, sentence, doc);
+		ArrayList<String> features = new ArrayList<String>();
+		
+		if(mintzFg != null) {
+			features.addAll(mintzFg.generateFeatures(arg1.getStartOffset(),
+					arg1.getEndOffset(), arg2.getStartOffset(),
+					arg2.getEndOffset(), arg1ID, arg2ID, sentence, doc));
+		
+		}
+		
+		if(numFg != null) {
+			features.addAll(numFg.generateFeatures(arg1.getStartOffset(),
+					arg1.getEndOffset(), arg2.getStartOffset(),
+					arg2.getEndOffset(), arg1ID, arg2ID, sentence, doc));
+		}
+		return features;
 	}
 
 	public Map<Integer, Double> extractFromSententialInstanceWithAllRelationScores(
