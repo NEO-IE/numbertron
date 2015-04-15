@@ -35,7 +35,7 @@ import edu.washington.multirframework.multiralgorithm.SparseBinaryVector;
  */
 public class MakeGraph {
 
-	public static int FEATURE_THRESHOLD = 2;
+	public static int FEATURE_THRESHOLD = 1;
 	//private static final double GIGABYTE_DIVISOR = 1073741824;
 
 	static HashMap<String, Integer> relToRelnumberMap;
@@ -54,7 +54,7 @@ public class MakeGraph {
 		relToRelnumberMap.put("GDP", 7);
 		relToRelnumberMap.put("LIFE", 8);
 		relToRelnumberMap.put("POP", 9);
-		relToRelnumberMap.put("DIESEL", 10);
+	
 
 	}
 

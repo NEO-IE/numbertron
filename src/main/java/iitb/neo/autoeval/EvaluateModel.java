@@ -45,9 +45,6 @@ public class EvaluateModel {
 			System.out.println("Precision = " + precision + ", Recall = " + recall + ", F-Score = " + f(precision, recall));
 			System.out.println("----Per Relation P/R");
 			for(String relName: RelationMetadata.getRelations()) {
-				if(relName.equals("DIESEL") || relName.equals("ELEC")) {
-					continue;
-				}
 				Integer totalCorr = perRelationCorrect.get(relName);
 				Integer totalExtr = perRelationExtracted.get(relName);
 				Integer totalTrue = perRelationTrue.get(relName);
@@ -58,7 +55,7 @@ public class EvaluateModel {
 					precision = (totalCorr * 1.0) / totalExtr;
 				}
 				recall = (totalCorr * 1.0) / (totalTrue);
-				System.out.println("Relation = " + relName + ", Precision = " + precision + ", Recall = " + recall + ", F-Score = " + f(precision, recall));
+				System.out.println("Relation = " + relName + ", Precision = " + precision + ", Recall = " + recall + ", F-Score = " + f(precision, recall) + " (" + totalCorr + ", " + totalExtr + ", " + totalTrue +")");
 					
 				
 			}
