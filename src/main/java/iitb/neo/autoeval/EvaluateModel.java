@@ -149,7 +149,7 @@ public class EvaluateModel {
 	}
 	
 	public void evaluate() throws SQLException, IOException {
-		List<Extraction> modelExtractions = efc.getExtractions("results_" + new File(modelName).getName(), true);
+		List<Extraction> modelExtractions = efc.getExtractions("_results_" + new File(modelName).getName(), true);
 		fillResult(modelExtractions);
 		res.dumpResults();
 	}

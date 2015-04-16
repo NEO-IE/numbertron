@@ -135,12 +135,12 @@ public class ExtractFromCorpus {
 	public List<Extraction> getExtractions(Corpus c, ArgumentIdentification ai, FeatureGenerator fg,
 			List<SententialInstanceGeneration> sigs, List<String> modelPaths) throws SQLException,
 			IOException {
-		boolean ANALYZE = false;
-		this.verboseExtractionsFile = "verb2";
+		boolean ANALYZE = true;
+		
 		System.err.println("Extracting with a confidence of " + cutoff_confidence);
 		BufferedWriter analysis_writer = null;
 		if (ANALYZE) {
-			
+			this.verboseExtractionsFile = "verb_numbers_debug";
 			analysis_writer = new BufferedWriter(new FileWriter(verboseExtractionsFile));
 		}
 

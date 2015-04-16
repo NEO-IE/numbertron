@@ -16,13 +16,19 @@ import edu.washington.multirframework.featuregeneration.FeatureGenerator;
  */
 public class NumberFeatureGenerator implements FeatureGenerator {
 
-	public List<String> generateFeatures(Integer first, Integer second, Integer first2, Integer second2, String arg1id,
-			String arg2id, CoreMap sentence, Annotation doc) {
+	
+	/**
+	 * 
+	 */
+	@Override
+	public List<String> generateFeatures(Integer arg1StartOffset,
+			Integer arg1EndOffset, Integer arg2StartOffset,
+			Integer arg2EndOffset, String arg1ID, String numberStringVal, CoreMap sentence, Annotation document) {
 
 		// List<CoreLabel> tokens =
 		// sentence.get(CoreAnnotations.TokensAnnotation.class);
 		List<String> features = new ArrayList<String>();
-		Double value = Number.getDoubleValue(arg2id);
+		Double value = Number.getDoubleValue(numberStringVal);
 		if (value == null) {
 			return features; // no valid number could be formed of this string.
 		}

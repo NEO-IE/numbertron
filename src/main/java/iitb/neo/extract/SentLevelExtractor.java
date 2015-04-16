@@ -15,6 +15,7 @@ import java.util.TreeSet;
 import main.java.iitb.neo.training.algorithm.lpercp.FullInference;
 import main.java.iitb.neo.training.algorithm.lpercp.Scorer;
 import main.java.iitb.neo.training.ds.LRGraph;
+import main.java.iitb.neo.util.UnitsUtils;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.util.CoreMap;
@@ -93,9 +94,9 @@ public class SentLevelExtractor {
 		}
 		
 		if(numFg != null) {
-			features.addAll(numFg.generateFeatures(arg1.getStartOffset(),
-					arg1.getEndOffset(), arg2.getStartOffset(),
-					arg2.getEndOffset(), arg1ID, arg2ID, sentence, doc));
+			features.addAll(numFg.generateFeatures(null,
+					null, null,
+					null, null, UnitsUtils.getFlatValString(sentence, arg2), sentence, doc));
 		}
 		return features;
 	}
