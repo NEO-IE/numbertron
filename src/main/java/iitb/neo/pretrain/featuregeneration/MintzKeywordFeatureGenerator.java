@@ -157,12 +157,16 @@ public class MintzKeywordFeatureGenerator implements FeatureGenerator {
 		List<String> features = new ArrayList<String>();
 
 		if (this.useKeywordFeatures) {
-			// Adding NN as keywords for sentences.
+			/*
+			 * This code takes all the NN phrase in the sentence and create keywords features.
+			 
+			 Adding NN as keywords for sentences.
 			for (int i = 0; i < postags.length; i++) {
 				if (postags[i].equals("NN")) {
 					features.add("key: " + tokens[i]);
 				}
 			}
+			*/
 		}
 		
 		// it's easier to deal with first, second
@@ -302,14 +306,15 @@ public class MintzKeywordFeatureGenerator implements FeatureGenerator {
 				strs[i] = i > 0? tokens[path1[i]] : "";
 				rels[i] = depTypes[path1[i]];
 				//System.out.println("[" + depTypes[path1[i]] + "]->");
+				
 				/*
 				 * adding keywords as features.
 				 * Intuition: NN phrases in dependency path form good keywords.
 				 */
-			/*	if(i > 0 && postags[path1[i]].equals("NN")){
-					keywords.add(tokens[path1[i]]);
+				if(i > 0 && postags[path1[i]].equals("NN")){
+					features.add("key: "+tokens[path1[i]]);
 				}
-			*/		
+					
 			}
 			for (int j=0; j < lcaDown; j++) {
 			//for (int j=lcaDown-1; j >= 0; j--) {
@@ -319,10 +324,10 @@ public class MintzKeywordFeatureGenerator implements FeatureGenerator {
 				//System.out.println("[" + depTypes[path2[j]] + "]<-");
 				/*
 				 * adding keywords as features
+				 */
 				if(lcaUp + j > 0 && postags[path2[lcaDown-j]].equals("NN")){
-					keywords.add(tokens[path2[lcaDown-j]]);
+					features.add("key: "+tokens[path2[lcaDown-j]]);
 				}
-				*/
 			}
 			
 			/*for(String keyword: keywords){
