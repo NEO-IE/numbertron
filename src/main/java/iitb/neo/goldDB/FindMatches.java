@@ -17,8 +17,8 @@ public class FindMatches {
 		BufferedReader br = new BufferedReader(new FileReader(instanceFile));
 		String instanceLine = null;
 		HashMap<String, ArrayList<Integer> > hits = new HashMap<>();
-		
-		GoldDB.initializeGoldDB("/mnt/a99/d0/aman/MultirExperiments/data/numericalkb/kb-worldbank-SI.tsv");
+		int topk = 3;
+		GoldDB.initializeGoldDB("/mnt/a99/d0/aman/MultirExperiments/data/numericalkb/kb-worldbank-SI.tsv", topk);
 		
 		while((instanceLine = br.readLine()) != null) {
 			String instanceLineSplit[] = instanceLine.split("\t");

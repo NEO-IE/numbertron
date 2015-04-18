@@ -23,8 +23,8 @@ public class TrainingDataBalancer {
 		String outputFeatureFile = "data/features_flat_fixed_balanced.tsv";
 		
 		HashMap<String, String> instance_featureMap = new HashMap<String, String>();
-		
-		GoldDB.initializeGoldDB("/mnt/a99/d0/aman/MultirExperiments/data/numericalkb/kb-worldbank-SI.tsv");
+		int topk = 3;
+		GoldDB.initializeGoldDB("/mnt/a99/d0/aman/MultirExperiments/data/numericalkb/kb-worldbank-SI.tsv", topk);
 		PrintWriter pw = new PrintWriter(new FileWriter(outputInstanceFile));
 		PrintWriter opw = new PrintWriter(new FileWriter(outputFeatureFile));
 		
