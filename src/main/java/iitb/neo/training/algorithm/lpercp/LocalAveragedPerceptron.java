@@ -83,17 +83,10 @@ public class LocalAveragedPerceptron {
 		for (int i = 0; i < numIterations; i++) {
 			System.out.println("Iteration: " + i);
 			trainingIteration(i, trainingData);
-
-			// String base = "data/internetinflation-20perc";
-			// this.iterParameters.serialize(base + File.separatorChar +
-			// "params");
-			// NtronExperiment.writeFeatureWeights(base + File.separatorChar +
-			// "mapping", base + File.separatorChar + "params", base +
-			// File.separatorChar + "model", "wt_" + i);
-
 		}
-		if (computeAvgParameters)
+		if (computeAvgParameters) {
 			finalizeRel();
+		}
 		
 		//GoldDbInference.printMatchStat();
 
@@ -176,28 +169,6 @@ public class LocalAveragedPerceptron {
 		}
 	}
 
-	/*
-	 * Parse trueParse = GoldDbInference.infer(lrg); if
-	 * (!NsAgree(predictedParse, trueParse)) { // if this is the first
-	 * avgIteration, then we need to initialize // the lastUpdate vector if
-	 * (computeAvgParameters && avgIteration == 0)
-	 * avgParamsLastUpdates.sum(iterParameters, 1.0f); int numN =
-	 * predictedParse.n_states.length; for(int i = 0; i < numN; i++) {
-	 * if(predictedParse.n_states[i] != trueParse.n_states[i]) {
-	 * ArrayList<Integer> linkedMentions = trueParse.graph.n[i].zs_linked;
-	 * for(int m: linkedMentions) { SparseBinaryVector v1a =
-	 * scorer.getMentionRelationFeatures(trueParse.graph, m, lrg.relNumber);
-	 * //increase weight for the correct mention
-	 * 
-	 * //decrease weight for the incorrect mention for(int r = 0; r <
-	 * model.numRelations; r++) { if(r == lrg.relNumber) { updateRel(r, v1a,
-	 * delta, computeAvgParameters); } else { updateRel(r, v1a, -delta,
-	 * computeAvgParameters); } }
-	 * 
-	 * }
-	 * 
-	 * } } }
-	 */
 
 	private boolean NsAgree(Parse predictedParse, Parse trueParse) {
 		int numN = predictedParse.n_states.length;
