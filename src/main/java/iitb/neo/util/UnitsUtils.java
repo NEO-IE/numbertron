@@ -140,10 +140,20 @@ public class UnitsUtils {
 	 */
 	public static String getFlatValString(CoreMap sentence, Argument number) {
 		String sentString = sentence.toString();
+		
 		int docOffset = sentence.get(SentStartOffset.class);
 		int beginIdx = number.getStartOffset() - docOffset;
 		int endIdx = number.getEndOffset() - docOffset;
 		String tokenStr = number.getArgName();
+		//At this point we only need the number and not the complete number 
+		//phrase
+		String numberSpotTokens[] = tokenStr.split(" ");
+		
+		if(numberSpotTokens.length > 1) {
+			int unitStringLength = tokenStr.length() - numberSpotTokens[0].length() - 1;
+			endIdx = endIdx - unitStringLength;
+			tokenStr = numberSpotTokens[0];
+		}
 		float values[][] = new float[1][1];
 		Float flatValue = Number.getDoubleValue(Unit.parseDecimalExpressionL(tokenStr)).floatValue();
 		String front = sentString.substring(0, beginIdx);

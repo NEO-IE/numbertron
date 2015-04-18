@@ -16,29 +16,37 @@ public class LRGraphMemoryDatasetWithoutConfusedLocationRels implements Dataset<
 
 	private LRGraph[] docs;
 	private int cursor = 0;
-	private HashSet<String> confusedPercentCountries;
+	private HashSet<String> confusedPercentCountries, confusedGOODSGDPCountries;
 
 	public LRGraphMemoryDatasetWithoutConfusedLocationRels() {
 	}
 
 	public LRGraphMemoryDatasetWithoutConfusedLocationRels(String file) throws IOException {
 		confusedPercentCountries = new HashSet<String>();
-		String confusedCountries[] = { "/m/06s9y", "/m/04xn_", "/m/088vb", "/m/07tp2", "/m/07dvs", "/m/07f5x",
-				"/m/06v36", "/m/06tw8", "/m/01n8qg", "/m/06dfg", "/m/05qkp", "/m/016zwt", "/m/05cc1", "/m/04tr1",
-				"/m/04vjh", "/m/04w8f", "/m/04v09", "/m/04gqr", "/m/04hvw", "/m/01xbgx", "/m/019rg5", "/m/0d05q4",
-				"/m/03gyl", "/m/036b_", "/m/02kcz", "/m/035dk", "/m/01nyl", "/m/0163v", "/m/07bxhl", "/m/0164v",
-				"/m/01699", "/m/0162b", "/m/0j4b", "/m/0jdd", "/m/0166v", "/m/05sb1", "/m/03rk0" };
+		confusedGOODSGDPCountries = new HashSet<String>();
+		
+		String confusedPercentCountriesNames[] = { "/m/06s9y", "/m/04xn_", "/m/088vb", "/m/07tp2", "/m/07dvs",
+				"/m/07f5x", "/m/06v36", "/m/06tw8", "/m/01n8qg", "/m/06dfg", "/m/05qkp", "/m/016zwt", "/m/05cc1",
+				"/m/04tr1", "/m/04vjh", "/m/04w8f", "/m/04v09", "/m/04gqr", "/m/04hvw", "/m/01xbgx", "/m/019rg5",
+				"/m/0d05q4", "/m/03gyl", "/m/036b_", "/m/02kcz", "/m/035dk", "/m/01nyl", "/m/0163v", "/m/07bxhl",
+				"/m/0164v", "/m/01699", "/m/0162b", "/m/0j4b", "/m/0jdd", "/m/0166v", "/m/05sb1", "/m/03rk0" };
 
-		for (String confusedCountry : confusedCountries) {
-			confusedPercentCountries.add(confusedCountry);
+		for (String confusedPercentCountry : confusedPercentCountriesNames) {
+			confusedPercentCountries.add(confusedPercentCountry);
 		}
 
+		String confusedGOODSGDPNames[] = { "/m/01crd5", "/m/06vbd", "/m/06s_2", "/m/06sw9", "/m/0697s", "/m/05l8y",
+				"/m/04tr1", "/m/04gqr", "/m/047yc", "/m/0d05q4", "/m/0163v", "/m/0167v", "/m/0j11", "/m/06npd" };
+		for(String confusedGOODSGDP: confusedGOODSGDPNames) {
+			confusedGOODSGDPCountries.add(confusedGOODSGDP);
+		}
+		
 		LRGraph d = new LRGraph();
 		List<LRGraph> l = new ArrayList<LRGraph>();
 		DataInputStream dis = new DataInputStream(new BufferedInputStream(new FileInputStream(file)));
 		while (d.read(dis)) {
-			boolean ignore = confusedPercentCountries.contains(d.location)
-					&& (d.relation.equals("INTERNET") || d.relation.equals("INF"));
+			boolean ignore = confusedPercentCountries.contains(d.location) && (d.relation.equals("INTERNET") || d.relation.equals("INF"));
+			ignore = ignore || (confusedGOODSGDPCountries.contains(d.location) && (d.relation.equals("GOODS") || d.relation.equals("GDP"))); 
 			if (!ignore) {
 				l.add(d);
 			} else {

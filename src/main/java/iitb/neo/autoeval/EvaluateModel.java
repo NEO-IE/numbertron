@@ -27,6 +27,8 @@ public class EvaluateModel {
 	HashSet<Extraction> trueExtractions;
 	EvaluateModel.Results  res;
 	String modelName; //model to be evaluated
+	boolean verbose; //verbose extractions?
+	String verboseFile; //verboseFile
 	private class Results
 	{
 		HashMap<String, Integer> perRelationCorrect;
@@ -80,6 +82,9 @@ public class EvaluateModel {
 		Map<String, Object> properties = JsonUtils.getJsonMap(propertiesFile);
 		String trueFile = JsonUtils.getStringProperty(properties, "trueFile");
 		modelName = JsonUtils.getListProperty(properties, "models").get(0);
+		String verboseStr = JsonUtils.getStringProperty(properties, "verbose");
+		verbose = verboseStr.equals("true");
+		verboseFile = JsonUtils.getStringProperty(properties, "verboseFile");
 		efc = new ExtractFromCorpus(propertiesFile);
 		
 		readTrueExtractions(trueFile);
@@ -149,7 +154,7 @@ public class EvaluateModel {
 	}
 	
 	public void evaluate() throws SQLException, IOException {
-		List<Extraction> modelExtractions = efc.getExtractions("_results_" + new File(modelName).getName(), true);
+		List<Extraction> modelExtractions = efc.getExtractions("_results_" + new File(modelName).getName(), true, verbose, verboseFile);
 		fillResult(modelExtractions);
 		res.dumpResults();
 	}

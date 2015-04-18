@@ -41,7 +41,7 @@ public class Number {
 			NumberFormat format = NumberFormat.getInstance(l);
 			try {
 				number = format.parse(num);
-			} catch (Exception e) {
+			} catch (ParseException e) {
 				System.out.println(num);
 				continue;
 			}

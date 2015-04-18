@@ -29,7 +29,7 @@ public class Preprocess {
 	public static Map<String, Integer> keyToIntegerMap = new HashMap<String, Integer>();
 	public static Map<Integer, String> intToKeyMap = new HashMap<Integer, String>();
 	public static int FEATURE_THRESHOLD = 1;
-	public static int KEYWORD_FEATURE_THRESHOLD = 100;
+	public static int KEYWORD_FEATURE_THRESHOLD = 10;
 	
 	private static final double GIGABYTE_DIVISOR = 1073741824;
 

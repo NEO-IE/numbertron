@@ -78,7 +78,7 @@ public class SentLevelExtractor {
 		
 		String arg1ID = null;
 		String arg2ID = null;
-		if (arg1 instanceof KBArgument) {
+		if (arg1 instanceof KBArgument) {	
 			arg1ID = ((KBArgument) arg1).getKbId();
 		}
 		if (arg2 instanceof KBArgument) {

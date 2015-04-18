@@ -109,7 +109,7 @@ public class ExtractFromCorpus {
 		c.setCorpusToDefault();
 		BufferedWriter bw = new BufferedWriter(new FileWriter(new File(efc.resultsFile)));
 
-		List<Extraction> extrs = efc.getExtractions(c, efc.ai, efc.mintzKeywordsFg, efc.sigs, efc.ntronModelDir);
+		List<Extraction> extrs = efc.getExtractions(c, efc.ai, efc.mintzKeywordsFg, efc.sigs, efc.ntronModelDir, false, null);
 		efc.writeExtractions(bw, c, extrs);
 		
 		System.out.println("Total extractions : " + extrs.size());
@@ -118,11 +118,11 @@ public class ExtractFromCorpus {
 	}
 	
 	
-	public List<Extraction> getExtractions(String resultsFile, boolean writeExtractions) throws SQLException, IOException {
+	public List<Extraction> getExtractions(String resultsFile, boolean writeExtractions, boolean verbose, String verboseFile) throws SQLException, IOException {
 		Corpus c = new Corpus(corpusPath, cis, true);
 		c.setCorpusToDefault();
 		
-		List<Extraction> extrs = getExtractions(c, ai, mintzKeywordsFg, sigs, ntronModelDir);
+		List<Extraction> extrs = getExtractions(c, ai, mintzKeywordsFg, sigs, ntronModelDir, verbose, verboseFile);
 		if(writeExtractions) {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(new File(resultsFile)));
 			writeExtractions(bw, c, extrs);
@@ -133,14 +133,14 @@ public class ExtractFromCorpus {
 	}
 
 	public List<Extraction> getExtractions(Corpus c, ArgumentIdentification ai, FeatureGenerator fg,
-			List<SententialInstanceGeneration> sigs, List<String> modelPaths) throws SQLException,
+			List<SententialInstanceGeneration> sigs, List<String> modelPaths, boolean verbose, String verboseFile) throws SQLException,
 			IOException {
-		boolean ANALYZE = true;
+		boolean ANALYZE = false;
 		
 		System.err.println("Extracting with a confidence of " + cutoff_confidence);
 		BufferedWriter analysis_writer = null;
 		if (ANALYZE) {
-			this.verboseExtractionsFile = "verb_numbers_debug";
+			this.verboseExtractionsFile = "verb_numbers_noavg";
 			analysis_writer = new BufferedWriter(new FileWriter(verboseExtractionsFile));
 		}
 
@@ -219,6 +219,7 @@ public class ExtractFromCorpus {
 						if(null != relStr) {
 							if(ANALYZE) {
 								sle.firedFeaturesScores(p.first, p.second, sentence, doc, relStr, analysis_writer);
+								analysis_writer.flush();
 							}
 							Extraction e = new Extraction(p.first, p.second, docName, relStr, sentNum, extrScore, senText);
 							extrs.add(e);
