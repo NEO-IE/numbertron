@@ -244,6 +244,14 @@ public class ExtractFromCorpus {
 		return extrs;
 	}
 
+	public void setConfidence(double cutoff_confidence) {
+		this.cutoff_confidence = cutoff_confidence;
+	}
+		
+	public void setCutoffScore(double cutoff_score) {
+		this.cutoff_score = cutoff_score;
+	}
+	
 	public void writeExtractions(BufferedWriter bw, Corpus c, List<Extraction> extractions) throws IOException, SQLException {
 		for(Extraction e: extractions) {
 			bw.write(formatExtractionString(c, e) + "\n");
