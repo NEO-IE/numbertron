@@ -54,16 +54,31 @@ public class CrossValidate {
 							// Do not update the feature cutoff thresholds at
 							// all
 							// update hyperparams
-							ntronExp.updateHyperparams(iterations, regul, topk, margin,
-									NtronExperiment.MINTZ_FEATURE_THRESHOLD, NtronExperiment.KEYWORD_FEATURE_THRESHOLD,
-									finalAvgConfig);
-							ntronExp.run();
+							pw.write(configString(iterations, regul, topk, margin, finalAvgConfig) + "\n");
+							pw.write("====================================");
+						//	ntronExp.updateHyperparams(iterations, regul, topk, margin,
+							//		NtronExperiment.MINTZ_FEATURE_THRESHOLD, NtronExperiment.KEYWORD_FEATURE_THRESHOLD,
+						//			finalAvgConfig);
+						//	ntronExp.run();
 							eval.evaluate(efc, false, pw);
+							pw.flush();
 						}
 					}
 				}
 			}
 		}
+		pw.close();
+	}
+
+	private static String configString(int iterations, double regul, int topk, double margin, boolean finalAvgConfig) {
+		StringBuffer configStr = new StringBuffer();
+		String SEP = "\t";
+		configStr.append("iterations = " + iterations + SEP);
+		configStr.append("Regularizer = " + regul + SEP);
+		configStr.append("Top k = " + topk + SEP);
+		configStr.append("Margin = " + margin + SEP);
+		configStr.append("Averaging = " + finalAvgConfig + SEP);
+		return configStr.toString();
 	}
 
 }

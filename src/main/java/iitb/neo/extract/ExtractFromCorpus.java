@@ -57,7 +57,7 @@ public class ExtractFromCorpus {
 	public ExtractFromCorpus(String propertiesFile) throws Exception {
 		
 		Map<String, Object> properties = JsonUtils.getJsonMap(propertiesFile);
-		corpusPath = JsonUtils.getStringProperty(properties, "corpusPath");
+		corpusPath = JsonUtils.getStringProperty(properties, "testCorpusPath");
 		cutoff_confidence = Double.parseDouble(JsonUtils.getStringProperty(properties, "cutoff_confidence"));
 		cutoff_score = Double.parseDouble(JsonUtils.getStringProperty(properties, "cutoff_score"));
 
