@@ -22,21 +22,24 @@ import edu.washington.multirframework.multiralgorithm.SparseBinaryVector;
  */
 public class LocalAveragedPerceptron {
 
-	public int maxIterations = 50;
+	public int numIterations;
 
 	public boolean computeAvgParameters = true;
-	public boolean finalAverageCalc = true;
+	public boolean finalAverageCalc;
 	private double delta = 1;
-	private double regulaizer = 0.4;
-
+	private double regulaizer;
 	private Scorer scorer;
 	private Model model;
 	private Random random;
 
-	public LocalAveragedPerceptron(Model model, Random random) {
+	public LocalAveragedPerceptron(Model model, Random random, int maxIterations, double regularizer, boolean finalAverageCalc) {
 		scorer = new Scorer();
 		this.model = model;
 		this.random = random;
+		this.numIterations = maxIterations;
+		this.regulaizer = regularizer;
+		this.finalAverageCalc = finalAverageCalc;
+		
 	}
 
 	// the following two are actually not storing weights:
@@ -77,7 +80,7 @@ public class LocalAveragedPerceptron {
 		iterParameters.model = model;
 		iterParameters.init();
 
-		for (int i = 0; i < maxIterations; i++) {
+		for (int i = 0; i < numIterations; i++) {
 			System.out.println("Iteration: " + i);
 			trainingIteration(i, trainingData);
 
@@ -229,7 +232,7 @@ public class LocalAveragedPerceptron {
 				if (lastUpdates.vals[id] != 0) {
 					// avg.vals[id] += (avgIteration - lastUpdatesIter.vals[id])
 					// * lastUpdates.vals[id];
-					avg.vals[id] = (1 - regulaizer) * avg.vals[id] + (avgIteration - lastUpdatesIter.vals[id])
+					avg.vals[id] = regulaizer * avg.vals[id] + (avgIteration - lastUpdatesIter.vals[id])
 							* lastUpdates.vals[id];
 					countUpdatesRel.vals[id] += 1; // also update the number of
 													// times this parameter was
@@ -251,9 +254,11 @@ public class LocalAveragedPerceptron {
 
 			for (int id = 0; id < avg.vals.length; id++) {
 				if (lastUpdates.vals[id] != 0) {
-					avg.vals[id] = (1 - regulaizer) * avg.vals[id] + (avgIteration - lastUpdatesIter.vals[id])
+					avg.vals[id] = regulaizer * avg.vals[id] + (avgIteration - lastUpdatesIter.vals[id])
 							* lastUpdates.vals[id];
-					avg.vals[id] = (countUpdatesRel.vals[id] == 0) ? 0 : (avg.vals[id] / countUpdatesRel.vals[id]);
+					if(this.finalAverageCalc) {
+						avg.vals[id] = (countUpdatesRel.vals[id] == 0) ? 0 : (avg.vals[id] / countUpdatesRel.vals[id]);
+					}
 					lastUpdatesIter.vals[id] = avgIteration;
 				}
 			}

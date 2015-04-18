@@ -82,8 +82,8 @@ public class EvaluateModel {
 		Map<String, Object> properties = JsonUtils.getJsonMap(propertiesFile);
 		String trueFile = JsonUtils.getStringProperty(properties, "trueFile");
 		modelName = JsonUtils.getListProperty(properties, "models").get(0);
-		String verboseStr = JsonUtils.getStringProperty(properties, "verbose");
-		verbose = verboseStr.equals("true");
+		
+		verbose = JsonUtils.getBooleanProperty(properties, "verbose");
 		verboseFile = JsonUtils.getStringProperty(properties, "verboseFile");
 		efc = new ExtractFromCorpus(propertiesFile);
 		

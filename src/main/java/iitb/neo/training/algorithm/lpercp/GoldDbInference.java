@@ -14,7 +14,7 @@ import main.java.iitb.neo.training.ds.LRGraph;
 public class GoldDbInference {
 
 	private static int K = 5;
-	private static double MARGIN = 0.1; //allow true values to be within 20%
+	private static double MARGIN = 0.3; //allow true values to be within 20%
 	
 	public static HashMap<String, Integer> countRel = new HashMap<String, Integer>();
 	

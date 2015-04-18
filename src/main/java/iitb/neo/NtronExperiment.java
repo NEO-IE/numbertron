@@ -57,6 +57,11 @@ public class NtronExperiment {
 	private RuleBasedDriver rbased;
 	private Map<String, String> countryFreebaseIdMap;
 	
+	//Properties for the averaged perceptron
+	double regularizer; //regularizer to dampen the weights
+	int numIterations; //the number of iterations of the perceptron
+	boolean finalAvg; //should the parameters be finally divided?
+	
 	public NtronExperiment() {
 	}
 
@@ -185,8 +190,9 @@ public class NtronExperiment {
 		ccis.addTokenInformation(tokenInfoList);
 		ccis.addSentenceInformation(sentInfoList);
 
-
-
+		this.regularizer = JsonUtils.getDoubleProperty(properties, "regularizer");
+		this.numIterations = JsonUtils.getIntegerProperty(properties, "iterations");
+		this.finalAvg = JsonUtils.getBooleanProperty(properties, "finalAvg");
 	}
 
 
@@ -240,7 +246,7 @@ public class NtronExperiment {
 		}
 		bw.close();
 		/**/
-		LperceptTrain.train(modelFile.getAbsoluteFile().toString(),new Random(1));
+		LperceptTrain.train(modelFile.getAbsoluteFile().toString(), new Random(1), this.numIterations, this.regularizer, this.finalAvg);
 		
 	}
 

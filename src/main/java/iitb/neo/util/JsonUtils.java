@@ -38,6 +38,22 @@ public class JsonUtils {
 		return null;
 	}
 	
+	
+	public static double getDoubleProperty(Map<String, Object> properties, String str) {
+		String res = getStringProperty(properties, str);
+		return Double.parseDouble(res);
+	}
+	
+	public static boolean getBooleanProperty(Map<String, Object> properties, String str) {
+		String res = getStringProperty(properties, str);
+		return res.equalsIgnoreCase("true");
+	}
+	
+	public static Integer getIntegerProperty(Map<String, Object> properties, String str) {
+		String res = getStringProperty(properties, str);
+		return Integer.parseInt(res);
+	}
+	
 	/**
 	 * Returns the supplied Json file as a String key Object value map
 	 * @throws IOException 

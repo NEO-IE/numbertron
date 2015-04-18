@@ -1,0 +1,35 @@
+{	
+  "corpusPath" :
+"jdbc:derby:/mnt/a99/d0/aman/MultirExperiments/data/numbers_corpus",
+  "mintzKeywordsFg" :
+"main.java.iitb.neo.pretrain.featuregeneration.MintzKeywordFeatureGenerator",
+"numbersFg" :
+"main.java.iitb.neo.pretrain.featuregeneration.NumberFeatureGenerator",
+"countriesList":
+"/mnt/a99/d0/aman/MultirExperiments/data/numericalkb/countries_list_ids",
+  "ai" :
+"edu.washington.multirframework.argumentidentification.NERArgumentIdentification",
+  "kbRelFile" : "/mnt/a99/d0/aman/MultirExperiments/data/numericalkb/kb-worldbank-SI.tsv",
+  "sigs" : [
+"edu.washington.multirframework.argumentidentification.DefaultSententialInstanceGeneration"
+],
+  "dsFiles" : [
+"data/train/instances.tsv"
+],
+  "featureFiles" : [
+"data/train/features_mintz_keywords_numbers.tsv"
+],
+  "models" : [
+"data/model/model_mintz_keywords_numbers_weaker" ],
+  "cis" :
+"edu.washington.multirframework.corpus.DefaultCorpusInformationSpecification",
+  "si" : [
+"edu.washington.multirframework.corpus.SentNamedEntityLinkingInformation",
+"edu.washington.multirframework.corpus.SentFreebaseNotableTypeInformation"
+],
+  "ti" : [ "edu.washington.multirframework.corpus.TokenChunkInformation" ],
+  "di" : [ ],
+  "regularizer" : "0.5",
+  "iterations" : "20",
+  "finalAvg" : "true"
+}
