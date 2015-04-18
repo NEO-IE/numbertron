@@ -62,6 +62,8 @@ public class NtronExperiment {
 	int numIterations; //the number of iterations of the perceptron
 	boolean finalAvg; //should the parameters be finally divided?
 	
+	//Gold database matching params
+	int topKGoldDb; //match the recent k params from the gold database
 	public NtronExperiment() {
 	}
 
@@ -100,9 +102,6 @@ public class NtronExperiment {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		String goldDBFileLoc = JsonUtils.getStringProperty(properties,"kbRelFile");
-		GoldDB.initializeGoldDB(goldDBFileLoc);
 		
 		/**
 		 * end creating the map
@@ -189,10 +188,20 @@ public class NtronExperiment {
 		ccis.addDocumentInformation(docInfoList);
 		ccis.addTokenInformation(tokenInfoList);
 		ccis.addSentenceInformation(sentInfoList);
-
+		
+		//perceptron params setup
 		this.regularizer = JsonUtils.getDoubleProperty(properties, "regularizer");
 		this.numIterations = JsonUtils.getIntegerProperty(properties, "iterations");
 		this.finalAvg = JsonUtils.getBooleanProperty(properties, "finalAvg");
+		
+		//gold db params setup
+
+		String goldDBFileLoc = JsonUtils.getStringProperty(properties,"kbRelFile");
+		
+		this.topKGoldDb = JsonUtils.getIntegerProperty(properties, "topKGoldDb");
+		GoldDB.initializeGoldDB(goldDBFileLoc, topKGoldDb);
+
+	
 	}
 
 
@@ -233,18 +242,17 @@ public class NtronExperiment {
 			MakeGraph.run(featureFiles.get(i), ntronModelDirs.get(0) + File.separatorChar + "mapping", ntronModelDirs.get(0) + File.separatorChar + "train", ntronModelDirs.get(0));
 		}
 		File modelFile = new File(ntronModelDirs.get(0));
-//		//Step 3.2: Now run the super naive training algorithm	
 //			
-		/**Print Graph*/
-		String dir = modelFile.getAbsoluteFile().toString();
-		Dataset<LRGraph> train = new LRGraphMemoryDataset(dir + File.separatorChar + "train");
-		LRGraph lrg = new LRGraph();
-		BufferedWriter bw = new BufferedWriter(new FileWriter("graph"));
-		while(train.next(lrg)) {
-			bw.write(lrg.toString() + "\n");
-			bw.write("\n\n");
-		}
-		bw.close();
+//		/**Print Graph*/
+//		String dir = modelFile.getAbsoluteFile().toString();
+//		Dataset<LRGraph> train = new LRGraphMemoryDataset(dir + File.separatorChar + "train");
+//		LRGraph lrg = new LRGraph();
+//		BufferedWriter bw = new BufferedWriter(new FileWriter("graph"));
+//		while(train.next(lrg)) {
+//			bw.write(lrg.toString() + "\n");
+//			bw.write("\n\n");
+//		}
+//		bw.close();
 		/**/
 		LperceptTrain.train(modelFile.getAbsoluteFile().toString(), new Random(1), this.numIterations, this.regularizer, this.finalAvg);
 		
@@ -254,7 +262,7 @@ public class NtronExperiment {
 		System.out.println("sg");
 		NtronExperiment irb = new NtronExperiment(args[0]);
 		irb.run();
-		writeFeatureWeights(irb.ntronModelDirs.get(0) + File.separatorChar + "mapping", irb.ntronModelDirs.get(0) + File.separatorChar + "params", irb.ntronModelDirs.get(0) + File.separatorChar + "model", irb.ntronModelDirs.get(0) + File.separatorChar + "weights");
+		//writeFeatureWeights(irb.ntronModelDirs.get(0) + File.separatorChar + "mapping", irb.ntronModelDirs.get(0) + File.separatorChar + "params", irb.ntronModelDirs.get(0) + File.separatorChar + "model", irb.ntronModelDirs.get(0) + File.separatorChar + "weights");
 	}
 
 	private boolean filesExist(List<String> dsFiles) {

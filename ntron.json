@@ -31,5 +31,6 @@
   "di" : [ ],
   "regularizer" : "0.5",
   "iterations" : "20",
-  "finalAvg" : "true"
+  "finalAvg" : "true",
+  "topKGoldDb" : "3"
 }
