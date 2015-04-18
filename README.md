@@ -1,13 +1,11 @@
 sg
 
-```javascript
+```json
 
-{
+
+{	
   "corpusPath" :
-"jdbc:derby:/mnt/a99/d0/aman/MultirExperiments/data/gold_set",
-  "train" : "true",
-  "testDocumentsFile" :
-"data/emptyFile",
+"jdbc:derby:/mnt/a99/d0/aman/MultirExperiments/data/numbers_corpus",
   "mintzKeywordsFg" :
 "main.java.iitb.neo.pretrain.featuregeneration.MintzKeywordFeatureGenerator",
 "numbersFg" :
@@ -16,26 +14,18 @@ sg
 "/mnt/a99/d0/aman/MultirExperiments/data/numericalkb/countries_list_ids",
   "ai" :
 "edu.washington.multirframework.argumentidentification.NERArgumentIdentification",
-  "rm" :
-"edu.washington.multirframework.argumentidentification.NERRelationMatching",
-  "nec" :
-"edu.washington.multirframework.distantsupervision.NegativeExampleCollectionByRatio",
-  "necRatio" : "0.25",	
-  "kbRelFile" : "/mnt/a99/d0/aman/MultirExperiments/data/numericalkb/kb-facts-train.tsv.gz",
-  "kbEntityFile" : "/mnt/a99/d0/aman/MultirExperiments/data/numericalkb/entity-names-train.tsv.gz",
-  "targetRelFile" : "/mnt/a99/d0/aman/MultirExperiments/data/numericalkb/target_relations.tsv",
-  "typeRelMap" : null,
+  "kbRelFile" : "/mnt/a99/d0/aman/MultirExperiments/data/numericalkb/kb-worldbank-SI.tsv",
   "sigs" : [
 "edu.washington.multirframework.argumentidentification.DefaultSententialInstanceGeneration"
 ],
   "dsFiles" : [
-"data/test_num_feats_instances.tsv"
+"data/train/instances.tsv"
 ],
   "featureFiles" : [
-"data/test_num_feats_features.tsv"
+"data/train/features_mintz_keywords_deppath_numbers.tsv"
 ],
   "models" : [
-"data/test_num_features" ],
+"data/model/model_mintz_keywords_numbers_depbased" ],
   "cis" :
 "edu.washington.multirframework.corpus.DefaultCorpusInformationSpecification",
   "si" : [
@@ -44,12 +34,16 @@ sg
 ],
   "ti" : [ "edu.washington.multirframework.corpus.TokenChunkInformation" ],
   "di" : [ ],
-  "useFiger" : "false"
+  "mintzFeatureThreshold" : "1",
+  "keywordFeatureThreshold" : "3",
+  "regularizer" : "0.4",
+  "iterations" : "50",
+  "finalAvg" : "true",
+  "topKGoldDb" : "3",
+  "margin" : "0.25",
+  "ignoreConfusion" : "false"
 }
 ```
-
-
-
 #Implementation notes; incomplete
 
 ##Training Data Preparation
