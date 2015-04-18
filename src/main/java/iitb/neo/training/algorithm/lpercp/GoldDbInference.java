@@ -14,10 +14,39 @@ import main.java.iitb.neo.training.ds.LRGraph;
 public class GoldDbInference {
 
 
-	private static double MARGIN = 0.25; //allow true values to be within 20%
-	
 	public static HashMap<String, Integer> countRel = new HashMap<String, Integer>();
-	
+	public static HashMap<String, Double> marginMap;
+	static 
+	{
+		marginMap  = new HashMap<String, Double>();
+		Double xs = 0.05;
+		Double s = 0.1;
+		Double regular = 0.2;
+		Double xl = 0.3;
+		Double xxl = 0.5;
+		
+		
+		
+		marginMap.put("AGL", xs);
+		
+		marginMap.put("FDI", s);
+		marginMap.put("GOODS", s);
+		marginMap.put("GDP", s);
+		
+		marginMap.put("ELEC", s);
+		
+		marginMap.put("CO2", s);
+		
+		//unitMap.put("DIESEL", "united states dollar per litre");
+		
+		marginMap.put("INF", xxl);
+		marginMap.put("INTERNET", xxl);
+		
+		marginMap.put("LIFE", regular);
+		
+		marginMap.put("POP", s);
+		
+	}
 	public static Parse infer(LRGraph lrg) {
 		Parse p = new Parse();
 		p.graph = lrg;
@@ -26,11 +55,11 @@ public class GoldDbInference {
 		int numN = lrg.n.length;
 		for(int n_i = 0; n_i < numN; n_i++) {
 			if(closeEnough(lrg.n[n_i].value, lrg.relation, lrg.location)) {
-				if(countRel.containsKey(lrg.relation)){
-					countRel.put(lrg.relation, countRel.get(lrg.relation)+1);
-				}else{
-					countRel.put(lrg.relation, 1);
-				}
+//				if(countRel.containsKey(lrg.relation)){
+//					countRel.put(lrg.relation, countRel.get(lrg.relation)+1);
+//				}else{
+//					countRel.put(lrg.relation, 1);
+//				}
 				p.n_states[n_i] = true;
 			} else {
 				p.n_states[n_i] = false;
@@ -54,10 +83,10 @@ public class GoldDbInference {
 	 * @return
 	 */
 	public static boolean closeEnough(Double value, String rel, String entity, double margin) {
-		double bu = MARGIN;
-		MARGIN = margin;
+		double bu = GoldDB.MARGIN;
+		GoldDB.MARGIN = margin;
 		boolean res = closeEnough(value, rel, entity);
-		MARGIN = bu;
+		GoldDB.MARGIN = bu;
 		return res;
 	}
 
@@ -73,7 +102,7 @@ public class GoldDbInference {
 		}*/
 		for(Double val : goldValues){
 			
-			Double valueSlack = MARGIN * val; // +- 5 percent
+			Double valueSlack = GoldDB.MARGIN * val; // +- 5 percent
 			//System.out.print(val + "\t");
 			if((value > (val- valueSlack)) && (value < (val + valueSlack))){	
 				return true;

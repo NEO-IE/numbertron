@@ -19,8 +19,10 @@ public class GoldDB {
 	private static HashMap<Pair<String,String>,ArrayList<Double>> goldDB;
 	private static HashSet<String> countries;
 	public static int K;
-	public static void initializeGoldDB(String goldDBName, int topK){
+	public static double MARGIN;
+	public static void initializeGoldDB(String goldDBName, int topK, double matchMargin){
 		K = topK;
+		MARGIN = matchMargin;
 		goldDBFileLoc = goldDBName;
 		
 		goldDB = new HashMap<Pair<String,String>,ArrayList<Double>>();

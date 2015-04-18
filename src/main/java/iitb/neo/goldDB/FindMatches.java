@@ -18,7 +18,8 @@ public class FindMatches {
 		String instanceLine = null;
 		HashMap<String, ArrayList<Integer> > hits = new HashMap<>();
 		int topk = 3;
-		GoldDB.initializeGoldDB("/mnt/a99/d0/aman/MultirExperiments/data/numericalkb/kb-worldbank-SI.tsv", topk);
+		double margin = 0.2;
+		GoldDB.initializeGoldDB("/mnt/a99/d0/aman/MultirExperiments/data/numericalkb/kb-worldbank-SI.tsv", topk, margin);
 		
 		while((instanceLine = br.readLine()) != null) {
 			String instanceLineSplit[] = instanceLine.split("\t");

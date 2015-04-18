@@ -24,7 +24,8 @@ public class TrainingDataBalancer {
 		
 		HashMap<String, String> instance_featureMap = new HashMap<String, String>();
 		int topk = 3;
-		GoldDB.initializeGoldDB("/mnt/a99/d0/aman/MultirExperiments/data/numericalkb/kb-worldbank-SI.tsv", topk);
+		double margin = 0.3;
+		GoldDB.initializeGoldDB("/mnt/a99/d0/aman/MultirExperiments/data/numericalkb/kb-worldbank-SI.tsv", topk, margin);
 		PrintWriter pw = new PrintWriter(new FileWriter(outputInstanceFile));
 		PrintWriter opw = new PrintWriter(new FileWriter(outputFeatureFile));
 		

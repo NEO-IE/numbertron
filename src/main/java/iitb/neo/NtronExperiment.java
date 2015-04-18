@@ -61,7 +61,7 @@ public class NtronExperiment {
 	
 	//Gold database matching params
 	int topKGoldDb; //match the recent k params from the gold database
-	
+	double MARGIN;
 	//Feature thresholds
 	public static int MINTZ_FEATURE_THRESHOLD;
 	public static int KEYWORD_FEATURE_THRESHOLD;
@@ -201,7 +201,8 @@ public class NtronExperiment {
 		String goldDBFileLoc = JsonUtils.getStringProperty(properties,"kbRelFile");
 		
 		this.topKGoldDb = JsonUtils.getIntegerProperty(properties, "topKGoldDb");
-		GoldDB.initializeGoldDB(goldDBFileLoc, topKGoldDb);
+		this.MARGIN = JsonUtils.getDoubleProperty(properties, "margin");
+		GoldDB.initializeGoldDB(goldDBFileLoc, topKGoldDb, MARGIN);
 		
 		//Feature thresholds
 		KEYWORD_FEATURE_THRESHOLD = JsonUtils.getIntegerProperty(properties, "keywordFeatureThreshold");
