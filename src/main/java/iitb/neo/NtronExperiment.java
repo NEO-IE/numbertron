@@ -25,8 +25,6 @@ import main.java.iitb.neo.pretrain.featuregeneration.NumbertronFeatureGeneration
 import main.java.iitb.neo.pretrain.process.MakeGraph;
 import main.java.iitb.neo.pretrain.spotting.UnitLocationSpotting;
 import main.java.iitb.neo.training.algorithm.lpercp.LperceptTrain;
-import main.java.iitb.neo.training.ds.LRGraph;
-import main.java.iitb.neo.training.meta.LRGraphMemoryDataset;
 import main.java.iitb.neo.util.JsonUtils;
 import edu.washington.multirframework.argumentidentification.SententialInstanceGeneration;
 import edu.washington.multirframework.corpus.Corpus;
@@ -36,7 +34,6 @@ import edu.washington.multirframework.corpus.DocumentInformationI;
 import edu.washington.multirframework.corpus.SentInformationI;
 import edu.washington.multirframework.corpus.TokenInformationI;
 import edu.washington.multirframework.featuregeneration.FeatureGenerator;
-import edu.washington.multirframework.multiralgorithm.Dataset;
 import edu.washington.multirframework.multiralgorithm.DenseVector;
 import edu.washington.multirframework.multiralgorithm.Model;
 import edu.washington.multirframework.multiralgorithm.Parameters;
@@ -64,6 +61,11 @@ public class NtronExperiment {
 	
 	//Gold database matching params
 	int topKGoldDb; //match the recent k params from the gold database
+	
+	//Feature thresholds
+	public static int MINTZ_FEATURE_THRESHOLD;
+	public static int KEYWORD_FEATURE_THRESHOLD;
+	
 	public NtronExperiment() {
 	}
 
@@ -200,7 +202,10 @@ public class NtronExperiment {
 		
 		this.topKGoldDb = JsonUtils.getIntegerProperty(properties, "topKGoldDb");
 		GoldDB.initializeGoldDB(goldDBFileLoc, topKGoldDb);
-
+		
+		//Feature thresholds
+		KEYWORD_FEATURE_THRESHOLD = JsonUtils.getIntegerProperty(properties, "keywordFeatureThreshold");
+		MINTZ_FEATURE_THRESHOLD = JsonUtils.getIntegerProperty(properties, "mintzFeatureThreshold");
 	
 	}
 

@@ -29,8 +29,10 @@
 ],
   "ti" : [ "edu.washington.multirframework.corpus.TokenChunkInformation" ],
   "di" : [ ],
+  "mintzFeatureThreshold" : "1",
+  "keywordFeatureThreshold" : "100",
   "regularizer" : "0.5",
   "iterations" : "20",
   "finalAvg" : "true",
-  "topKGoldDb" : "2"
+  "topKGoldDb" : "5"
 }

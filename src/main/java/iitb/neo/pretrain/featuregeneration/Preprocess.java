@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import main.java.iitb.neo.NtronExperiment;
+
 import com.google.code.externalsorting.ExternalSort;
 
 import edu.washington.multirframework.multiralgorithm.Mappings;
@@ -28,8 +30,7 @@ import edu.washington.multirframework.multiralgorithm.Mappings;
 public class Preprocess {
 	public static Map<String, Integer> keyToIntegerMap = new HashMap<String, Integer>();
 	public static Map<Integer, String> intToKeyMap = new HashMap<Integer, String>();
-	public static int FEATURE_THRESHOLD = 1;
-	public static int KEYWORD_FEATURE_THRESHOLD = 10;
+	
 	
 	private static final double GIGABYTE_DIVISOR = 1073741824;
 
@@ -124,7 +125,7 @@ public class Preprocess {
 			if (feature.equals(prevFeature)) {
 				prevCount++;
 			} else {
-				if ((!keyfeature && prevCount >= FEATURE_THRESHOLD) || (keyfeature && prevCount >= KEYWORD_FEATURE_THRESHOLD)) {
+				if ((!keyfeature && prevCount >= NtronExperiment.MINTZ_FEATURE_THRESHOLD) || (keyfeature && prevCount >= NtronExperiment.KEYWORD_FEATURE_THRESHOLD)) {
 					m.getFeatureID(prevFeature, true);
 				}
 				if (feature.split(":")[0].equals("key")) {
@@ -143,7 +144,7 @@ public class Preprocess {
 			}
 		}
 		// For the last feature
-		if ((!keyfeature && prevCount >= FEATURE_THRESHOLD) || (keyfeature && prevCount >= KEYWORD_FEATURE_THRESHOLD)) {
+		if ((!keyfeature && prevCount >=  NtronExperiment.MINTZ_FEATURE_THRESHOLD) || (keyfeature && prevCount >=  NtronExperiment.KEYWORD_FEATURE_THRESHOLD)) {
 			m.getFeatureID(feature, true);
 		}
 
