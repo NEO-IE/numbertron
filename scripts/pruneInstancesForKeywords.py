@@ -1,17 +1,27 @@
 #sg
 #This script is aimed at pruning the keywords to include only those sentences that include a keyword corresponding to the relation in hand.
 
+from itertools import izip
 
-def prune(instancesFile, sentIdRelMap):
+def prune(instancesFile, featureFile, sentIdRelMap):
     pruned = 0
     scanned = 0
-    for line in open(instancesFile, 'r'):
-        lineSplit = line.strip("\n").split("\t")
+
+	outputInstancesFile = "key_instances.tsv"
+	outputFeatureFile = "key_features.tsv"
+
+	oi = fopen(outputInstancesFile, 'w')
+	of = fopen(outputFeatureFile, 'w')
+
+	with open(instanceFile) as textfile1, open(featureFile) as textfile2: 
+    	for iline, fline in izip(textfile1, textfile2):
+        lineSplit = iline.strip("\n").split("\t")
         rel = lineSplit[9]
         sentid = int(lineSplit[8])
         relsApplicable = sentIdRelMap[sentid]
         if(rel in relsApplicable):
-            print line.strip("\n")
+            oi.write(iline)
+			of.write(fline)
         else:
             pruned += 1
         scanned += 1
@@ -20,6 +30,8 @@ def prune(instancesFile, sentIdRelMap):
 
     print "Processed = %d, Pruned = %d" %(scanned, pruned)
 
+	oi.close()
+	of.close()
 
 #returns a map that stores valid relations corresponding to each relation id
 def getSentRelMap(sentencesFile):
@@ -58,9 +70,13 @@ def getSentRelMap(sentencesFile):
 
 if __name__ == '__main__':
     import sys
+	if len(sys.argv != 4):
+		print "Usage: python pruneInstancesForKeywords.py instancesFile featureFile sentencesFile"
+		sys.exit(0)
     intancesFile = sys.argv[1]
-    sentencesFile = sys.argv[2]
+	featureFile = sys.argv[2]
+    sentencesFile = sys.argv[3]
     sentIdRelMap = getSentRelMap(sentencesFile)
-    prune(intancesFile, sentIdRelMap)
+    prune(intancesFile, featureFile, sentIdRelMap)
 
 
