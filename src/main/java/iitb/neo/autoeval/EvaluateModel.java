@@ -29,6 +29,7 @@ public class EvaluateModel {
 	ExtractFromCorpus efc;
 	HashSet<Extraction> trueExtractions;
 	EvaluateModel.Results res;
+	HashMap<String, Integer> perRelationTrue;
 	String modelName; // model to be evaluated
 	boolean verbose; // verbose extractions?
 	String verboseFile; // verboseFile
@@ -36,7 +37,7 @@ public class EvaluateModel {
 
 	private class Results {
 		HashMap<String, Integer> perRelationCorrect;
-		HashMap<String, Integer> perRelationTrue;
+	
 		HashMap<String, Integer> perRelationExtracted;
 		int totalExtracted;
 		int totalFacts;
@@ -44,7 +45,7 @@ public class EvaluateModel {
 		Results() {
 			perRelationCorrect = new HashMap<String, Integer>();
 			perRelationExtracted = new HashMap<String, Integer>();
-			perRelationTrue = new HashMap<String, Integer>();
+			
 		}
 		public void dumpResults() {
 			PrintWriter pw = new PrintWriter(System.out, true);
@@ -85,6 +86,25 @@ public class EvaluateModel {
 			}
 			return (2 * p * r) / (p + r);
 		}
+		private void fillResult(List<Extraction> modelExtractions) {
+
+			assert (modelExtractions.size() > 0);
+			int correct = 0;
+			for (Extraction e : modelExtractions) {
+				String relName = e.getRelation();
+				Integer currCount = perRelationExtracted.get(relName);
+				perRelationExtracted.put(relName, null == currCount ? 1 : currCount + 1);
+				if (isTrueExtr(e)) {
+
+					currCount = perRelationCorrect.get(relName);
+					perRelationCorrect.put(relName, null == currCount ? 1 : currCount + 1);
+					correct++;
+				}
+			}
+			totalFacts = trueExtractions.size();
+			totalCorrectExtracted = correct;
+			totalExtracted = modelExtractions.size();
+		}
 	}
 
 	public EvaluateModel(String propertiesFile) throws Exception {
@@ -106,7 +126,7 @@ public class EvaluateModel {
 		Results r = new Results();
 	
 		List<Extraction> modelExtractions = efc.getExtractions("_results_", false, verbose, verboseFile);
-		fillResult(modelExtractions);
+		r.fillResult(modelExtractions);
 		r.dumpResults(resultWriter);
 		
 	}
@@ -115,6 +135,7 @@ public class EvaluateModel {
 	private void readTrueExtractions(String trueFile) throws IOException {
 		assert (trueExtractions == null);
 		trueExtractions = new HashSet<Extraction>();
+		perRelationTrue = new HashMap<String, Integer>();
 		BufferedReader br = new BufferedReader(new FileReader(trueFile));
 		String trueLine = null;
 		while (null != (trueLine = br.readLine())) {
@@ -137,33 +158,15 @@ public class EvaluateModel {
 
 			String relName = lineSplit[8];
 			String senText = lineSplit[10];
-			Integer currCount = res.perRelationTrue.get(relName);
-			res.perRelationTrue.put(relName, null == currCount ? 1 : currCount + 1);
+			Integer currCount = perRelationTrue.get(relName);
+			perRelationTrue.put(relName, null == currCount ? 1 : currCount + 1);
 
 			trueExtractions.add(new Extraction(arg1, arg2, docName, relName, sendId, senText));
 		}
 		br.close();
 	}
 
-	private void fillResult(List<Extraction> modelExtractions) {
-
-		assert (modelExtractions.size() > 0);
-		int correct = 0;
-		for (Extraction e : modelExtractions) {
-			String relName = e.getRelation();
-			Integer currCount = res.perRelationExtracted.get(relName);
-			res.perRelationExtracted.put(relName, null == currCount ? 1 : currCount + 1);
-			if (isTrueExtr(e)) {
-
-				currCount = res.perRelationCorrect.get(relName);
-				res.perRelationCorrect.put(relName, null == currCount ? 1 : currCount + 1);
-				correct++;
-			}
-		}
-		res.totalFacts = trueExtractions.size();
-		res.totalCorrectExtracted = correct;
-		res.totalExtracted = modelExtractions.size();
-	}
+	
 
 	boolean isTrueExtr(Extraction e) {
 		for (Extraction t : trueExtractions) {
@@ -177,7 +180,7 @@ public class EvaluateModel {
 	public void evaluate() throws SQLException, IOException {
 		List<Extraction> modelExtractions = efc.getExtractions("_results_" + new File(modelName).getName(), writeExtractions,
 				verbose, verboseFile);
-		fillResult(modelExtractions);
+		res.fillResult(modelExtractions);
 		res.dumpResults();
 	}
 

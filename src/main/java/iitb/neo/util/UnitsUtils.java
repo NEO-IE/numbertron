@@ -155,7 +155,15 @@ public class UnitsUtils {
 			tokenStr = numberSpotTokens[0];
 		}
 		float values[][] = new float[1][1];
-		Float flatValue = Number.getDoubleValue(Unit.parseDecimalExpressionL(tokenStr)).floatValue();
+		Float flatValue = null;
+		try
+		{
+		flatValue = Number.getDoubleValue(Unit.parseDecimalExpressionL(tokenStr)).floatValue();
+		
+		}catch(NullPointerException npe) {
+			npe.printStackTrace();
+			return "-1";
+		}
 		String front = sentString.substring(0, beginIdx);
 		if (front.length() > 20) {
 			front = front.substring(front.length() - 20);
