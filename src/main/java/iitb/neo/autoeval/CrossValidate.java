@@ -20,17 +20,19 @@ import main.java.iitb.neo.util.JsonUtils;
  */
 public class CrossValidate {
 	static class CVParams {
-		public static final int startItr = 10, 
-				endItr = 10, 
-				delItr = 10, 
+		public static final int 
+				startItr = 10, 
+				endItr = 1000, 
+				mulItr = 2, 
 				startTopk = 3,
-				endTopk = 3,
-				deltopK = 1;
-		public static final double startRegul = 0.3, 
-				endRegul = 0.3, 
-				delRegul = 0.1,
+				endTopk = 8,
+				deltopK = 2;
+		public static final double 
+				startRegul = 0.1, 
+				endRegul = 0.9, 
+				delRegul = 0.15,
 				startMargin = 0.2,
-				endMargin = 0.2,
+				endMargin = 0.5,
 				delMargin = 0.1;
 	}
 
@@ -46,7 +48,7 @@ public class CrossValidate {
 		PrintWriter pw = new PrintWriter(new FileWriter(outFile));
 		boolean finalAvgConfigs[] = { true, false };
 
-		for (int iterations = CVParams.startItr; iterations <= CVParams.endItr; iterations += CVParams.delItr) {
+		for (int iterations = CVParams.startItr; iterations <= CVParams.endItr; iterations *= CVParams.mulItr) {
 			for (double regul = CVParams.startRegul; regul <= CVParams.endRegul; regul += CVParams.delRegul) {
 				for (int topk = CVParams.startTopk; topk <= CVParams.endTopk; topk += CVParams.deltopK) {
 					for (double margin = CVParams.startMargin; margin <= CVParams.endMargin; margin += CVParams.delMargin) {
@@ -56,10 +58,10 @@ public class CrossValidate {
 							// update hyperparams
 							pw.write(configString(iterations, regul, topk, margin, finalAvgConfig) + "\n");
 							pw.write("====================================");
-						//	ntronExp.updateHyperparams(iterations, regul, topk, margin,
-							//		NtronExperiment.MINTZ_FEATURE_THRESHOLD, NtronExperiment.KEYWORD_FEATURE_THRESHOLD,
-						//			finalAvgConfig);
-						//	ntronExp.run();
+							ntronExp.updateHyperparams(iterations, regul, topk, margin,
+									NtronExperiment.MINTZ_FEATURE_THRESHOLD, NtronExperiment.KEYWORD_FEATURE_THRESHOLD,
+									finalAvgConfig);
+							ntronExp.run();
 							eval.evaluate(efc, false, pw);
 							pw.flush();
 						}

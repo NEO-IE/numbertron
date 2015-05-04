@@ -268,7 +268,7 @@ public class NtronExperiment {
 	}
 
 	public static void main(String args[]) throws Exception {
-		System.out.println("sg");
+		
 		NtronExperiment irb = new NtronExperiment(args[0]);
 		irb.run();
 		 writeFeatureWeights(irb.ntronModelDirs.get(0) + File.separatorChar +

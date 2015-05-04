@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
+import org.joda.time.field.ZeroIsMaxDateTimeField;
+
 import main.java.iitb.neo.training.ds.LRGraph;
 import main.java.iitb.neo.training.ds.Number;
 import edu.washington.multirframework.multiralgorithm.Dataset;
@@ -88,7 +90,9 @@ public class LocalAveragedPerceptron {
 	// The following parameter array stores the number of times a particular
 	// parameter
 	// has been updated, used for regularization in some sense.
-	private Parameters countUpdates;
+	private Parameters lastZeroIter;
+	private Parameters countZeroIter;
+	
 	private Parameters avgParameters;
 	private Parameters iterParameters;
 	
@@ -108,9 +112,14 @@ public class LocalAveragedPerceptron {
 			avgParamsLastUpdatesIter.init();
 			avgParamsLastUpdates.init();
 
-			countUpdates = new Parameters();
-			countUpdates.model = model;
-			countUpdates.init();
+			lastZeroIter = new Parameters();
+			lastZeroIter.model = model;
+			lastZeroIter.init();
+			
+			countZeroIter = new Parameters();
+			countZeroIter.model = model;
+			countZeroIter.init();
+			
 		}
 
 		iterParameters = new Parameters();
@@ -158,14 +167,16 @@ public class LocalAveragedPerceptron {
 			if (!NsAgree(predictedParse, trueParse)) {
 				// if this is the first avgIteration, then we need to initialize
 				// the lastUpdate vector
-				if (computeAvgParameters && avgIteration == 0)
+				if (computeAvgParameters && avgIteration == 0) {
 					avgParamsLastUpdates.sum(iterParameters, 1.0f);
+				}
 
 				update(predictedParse, trueParse);
 			}
 
-			if (computeAvgParameters)
+			if (computeAvgParameters) {
 				avgIteration++;
+			}
 		}
 	}
 
@@ -244,17 +255,25 @@ public class LocalAveragedPerceptron {
 			DenseVector iter = (DenseVector) iterParameters.relParameters[relNumber];
 			
 
-			DenseVector countUpdatesRel = (DenseVector) countUpdates.relParameters[relNumber];
+			DenseVector lastZeroIteration = (DenseVector) lastZeroIter.relParameters[relNumber];
+			DenseVector zeroIterationCount = (DenseVector) countZeroIter.relParameters[relNumber];
+			
 			for (int j = 0; j < features.num; j++) {
 				int id = features.ids[j];
 				if (lastUpdates.vals[id] != 0) {
 					// avg.vals[id] += (avgIteration - lastUpdatesIter.vals[id])
 					// * lastUpdates.vals[id];
-					avg.vals[id] = regulaizer * avg.vals[id] + (avgIteration - lastUpdatesIter.vals[id])
-							* lastUpdates.vals[id];
-					countUpdatesRel.vals[id] += 1; // also update the number of
-													// times this parameter was
-													// updated
+					int notUpdatedWindow = avgIteration - (int)lastUpdatesIter.vals[id];
+					avg.vals[id] = Math.pow(regulaizer, notUpdatedWindow)  * avg.vals[id] + notUpdatedWindow * lastUpdates.vals[id];
+					
+					if(iter.vals[id] == 0) { //present 0
+						assert(lastZeroIteration.vals[id] == -1);
+						lastZeroIteration.vals[id] = avgIteration;
+					} else if(lastZeroIteration.vals[id] != -1) {
+						zeroIterationCount.vals[id] += (avgIteration - lastZeroIteration.vals[id]);
+						lastZeroIteration.vals[id] = -1;
+					}
+
 					if(id == 524167){
 						obw.write("\n"+relNumNameMapping.get(relNumber)+"--> "+delta+"\n");
 						obw.write(lastUpdatesIter.vals[id]+"-->"+avgIteration+"\n");
@@ -274,14 +293,17 @@ public class LocalAveragedPerceptron {
 			DenseVector lastUpdatesIter = (DenseVector) avgParamsLastUpdatesIter.relParameters[s];
 			DenseVector lastUpdates = (DenseVector) avgParamsLastUpdates.relParameters[s];
 			DenseVector avg = (DenseVector) avgParameters.relParameters[s];
-			DenseVector countUpdatesRel = (DenseVector) countUpdates.relParameters[s];
+			DenseVector zeroIterationCountRel = (DenseVector) countZeroIter.relParameters[s];
 
 			for (int id = 0; id < avg.vals.length; id++) {
 				if (lastUpdates.vals[id] != 0) {
-					avg.vals[id] = regulaizer * avg.vals[id] + (avgIteration - lastUpdatesIter.vals[id])
-							* lastUpdates.vals[id];
+					int notUpdatedWindow = avgIteration - (int)lastUpdatesIter.vals[id];
+					avg.vals[id] = Math.pow(regulaizer, notUpdatedWindow)  * avg.vals[id] + notUpdatedWindow * lastUpdates.vals[id];
+					
+					int nonZeroIteration = avgIteration - (int)zeroIterationCountRel.vals[id];
+					System.out.println("Nonziteration  = " + nonZeroIteration	);
 					if(this.finalAverageCalc) {
-						avg.vals[id] = (countUpdatesRel.vals[id] == 0) ? 0 : (avg.vals[id] / countUpdatesRel.vals[id]);
+						avg.vals[id] = (avg.vals[id] / nonZeroIteration);
 					}
 					lastUpdatesIter.vals[id] = avgIteration;
 				}

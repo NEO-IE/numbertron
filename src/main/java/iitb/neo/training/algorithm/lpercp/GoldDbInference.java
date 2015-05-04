@@ -27,24 +27,24 @@ public class GoldDbInference {
 		
 		
 		
-		marginMap.put("AGL", xs);
+		marginMap.put("AGL", xl);
 		
-		marginMap.put("FDI", s);
-		marginMap.put("GOODS", s);
-		marginMap.put("GDP", s);
+		marginMap.put("FDI", xl);
+		marginMap.put("GOODS", xl);
+		marginMap.put("GDP", xl);
 		
-		marginMap.put("ELEC", s);
+		marginMap.put("ELEC", xl);
 		
-		marginMap.put("CO2", s);
+		marginMap.put("CO2", xl);
 		
 		//unitMap.put("DIESEL", "united states dollar per litre");
 		
-		marginMap.put("INF", xxl);
-		marginMap.put("INTERNET", xxl);
+		marginMap.put("INF", s);
+		marginMap.put("INTERNET",s);
 		
 		marginMap.put("LIFE", regular);
 		
-		marginMap.put("POP", s);
+		marginMap.put("POP", regular);
 		
 	}
 	public static Parse infer(LRGraph lrg) {
@@ -102,7 +102,7 @@ public class GoldDbInference {
 		}*/
 		for(Double val : goldValues){
 			
-			Double valueSlack = GoldDB.MARGIN * val; // +- 5 percent
+			Double valueSlack = marginMap.get(rel)* val; // +- 5 percent
 			//System.out.print(val + "\t");
 			if((value > (val- valueSlack)) && (value < (val + valueSlack))){	
 				return true;
