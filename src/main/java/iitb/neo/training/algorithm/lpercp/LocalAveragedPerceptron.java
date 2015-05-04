@@ -1,7 +1,13 @@
 package main.java.iitb.neo.training.algorithm.lpercp;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 import main.java.iitb.neo.training.ds.LRGraph;
@@ -31,14 +37,45 @@ public class LocalAveragedPerceptron {
 	private Scorer scorer;
 	private Model model;
 	private Random random;
-
-	public LocalAveragedPerceptron(Model model, Random random, int maxIterations, double regularizer, boolean finalAverageCalc) {
+	
+	/*
+	 * variables added for debugging purposes.
+	 */
+	HashMap<Integer, String> relNumNameMapping;
+	HashMap<Integer, String> featureList;
+	Integer numRelation;
+	Integer numFeatures;
+	String mappingFile = "data/model/model_mintz_keywords_numbers_keywordsInSentence/mapping";
+	String outputFile = "verbose_iteration_updates_key_area_1";
+	BufferedWriter obw;
+	
+	public LocalAveragedPerceptron(Model model, Random random, int maxIterations, double regularizer, boolean finalAverageCalc) throws NumberFormatException, IOException {
 		scorer = new Scorer();
 		this.model = model;
 		this.random = random;
 		this.numIterations = maxIterations;
 		this.regulaizer = regularizer;
 		this.finalAverageCalc = finalAverageCalc;
+		
+		relNumNameMapping = new HashMap<Integer, String>();
+		featureList = new HashMap<Integer, String>();
+		BufferedReader featureReader = new BufferedReader(new FileReader(mappingFile));
+		Integer numRel = Integer.parseInt(featureReader.readLine());
+		for (int i = 0; i < numRel; i++) {
+			// skip relation names
+			relNumNameMapping.put(i, featureReader.readLine());
+		}
+		int numFeatures = Integer.parseInt(featureReader.readLine());
+		String ftr = null;
+		featureList = new HashMap<Integer, String>();
+		int fno = 0;
+		while (fno < numFeatures) {
+			ftr = featureReader.readLine();
+			featureList.put(fno, ftr);
+			fno++;
+		}
+		featureReader.close();
+		
 		
 	}
 
@@ -80,8 +117,15 @@ public class LocalAveragedPerceptron {
 		iterParameters.model = model;
 		iterParameters.init();
 
+		obw = new BufferedWriter(new FileWriter(outputFile));
 		for (int i = 0; i < numIterations; i++) {
+			obw.write("#######################################\n");
+			obw.write("Iteration : "+i+"\n");
+			obw.write("#######################################\n");
 			System.out.println("Iteration: " + i);
+			
+			iterParameters.init();
+			
 			trainingIteration(i, trainingData);
 		}
 		if (computeAvgParameters) {
@@ -89,14 +133,14 @@ public class LocalAveragedPerceptron {
 		}
 		
 		//GoldDbInference.printMatchStat();
-
+		obw.close();
 		return (computeAvgParameters) ? avgParameters : iterParameters;
 	}
 
 
 
 	
-	public void trainingIteration(int iteration,  Dataset<LRGraph> trainingData) {
+	public void trainingIteration(int iteration,  Dataset<LRGraph> trainingData) throws IOException {
 
 		LRGraph lrg = new LRGraph();
 
@@ -125,7 +169,7 @@ public class LocalAveragedPerceptron {
 		}
 	}
 
-	public void update(Parse predictedParse, Parse trueParse) {
+	public void update(Parse predictedParse, Parse trueParse) throws IOException {
 		// if this is the first avgIteration, then we need to initialize
 		// the lastUpdate vector
 		if (computeAvgParameters && avgIteration == 0)
@@ -183,7 +227,7 @@ public class LocalAveragedPerceptron {
 		return true;
 	}
 
-	private void updateRel(int relNumber, SparseBinaryVector features, double delta, boolean useIterAverage) {
+	private void updateRel(int relNumber, SparseBinaryVector features, double delta, boolean useIterAverage) throws IOException {
 
 		iterParameters.relParameters[relNumber].addSparse(features, delta);
 		/*
@@ -192,10 +236,13 @@ public class LocalAveragedPerceptron {
 
 		// useIterAverage = false;
 		if (useIterAverage) {
+			
+			
 			DenseVector lastUpdatesIter = (DenseVector) avgParamsLastUpdatesIter.relParameters[relNumber];
 			DenseVector lastUpdates = (DenseVector) avgParamsLastUpdates.relParameters[relNumber];
 			DenseVector avg = (DenseVector) avgParameters.relParameters[relNumber];
 			DenseVector iter = (DenseVector) iterParameters.relParameters[relNumber];
+			
 
 			DenseVector countUpdatesRel = (DenseVector) countUpdates.relParameters[relNumber];
 			for (int j = 0; j < features.num; j++) {
@@ -208,11 +255,17 @@ public class LocalAveragedPerceptron {
 					countUpdatesRel.vals[id] += 1; // also update the number of
 													// times this parameter was
 													// updated
+					if(id == 524167){
+						obw.write("\n"+relNumNameMapping.get(relNumber)+"--> "+delta+"\n");
+						obw.write(lastUpdatesIter.vals[id]+"-->"+avgIteration+"\n");
+						obw.write(featureList.get(id)+" : "+ avg.vals[id]+"\n");
+						obw.write("Iterval : "+iter.vals[id]+"\n");
+						obw.write("*************************************\n");
+					}
 				}
 				lastUpdatesIter.vals[id] = avgIteration;
 				lastUpdates.vals[id] = iter.vals[id];
 			}
-
 		}
 	}
 

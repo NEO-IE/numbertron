@@ -271,10 +271,10 @@ public class NtronExperiment {
 		System.out.println("sg");
 		NtronExperiment irb = new NtronExperiment(args[0]);
 		irb.run();
-		// writeFeatureWeights(irb.ntronModelDirs.get(0) + File.separatorChar +
-		// "mapping", irb.ntronModelDirs.get(0) + File.separatorChar + "params",
-		// irb.ntronModelDirs.get(0) + File.separatorChar + "model",
-		// irb.ntronModelDirs.get(0) + File.separatorChar + "weights");
+		 writeFeatureWeights(irb.ntronModelDirs.get(0) + File.separatorChar +
+		 "mapping", irb.ntronModelDirs.get(0) + File.separatorChar + "params",
+		 irb.ntronModelDirs.get(0) + File.separatorChar + "model",
+		 irb.ntronModelDirs.get(0) + File.separatorChar + "weights");
 	}
 
 	private boolean filesExist(List<String> dsFiles) {
@@ -325,7 +325,7 @@ public class NtronExperiment {
 		for (int r = 0; r < p.model.numRelations; r++) {
 			String relName = relNumNameMapping.get(r);
 			DenseVector dv = p.relParameters[r];
-			System.out.println(dv.vals.length);
+			//System.out.println(dv.vals.length);
 			for (int i = 0; i < numFeatures; i++) {
 				bw.write(relName + "\t" + featureList.get(i) + "\t" + dv.vals[i] + "\n");
 			}

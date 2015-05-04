@@ -1,29 +1,9 @@
 package main.java.iitb.neo.pretrain.spotting;
 
-import iitb.rbased.util.Number;
-import iitb.rbased.util.Relation;
-import iitb.rbased.util.Word;
-
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
-import edu.stanford.nlp.ling.CoreAnnotations;
-import edu.stanford.nlp.ling.CoreLabel;
-import edu.stanford.nlp.pipeline.Annotation;
-import edu.stanford.nlp.util.CoreMap;
-import edu.stanford.nlp.util.Pair;
-import edu.stanford.nlp.util.Triple;
 import edu.washington.multirframework.corpus.Corpus;
-import edu.washington.multirframework.corpus.SentDependencyInformation;
-import edu.washington.multirframework.corpus.CorpusInformationSpecification.SentGlobalIDInformation.SentGlobalID;
-import edu.washington.multirframework.corpus.TokenOffsetInformation.SentenceRelativeCharacterOffsetBeginAnnotation;
-import edu.washington.multirframework.corpus.TokenOffsetInformation.SentenceRelativeCharacterOffsetEndAnnotation;
-import edu.washington.multirframework.data.Argument;
-import edu.washington.multirframework.data.KBArgument;
 
 public class KeywordSpotting extends Spotting {
 
