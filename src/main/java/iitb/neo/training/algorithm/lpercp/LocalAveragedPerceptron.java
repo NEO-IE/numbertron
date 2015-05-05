@@ -12,6 +12,7 @@ import java.util.Random;
 
 import org.joda.time.field.ZeroIsMaxDateTimeField;
 
+import scala.actors.threadpool.Arrays;
 import main.java.iitb.neo.training.ds.LRGraph;
 import main.java.iitb.neo.training.ds.Number;
 import edu.washington.multirframework.multiralgorithm.Dataset;
@@ -45,9 +46,11 @@ public class LocalAveragedPerceptron {
 	 */
 	HashMap<Integer, String> relNumNameMapping;
 	HashMap<Integer, String> featureList;
+	HashMap<Integer, String> sentenceMap;
 	Integer numRelation;
 	Integer numFeatures;
 	String mappingFile = "data/model/model_mintz_keywords_numbers_keywordsInSentence/mapping";
+	String sentenceFile = "/mnt/a99/d0/aman/sentidtokens_numbersall.tsv";
 	String outputFile = "verbose_iteration_updates_key_area_1";
 	BufferedWriter obw;
 	
@@ -78,6 +81,14 @@ public class LocalAveragedPerceptron {
 		}
 		featureReader.close();
 		
+		sentenceMap = new HashMap<Integer, String>();
+		BufferedReader sbr = new BufferedReader(new FileReader(sentenceFile));
+		String line = null;
+		while( (line = sbr.readLine()) != null){
+			String values[] = line.split("\t");
+			sentenceMap.put(Integer.parseInt(values[0]), values[1]);
+		}
+		sbr.close();
 		
 	}
 
@@ -186,7 +197,7 @@ public class LocalAveragedPerceptron {
 		if (computeAvgParameters && avgIteration == 0)
 			avgParamsLastUpdates.sum(iterParameters, 1.0f);
 		LRGraph lrg = predictedParse.graph;
-
+			
 		int numMentions = lrg.numMentions;
 		for (int i = 0; i < numMentions; i++) {
 //
@@ -214,11 +225,11 @@ public class LocalAveragedPerceptron {
 //				}
 			SparseBinaryVector v1a = scorer.getMentionRelationFeatures(lrg, i, lrg.relNumber);
 			if (trueParse.z_states[i] == true) {
-				updateRel(lrg.relNumber, v1a, delta, computeAvgParameters);
+				updateRel(lrg.relNumber, v1a, delta, computeAvgParameters, lrg.sentenceIDs[i]);
 
 			}
 			if (predictedParse.z_states[i] == true) {
-				updateRel(lrg.relNumber, v1a, -delta, computeAvgParameters);
+				updateRel(lrg.relNumber, v1a, -delta, computeAvgParameters, lrg.sentenceIDs[i]);
 			}
 
 		}
@@ -238,7 +249,7 @@ public class LocalAveragedPerceptron {
 		return true;
 	}
 
-	private void updateRel(int relNumber, SparseBinaryVector features, double delta, boolean useIterAverage) throws IOException {
+	private void updateRel(int relNumber, SparseBinaryVector features, double delta, boolean useIterAverage, Integer sentenceID) throws IOException {
 
 		iterParameters.relParameters[relNumber].addSparse(features, delta);
 		/*
@@ -275,6 +286,7 @@ public class LocalAveragedPerceptron {
 					}
 
 					if(id == 524167){
+						obw.write(sentenceMap.get(sentenceID));
 						obw.write("\n"+relNumNameMapping.get(relNumber)+"--> "+delta+"\n");
 						obw.write(lastUpdatesIter.vals[id]+"-->"+avgIteration+"\n");
 						obw.write(featureList.get(id)+" : "+ avg.vals[id]+"\n");

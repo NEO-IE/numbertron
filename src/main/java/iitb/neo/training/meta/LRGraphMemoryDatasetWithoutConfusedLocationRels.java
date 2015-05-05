@@ -91,6 +91,7 @@ public class LRGraphMemoryDatasetWithoutConfusedLocationRels implements Dataset<
 			doc.numMentions = d.numMentions;
 			doc.n = d.n;
 			doc.Z = d.Z;
+			doc.sentenceIDs = d.sentenceIDs;
 			return true;
 		}
 		return false;

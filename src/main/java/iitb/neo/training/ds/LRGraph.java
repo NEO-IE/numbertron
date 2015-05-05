@@ -41,6 +41,7 @@ public class LRGraph {
 	// mentions of this entity pair
 	public int numMentions = 0;
 	public int[] mentionIDs;
+	public int[] sentenceIDs;
 	public int[] Z;
 	public Number[] n;
 	public SparseBinaryVector[] features;
@@ -54,6 +55,7 @@ public class LRGraph {
 	public LRGraph() {
 		mentionIDs = new int[MNT_CAPACITY];
 		Z = new int[MNT_CAPACITY];
+		sentenceIDs = new int[MNT_CAPACITY];
 		features = new SparseBinaryVector[MNT_CAPACITY];
 		
 		numFeatures = new SparseBinaryVector[MNT_CAPACITY];
@@ -68,9 +70,11 @@ public class LRGraph {
 	
 	public void setCapacity(int targetSize) {
 		int[] newMentionIDs = new int[targetSize];
+		int[] newSentenceIDs = new int[targetSize];
 		int[] newZ = new int[targetSize];
 		SparseBinaryVector[] newFeatures = new SparseBinaryVector[targetSize];
 		if (numMentions > 0) {
+			System.arraycopy(sentenceIDs, 0, newSentenceIDs, 0, numMentions);
 			System.arraycopy(mentionIDs, 0, newMentionIDs, 0, numMentions);
 			System.arraycopy(Z, 0, newZ, 0, numMentions);
 			System.arraycopy(features, 0, newFeatures, 0, numMentions);
@@ -78,6 +82,7 @@ public class LRGraph {
 		mentionIDs = newMentionIDs;
 		Z = newZ;
 		features = newFeatures;
+		sentenceIDs = newSentenceIDs;
 	}
 	
 	
@@ -127,6 +132,7 @@ public class LRGraph {
 			this.numMentions = numMentions;
 			for (int i=0; i < numMentions; i++) {
 				mentionIDs[i] = dis.readInt();
+				sentenceIDs[i] = dis.readInt();
 				Z[i] = dis.readInt();
 				if (features[i] == null) features[i] = new SparseBinaryVector();
 				features[i].deserialize(dis);
@@ -158,6 +164,7 @@ public class LRGraph {
 		dos.writeInt(numMentions);
 		for (int i=0; i < numMentions; i++) {
 			dos.writeInt(mentionIDs[i]);
+			dos.writeInt(sentenceIDs[i]);
 			dos.writeInt(Z[i]);
 			features[i].serialize(dos);
 		}
@@ -187,6 +194,7 @@ public class LRGraph {
 		}
 		for(int i = 0; i < numMentions; i++){
 			sb.append("Mention " + i+ " ");
+			sb.append("\""+sentenceIDs[i] +"\"\t" );
 			for(int feat: features[i].ids){
 				sb.append(feat);
 				sb.append(" ");

@@ -169,6 +169,7 @@ public class MakeGraph {
 		Integer count = 0;
 		String prevKey = "";
 		List<List<Integer>> featureLists = new ArrayList<>();
+		List<String> ZsentenceID = new ArrayList<>();
 
 		int mentionNumber = 0; // keeps track of the mention that is being
 								// processed for the current location relation.
@@ -180,6 +181,7 @@ public class MakeGraph {
 																	// number
 																	// appears
 		HashMap<String, List<Integer>> numberFeatureMap = null; //stores the features for the numbers
+		String sentenceID = null;
 		
 		while ((line = br.readLine()) != null) {
 
@@ -188,6 +190,9 @@ public class MakeGraph {
 			//parts[1] is number features. TODO from here.
 			
 			String[] values = parts[0].split("\t");
+			
+			sentenceID = values[0];
+			
 			String location = values[1];
 			String number = values[2];
 			String relString = values[3];
@@ -215,6 +220,9 @@ public class MakeGraph {
 
 			if (key.equals(prevKey)) { // same location relation, add
 				featureLists.add(featureIntegers);
+				
+				ZsentenceID.add(sentenceID);
+				
 				if (numberMentionMap.keySet().contains(number)) { // number
 					numberMentionMap.get(number).add(mentionNumber);
 				} else { // need to add
@@ -233,7 +241,7 @@ public class MakeGraph {
 					}
 					// m/0154j AGL
 
-					LRGraph lr = constructLRGraph(numbers, featureLists, numberFeatureMap, v[0], v[1], m.getRelationID(v[1], false));
+					LRGraph lr = constructLRGraph(numbers, featureLists, numberFeatureMap, v[0], v[1], m.getRelationID(v[1], false), ZsentenceID);
 					lr.write(os);
 					mentionNumber = 0; // reset the mention number
 
@@ -248,6 +256,8 @@ public class MakeGraph {
 				numberFeatureMap.put(number, numFeatureIntegers);
 				featureLists = new ArrayList<>();
 				featureLists.add(featureIntegers);
+				ZsentenceID = new ArrayList<>();
+				ZsentenceID.add(sentenceID);
 				prevKey = key;
 			}
 
@@ -267,7 +277,7 @@ public class MakeGraph {
 				numbers.add(new Number(num, numberMentionMap.get(num)));
 			}
 
-			LRGraph newGraph = constructLRGraph(numbers, featureLists, numberFeatureMap, v[0], v[1], m.getRelationID(v[1], false));
+			LRGraph newGraph = constructLRGraph(numbers, featureLists, numberFeatureMap, v[0], v[1], m.getRelationID(v[1], false), ZsentenceID);
 			newGraph.write(os);	
 		}
 
@@ -278,7 +288,7 @@ public class MakeGraph {
 
 	private static LRGraph constructLRGraph(List<Number> numbers, 
 			List<List<Integer>> featureInts, HashMap<String, List<Integer>> numberFeatureMap, 
-			String location, String relation, int relNumber) {
+			String location, String relation, int relNumber, List<String> sentenceID) {
 		LRGraph lrg = new LRGraph();
 		lrg.location = location;
 		lrg.relation = relation;
@@ -301,6 +311,7 @@ public class MakeGraph {
 			lrg.Z[j] = -1;
 			lrg.mentionIDs[j] = j;
 			lrg.features[j] = getSBVfromList(featureInts.get(j));
+			lrg.sentenceIDs[j] = Integer.parseInt(sentenceID.get(j));
 		}
 		
 		//set num Mentions
