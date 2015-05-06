@@ -51,7 +51,7 @@ public class LocalAveragedPerceptron {
 	Integer numFeatures;
 	String mappingFile = "data/model/model_mintz_keywords_numbers_keywordsInSentence/mapping";
 	String sentenceFile = "/mnt/a99/d0/aman/sentidtokens_numbersall.tsv";
-	String outputFile = "verbose_iteration_updates_key_area_1";
+	String outputFile = "verbose_iteration_updates_key_inflation_POP";
 	BufferedWriter obw;
 	
 	public LocalAveragedPerceptron(Model model, Random random, int maxIterations, double regularizer, boolean finalAverageCalc) throws NumberFormatException, IOException {
@@ -197,7 +197,7 @@ public class LocalAveragedPerceptron {
 		if (computeAvgParameters && avgIteration == 0)
 			avgParamsLastUpdates.sum(iterParameters, 1.0f);
 		LRGraph lrg = predictedParse.graph;
-			
+		
 		int numMentions = lrg.numMentions;
 		for (int i = 0; i < numMentions; i++) {
 //
@@ -285,8 +285,8 @@ public class LocalAveragedPerceptron {
 						lastZeroIteration.vals[id] = -1;
 					}
 
-					if(id == 524167){
-						obw.write(sentenceMap.get(sentenceID));
+					if(id == 527682 && relNumber == 7){
+						obw.write(sentenceID+"\t"+sentenceMap.get(sentenceID));
 						obw.write("\n"+relNumNameMapping.get(relNumber)+"--> "+delta+"\n");
 						obw.write(lastUpdatesIter.vals[id]+"-->"+avgIteration+"\n");
 						obw.write(featureList.get(id)+" : "+ avg.vals[id]+"\n");
