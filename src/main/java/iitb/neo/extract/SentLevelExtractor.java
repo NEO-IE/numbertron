@@ -107,6 +107,67 @@ public class SentLevelExtractor {
 		List<String> features = getFeatureList(arg1, arg2, sentence, doc);
 		return getPerRelationScoreMap(features, arg1, arg2, senText);
 	}
+	
+	public Map<Integer, Double> extractFromSententialInstanceWithAllRelationScores(
+			Argument arg1, Argument arg2, CoreMap sentence, Annotation doc, double w_m, double w_n, double w_k) throws IOException {
+		
+		List<String> mintzFeatures = new ArrayList<String>();
+		List<String> keywordFeatures = new ArrayList<String>();
+		List<String> numberFeatures = new ArrayList<String>();
+		HashMap<Integer, Double> finalScoreMap = new HashMap<>();
+		
+		String senText = sentence.get(CoreAnnotations.TextAnnotation.class);
+		List<String> features = getFeatureList(arg1, arg2, sentence, doc);
+		
+		for(String feature: features){
+			if(feature.contains("key: ")){
+				keywordFeatures.add(feature);
+			}else if(feature.contains("num: ")){
+				numberFeatures.add(feature);
+			}else{
+				mintzFeatures.add(feature);
+			}
+		}
+		
+		HashMap<Integer, Double> scoreMap;
+		/*
+		 * reading score for mintz feature
+		 */
+		scoreMap = (HashMap<Integer, Double>) getPerRelationScoreMap(mintzFeatures, arg1, arg2, senText);
+		for(Integer rel: scoreMap.keySet()){
+			if(finalScoreMap.containsKey(rel)){
+				finalScoreMap.put(rel, finalScoreMap.get(rel)+ w_m * scoreMap.get(rel));
+			}else{
+				finalScoreMap.put(rel, w_m * scoreMap.get(rel));
+			}
+		}
+		
+		/*
+		 * reading score for keyword feature
+		 */
+		scoreMap = (HashMap<Integer, Double>) getPerRelationScoreMap(keywordFeatures, arg1, arg2, senText);
+		for(Integer rel: scoreMap.keySet()){
+			if(finalScoreMap.containsKey(rel)){
+				finalScoreMap.put(rel, finalScoreMap.get(rel)+ w_k * scoreMap.get(rel));
+			}else{
+				finalScoreMap.put(rel, w_k * scoreMap.get(rel));
+			}
+		}
+		
+		/*
+		 * reading score for number feature
+		 */
+		scoreMap = (HashMap<Integer, Double>) getPerRelationScoreMap(numberFeatures, arg1, arg2, senText);
+		for(Integer rel: scoreMap.keySet()){
+			if(finalScoreMap.containsKey(rel)){
+				finalScoreMap.put(rel, finalScoreMap.get(rel)+ w_n * scoreMap.get(rel));
+			}else{
+				finalScoreMap.put(rel, w_n * scoreMap.get(rel));
+			}
+		}
+		
+		return finalScoreMap;
+	}
 
 	LRGraph makeGraph(Argument arg1, Argument arg2, List<String> features) {
 		LRGraph lrg = new LRGraph();

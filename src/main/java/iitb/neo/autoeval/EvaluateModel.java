@@ -122,6 +122,15 @@ public class EvaluateModel {
 		readTrueExtractions(trueFile);
 	}
 
+	public void evaluate(ExtractFromCorpus efc, boolean verbose, PrintWriter resultWriter, double w_m, double w_k, double w_n) throws SQLException, IOException {
+		Results r = new Results();
+	
+		List<Extraction> modelExtractions = efc.getExtractions("_results_", false, verbose, verboseFile, w_m, w_k, w_n);
+		r.fillResult(modelExtractions);
+		r.dumpResults(resultWriter);
+		
+	}
+	
 	public void evaluate(ExtractFromCorpus efc, boolean verbose, PrintWriter resultWriter) throws SQLException, IOException {
 		Results r = new Results();
 	
