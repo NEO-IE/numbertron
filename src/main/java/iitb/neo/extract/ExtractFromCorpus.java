@@ -121,7 +121,7 @@ public class ExtractFromCorpus {
 		Corpus c = new Corpus(corpusPath, cis, true);
 		c.setCorpusToDefault();
 		
-		List<Extraction> extrs = getExtractions(c, ai, mintzKeywordsFg, sigs, ntronModelDir, verbose, verboseFile);
+		List<Extraction> extrs = getExtractions(c, ai, mintzKeywordsFg, sigs, ntronModelDir, verbose, verboseFile, w_m, w_k, w_n);
 		if(writeExtractions) {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(new File(resultsFile)));
 			writeExtractions(bw, c, extrs);
@@ -399,7 +399,7 @@ public class ExtractFromCorpus {
 							continue;
 						}
 						Map<Integer, Double> perRelationScoreMap = sle
-								.extractFromSententialInstanceWithAllRelationScores(p.first, p.second, sentence, doc);
+								.extractFromSententialInstanceWithAllRelationScores(p.first, p.second, sentence, doc, w_m, w_k, w_n);
 						ArrayList<Integer> compatRels = UnitsUtils.unitsCompatible(p.second, sentence, sle.getMapping()
 								.getRel2RelID());
 						String relStr = null;
