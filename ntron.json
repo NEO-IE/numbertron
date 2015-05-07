@@ -14,13 +14,13 @@
 "edu.washington.multirframework.argumentidentification.DefaultSententialInstanceGeneration"
 ],
   "dsFiles" : [
-"data/train/instances.tsv"
+"data/train/key_instances.tsv"
 ],
   "featureFiles" : [
-"data/train/features_mintz_keywords_numbers.tsv"
+"data/train/key_features_keywordsInDep.tsv"
 ],
   "models" : [
-"data/model/model_mintz_keywords_numbers_weaker" ],
+"data/model/model_mintz_keywords_numbers_keywordsInDep_debug" ],
   "cis" :
 "edu.washington.multirframework.corpus.DefaultCorpusInformationSpecification",
   "si" : [
@@ -30,9 +30,11 @@
   "ti" : [ "edu.washington.multirframework.corpus.TokenChunkInformation" ],
   "di" : [ ],
   "mintzFeatureThreshold" : "1",
-  "keywordFeatureThreshold" : "100",
-  "regularizer" : "0.5",
-  "iterations" : "20",
+  "keywordFeatureThreshold" : "1",
+  "regularizer" : "0.999",
+  "iterations" : "40",
   "finalAvg" : "true",
-  "topKGoldDb" : "5"
+  "topKGoldDb" : "3",
+  "margin" : "0.25",
+  "ignoreConfusion" : "true"
 }

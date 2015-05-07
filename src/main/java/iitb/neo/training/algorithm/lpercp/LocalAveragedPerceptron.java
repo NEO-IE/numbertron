@@ -301,7 +301,7 @@ public class LocalAveragedPerceptron {
 					avg.vals[id] = Math.pow(regulaizer, notUpdatedWindow)  * avg.vals[id] + notUpdatedWindow * lastUpdates.vals[id];
 					
 					int nonZeroIteration = avgIteration - (int)zeroIterationCountRel.vals[id];
-					System.out.println("Nonziteration  = " + nonZeroIteration	);
+					//System.out.println("Nonziteration  = " + nonZeroIteration	);
 					if(this.finalAverageCalc) {
 						avg.vals[id] = (avg.vals[id] / nonZeroIteration);
 					}

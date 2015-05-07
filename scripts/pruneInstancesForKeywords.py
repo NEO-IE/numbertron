@@ -7,31 +7,32 @@ def prune(instancesFile, featureFile, sentIdRelMap):
     pruned = 0
     scanned = 0
 
-	outputInstancesFile = "key_instances.tsv"
-	outputFeatureFile = "key_features.tsv"
+    outputInstancesFile = "key_instances.tsv"
+    outputFeatureFile = "key_features.tsv"
 
-	oi = fopen(outputInstancesFile, 'w')
-	of = fopen(outputFeatureFile, 'w')
+    oi = open(outputInstancesFile, 'w')
+    of = open(outputFeatureFile, 'w')
 
-	with open(instanceFile) as textfile1, open(featureFile) as textfile2: 
-    	for iline, fline in izip(textfile1, textfile2):
-        lineSplit = iline.strip("\n").split("\t")
-        rel = lineSplit[9]
-        sentid = int(lineSplit[8])
-        relsApplicable = sentIdRelMap[sentid]
-        if(rel in relsApplicable):
-            oi.write(iline)
-			of.write(fline)
-        else:
-            pruned += 1
-        scanned += 1
-        if(scanned % 100000 == 0):
-            print "Processed = %d, Pruned = %d" %(scanned, pruned)
+    with open(instancesFile) as textfile1, open(featureFile) as textfile2: 
+        for iline, fline in izip(textfile1, textfile2):
+            lineSplit = iline.strip("\n").split("\t")
+            rel = lineSplit[9]
+            sentid = int(lineSplit[8])
+            relsApplicable = sentIdRelMap[sentid]
+            if rel in relsApplicable:
+                oi.write(iline)
+                of.write(fline)
+            else:
+                pruned += 1
+                
+            scanned += 1
+            if(scanned % 100000 == 0):
+                print "Processed = %d, Pruned = %d" %(scanned, pruned)
 
     print "Processed = %d, Pruned = %d" %(scanned, pruned)
 
-	oi.close()
-	of.close()
+    oi.close()
+    of.close()
 
 #returns a map that stores valid relations corresponding to each relation id
 def getSentRelMap(sentencesFile):
@@ -70,11 +71,11 @@ def getSentRelMap(sentencesFile):
 
 if __name__ == '__main__':
     import sys
-	if len(sys.argv != 4):
-		print "Usage: python pruneInstancesForKeywords.py instancesFile featureFile sentencesFile"
-		sys.exit(0)
+    if len(sys.argv) != 4:
+    	print "Usage: python pruneInstancesForKeywords.py instancesFile featureFile sentencesFile"
+	sys.exit(0)
     intancesFile = sys.argv[1]
-	featureFile = sys.argv[2]
+    featureFile = sys.argv[2]
     sentencesFile = sys.argv[3]
     sentIdRelMap = getSentRelMap(sentencesFile)
     prune(intancesFile, featureFile, sentIdRelMap)

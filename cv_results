@@ -1,0 +1,702 @@
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.0	W_numbers = 0.0	
+Precision = NaN, Recall = 0.0, F-Score = NaN
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.0	W_numbers = 0.1	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.0	W_numbers = 0.2	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.0	W_numbers = 0.30000000000000004	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.0	W_numbers = 0.4	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.0	W_numbers = 0.5	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.0	W_numbers = 0.6	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.0	W_numbers = 0.7	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.0	W_numbers = 0.7999999999999999	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.0	W_numbers = 0.8999999999999999	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.0	W_numbers = 0.9999999999999999	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.1	W_numbers = 0.0	
+Precision = NaN, Recall = 0.0, F-Score = NaN
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.1	W_numbers = 0.1	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.1	W_numbers = 0.2	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.1	W_numbers = 0.30000000000000004	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.1	W_numbers = 0.4	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.1	W_numbers = 0.5	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.1	W_numbers = 0.6	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.1	W_numbers = 0.7	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.1	W_numbers = 0.7999999999999999	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.1	W_numbers = 0.8999999999999999	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.1	W_numbers = 0.9999999999999999	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.2	W_numbers = 0.0	
+Precision = NaN, Recall = 0.0, F-Score = NaN
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.2	W_numbers = 0.1	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.2	W_numbers = 0.2	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.2	W_numbers = 0.30000000000000004	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.2	W_numbers = 0.4	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.2	W_numbers = 0.5	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.2	W_numbers = 0.6	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.2	W_numbers = 0.7	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.2	W_numbers = 0.7999999999999999	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.2	W_numbers = 0.8999999999999999	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.2	W_numbers = 0.9999999999999999	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.30000000000000004	W_numbers = 0.0	
+Precision = NaN, Recall = 0.0, F-Score = NaN
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.30000000000000004	W_numbers = 0.1	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.30000000000000004	W_numbers = 0.2	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.30000000000000004	W_numbers = 0.30000000000000004	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.30000000000000004	W_numbers = 0.4	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.30000000000000004	W_numbers = 0.5	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.30000000000000004	W_numbers = 0.6	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.30000000000000004	W_numbers = 0.7	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.30000000000000004	W_numbers = 0.7999999999999999	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.30000000000000004	W_numbers = 0.8999999999999999	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.30000000000000004	W_numbers = 0.9999999999999999	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.4	W_numbers = 0.0	
+Precision = NaN, Recall = 0.0, F-Score = NaN
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.4	W_numbers = 0.1	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.4	W_numbers = 0.2	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.4	W_numbers = 0.30000000000000004	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.4	W_numbers = 0.4	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.4	W_numbers = 0.5	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.4	W_numbers = 0.6	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.4	W_numbers = 0.7	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.4	W_numbers = 0.7999999999999999	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.4	W_numbers = 0.8999999999999999	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.4	W_numbers = 0.9999999999999999	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.5	W_numbers = 0.0	
+Precision = NaN, Recall = 0.0, F-Score = NaN
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.5	W_numbers = 0.1	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.5	W_numbers = 0.2	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.5	W_numbers = 0.30000000000000004	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.5	W_numbers = 0.4	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.5	W_numbers = 0.5	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.5	W_numbers = 0.6	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.5	W_numbers = 0.7	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.5	W_numbers = 0.7999999999999999	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.5	W_numbers = 0.8999999999999999	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.5	W_numbers = 0.9999999999999999	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.6	W_numbers = 0.0	
+Precision = NaN, Recall = 0.0, F-Score = NaN
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.6	W_numbers = 0.1	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.6	W_numbers = 0.2	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.6	W_numbers = 0.30000000000000004	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.6	W_numbers = 0.4	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.6	W_numbers = 0.5	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.6	W_numbers = 0.6	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.6	W_numbers = 0.7	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.6	W_numbers = 0.7999999999999999	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.6	W_numbers = 0.8999999999999999	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.6	W_numbers = 0.9999999999999999	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.7	W_numbers = 0.0	
+Precision = NaN, Recall = 0.0, F-Score = NaN
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.7	W_numbers = 0.1	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.7	W_numbers = 0.2	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.7	W_numbers = 0.30000000000000004	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.7	W_numbers = 0.4	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.7	W_numbers = 0.5	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.7	W_numbers = 0.6	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.7	W_numbers = 0.7	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.7	W_numbers = 0.7999999999999999	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.7	W_numbers = 0.8999999999999999	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.7	W_numbers = 0.9999999999999999	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.7999999999999999	W_numbers = 0.0	
+Precision = NaN, Recall = 0.0, F-Score = NaN
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.7999999999999999	W_numbers = 0.1	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.7999999999999999	W_numbers = 0.2	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.7999999999999999	W_numbers = 0.30000000000000004	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.7999999999999999	W_numbers = 0.4	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.7999999999999999	W_numbers = 0.5	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.7999999999999999	W_numbers = 0.6	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.7999999999999999	W_numbers = 0.7	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.7999999999999999	W_numbers = 0.7999999999999999	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.7999999999999999	W_numbers = 0.8999999999999999	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.7999999999999999	W_numbers = 0.9999999999999999	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.8999999999999999	W_numbers = 0.0	
+Precision = NaN, Recall = 0.0, F-Score = NaN
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.8999999999999999	W_numbers = 0.1	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.8999999999999999	W_numbers = 0.2	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.8999999999999999	W_numbers = 0.30000000000000004	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.8999999999999999	W_numbers = 0.4	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.8999999999999999	W_numbers = 0.5	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.8999999999999999	W_numbers = 0.6	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.8999999999999999	W_numbers = 0.7	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.8999999999999999	W_numbers = 0.7999999999999999	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.8999999999999999	W_numbers = 0.8999999999999999	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.8999999999999999	W_numbers = 0.9999999999999999	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.9999999999999999	W_numbers = 0.0	
+Precision = NaN, Recall = 0.0, F-Score = NaN
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.9999999999999999	W_numbers = 0.1	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.9999999999999999	W_numbers = 0.2	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.9999999999999999	W_numbers = 0.30000000000000004	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.9999999999999999	W_numbers = 0.4	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.9999999999999999	W_numbers = 0.5	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.9999999999999999	W_numbers = 0.6	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.9999999999999999	W_numbers = 0.7	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.9999999999999999	W_numbers = 0.7999999999999999	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.9999999999999999	W_numbers = 0.8999999999999999	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.0	W_keywords = 0.9999999999999999	W_numbers = 0.9999999999999999	
+Precision = 0.292817679558011, Recall = 0.19343065693430658, F-Score = 0.23296703296703297
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.0	W_numbers = 0.0	
+Precision = 0.5067264573991032, Recall = 0.4124087591240876, F-Score = 0.45472837022132795
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.0	W_numbers = 0.1	
+Precision = 0.5063829787234042, Recall = 0.4343065693430657, F-Score = 0.4675834970530452
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.0	W_numbers = 0.2	
+Precision = 0.4606741573033708, Recall = 0.29927007299270075, F-Score = 0.36283185840707965
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.0	W_numbers = 0.30000000000000004	
+Precision = 0.45108695652173914, Recall = 0.3029197080291971, F-Score = 0.3624454148471616
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.0	W_numbers = 0.4	
+Precision = 0.4540229885057471, Recall = 0.28832116788321166, F-Score = 0.3526785714285714
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.0	W_numbers = 0.5	
+Precision = 0.4523809523809524, Recall = 0.2773722627737226, F-Score = 0.34389140271493207
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.0	W_numbers = 0.6	
+Precision = 0.45454545454545453, Recall = 0.2737226277372263, F-Score = 0.3416856492027335
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.0	W_numbers = 0.7	
+Precision = 0.4573170731707317, Recall = 0.2737226277372263, F-Score = 0.34246575342465757
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.0	W_numbers = 0.7999999999999999	
+Precision = 0.4472049689440994, Recall = 0.26277372262773724, F-Score = 0.3310344827586207
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.0	W_numbers = 0.8999999999999999	
+Precision = 0.4409937888198758, Recall = 0.2591240875912409, F-Score = 0.3264367816091954
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.0	W_numbers = 0.9999999999999999	
+Precision = 0.44654088050314467, Recall = 0.2591240875912409, F-Score = 0.3279445727482679
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.1	W_numbers = 0.0	
+Precision = 0.5067264573991032, Recall = 0.4124087591240876, F-Score = 0.45472837022132795
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.1	W_numbers = 0.1	
+Precision = 0.5063829787234042, Recall = 0.4343065693430657, F-Score = 0.4675834970530452
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.1	W_numbers = 0.2	
+Precision = 0.4606741573033708, Recall = 0.29927007299270075, F-Score = 0.36283185840707965
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.1	W_numbers = 0.30000000000000004	
+Precision = 0.45108695652173914, Recall = 0.3029197080291971, F-Score = 0.3624454148471616
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.1	W_numbers = 0.4	
+Precision = 0.4540229885057471, Recall = 0.28832116788321166, F-Score = 0.3526785714285714
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.1	W_numbers = 0.5	
+Precision = 0.4523809523809524, Recall = 0.2773722627737226, F-Score = 0.34389140271493207
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.1	W_numbers = 0.6	
+Precision = 0.45454545454545453, Recall = 0.2737226277372263, F-Score = 0.3416856492027335
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.1	W_numbers = 0.7	
+Precision = 0.4573170731707317, Recall = 0.2737226277372263, F-Score = 0.34246575342465757
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.1	W_numbers = 0.7999999999999999	
+Precision = 0.4472049689440994, Recall = 0.26277372262773724, F-Score = 0.3310344827586207
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.1	W_numbers = 0.8999999999999999	
+Precision = 0.4409937888198758, Recall = 0.2591240875912409, F-Score = 0.3264367816091954
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.1	W_numbers = 0.9999999999999999	
+Precision = 0.44654088050314467, Recall = 0.2591240875912409, F-Score = 0.3279445727482679
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.2	W_numbers = 0.0	
+Precision = 0.5067264573991032, Recall = 0.4124087591240876, F-Score = 0.45472837022132795
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.2	W_numbers = 0.1	
+Precision = 0.5063829787234042, Recall = 0.4343065693430657, F-Score = 0.4675834970530452
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.2	W_numbers = 0.2	
+Precision = 0.4606741573033708, Recall = 0.29927007299270075, F-Score = 0.36283185840707965
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.2	W_numbers = 0.30000000000000004	
+Precision = 0.45108695652173914, Recall = 0.3029197080291971, F-Score = 0.3624454148471616
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.2	W_numbers = 0.4	
+Precision = 0.4540229885057471, Recall = 0.28832116788321166, F-Score = 0.3526785714285714
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.2	W_numbers = 0.5	
+Precision = 0.4523809523809524, Recall = 0.2773722627737226, F-Score = 0.34389140271493207
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.2	W_numbers = 0.6	
+Precision = 0.45454545454545453, Recall = 0.2737226277372263, F-Score = 0.3416856492027335
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.2	W_numbers = 0.7	
+Precision = 0.4573170731707317, Recall = 0.2737226277372263, F-Score = 0.34246575342465757
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.2	W_numbers = 0.7999999999999999	
+Precision = 0.4472049689440994, Recall = 0.26277372262773724, F-Score = 0.3310344827586207
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.2	W_numbers = 0.8999999999999999	
+Precision = 0.4409937888198758, Recall = 0.2591240875912409, F-Score = 0.3264367816091954
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.2	W_numbers = 0.9999999999999999	
+Precision = 0.44654088050314467, Recall = 0.2591240875912409, F-Score = 0.3279445727482679
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.30000000000000004	W_numbers = 0.0	
+Precision = 0.5067264573991032, Recall = 0.4124087591240876, F-Score = 0.45472837022132795
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.30000000000000004	W_numbers = 0.1	
+Precision = 0.5063829787234042, Recall = 0.4343065693430657, F-Score = 0.4675834970530452
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.30000000000000004	W_numbers = 0.2	
+Precision = 0.4606741573033708, Recall = 0.29927007299270075, F-Score = 0.36283185840707965
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.30000000000000004	W_numbers = 0.30000000000000004	
+Precision = 0.45108695652173914, Recall = 0.3029197080291971, F-Score = 0.3624454148471616
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.30000000000000004	W_numbers = 0.4	
+Precision = 0.4540229885057471, Recall = 0.28832116788321166, F-Score = 0.3526785714285714
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.30000000000000004	W_numbers = 0.5	
+Precision = 0.4523809523809524, Recall = 0.2773722627737226, F-Score = 0.34389140271493207
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.30000000000000004	W_numbers = 0.6	
+Precision = 0.45454545454545453, Recall = 0.2737226277372263, F-Score = 0.3416856492027335
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.30000000000000004	W_numbers = 0.7	
+Precision = 0.4573170731707317, Recall = 0.2737226277372263, F-Score = 0.34246575342465757
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.30000000000000004	W_numbers = 0.7999999999999999	
+Precision = 0.4472049689440994, Recall = 0.26277372262773724, F-Score = 0.3310344827586207
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.30000000000000004	W_numbers = 0.8999999999999999	
+Precision = 0.4409937888198758, Recall = 0.2591240875912409, F-Score = 0.3264367816091954
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.30000000000000004	W_numbers = 0.9999999999999999	
+Precision = 0.44654088050314467, Recall = 0.2591240875912409, F-Score = 0.3279445727482679
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.4	W_numbers = 0.0	
+Precision = 0.5067264573991032, Recall = 0.4124087591240876, F-Score = 0.45472837022132795
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.4	W_numbers = 0.1	
+Precision = 0.5063829787234042, Recall = 0.4343065693430657, F-Score = 0.4675834970530452
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.4	W_numbers = 0.2	
+Precision = 0.4606741573033708, Recall = 0.29927007299270075, F-Score = 0.36283185840707965
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.4	W_numbers = 0.30000000000000004	
+Precision = 0.45108695652173914, Recall = 0.3029197080291971, F-Score = 0.3624454148471616
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.4	W_numbers = 0.4	
+Precision = 0.4540229885057471, Recall = 0.28832116788321166, F-Score = 0.3526785714285714
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.4	W_numbers = 0.5	
+Precision = 0.4523809523809524, Recall = 0.2773722627737226, F-Score = 0.34389140271493207
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.4	W_numbers = 0.6	
+Precision = 0.45454545454545453, Recall = 0.2737226277372263, F-Score = 0.3416856492027335
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.4	W_numbers = 0.7	
+Precision = 0.4573170731707317, Recall = 0.2737226277372263, F-Score = 0.34246575342465757
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.4	W_numbers = 0.7999999999999999	
+Precision = 0.4472049689440994, Recall = 0.26277372262773724, F-Score = 0.3310344827586207
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.4	W_numbers = 0.8999999999999999	
+Precision = 0.4409937888198758, Recall = 0.2591240875912409, F-Score = 0.3264367816091954
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.4	W_numbers = 0.9999999999999999	
+Precision = 0.44654088050314467, Recall = 0.2591240875912409, F-Score = 0.3279445727482679
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.5	W_numbers = 0.0	
+Precision = 0.5067264573991032, Recall = 0.4124087591240876, F-Score = 0.45472837022132795
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.5	W_numbers = 0.1	
+Precision = 0.5063829787234042, Recall = 0.4343065693430657, F-Score = 0.4675834970530452
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.5	W_numbers = 0.2	
+Precision = 0.4606741573033708, Recall = 0.29927007299270075, F-Score = 0.36283185840707965
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.5	W_numbers = 0.30000000000000004	
+Precision = 0.45108695652173914, Recall = 0.3029197080291971, F-Score = 0.3624454148471616
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.5	W_numbers = 0.4	
+Precision = 0.4540229885057471, Recall = 0.28832116788321166, F-Score = 0.3526785714285714
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.5	W_numbers = 0.5	
+Precision = 0.4523809523809524, Recall = 0.2773722627737226, F-Score = 0.34389140271493207
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.5	W_numbers = 0.6	
+Precision = 0.45454545454545453, Recall = 0.2737226277372263, F-Score = 0.3416856492027335
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.5	W_numbers = 0.7	
+Precision = 0.4573170731707317, Recall = 0.2737226277372263, F-Score = 0.34246575342465757
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.5	W_numbers = 0.7999999999999999	
+Precision = 0.4472049689440994, Recall = 0.26277372262773724, F-Score = 0.3310344827586207
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.5	W_numbers = 0.8999999999999999	
+Precision = 0.4409937888198758, Recall = 0.2591240875912409, F-Score = 0.3264367816091954
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.5	W_numbers = 0.9999999999999999	
+Precision = 0.44654088050314467, Recall = 0.2591240875912409, F-Score = 0.3279445727482679
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.6	W_numbers = 0.0	
+Precision = 0.5067264573991032, Recall = 0.4124087591240876, F-Score = 0.45472837022132795
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.6	W_numbers = 0.1	
+Precision = 0.5063829787234042, Recall = 0.4343065693430657, F-Score = 0.4675834970530452
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.6	W_numbers = 0.2	
+Precision = 0.4606741573033708, Recall = 0.29927007299270075, F-Score = 0.36283185840707965
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.6	W_numbers = 0.30000000000000004	
+Precision = 0.45108695652173914, Recall = 0.3029197080291971, F-Score = 0.3624454148471616
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.6	W_numbers = 0.4	
+Precision = 0.4540229885057471, Recall = 0.28832116788321166, F-Score = 0.3526785714285714
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.6	W_numbers = 0.5	
+Precision = 0.4523809523809524, Recall = 0.2773722627737226, F-Score = 0.34389140271493207
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.6	W_numbers = 0.6	
+Precision = 0.45454545454545453, Recall = 0.2737226277372263, F-Score = 0.3416856492027335
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.6	W_numbers = 0.7	
+Precision = 0.4573170731707317, Recall = 0.2737226277372263, F-Score = 0.34246575342465757
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.6	W_numbers = 0.7999999999999999	
+Precision = 0.4472049689440994, Recall = 0.26277372262773724, F-Score = 0.3310344827586207
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.6	W_numbers = 0.8999999999999999	
+Precision = 0.4409937888198758, Recall = 0.2591240875912409, F-Score = 0.3264367816091954
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.6	W_numbers = 0.9999999999999999	
+Precision = 0.44654088050314467, Recall = 0.2591240875912409, F-Score = 0.3279445727482679
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.7	W_numbers = 0.0	
+Precision = 0.5067264573991032, Recall = 0.4124087591240876, F-Score = 0.45472837022132795
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.7	W_numbers = 0.1	
+Precision = 0.5063829787234042, Recall = 0.4343065693430657, F-Score = 0.4675834970530452
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.7	W_numbers = 0.2	
+Precision = 0.4606741573033708, Recall = 0.29927007299270075, F-Score = 0.36283185840707965
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.7	W_numbers = 0.30000000000000004	
+Precision = 0.45108695652173914, Recall = 0.3029197080291971, F-Score = 0.3624454148471616
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.7	W_numbers = 0.4	
+Precision = 0.4540229885057471, Recall = 0.28832116788321166, F-Score = 0.3526785714285714
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.7	W_numbers = 0.5	
+Precision = 0.4523809523809524, Recall = 0.2773722627737226, F-Score = 0.34389140271493207
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.7	W_numbers = 0.6	
+Precision = 0.45454545454545453, Recall = 0.2737226277372263, F-Score = 0.3416856492027335
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.7	W_numbers = 0.7	
+Precision = 0.4573170731707317, Recall = 0.2737226277372263, F-Score = 0.34246575342465757
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.7	W_numbers = 0.7999999999999999	
+Precision = 0.4472049689440994, Recall = 0.26277372262773724, F-Score = 0.3310344827586207
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.7	W_numbers = 0.8999999999999999	
+Precision = 0.4409937888198758, Recall = 0.2591240875912409, F-Score = 0.3264367816091954
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.7	W_numbers = 0.9999999999999999	
+Precision = 0.44654088050314467, Recall = 0.2591240875912409, F-Score = 0.3279445727482679
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.7999999999999999	W_numbers = 0.0	
+Precision = 0.5067264573991032, Recall = 0.4124087591240876, F-Score = 0.45472837022132795
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.7999999999999999	W_numbers = 0.1	
+Precision = 0.5063829787234042, Recall = 0.4343065693430657, F-Score = 0.4675834970530452
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.7999999999999999	W_numbers = 0.2	
+Precision = 0.4606741573033708, Recall = 0.29927007299270075, F-Score = 0.36283185840707965
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.7999999999999999	W_numbers = 0.30000000000000004	
+Precision = 0.45108695652173914, Recall = 0.3029197080291971, F-Score = 0.3624454148471616
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.7999999999999999	W_numbers = 0.4	
+Precision = 0.4540229885057471, Recall = 0.28832116788321166, F-Score = 0.3526785714285714
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.7999999999999999	W_numbers = 0.5	
+Precision = 0.4523809523809524, Recall = 0.2773722627737226, F-Score = 0.34389140271493207
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.7999999999999999	W_numbers = 0.6	
+Precision = 0.45454545454545453, Recall = 0.2737226277372263, F-Score = 0.3416856492027335
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.7999999999999999	W_numbers = 0.7	
+Precision = 0.4573170731707317, Recall = 0.2737226277372263, F-Score = 0.34246575342465757
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.7999999999999999	W_numbers = 0.7999999999999999	
+Precision = 0.4472049689440994, Recall = 0.26277372262773724, F-Score = 0.3310344827586207
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.7999999999999999	W_numbers = 0.8999999999999999	
+Precision = 0.4409937888198758, Recall = 0.2591240875912409, F-Score = 0.3264367816091954
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.7999999999999999	W_numbers = 0.9999999999999999	
+Precision = 0.44654088050314467, Recall = 0.2591240875912409, F-Score = 0.3279445727482679
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.8999999999999999	W_numbers = 0.0	
+Precision = 0.5067264573991032, Recall = 0.4124087591240876, F-Score = 0.45472837022132795
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.8999999999999999	W_numbers = 0.1	
+Precision = 0.5063829787234042, Recall = 0.4343065693430657, F-Score = 0.4675834970530452
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.8999999999999999	W_numbers = 0.2	
+Precision = 0.4606741573033708, Recall = 0.29927007299270075, F-Score = 0.36283185840707965
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.8999999999999999	W_numbers = 0.30000000000000004	
+Precision = 0.45108695652173914, Recall = 0.3029197080291971, F-Score = 0.3624454148471616
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.8999999999999999	W_numbers = 0.4	
+Precision = 0.4540229885057471, Recall = 0.28832116788321166, F-Score = 0.3526785714285714
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.8999999999999999	W_numbers = 0.5	
+Precision = 0.4523809523809524, Recall = 0.2773722627737226, F-Score = 0.34389140271493207
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.8999999999999999	W_numbers = 0.6	
+Precision = 0.45454545454545453, Recall = 0.2737226277372263, F-Score = 0.3416856492027335
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.8999999999999999	W_numbers = 0.7	
+Precision = 0.4573170731707317, Recall = 0.2737226277372263, F-Score = 0.34246575342465757
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.8999999999999999	W_numbers = 0.7999999999999999	
+Precision = 0.4472049689440994, Recall = 0.26277372262773724, F-Score = 0.3310344827586207
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.8999999999999999	W_numbers = 0.8999999999999999	
+Precision = 0.4409937888198758, Recall = 0.2591240875912409, F-Score = 0.3264367816091954
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.8999999999999999	W_numbers = 0.9999999999999999	
+Precision = 0.44654088050314467, Recall = 0.2591240875912409, F-Score = 0.3279445727482679
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.9999999999999999	W_numbers = 0.0	
+Precision = 0.5067264573991032, Recall = 0.4124087591240876, F-Score = 0.45472837022132795
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.9999999999999999	W_numbers = 0.1	
+Precision = 0.5063829787234042, Recall = 0.4343065693430657, F-Score = 0.4675834970530452
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.9999999999999999	W_numbers = 0.2	
+Precision = 0.4606741573033708, Recall = 0.29927007299270075, F-Score = 0.36283185840707965
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.9999999999999999	W_numbers = 0.30000000000000004	
+Precision = 0.45108695652173914, Recall = 0.3029197080291971, F-Score = 0.3624454148471616
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.9999999999999999	W_numbers = 0.4	
+Precision = 0.4540229885057471, Recall = 0.28832116788321166, F-Score = 0.3526785714285714
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.9999999999999999	W_numbers = 0.5	
+Precision = 0.4523809523809524, Recall = 0.2773722627737226, F-Score = 0.34389140271493207
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.9999999999999999	W_numbers = 0.6	
+Precision = 0.45454545454545453, Recall = 0.2737226277372263, F-Score = 0.3416856492027335
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.9999999999999999	W_numbers = 0.7	
+Precision = 0.4573170731707317, Recall = 0.2737226277372263, F-Score = 0.34246575342465757
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.9999999999999999	W_numbers = 0.7999999999999999	
+Precision = 0.4472049689440994, Recall = 0.26277372262773724, F-Score = 0.3310344827586207
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.9999999999999999	W_numbers = 0.8999999999999999	
+Precision = 0.4409937888198758, Recall = 0.2591240875912409, F-Score = 0.3264367816091954
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.1	W_keywords = 0.9999999999999999	W_numbers = 0.9999999999999999	
+Precision = 0.44654088050314467, Recall = 0.2591240875912409, F-Score = 0.3279445727482679
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.0	W_numbers = 0.0	
+Precision = 0.5067264573991032, Recall = 0.4124087591240876, F-Score = 0.45472837022132795
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.0	W_numbers = 0.1	
+Precision = 0.5102040816326531, Recall = 0.4562043795620438, F-Score = 0.4816955684007707
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.0	W_numbers = 0.2	
+Precision = 0.5063829787234042, Recall = 0.4343065693430657, F-Score = 0.4675834970530452
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.0	W_numbers = 0.30000000000000004	
+Precision = 0.47804878048780486, Recall = 0.35766423357664234, F-Score = 0.4091858037578288
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.0	W_numbers = 0.4	
+Precision = 0.4606741573033708, Recall = 0.29927007299270075, F-Score = 0.36283185840707965
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.0	W_numbers = 0.5	
+Precision = 0.4550561797752809, Recall = 0.2956204379562044, F-Score = 0.3584070796460177
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.0	W_numbers = 0.6	
+Precision = 0.45108695652173914, Recall = 0.3029197080291971, F-Score = 0.3624454148471616
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.0	W_numbers = 0.7	
+Precision = 0.46111111111111114, Recall = 0.3029197080291971, F-Score = 0.36563876651982385
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.0	W_numbers = 0.7999999999999999	
+Precision = 0.4540229885057471, Recall = 0.28832116788321166, F-Score = 0.3526785714285714
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.0	W_numbers = 0.8999999999999999	
+Precision = 0.4583333333333333, Recall = 0.28102189781021897, F-Score = 0.3484162895927602
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.0	W_numbers = 0.9999999999999999	
+Precision = 0.4523809523809524, Recall = 0.2773722627737226, F-Score = 0.34389140271493207
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.1	W_numbers = 0.0	
+Precision = 0.5067264573991032, Recall = 0.4124087591240876, F-Score = 0.45472837022132795
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.1	W_numbers = 0.1	
+Precision = 0.5102040816326531, Recall = 0.4562043795620438, F-Score = 0.4816955684007707
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.1	W_numbers = 0.2	
+Precision = 0.5063829787234042, Recall = 0.4343065693430657, F-Score = 0.4675834970530452
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.1	W_numbers = 0.30000000000000004	
+Precision = 0.47804878048780486, Recall = 0.35766423357664234, F-Score = 0.4091858037578288
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.1	W_numbers = 0.4	
+Precision = 0.4606741573033708, Recall = 0.29927007299270075, F-Score = 0.36283185840707965
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.1	W_numbers = 0.5	
+Precision = 0.4550561797752809, Recall = 0.2956204379562044, F-Score = 0.3584070796460177
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.1	W_numbers = 0.6	
+Precision = 0.45108695652173914, Recall = 0.3029197080291971, F-Score = 0.3624454148471616
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.1	W_numbers = 0.7	
+Precision = 0.46111111111111114, Recall = 0.3029197080291971, F-Score = 0.36563876651982385
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.1	W_numbers = 0.7999999999999999	
+Precision = 0.4540229885057471, Recall = 0.28832116788321166, F-Score = 0.3526785714285714
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.1	W_numbers = 0.8999999999999999	
+Precision = 0.4583333333333333, Recall = 0.28102189781021897, F-Score = 0.3484162895927602
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.1	W_numbers = 0.9999999999999999	
+Precision = 0.4523809523809524, Recall = 0.2773722627737226, F-Score = 0.34389140271493207
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.2	W_numbers = 0.0	
+Precision = 0.5067264573991032, Recall = 0.4124087591240876, F-Score = 0.45472837022132795
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.2	W_numbers = 0.1	
+Precision = 0.5102040816326531, Recall = 0.4562043795620438, F-Score = 0.4816955684007707
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.2	W_numbers = 0.2	
+Precision = 0.5063829787234042, Recall = 0.4343065693430657, F-Score = 0.4675834970530452
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.2	W_numbers = 0.30000000000000004	
+Precision = 0.47804878048780486, Recall = 0.35766423357664234, F-Score = 0.4091858037578288
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.2	W_numbers = 0.4	
+Precision = 0.4606741573033708, Recall = 0.29927007299270075, F-Score = 0.36283185840707965
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.2	W_numbers = 0.5	
+Precision = 0.4550561797752809, Recall = 0.2956204379562044, F-Score = 0.3584070796460177
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.2	W_numbers = 0.6	
+Precision = 0.45108695652173914, Recall = 0.3029197080291971, F-Score = 0.3624454148471616
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.2	W_numbers = 0.7	
+Precision = 0.46111111111111114, Recall = 0.3029197080291971, F-Score = 0.36563876651982385
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.2	W_numbers = 0.7999999999999999	
+Precision = 0.4540229885057471, Recall = 0.28832116788321166, F-Score = 0.3526785714285714
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.2	W_numbers = 0.8999999999999999	
+Precision = 0.4583333333333333, Recall = 0.28102189781021897, F-Score = 0.3484162895927602
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.2	W_numbers = 0.9999999999999999	
+Precision = 0.4523809523809524, Recall = 0.2773722627737226, F-Score = 0.34389140271493207
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.30000000000000004	W_numbers = 0.0	
+Precision = 0.5067264573991032, Recall = 0.4124087591240876, F-Score = 0.45472837022132795
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.30000000000000004	W_numbers = 0.1	
+Precision = 0.5102040816326531, Recall = 0.4562043795620438, F-Score = 0.4816955684007707
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.30000000000000004	W_numbers = 0.2	
+Precision = 0.5063829787234042, Recall = 0.4343065693430657, F-Score = 0.4675834970530452
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.30000000000000004	W_numbers = 0.30000000000000004	
+Precision = 0.47804878048780486, Recall = 0.35766423357664234, F-Score = 0.4091858037578288
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.30000000000000004	W_numbers = 0.4	
+Precision = 0.4606741573033708, Recall = 0.29927007299270075, F-Score = 0.36283185840707965
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.30000000000000004	W_numbers = 0.5	
+Precision = 0.4550561797752809, Recall = 0.2956204379562044, F-Score = 0.3584070796460177
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.30000000000000004	W_numbers = 0.6	
+Precision = 0.45108695652173914, Recall = 0.3029197080291971, F-Score = 0.3624454148471616
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.30000000000000004	W_numbers = 0.7	
+Precision = 0.46111111111111114, Recall = 0.3029197080291971, F-Score = 0.36563876651982385
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.30000000000000004	W_numbers = 0.7999999999999999	
+Precision = 0.4540229885057471, Recall = 0.28832116788321166, F-Score = 0.3526785714285714
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.30000000000000004	W_numbers = 0.8999999999999999	
+Precision = 0.4583333333333333, Recall = 0.28102189781021897, F-Score = 0.3484162895927602
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.30000000000000004	W_numbers = 0.9999999999999999	
+Precision = 0.4523809523809524, Recall = 0.2773722627737226, F-Score = 0.34389140271493207
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.4	W_numbers = 0.0	
+Precision = 0.5067264573991032, Recall = 0.4124087591240876, F-Score = 0.45472837022132795
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.4	W_numbers = 0.1	
+Precision = 0.5102040816326531, Recall = 0.4562043795620438, F-Score = 0.4816955684007707
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.4	W_numbers = 0.2	
+Precision = 0.5063829787234042, Recall = 0.4343065693430657, F-Score = 0.4675834970530452
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.4	W_numbers = 0.30000000000000004	
+Precision = 0.47804878048780486, Recall = 0.35766423357664234, F-Score = 0.4091858037578288
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.4	W_numbers = 0.4	
+Precision = 0.4606741573033708, Recall = 0.29927007299270075, F-Score = 0.36283185840707965
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.4	W_numbers = 0.5	
+Precision = 0.4550561797752809, Recall = 0.2956204379562044, F-Score = 0.3584070796460177
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.4	W_numbers = 0.6	
+Precision = 0.45108695652173914, Recall = 0.3029197080291971, F-Score = 0.3624454148471616
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.4	W_numbers = 0.7	
+Precision = 0.46111111111111114, Recall = 0.3029197080291971, F-Score = 0.36563876651982385
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.4	W_numbers = 0.7999999999999999	
+Precision = 0.4540229885057471, Recall = 0.28832116788321166, F-Score = 0.3526785714285714
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.4	W_numbers = 0.8999999999999999	
+Precision = 0.4583333333333333, Recall = 0.28102189781021897, F-Score = 0.3484162895927602
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.4	W_numbers = 0.9999999999999999	
+Precision = 0.4523809523809524, Recall = 0.2773722627737226, F-Score = 0.34389140271493207
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.5	W_numbers = 0.0	
+Precision = 0.5067264573991032, Recall = 0.4124087591240876, F-Score = 0.45472837022132795
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.5	W_numbers = 0.1	
+Precision = 0.5102040816326531, Recall = 0.4562043795620438, F-Score = 0.4816955684007707
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.5	W_numbers = 0.2	
+Precision = 0.5063829787234042, Recall = 0.4343065693430657, F-Score = 0.4675834970530452
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.5	W_numbers = 0.30000000000000004	
+Precision = 0.47804878048780486, Recall = 0.35766423357664234, F-Score = 0.4091858037578288
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.5	W_numbers = 0.4	
+Precision = 0.4606741573033708, Recall = 0.29927007299270075, F-Score = 0.36283185840707965
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.5	W_numbers = 0.5	
+Precision = 0.4550561797752809, Recall = 0.2956204379562044, F-Score = 0.3584070796460177
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.5	W_numbers = 0.6	
+Precision = 0.45108695652173914, Recall = 0.3029197080291971, F-Score = 0.3624454148471616
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.5	W_numbers = 0.7	
+Precision = 0.46111111111111114, Recall = 0.3029197080291971, F-Score = 0.36563876651982385
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.5	W_numbers = 0.7999999999999999	
+Precision = 0.4540229885057471, Recall = 0.28832116788321166, F-Score = 0.3526785714285714
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.5	W_numbers = 0.8999999999999999	
+Precision = 0.4583333333333333, Recall = 0.28102189781021897, F-Score = 0.3484162895927602
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.5	W_numbers = 0.9999999999999999	
+Precision = 0.4523809523809524, Recall = 0.2773722627737226, F-Score = 0.34389140271493207
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.6	W_numbers = 0.0	
+Precision = 0.5067264573991032, Recall = 0.4124087591240876, F-Score = 0.45472837022132795
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.6	W_numbers = 0.1	
+Precision = 0.5102040816326531, Recall = 0.4562043795620438, F-Score = 0.4816955684007707
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.6	W_numbers = 0.2	
+Precision = 0.5063829787234042, Recall = 0.4343065693430657, F-Score = 0.4675834970530452
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.6	W_numbers = 0.30000000000000004	
+Precision = 0.47804878048780486, Recall = 0.35766423357664234, F-Score = 0.4091858037578288
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.6	W_numbers = 0.4	
+Precision = 0.4606741573033708, Recall = 0.29927007299270075, F-Score = 0.36283185840707965
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.6	W_numbers = 0.5	
+Precision = 0.4550561797752809, Recall = 0.2956204379562044, F-Score = 0.3584070796460177
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.6	W_numbers = 0.6	
+Precision = 0.45108695652173914, Recall = 0.3029197080291971, F-Score = 0.3624454148471616
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.6	W_numbers = 0.7	
+Precision = 0.46111111111111114, Recall = 0.3029197080291971, F-Score = 0.36563876651982385
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.6	W_numbers = 0.7999999999999999	
+Precision = 0.4540229885057471, Recall = 0.28832116788321166, F-Score = 0.3526785714285714
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.6	W_numbers = 0.8999999999999999	
+Precision = 0.4583333333333333, Recall = 0.28102189781021897, F-Score = 0.3484162895927602
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.6	W_numbers = 0.9999999999999999	
+Precision = 0.4523809523809524, Recall = 0.2773722627737226, F-Score = 0.34389140271493207
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.7	W_numbers = 0.0	
+Precision = 0.5067264573991032, Recall = 0.4124087591240876, F-Score = 0.45472837022132795
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.7	W_numbers = 0.1	
+Precision = 0.5102040816326531, Recall = 0.4562043795620438, F-Score = 0.4816955684007707
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.7	W_numbers = 0.2	
+Precision = 0.5063829787234042, Recall = 0.4343065693430657, F-Score = 0.4675834970530452
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.7	W_numbers = 0.30000000000000004	
+Precision = 0.47804878048780486, Recall = 0.35766423357664234, F-Score = 0.4091858037578288
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.7	W_numbers = 0.4	
+Precision = 0.4606741573033708, Recall = 0.29927007299270075, F-Score = 0.36283185840707965
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.7	W_numbers = 0.5	
+Precision = 0.4550561797752809, Recall = 0.2956204379562044, F-Score = 0.3584070796460177
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.7	W_numbers = 0.6	
+Precision = 0.45108695652173914, Recall = 0.3029197080291971, F-Score = 0.3624454148471616
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.7	W_numbers = 0.7	
+Precision = 0.46111111111111114, Recall = 0.3029197080291971, F-Score = 0.36563876651982385
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.7	W_numbers = 0.7999999999999999	
+Precision = 0.4540229885057471, Recall = 0.28832116788321166, F-Score = 0.3526785714285714
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.7	W_numbers = 0.8999999999999999	
+Precision = 0.4583333333333333, Recall = 0.28102189781021897, F-Score = 0.3484162895927602
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.7	W_numbers = 0.9999999999999999	
+Precision = 0.4523809523809524, Recall = 0.2773722627737226, F-Score = 0.34389140271493207
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.7999999999999999	W_numbers = 0.0	
+Precision = 0.5067264573991032, Recall = 0.4124087591240876, F-Score = 0.45472837022132795
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.7999999999999999	W_numbers = 0.1	
+Precision = 0.5102040816326531, Recall = 0.4562043795620438, F-Score = 0.4816955684007707
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.7999999999999999	W_numbers = 0.2	
+Precision = 0.5063829787234042, Recall = 0.4343065693430657, F-Score = 0.4675834970530452
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.7999999999999999	W_numbers = 0.30000000000000004	
+Precision = 0.47804878048780486, Recall = 0.35766423357664234, F-Score = 0.4091858037578288
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.7999999999999999	W_numbers = 0.4	
+Precision = 0.4606741573033708, Recall = 0.29927007299270075, F-Score = 0.36283185840707965
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.7999999999999999	W_numbers = 0.5	
+Precision = 0.4550561797752809, Recall = 0.2956204379562044, F-Score = 0.3584070796460177
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.7999999999999999	W_numbers = 0.6	
+Precision = 0.45108695652173914, Recall = 0.3029197080291971, F-Score = 0.3624454148471616
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.7999999999999999	W_numbers = 0.7	
+Precision = 0.46111111111111114, Recall = 0.3029197080291971, F-Score = 0.36563876651982385
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.7999999999999999	W_numbers = 0.7999999999999999	
+Precision = 0.4540229885057471, Recall = 0.28832116788321166, F-Score = 0.3526785714285714
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.7999999999999999	W_numbers = 0.8999999999999999	
+Precision = 0.4583333333333333, Recall = 0.28102189781021897, F-Score = 0.3484162895927602
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.7999999999999999	W_numbers = 0.9999999999999999	
+Precision = 0.4523809523809524, Recall = 0.2773722627737226, F-Score = 0.34389140271493207
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.8999999999999999	W_numbers = 0.0	
+Precision = 0.5067264573991032, Recall = 0.4124087591240876, F-Score = 0.45472837022132795
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.8999999999999999	W_numbers = 0.1	
+Precision = 0.5102040816326531, Recall = 0.4562043795620438, F-Score = 0.4816955684007707
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.8999999999999999	W_numbers = 0.2	
+Precision = 0.5063829787234042, Recall = 0.4343065693430657, F-Score = 0.4675834970530452
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.8999999999999999	W_numbers = 0.30000000000000004	
+Precision = 0.47804878048780486, Recall = 0.35766423357664234, F-Score = 0.4091858037578288
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.8999999999999999	W_numbers = 0.4	
+Precision = 0.4606741573033708, Recall = 0.29927007299270075, F-Score = 0.36283185840707965
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.8999999999999999	W_numbers = 0.5	
+Precision = 0.4550561797752809, Recall = 0.2956204379562044, F-Score = 0.3584070796460177
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.8999999999999999	W_numbers = 0.6	
+Precision = 0.45108695652173914, Recall = 0.3029197080291971, F-Score = 0.3624454148471616
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.8999999999999999	W_numbers = 0.7	
+Precision = 0.46111111111111114, Recall = 0.3029197080291971, F-Score = 0.36563876651982385
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.8999999999999999	W_numbers = 0.7999999999999999	
+Precision = 0.4540229885057471, Recall = 0.28832116788321166, F-Score = 0.3526785714285714
+iterations = 10	Regularizer = 0.85	Top k = 3	Margin = 0.3	Averaging = true	W_mintz = 0.2	W_keywords = 0.8999999999999999	W_numbers = 0.8999999999999999	
+Precision = 0.4583333333333333, Recall = 0.28102189781021897, F-Score = 0.3484162895927602

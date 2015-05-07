@@ -70,7 +70,7 @@ public class CrossValidate {
 										ntronExp.updateHyperparams(iterations, regul, topk, margin,
 												NtronExperiment.MINTZ_FEATURE_THRESHOLD, NtronExperiment.KEYWORD_FEATURE_THRESHOLD,
 												finalAvgConfig);
-										ntronExp.run();
+										//ntronExp.run();
 										eval.evaluate(efc, false, pw, w_m, w_k, w_n);
 										pw.flush();
 									}
@@ -95,7 +95,7 @@ public class CrossValidate {
 		return configStr.toString();
 	}
 	
-	private static String configString(int iterations, double regul, int topk, double margin, boolean finalAvgConfig, double w_m, double w_n, double w_k) {
+	private static String configString(int iterations, double regul, int topk, double margin, boolean finalAvgConfig, double w_m, double w_k, double w_n) {
 		StringBuffer configStr = new StringBuffer();
 		String SEP = "\t";
 		configStr.append("iterations = " + iterations + SEP);
