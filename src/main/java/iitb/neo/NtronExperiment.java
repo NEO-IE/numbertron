@@ -66,9 +66,9 @@ public class NtronExperiment {
 	public static int MINTZ_FEATURE_THRESHOLD;
 	public static int KEYWORD_FEATURE_THRESHOLD;
 
-	//confused relations ignoring
+	// confused relations ignoring
 	boolean ignoreConfusion;
-	
+
 	public NtronExperiment() {
 	}
 
@@ -83,11 +83,13 @@ public class NtronExperiment {
 		 * Create the entity name to id map
 		 */
 
-		countriesFile = JsonUtils.getStringProperty(properties, "countriesList");
+		countriesFile = JsonUtils
+				.getStringProperty(properties, "countriesList");
 
 		try {
 
-			BufferedReader br = new BufferedReader(new FileReader(countriesFile));
+			BufferedReader br = new BufferedReader(
+					new FileReader(countriesFile));
 			String countryRecord = null;
 			countryFreebaseIdMap = new HashMap<String, String>();
 			while ((countryRecord = br.readLine()) != null) {
@@ -108,47 +110,58 @@ public class NtronExperiment {
 		 * end creating the map
 		 */
 
-		String useKeywordFeature = JsonUtils.getStringProperty(properties, "useKeywordFeatures");
+		String useKeywordFeature = JsonUtils.getStringProperty(properties,
+				"useKeywordFeatures");
 		if (useKeywordFeature != null) {
 			if (useKeywordFeature.equals("true")) {
 				this.useKeywordFeatures = true;
 			}
 		}
 
-		String mintzFeatureGeneratorClass = JsonUtils.getStringProperty(properties, "mintzKeywordsFg");
-		String numbersFeatureGeneratorClass = JsonUtils.getStringProperty(properties, "numbersFg");
+		String mintzFeatureGeneratorClass = JsonUtils.getStringProperty(
+				properties, "mintzKeywordsFg");
+		String numbersFeatureGeneratorClass = JsonUtils.getStringProperty(
+				properties, "numbersFg");
 
-		if (mintzFeatureGeneratorClass != null && !mintzFeatureGeneratorClass.isEmpty()) {
-			this.mintzKeywordsFg = (FeatureGenerator) ClassLoader.getSystemClassLoader()
+		if (mintzFeatureGeneratorClass != null
+				&& !mintzFeatureGeneratorClass.isEmpty()) {
+			this.mintzKeywordsFg = (FeatureGenerator) ClassLoader
+					.getSystemClassLoader()
 					.loadClass(mintzFeatureGeneratorClass).newInstance();
 
 		}
-		if (numbersFeatureGeneratorClass != null && !numbersFeatureGeneratorClass.isEmpty()) {
-			this.numberFg = (FeatureGenerator) ClassLoader.getSystemClassLoader()
+		if (numbersFeatureGeneratorClass != null
+				&& !numbersFeatureGeneratorClass.isEmpty()) {
+			this.numberFg = (FeatureGenerator) ClassLoader
+					.getSystemClassLoader()
 					.loadClass(numbersFeatureGeneratorClass).newInstance();
 		}
 
 		List<String> sigClasses = JsonUtils.getListProperty(properties, "sigs");
 		sigs = new ArrayList<>();
 		for (String sigClass : sigClasses) {
-			sigs.add((SententialInstanceGeneration) ClassLoader.getSystemClassLoader().loadClass(sigClass)
+			sigs.add((SententialInstanceGeneration) ClassLoader
+					.getSystemClassLoader().loadClass(sigClass)
 					.getMethod("getInstance").invoke(null));
 		}
 
-		List<String> dsFileNames = JsonUtils.getListProperty(properties, "dsFiles");
+		List<String> dsFileNames = JsonUtils.getListProperty(properties,
+				"dsFiles");
 		DSFiles = new ArrayList<>();
 		for (String dsFileName : dsFileNames) {
 			DSFiles.add(dsFileName);
 		}
 
-		List<String> featureFileNames = JsonUtils.getListProperty(properties, "featureFiles");
+		List<String> featureFileNames = JsonUtils.getListProperty(properties,
+				"featureFiles");
 		featureFiles = new ArrayList<>();
 		for (String featureFileName : featureFileNames) {
 			featureFiles.add(featureFileName);
 		}
 
 		ntronModelDirs = new ArrayList<>();
-		List<String> multirDirNames = JsonUtils.getListProperty(properties, "models");
+		List<String> multirDirNames = JsonUtils.getListProperty(properties,
+				"models");
 		for (String multirDirName : multirDirNames) {
 			ntronModelDirs.add(multirDirName);
 		}
@@ -157,30 +170,37 @@ public class NtronExperiment {
 
 		String altCisString = JsonUtils.getStringProperty(properties, "cis");
 		if (altCisString != null) {
-			cis = (CustomCorpusInformationSpecification) ClassLoader.getSystemClassLoader().loadClass(altCisString)
+			cis = (CustomCorpusInformationSpecification) ClassLoader
+					.getSystemClassLoader().loadClass(altCisString)
 					.newInstance();
 		}
 
 		// CorpusInformationSpecification
-		List<String> tokenInformationClassNames = JsonUtils.getListProperty(properties, "ti");
+		List<String> tokenInformationClassNames = JsonUtils.getListProperty(
+				properties, "ti");
 		List<TokenInformationI> tokenInfoList = new ArrayList<>();
 		for (String tokenInformationClassName : tokenInformationClassNames) {
-			tokenInfoList.add((TokenInformationI) ClassLoader.getSystemClassLoader()
+			tokenInfoList.add((TokenInformationI) ClassLoader
+					.getSystemClassLoader()
 					.loadClass(tokenInformationClassName).newInstance());
 		}
 
-		List<String> sentInformationClassNames = JsonUtils.getListProperty(properties, "si");
+		List<String> sentInformationClassNames = JsonUtils.getListProperty(
+				properties, "si");
 		List<SentInformationI> sentInfoList = new ArrayList<>();
 		for (String sentInformationClassName : sentInformationClassNames) {
-			sentInfoList.add((SentInformationI) ClassLoader.getSystemClassLoader().loadClass(sentInformationClassName)
+			sentInfoList.add((SentInformationI) ClassLoader
+					.getSystemClassLoader().loadClass(sentInformationClassName)
 					.newInstance());
 		}
 
-		List<String> docInformationClassNames = JsonUtils.getListProperty(properties, "di");
+		List<String> docInformationClassNames = JsonUtils.getListProperty(
+				properties, "di");
 		List<DocumentInformationI> docInfoList = new ArrayList<>();
 		for (String docInformationClassName : docInformationClassNames) {
-			docInfoList.add((DocumentInformationI) ClassLoader.getSystemClassLoader()
-					.loadClass(docInformationClassName).newInstance());
+			docInfoList.add((DocumentInformationI) ClassLoader
+					.getSystemClassLoader().loadClass(docInformationClassName)
+					.newInstance());
 		}
 
 		CustomCorpusInformationSpecification ccis = (CustomCorpusInformationSpecification) cis;
@@ -189,24 +209,31 @@ public class NtronExperiment {
 		ccis.addSentenceInformation(sentInfoList);
 
 		// perceptron params setup
-		this.regularizer = JsonUtils.getDoubleProperty(properties, "regularizer");
-		this.numIterations = JsonUtils.getIntegerProperty(properties, "iterations");
+		this.regularizer = JsonUtils.getDoubleProperty(properties,
+				"regularizer");
+		this.numIterations = JsonUtils.getIntegerProperty(properties,
+				"iterations");
 		this.finalAvg = JsonUtils.getBooleanProperty(properties, "finalAvg");
 
 		// gold db params setup
 
-		String goldDBFileLoc = JsonUtils.getStringProperty(properties, "kbRelFile");
+		String goldDBFileLoc = JsonUtils.getStringProperty(properties,
+				"kbRelFile");
 
-		this.topKGoldDb = JsonUtils.getIntegerProperty(properties, "topKGoldDb");
+		this.topKGoldDb = JsonUtils
+				.getIntegerProperty(properties, "topKGoldDb");
 		this.MARGIN = JsonUtils.getDoubleProperty(properties, "margin");
 		GoldDB.initializeGoldDB(goldDBFileLoc, topKGoldDb, MARGIN);
 
 		// Feature thresholds
-		KEYWORD_FEATURE_THRESHOLD = JsonUtils.getIntegerProperty(properties, "keywordFeatureThreshold");
-		MINTZ_FEATURE_THRESHOLD = JsonUtils.getIntegerProperty(properties, "mintzFeatureThreshold");
-		
+		KEYWORD_FEATURE_THRESHOLD = JsonUtils.getIntegerProperty(properties,
+				"keywordFeatureThreshold");
+		MINTZ_FEATURE_THRESHOLD = JsonUtils.getIntegerProperty(properties,
+				"mintzFeatureThreshold");
+
 		// Confused relations ignore
-		this.ignoreConfusion = JsonUtils.getBooleanProperty(properties, "ignoreConfusion");
+		this.ignoreConfusion = JsonUtils.getBooleanProperty(properties,
+				"ignoreConfusion");
 	}
 
 	/**
@@ -218,13 +245,15 @@ public class NtronExperiment {
 	 * @throws InterruptedException
 	 * @throws ExecutionException
 	 */
-	public void run() throws SQLException, IOException, InterruptedException, ExecutionException {
+	public void run() throws SQLException, IOException, InterruptedException,
+			ExecutionException {
 		Corpus c = new Corpus(corpusPath, cis, true);
 		/* Step 1: create a file of all the possible spots */
 		boolean runDS = !filesExist(DSFiles);
 		if (runDS) {
 			System.err.println("Running DS");
-			UnitLocationSpotting spotting = new UnitLocationSpotting(corpusPath, cis, rbased, countriesFile);
+			UnitLocationSpotting spotting = new UnitLocationSpotting(
+					corpusPath, cis, rbased, countriesFile);
 			spotting.iterateAndSpot(DSFiles.get(0), c);
 		}
 
@@ -232,8 +261,8 @@ public class NtronExperiment {
 		boolean runFG = !filesExist(featureFiles);
 		if (runFG) {
 			System.err.println("Running Feature Generation");
-			NumbertronFeatureGenerationDriver fGeneration = new NumbertronFeatureGenerationDriver(mintzKeywordsFg,
-					numberFg);
+			NumbertronFeatureGenerationDriver fGeneration = new NumbertronFeatureGenerationDriver(
+					mintzKeywordsFg, numberFg);
 			fGeneration.run(DSFiles, featureFiles, c, cis);
 		}
 
@@ -245,8 +274,9 @@ public class NtronExperiment {
 			File modelFile = new File(ntronModelDirs.get(i));
 			if (!modelFile.exists())
 				modelFile.mkdir();
-			MakeGraph.run(featureFiles.get(i), ntronModelDirs.get(0) + File.separatorChar + "mapping",
-					ntronModelDirs.get(0) + File.separatorChar + "train", ntronModelDirs.get(0));
+			MakeGraph.run(featureFiles.get(i), ntronModelDirs.get(0)
+					+ File.separatorChar + "mapping", ntronModelDirs.get(0)
+					+ File.separatorChar + "train", ntronModelDirs.get(0));
 		}
 		File modelFile = new File(ntronModelDirs.get(0));
 		//
@@ -262,26 +292,30 @@ public class NtronExperiment {
 		// }
 		// bw.close();
 		/**/
-		LperceptTrain.train(modelFile.getAbsoluteFile().toString(), new Random(1), this.numIterations,
-				this.regularizer, this.finalAvg, this.ignoreConfusion);
+		LperceptTrain.train(modelFile.getAbsoluteFile().toString(), new Random(
+				1), this.numIterations, this.regularizer, this.finalAvg,
+				this.ignoreConfusion);
+		
 
 	}
 
 	public static void main(String args[]) throws Exception {
-		
+
 		NtronExperiment irb = new NtronExperiment(args[0]);
 		irb.run();
-		 writeFeatureWeights(irb.ntronModelDirs.get(0) + File.separatorChar +
-		 "mapping", irb.ntronModelDirs.get(0) + File.separatorChar + "params",
-		 irb.ntronModelDirs.get(0) + File.separatorChar + "model",
-		 irb.ntronModelDirs.get(0) + File.separatorChar + "weights");
+		writeFeatureWeights(irb.ntronModelDirs.get(0) + File.separatorChar
+				+ "mapping", irb.ntronModelDirs.get(0) + File.separatorChar
+				+ "params", irb.ntronModelDirs.get(0) + File.separatorChar
+				+ "model", irb.ntronModelDirs.get(0) + File.separatorChar
+				+ "weights");
 	}
 
 	private boolean filesExist(List<String> dsFiles) {
 		for (String s : dsFiles) {
 			File f = new File(s);
 			if (!f.exists()) {
-				System.err.println(s + " File does not exist!Need To Generate it");
+				System.err.println(s
+						+ " File does not exist!Need To Generate it");
 				return false;
 			}
 		}
@@ -298,10 +332,12 @@ public class NtronExperiment {
 	 * @param outFile
 	 * @throws IOException
 	 */
-	public static void writeFeatureWeights(String mapping, String parametersFile, String modelFile, String outFile)
+	public static void writeFeatureWeights(String mapping,
+			String parametersFile, String modelFile, String outFile)
 			throws IOException {
 		BufferedWriter bw = new BufferedWriter(new FileWriter(outFile));
-		BufferedReader featureReader = new BufferedReader(new FileReader(mapping));
+		BufferedReader featureReader = new BufferedReader(new FileReader(
+				mapping));
 		Integer numRel = Integer.parseInt(featureReader.readLine());
 		HashMap<Integer, String> relNumNameMapping = new HashMap<Integer, String>();
 
@@ -325,29 +361,35 @@ public class NtronExperiment {
 		for (int r = 0; r < p.model.numRelations; r++) {
 			String relName = relNumNameMapping.get(r);
 			DenseVector dv = p.relParameters[r];
-			//System.out.println(dv.vals.length);
+			// System.out.println(dv.vals.length);
 			for (int i = 0; i < numFeatures; i++) {
-				bw.write(relName + "\t" + featureList.get(i) + "\t" + dv.vals[i] + "\n");
+				bw.write(relName + "\t" + featureList.get(i) + "\t"
+						+ dv.vals[i] + "\n");
 			}
 		}
 		bw.close();
 		featureReader.close();
 	}
 
-
 	/**
 	 * 
-	 * @param iterations Iterations of the perceptron
-	 * @param regularizer Damper
-	 * @param topk Match the top k values in the gold db
-	 * @param margin match margin
+	 * @param iterations
+	 *            Iterations of the perceptron
+	 * @param regularizer
+	 *            Damper
+	 * @param topk
+	 *            Match the top k values in the gold db
+	 * @param margin
+	 *            match margin
 	 * @param mintzFeatureThreshold
 	 * @param kwFeatureThreshold
-	 * @param finalAvg Should the parameters be averaged?
-	 * @param extractionCutoff 
+	 * @param finalAvg
+	 *            Should the parameters be averaged?
+	 * @param extractionCutoff
 	 */
-	public void updateHyperparams(int iterations, double regularizer, int topk, double margin,
-			int mintzFeatureThreshold, int kwFeatureThreshold, boolean finalAvg) {
+	public void updateHyperparams(int iterations, double regularizer, int topk,
+			double margin, int mintzFeatureThreshold, int kwFeatureThreshold,
+			boolean finalAvg) {
 		this.numIterations = iterations;
 		this.regularizer = regularizer;
 		this.topKGoldDb = topk;
@@ -355,5 +397,5 @@ public class NtronExperiment {
 		KEYWORD_FEATURE_THRESHOLD = kwFeatureThreshold;
 		this.finalAvg = finalAvg;
 	}
-	
+
 }

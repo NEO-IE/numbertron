@@ -47,7 +47,7 @@ public class LocalAveragedPerceptron {
 	HashMap<Integer, String> featureList;
 	Integer numRelation;
 	Integer numFeatures;
-	String mappingFile = "data/model/model_mintz_keywords_numbers_keywordsInSentence/mapping";
+	String mappingFile = "/mnt/bag/aman/model/keywords_model/mapping";
 	String outputFile = "verbose_iteration_updates_key_area_1";
 	BufferedWriter obw;
 	
@@ -274,7 +274,7 @@ public class LocalAveragedPerceptron {
 						lastZeroIteration.vals[id] = -1;
 					}
 
-					if(id == 524167){
+					if(id == 527682){
 						obw.write("\n"+relNumNameMapping.get(relNumber)+"--> "+delta+"\n");
 						obw.write(lastUpdatesIter.vals[id]+"-->"+avgIteration+"\n");
 						obw.write(featureList.get(id)+" : "+ avg.vals[id]+"\n");

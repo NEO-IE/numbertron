@@ -92,7 +92,10 @@ public class GoldDbInference {
 
 	
 	public static boolean closeEnough(Double value, String rel, String entity) {
-		// TODO Auto-generated method stub
+		
+		if(rel.split("_").length > 0) { 
+			return nullCloseEnough(value, rel, entity);
+		}
 		rel = rel.split("&")[0];
 		ArrayList<Double> goldValues = GoldDB.getGoldDBValue(entity, rel, GoldDB.K);
 		/*if(rel.equals("ELEC")){
@@ -111,6 +114,29 @@ public class GoldDbInference {
 	
 		return false;
 		//return true;
+	}
+
+	/**
+	 * This is a method that checks whether the null relation is true or not.
+	 * The no attachment relation is true if all the relations for which it 
+	 * is a true class are false.
+	 * @param value
+	 * @param rel
+	 * @param entity
+	 * @return
+	 */
+	private static boolean nullCloseEnough(Double value, String rel,
+			String entity) {
+		String rels[] = rel.split("_");
+		for(int i = 1, l = rels.length; i < l; i++) {
+			if(closeEnough(value, rels[i], entity)) {
+				return false;
+			}
+				
+		}
+		System.out.println("here");
+		//None of the relations had true for this, so call the no attachement true
+		return true;
 	}
 
 }
