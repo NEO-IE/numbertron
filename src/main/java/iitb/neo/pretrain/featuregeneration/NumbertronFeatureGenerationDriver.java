@@ -160,8 +160,8 @@ public class NumbertronFeatureGenerationDriver {
 				//generate and write numeric features.
 				List<String> keywordFeatures = keywordsFg.generateFeatures(sap.arg1Offsets.first, sap.arg1Offsets.second,
 						sap.arg2Offsets.first, sap.arg2Offsets.second, sap.arg1ID, sap.arg2ID, sentence, doc);
-
-				bw.write("\t" + makeNumFeatureString(sap, keywordFeatures));
+				if(keywordFeatures.size() != 0)
+					bw.write("\t" + makeNumFeatureString(sap, keywordFeatures));
 			}
 			
 			if (useNumberFeatures) {
