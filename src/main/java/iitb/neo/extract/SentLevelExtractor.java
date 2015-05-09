@@ -36,7 +36,7 @@ import edu.washington.multirframework.multiralgorithm.SparseBinaryVector;
  */
 public class SentLevelExtractor {
 	
-	private FeatureGenerator numFg, mintzFg;
+	private FeatureGenerator numFg, mintzFg, keywordsFg;
 
 	private String dir;
 	private Mappings mapping;
@@ -46,9 +46,10 @@ public class SentLevelExtractor {
 	
 	public Map<Integer, String> relID2rel = new HashMap<Integer, String>();
 
-	public SentLevelExtractor(String pathToMultirFiles, FeatureGenerator mintzFg, FeatureGenerator numFg) {
+	public SentLevelExtractor(String pathToMultirFiles, FeatureGenerator mintzFg, FeatureGenerator numFg, FeatureGenerator keywordsFg) {
 		this.numFg = numFg;
 		this.mintzFg = mintzFg;
+		this.keywordsFg = keywordsFg;
 		
 		dir = pathToMultirFiles;
 		try {
@@ -98,6 +99,13 @@ public class SentLevelExtractor {
 					null, null,
 					null, null, UnitsUtils.getFlatValString(sentence, arg2), sentence, doc));
 		}
+		
+		if(keywordsFg != null){
+			features.addAll(keywordsFg.generateFeatures(arg1.getStartOffset(),
+					arg1.getEndOffset(), arg2.getStartOffset(),
+					arg2.getEndOffset(), arg1ID, arg2ID, sentence, doc));
+		}
+		
 		return features;
 	}
 

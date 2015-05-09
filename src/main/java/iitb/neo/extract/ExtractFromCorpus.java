@@ -52,7 +52,7 @@ public class ExtractFromCorpus {
 	private double cutoff_score;
 	private FeatureGenerator mintzKeywordsFg;
 	private FeatureGenerator numberFg;
-
+	private FeatureGenerator keywordsFg;
 
 	public ExtractFromCorpus(String propertiesFile) throws Exception {
 		
@@ -63,6 +63,7 @@ public class ExtractFromCorpus {
 
 		String mintzFeatureGeneratorClass = JsonUtils.getStringProperty(properties, "mintzKeywordsFg");
 		String numbersFeatureGeneratorClass = JsonUtils.getStringProperty(properties, "numbersFg");
+		String keywordFeatureGeneratorClass = JsonUtils.getStringProperty(properties, "keywordsFg");
 		
 		if (mintzFeatureGeneratorClass != null && !mintzFeatureGeneratorClass.isEmpty()) {
 			this.mintzKeywordsFg = (FeatureGenerator) ClassLoader.getSystemClassLoader().loadClass(mintzFeatureGeneratorClass).newInstance();
@@ -72,6 +73,9 @@ public class ExtractFromCorpus {
 			this.numberFg = (FeatureGenerator) ClassLoader.getSystemClassLoader().loadClass(numbersFeatureGeneratorClass).newInstance();
 		}
 		
+		if(keywordFeatureGeneratorClass != null && !keywordFeatureGeneratorClass.isEmpty()){
+			this.keywordsFg = (FeatureGenerator) ClassLoader.getSystemClassLoader().loadClass(keywordFeatureGeneratorClass).newInstance();
+		}
 
 		String aiClass = JsonUtils.getStringProperty(properties, "ai");
 		if (aiClass != null) {
@@ -161,7 +165,7 @@ public class ExtractFromCorpus {
 			Iterator<Annotation> docs = c.getDocumentIterator();
 			SententialInstanceGeneration sig = sigs.get(i);
 			String modelPath = modelPaths.get(i);
-			SentLevelExtractor sle = new SentLevelExtractor(modelPath, mintzKeywordsFg, numberFg);
+			SentLevelExtractor sle = new SentLevelExtractor(modelPath, mintzKeywordsFg, numberFg, keywordsFg);
 
 			// Map<String, Integer> rel2RelIdMap =
 			// sle.getMapping().getRel2RelID();
@@ -372,7 +376,7 @@ public class ExtractFromCorpus {
 			Iterator<Annotation> docs = c.getDocumentIterator();
 			SententialInstanceGeneration sig = sigs.get(i);
 			String modelPath = modelPaths.get(i);
-			SentLevelExtractor sle = new SentLevelExtractor(modelPath, mintzKeywordsFg, numberFg);
+			SentLevelExtractor sle = new SentLevelExtractor(modelPath, mintzKeywordsFg, numberFg, keywordsFg);
 
 			// Map<String, Integer> rel2RelIdMap =
 			// sle.getMapping().getRel2RelID();
