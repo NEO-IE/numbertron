@@ -35,16 +35,20 @@ public class NumbertronFeatureGenerationDriver {
 
 	private FeatureGenerator mintzKeywordsFg;
 	private FeatureGenerator numbersFg;
+	private FeatureGenerator keywordsFg;
 	boolean useMintzKeywordsFeatures;
 	boolean useNumberFeatures;
+	boolean useKeywordFeatures;
 	
 	public static final String FEATURE_TYPE_SEPARATOR = "@@";
 
-	public NumbertronFeatureGenerationDriver(FeatureGenerator mintzKeywordsfg, FeatureGenerator numbersFg) {
+	public NumbertronFeatureGenerationDriver(FeatureGenerator mintzKeywordsfg, FeatureGenerator numbersFg, FeatureGenerator keywordsFg) {
 		this.mintzKeywordsFg = mintzKeywordsfg;
 		this.numbersFg = numbersFg;
+		this.keywordsFg = keywordsFg;
 		useMintzKeywordsFeatures = !(null == this.mintzKeywordsFg);
 		useNumberFeatures = !(null == this.numbersFg);
+		useKeywordFeatures = !(null == this.keywordsFg);
 	}
 
 	public void run(List<String> dsFileNames, List<String> featureFileNames, Corpus c,
@@ -152,6 +156,14 @@ public class NumbertronFeatureGenerationDriver {
 				bw.write(makeFeatureString(sap, features));
 			}
 
+			if(useKeywordFeatures){
+				//generate and write numeric features.
+				List<String> keywordFeatures = keywordsFg.generateFeatures(sap.arg1Offsets.first, sap.arg1Offsets.second,
+						sap.arg2Offsets.first, sap.arg2Offsets.second, sap.arg1ID, sap.arg2ID, sentence, doc);
+
+				bw.write("\t" + makeNumFeatureString(sap, keywordFeatures));
+			}
+			
 			if (useNumberFeatures) {
 				// generate and write numeric features
 				List<String> numFeatures = numbersFg.generateFeatures(sap.arg1Offsets.first, sap.arg1Offsets.second,
@@ -160,6 +172,7 @@ public class NumbertronFeatureGenerationDriver {
 				bw.write(FEATURE_TYPE_SEPARATOR + makeNumFeatureString(sap, numFeatures));
 			
 			}
+			
 			
 			bw.write("\n");
 			// that's all

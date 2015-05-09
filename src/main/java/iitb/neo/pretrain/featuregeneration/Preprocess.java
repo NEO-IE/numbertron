@@ -119,9 +119,6 @@ public class Preprocess {
 		String feature = null;
 		while ((line = br.readLine()) != null) {
 			feature = line.trim();
-			if(feature.equals("key: percent-37")) {
-				System.out.println("here");
-			}
 			if (feature.equals(prevFeature)) {
 				prevCount++;
 			} else {

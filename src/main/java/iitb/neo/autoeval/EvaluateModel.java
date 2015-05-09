@@ -71,6 +71,9 @@ public class EvaluateModel {
 				} else {
 					precision = (totalCorr * 1.0) / totalExtr;
 				}
+				if(totalTrue == null){
+					continue;
+				}
 				recall = (totalCorr * 1.0) / (totalTrue);
 				pw.write("Relation = " + relName + ", Precision = " + precision + ", Recall = " + recall
 						+ ", F-Score = " + f(precision, recall) + " (" + totalCorr + ", " + totalExtr + ", "

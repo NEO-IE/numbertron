@@ -40,7 +40,7 @@ import edu.washington.multirframework.multiralgorithm.Parameters;
 
 public class NtronExperiment {
 	private String corpusPath;
-	private FeatureGenerator mintzKeywordsFg, numberFg;
+	private FeatureGenerator mintzKeywordsFg, numberFg, keywordsFg;
 
 	private List<SententialInstanceGeneration> sigs;
 	private List<String> DSFiles;
@@ -118,11 +118,15 @@ public class NtronExperiment {
 			}
 		}
 
+		String keywordFeatureGeneratorClass = JsonUtils.getStringProperty(properties, "keywordsFg");
 		String mintzFeatureGeneratorClass = JsonUtils.getStringProperty(
 				properties, "mintzKeywordsFg");
 		String numbersFeatureGeneratorClass = JsonUtils.getStringProperty(
 				properties, "numbersFg");
 
+		if(keywordFeatureGeneratorClass != null && !keywordFeatureGeneratorClass.isEmpty()){
+			this.keywordsFg = (FeatureGenerator) ClassLoader.getSystemClassLoader().loadClass(keywordFeatureGeneratorClass).newInstance();
+		}
 		if (mintzFeatureGeneratorClass != null
 				&& !mintzFeatureGeneratorClass.isEmpty()) {
 			this.mintzKeywordsFg = (FeatureGenerator) ClassLoader
@@ -262,7 +266,7 @@ public class NtronExperiment {
 		if (runFG) {
 			System.err.println("Running Feature Generation");
 			NumbertronFeatureGenerationDriver fGeneration = new NumbertronFeatureGenerationDriver(
-					mintzKeywordsFg, numberFg);
+					mintzKeywordsFg, numberFg, keywordsFg);
 			fGeneration.run(DSFiles, featureFiles, c, cis);
 		}
 

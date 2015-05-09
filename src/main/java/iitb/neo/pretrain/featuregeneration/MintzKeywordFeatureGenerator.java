@@ -134,7 +134,25 @@ public class MintzKeywordFeatureGenerator implements FeatureGenerator {
 		return originalMultirFeatures(tokenStrings, posTags, depParents, depTypes, arg1Pos, arg2Pos, arg1ner, arg2ner);
 	}
 	
-	
+	boolean fixedKeywordContains(String token){
+		String[] fixedKeywords = {"population", "people", "inhabitants", "natives", "residents", "people",
+				"area", "land",
+				"foreign", "fdi", "direct", "investments", "investment",
+				"goods", "exports", "export", "exporter", "exported", "ships", "shipped",
+				"electricity", "kilowatthors", "terawatt", "generation", "production", "sector",
+				"carbon", "emission", "CO2", "co2", "emissions", "kilotons",
+				"inflation", "Price", "Rise", "rate",
+				"Internet", "users", "usage", "penetration", "use", "user",
+				"Gross",  "domestic", "GDP", "gdp", "product",
+				"life", "expectancy",
+				"diesel", "price", "priced", "fuel", "prices"} ;
+		for(String key: fixedKeywords){
+			if(key.equals(token)){
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	
 	/** 
@@ -161,12 +179,13 @@ public class MintzKeywordFeatureGenerator implements FeatureGenerator {
 			 * This code takes all the NN phrase in the sentence and create keywords features.
 			 
 			 Adding NN as keywords for sentences
-			*/
+			
 			for (int i = 0; i < postags.length; i++) {
-				if (postags[i].equals("NN")) {
+				if (postags[i].equals("NN") && fixedKeywordContains(tokens[i])) {
 					features.add("key: " + tokens[i]);
 				}
 			}
+			*/
 		}
 		
 		// it's easier to deal with first, second
@@ -311,7 +330,7 @@ public class MintzKeywordFeatureGenerator implements FeatureGenerator {
 				 * adding keywords as features.
 				 * Intuition: NN phrases in dependency path form good keywords.
 				 *
-				if(i > 0 && postags[path1[i]].equals("NN")){
+				if(i > 0 && postags[path1[i]].equals("NN") && fixedKeywordContains(tokens[path1[i]])){
 					features.add("key: "+tokens[path1[i]]);
 				}
 				*/
@@ -326,7 +345,7 @@ public class MintzKeywordFeatureGenerator implements FeatureGenerator {
 				/*
 				 * adding keywords as features
 				 *
-				if(lcaUp + j > 0 && postags[path2[lcaDown-j]].equals("NN")){
+				if(lcaUp + j > 0 && postags[path2[lcaDown-j]].equals("NN") && fixedKeywordContains(tokens[path2[lcaDown-j]])){
 					features.add("key: "+tokens[path2[lcaDown-j]]);
 				}
 				*/
