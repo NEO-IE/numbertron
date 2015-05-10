@@ -1,8 +1,5 @@
 package main.java.iitb.neo.pretrain.featuregeneration;
 
-import iitb.rbased.meta.KeywordData;
-import iitb.rbased.meta.RelationMetadata;
-
 import java.util.ArrayList;
 import java.util.List;
 

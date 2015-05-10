@@ -137,7 +137,7 @@ public class EvaluateModel {
 	public void evaluate(ExtractFromCorpus efc, boolean verbose, PrintWriter resultWriter) throws SQLException, IOException {
 		Results r = new Results();
 	
-		List<Extraction> modelExtractions = efc.getExtractions("_results_", false, verbose, verboseFile);
+		List<Extraction> modelExtractions = efc.getExtractions("_results_", false, verbose, verboseFile, 0.2, 1.4, 0.4);
 		r.fillResult(modelExtractions);
 		r.dumpResults(resultWriter);
 		

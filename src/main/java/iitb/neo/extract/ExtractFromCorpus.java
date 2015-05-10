@@ -10,6 +10,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.NotImplementedException;
+
 import main.java.iitb.neo.util.JsonUtils;
 import main.java.iitb.neo.util.RegExpUtils;
 import main.java.iitb.neo.util.UnitsUtils;
@@ -191,8 +193,14 @@ public class ExtractFromCorpus {
 						if (p.first.getArgName().equals("years") || !(RegExpUtils.exactlyOneNumber(p) && RegExpUtils.secondNumber(p) && !RegExpUtils.isYear(p.second.getArgName()))) {
 							continue;
 						}
-						Map<Integer, Double> perRelationScoreMap = sle
+						Map<Integer, Double> perRelationScoreMap = null;
+						try{
+						perRelationScoreMap = sle
 								.extractFromSententialInstanceWithAllRelationScores(p.first, p.second, sentence, doc);
+						} catch(NotImplementedException nie) {
+							nie.printStackTrace();
+							continue;
+						}
 						ArrayList<Integer> compatRels = UnitsUtils.unitsCompatible(p.second, sentence, sle.getMapping()
 								.getRel2RelID());
 						String relStr = null;
@@ -402,8 +410,16 @@ public class ExtractFromCorpus {
 						if (p.first.getArgName().equals("years") || !(RegExpUtils.exactlyOneNumber(p) && RegExpUtils.secondNumber(p) && !RegExpUtils.isYear(p.second.getArgName()))) {
 							continue;
 						}
-						Map<Integer, Double> perRelationScoreMap = sle
+						Map<Integer, Double> perRelationScoreMap = null;
+						try
+						{
+						perRelationScoreMap = sle
 								.extractFromSententialInstanceWithAllRelationScores(p.first, p.second, sentence, doc, w_m, w_k, w_n);
+						
+						} catch(NotImplementedException nie) {
+							nie.printStackTrace();
+							continue;
+						}
 						ArrayList<Integer> compatRels = UnitsUtils.unitsCompatible(p.second, sentence, sle.getMapping()
 								.getRel2RelID());
 						String relStr = null;
