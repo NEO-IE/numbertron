@@ -93,7 +93,7 @@ public class GoldDbInference {
 	
 	public static boolean closeEnough(Double value, String rel, String entity) {
 		
-		if(rel.split("_").length > 0) { 
+		if(rel.split("_").length > 1) { 
 			return nullCloseEnough(value, rel, entity);
 		}
 		rel = rel.split("&")[0];
@@ -134,7 +134,7 @@ public class GoldDbInference {
 			}
 				
 		}
-		System.out.println("here");
+		
 		//None of the relations had true for this, so call the no attachement true
 		return true;
 	}

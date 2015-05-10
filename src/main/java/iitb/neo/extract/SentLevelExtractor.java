@@ -46,7 +46,12 @@ public class SentLevelExtractor {
 	private Parameters params;
 	private Scorer scorer;
 	private static final int KEYWORD_FEAT = 0, NUM_FEAT = 1, MINTZ_FEAT = 2;
+	
+	
+	
 	public Map<Integer, String> relID2rel = new HashMap<Integer, String>();
+
+	private int MIN_TYPE_THRESHOLD = 1;
 
 	public SentLevelExtractor(String pathToMultirFiles, FeatureGenerator mintzFg, FeatureGenerator numFg, FeatureGenerator keywordsFg) {
 		this.numFg = numFg;
@@ -141,7 +146,7 @@ public class SentLevelExtractor {
 		typesFired = typesFired + (mintzFeatures.isEmpty() ? 0 : 1);
 		typesFired = typesFired + (numberFeatures.isEmpty() ? 0 : 1);
 		
-		if(typesFired < 2) {
+		if(typesFired < MIN_TYPE_THRESHOLD ) {
 			throw new NotImplementedException();
 		}
 		List<String> features = mintzFeatures;
@@ -167,7 +172,12 @@ public class SentLevelExtractor {
 		List<String> mintzFeatures = featuresList.get(MINTZ_FEAT);
 		List<String> keywordFeatures = featuresList.get(KEYWORD_FEAT);
 		List<String> numberFeatures = featuresList.get(NUM_FEAT);
-		if(keywordFeatures.isEmpty() || mintzFeatures.isEmpty() || numberFeatures.isEmpty()) {
+		int typesFired = 0;
+		typesFired = typesFired + (keywordFeatures.isEmpty() ? 0 : 1);
+		typesFired = typesFired + (mintzFeatures.isEmpty() ? 0 : 1);
+		typesFired = typesFired + (numberFeatures.isEmpty() ? 0 : 1);
+		
+		if(typesFired < MIN_TYPE_THRESHOLD ) {
 			throw new NotImplementedException();
 		}
 		
