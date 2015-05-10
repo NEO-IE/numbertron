@@ -115,7 +115,7 @@ public class ExtractFromCorpus {
 		c.setCorpusToDefault();
 		BufferedWriter bw = new BufferedWriter(new FileWriter(new File(efc.resultsFile)));
 
-		List<Extraction> extrs = efc.getExtractions(c, efc.ai, efc.mintzKeywordsFg, efc.sigs, efc.ntronModelDir, false, null);
+		List<Extraction> extrs = efc.getExtractions(c, efc.ai, efc.mintzKeywordsFg, efc.sigs, efc.ntronModelDir, false, null, 1, 1, 1);
 		efc.writeExtractions(bw, c, extrs);
 		
 		System.out.println("Total extractions : " + extrs.size());
@@ -138,136 +138,9 @@ public class ExtractFromCorpus {
 	}
 	
 	public List<Extraction> getExtractions(String resultsFile, boolean writeExtractions, boolean verbose, String verboseFile) throws SQLException, IOException {
-		Corpus c = new Corpus(corpusPath, cis, true);
-		c.setCorpusToDefault();
-		
-		List<Extraction> extrs = getExtractions(c, ai, mintzKeywordsFg, sigs, ntronModelDir, verbose, verboseFile);
-		if(writeExtractions) {
-			BufferedWriter bw = new BufferedWriter(new FileWriter(new File(resultsFile)));
-			writeExtractions(bw, c, extrs);
-			bw.close();
-		}
-		
-		return extrs;
+		return getExtractions(resultsFile, writeExtractions, verbose, verboseFile, 1, 1, 1);
 	}
 
-	public List<Extraction> getExtractions(Corpus c, ArgumentIdentification ai, FeatureGenerator fg,
-			List<SententialInstanceGeneration> sigs, List<String> modelPaths, boolean ANALYZE, String verboseFile) throws SQLException,
-			IOException {
-		
-		
-		System.err.println("Extracting with a confidence of " + cutoff_confidence);
-		BufferedWriter analysis_writer = null;
-		if (ANALYZE) {
-			analysis_writer = new BufferedWriter(new FileWriter(verboseFile));
-		}
-
-		List<Extraction> extrs = new ArrayList<Extraction>();
-		for (int i = 0; i < sigs.size(); i++) {
-			Iterator<Annotation> docs = c.getDocumentIterator();
-			SententialInstanceGeneration sig = sigs.get(i);
-			String modelPath = modelPaths.get(i);
-			SentLevelExtractor sle = new SentLevelExtractor(modelPath, mintzKeywordsFg, numberFg, keywordsFg);
-
-			// Map<String, Integer> rel2RelIdMap =
-			// sle.getMapping().getRel2RelID();
-			// Map<Integer, String> ftID2ftMap =
-			// ModelUtils.getFeatureIDToFeatureMap(sle.getMapping());
-			int sentNumber = 0;
-			int docCount = 0;
-			while (docs.hasNext()) {
-				Annotation doc = docs.next();
-				List<CoreMap> sentences = doc.get(CoreAnnotations.SentencesAnnotation.class);
-				for (CoreMap sentence : sentences) {
-					
-					// argument identification
-					List<Argument> arguments = ai.identifyArguments(doc, sentence);
-					// sentential instance generation
-					
-					if(sentNumber++ % 50 == 0) {
-						System.out.println("Extracting from sentence number " + sentNumber	);
-					}
-					List<Pair<Argument, Argument>> sententialInstances = sig.generateSententialInstances(arguments,
-							sentence);
-					for (Pair<Argument, Argument> p : sententialInstances) {
-						if (p.first.getArgName().equals("years") || !(RegExpUtils.exactlyOneNumber(p) && RegExpUtils.secondNumber(p) && !RegExpUtils.isYear(p.second.getArgName()))) {
-							continue;
-						}
-						Map<Integer, Double> perRelationScoreMap = null;
-						try{
-						perRelationScoreMap = sle
-								.extractFromSententialInstanceWithAllRelationScores(p.first, p.second, sentence, doc);
-						} catch(NotImplementedException nie) {
-							nie.printStackTrace();
-							continue;
-						}
-						ArrayList<Integer> compatRels = UnitsUtils.unitsCompatible(p.second, sentence, sle.getMapping()
-								.getRel2RelID());
-						String relStr = null;
-						Double extrScore = -1.0;
-						for (Integer rel : perRelationScoreMap.keySet()) {
-							if (compatRels.contains(rel)) {
-								relStr = sle.relID2rel.get(rel);
-								extrScore = perRelationScoreMap.get(rel);
-								break;
-							}
-						}
-						
-						String senText = sentence.get(CoreAnnotations.TextAnnotation.class);
-						String docName = sentence.get(SentDocName.class);
-						sentence.get(SentStartOffset.class);
-					
-						Integer sentNum = sentence.get(SentGlobalID.class);
-						double max, min;
-						ArrayList<Double> scores = new ArrayList<Double>(perRelationScoreMap.values());
-						max = min = scores.get(0);
-						for (int i1 = 1, l = scores.size(); i1 < l; i1++) {
-							if (max < scores.get(i1)) {
-								max = scores.get(i1);
-							}
-							if (min > scores.get(i1)) {
-								min = scores.get(i1);
-							}
-
-						}
-						double conf = 0.0;
-						if(max != min) {
-							conf = (extrScore - min) / (max - min);
-						}
-						if (conf <= cutoff_confidence) { // no compatible
-															// extraction ||
-							continue;
-						}
-						// System.out.println(extrResult);
-						// prepare extraction
-						if(null != relStr) {
-							if(ANALYZE) {
-								sle.firedFeaturesScores(p.first, p.second, sentence, doc, relStr, analysis_writer);
-								analysis_writer.flush();
-							}
-							Extraction e = new Extraction(p.first, p.second, docName, relStr, sentNum, extrScore, senText);
-							extrs.add(e);
-							
-						}
-
-					}
-
-				}
-			}
-			
-			
-			
-			docCount++;
-			if (docCount % 100 == 0) {
-				System.out.println(docCount + " docs processed");
-			}
-		}
-		if(ANALYZE) {
-			analysis_writer.close();
-		}
-		
-		return extrs;
-	}
 
 	public void setConfidence(double cutoff_confidence) {
 		this.cutoff_confidence = cutoff_confidence;
