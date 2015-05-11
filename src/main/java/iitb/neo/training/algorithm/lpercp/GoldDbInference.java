@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 import main.java.iitb.neo.goldDB.GoldDB;
 import main.java.iitb.neo.training.ds.LRGraph;
-import main.java.iitb.neo.util.RandomUtil;
+import main.java.iitb.neo.util.RandomUtils;
 
 /**
  * Sets the value of n nodes based on the value pulled from the gold db
@@ -151,7 +151,7 @@ public class GoldDbInference {
 
 		}
 
-		return RandomUtil.coinToss(0.2);
+		return RandomUtils.coinToss(0.2);
 	}
 
 	/**
