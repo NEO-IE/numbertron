@@ -288,7 +288,8 @@ public class LocalAveragedPerceptron {
 						zeroIterationCount.vals[id] += (avgIteration - lastZeroIteration.vals[id]);
 						lastZeroIteration.vals[id] = -1;
 					}
-
+					
+					if(debug) {
 					if (id == 527682) {
 						obw.write("\n" + relNumNameMapping.get(relNumber)
 								+ "--> " + delta + "\n");
@@ -298,6 +299,7 @@ public class LocalAveragedPerceptron {
 								+ "\n");
 						obw.write("Iterval : " + iter.vals[id] + "\n");
 						obw.write("*************************************\n");
+					}
 					}
 				}
 				lastUpdatesIter.vals[id] = avgIteration;
