@@ -142,7 +142,7 @@ public class KeywordFeatureGenerator implements FeatureGenerator {
 		arg1Pos[1] += 1;
 		arg2Pos[1] += 1;	
 		
-		return getSentKeywordFeatures(tokenStrings, posTags, depParents, depTypes, arg1Pos, arg2Pos, arg1ner, arg2ner);
+		return getDepKeywordFeatures(tokenStrings, posTags, depParents, depTypes, arg1Pos, arg2Pos, arg1ner, arg2ner);
 	}
 	
 	public List<String> getSentKeywordFeatures(String[] tokens, 
