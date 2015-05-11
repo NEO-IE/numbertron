@@ -58,13 +58,14 @@ public class CrossValidate {
 					for (double margin = CVParams.startMargin; margin <= CVParams.endMargin; margin += CVParams.delMargin) {
 						for (boolean finalAvgConfig : finalAvgConfigs) {
 							
-							for(double w_m = CVParams.w_start; w_m < CVParams.w_end; w_m += CVParams.w_margin ){
+							for(double w_m = CVParams.w_end; w_m >= CVParams.w_start; w_m -= CVParams.w_margin ){
 								for(double w_k = CVParams.w_start; w_k < CVParams.w_end; w_k += CVParams.w_margin ){
 									for(double w_n = CVParams.w_start; w_n < CVParams.w_end; w_n += CVParams.w_margin ){
 							
 										// Do not update the feature cutoff thresholds at
 										// all
 										// update hyperparams
+										System.out.println("Hyperparameters: "+w_m+"\t"+w_k+"\t"+w_n);
 										pw.write(configString(iterations, regul, topk, margin, finalAvgConfig, w_m, w_k, w_n) + "\n");
 										pw.write("====================================");
 										ntronExp.updateHyperparams(iterations, regul, topk, margin,
