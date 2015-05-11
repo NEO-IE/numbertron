@@ -12,6 +12,8 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import org.apache.commons.lang.NotImplementedException;
+
 import main.java.iitb.neo.training.algorithm.lpercp.FullInference;
 import main.java.iitb.neo.training.algorithm.lpercp.Scorer;
 import main.java.iitb.neo.training.ds.LRGraph;
@@ -43,8 +45,13 @@ public class SentLevelExtractor {
 	private Model model;
 	private Parameters params;
 	private Scorer scorer;
+	private static final int KEYWORD_FEAT = 0, NUM_FEAT = 1, MINTZ_FEAT = 2;
+	
+	
 	
 	public Map<Integer, String> relID2rel = new HashMap<Integer, String>();
+
+	private int MIN_TYPE_THRESHOLD = 1;
 
 	public SentLevelExtractor(String pathToMultirFiles, FeatureGenerator mintzFg, FeatureGenerator numFg, FeatureGenerator keywordsFg) {
 		this.numFg = numFg;
@@ -75,8 +82,18 @@ public class SentLevelExtractor {
 		}
 	}
 	
-	private List<String> getFeatureList(Argument arg1, Argument arg2, CoreMap sentence, Annotation doc) {
+	/**
+	 * Returns the different types of features that fire on a given sentence in a map indexed by the constants defined 
+	 * as above
+	 * @param arg1
+	 * @param arg2
+	 * @param sentence
+	 * @param doc
+	 * @return
+	 */
+	private HashMap<Integer, List<String>> getFeatureLists(Argument arg1, Argument arg2, CoreMap sentence, Annotation doc) {
 		
+		HashMap<Integer, List<String>> featureListsMap = new HashMap<>();
 		String arg1ID = null;
 		String arg2ID = null;
 		if (arg1 instanceof KBArgument) {	
@@ -85,30 +102,59 @@ public class SentLevelExtractor {
 		if (arg2 instanceof KBArgument) {
 			arg2ID = ((KBArgument) arg2).getKbId();
 		}
-		ArrayList<String> features = new ArrayList<String>();
 		
 		if(mintzFg != null) {
-			features.addAll(mintzFg.generateFeatures(arg1.getStartOffset(),
+			featureListsMap.put(MINTZ_FEAT, mintzFg.generateFeatures(arg1.getStartOffset(),
 					arg1.getEndOffset(), arg2.getStartOffset(),
 					arg2.getEndOffset(), arg1ID, arg2ID, sentence, doc));
-		
+			
 		}
 		
 		if(numFg != null) {
-			features.addAll(numFg.generateFeatures(null,
+			featureListsMap.put(NUM_FEAT, numFg.generateFeatures(null,
 					null, null,
 					null, null, UnitsUtils.getFlatValString(sentence, arg2), sentence, doc));
 		}
 		
 		if(keywordsFg != null){
-			features.addAll(keywordsFg.generateFeatures(arg1.getStartOffset(),
+			featureListsMap.put(KEYWORD_FEAT, keywordsFg.generateFeatures(arg1.getStartOffset(),
 					arg1.getEndOffset(), arg2.getStartOffset(),
 					arg2.getEndOffset(), arg1ID, arg2ID, sentence, doc));
 		}
 		
+		return featureListsMap;
+	}
+	
+	/**
+	 * returns a single feature list with all the features concatenated
+	 * @param arg1
+	 * @param arg2
+	 * @param sentence
+	 * @param doc
+	 * @return
+	 * @throws IOException
+	 */
+	List<String> getFeatureList(Argument arg1, Argument arg2, CoreMap sentence, Annotation doc) {
+		HashMap<Integer, List<String>> featuresList = getFeatureLists(arg1, arg2, sentence, doc);
+		
+		List<String> mintzFeatures = featuresList.get(MINTZ_FEAT);
+		List<String> keywordFeatures = featuresList.get(KEYWORD_FEAT);
+		List<String> numberFeatures = featuresList.get(NUM_FEAT);
+		
+		int typesFired = 0;
+		typesFired = typesFired + (keywordFeatures.isEmpty() ? 0 : 1);
+		typesFired = typesFired + (mintzFeatures.isEmpty() ? 0 : 1);
+		typesFired = typesFired + (numberFeatures.isEmpty() ? 0 : 1);
+		
+		if(typesFired < MIN_TYPE_THRESHOLD ) {
+			throw new NotImplementedException();
+		}
+		List<String> features = mintzFeatures;
+		features.addAll(keywordFeatures);
+		features.addAll(numberFeatures);
+		
 		return features;
 	}
-
 	public Map<Integer, Double> extractFromSententialInstanceWithAllRelationScores(
 			Argument arg1, Argument arg2, CoreMap sentence, Annotation doc) throws IOException {
 		String senText = sentence.get(CoreAnnotations.TextAnnotation.class);
@@ -119,22 +165,20 @@ public class SentLevelExtractor {
 	public Map<Integer, Double> extractFromSententialInstanceWithAllRelationScores(
 			Argument arg1, Argument arg2, CoreMap sentence, Annotation doc, double w_m, double w_n, double w_k) throws IOException {
 		
-		List<String> mintzFeatures = new ArrayList<String>();
-		List<String> keywordFeatures = new ArrayList<String>();
-		List<String> numberFeatures = new ArrayList<String>();
 		HashMap<Integer, Double> finalScoreMap = new HashMap<>();
 		
 		String senText = sentence.get(CoreAnnotations.TextAnnotation.class);
-		List<String> features = getFeatureList(arg1, arg2, sentence, doc);
+		HashMap<Integer, List<String>> featuresList = getFeatureLists(arg1, arg2, sentence, doc);
+		List<String> mintzFeatures = featuresList.get(MINTZ_FEAT);
+		List<String> keywordFeatures = featuresList.get(KEYWORD_FEAT);
+		List<String> numberFeatures = featuresList.get(NUM_FEAT);
+		int typesFired = 0;
+		typesFired = typesFired + (keywordFeatures.isEmpty() ? 0 : 1);
+		typesFired = typesFired + (mintzFeatures.isEmpty() ? 0 : 1);
+		typesFired = typesFired + (numberFeatures.isEmpty() ? 0 : 1);
 		
-		for(String feature: features){
-			if(feature.contains("key: ")){
-				keywordFeatures.add(feature);
-			}else if(feature.contains("num: ")){
-				numberFeatures.add(feature);
-			}else{
-				mintzFeatures.add(feature);
-			}
+		if(typesFired < MIN_TYPE_THRESHOLD ) {
+			throw new NotImplementedException();
 		}
 		
 		HashMap<Integer, Double> scoreMap;

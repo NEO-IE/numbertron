@@ -1,8 +1,5 @@
 package main.java.iitb.neo.pretrain.featuregeneration;
 
-import iitb.rbased.meta.KeywordData;
-import iitb.rbased.meta.RelationMetadata;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,10 +26,6 @@ import edu.washington.multirframework.featuregeneration.FeatureGenerator;
 /**
  */
 public class MintzKeywordFeatureGenerator implements FeatureGenerator {
-	
-	private boolean useKeywordFeatures = true;
-	
-	
 	
 	@Override
 	public List<String> generateFeatures(Integer arg1StartOffset,
@@ -134,26 +127,6 @@ public class MintzKeywordFeatureGenerator implements FeatureGenerator {
 		return originalMultirFeatures(tokenStrings, posTags, depParents, depTypes, arg1Pos, arg2Pos, arg1ner, arg2ner);
 	}
 	
-	boolean fixedKeywordContains(String token){
-		String[] fixedKeywords = {"population", "people", "inhabitants", "natives", "residents", "people",
-				"area", "land",
-				"foreign", "fdi", "direct", "investments", "investment",
-				"goods", "exports", "export", "exporter", "exported", "ships", "shipped",
-				"electricity", "kilowatthors", "terawatt", "generation", "production", "sector",
-				"carbon", "emission", "CO2", "co2", "emissions", "kilotons",
-				"inflation", "Price", "Rise", "rate",
-				"Internet", "users", "usage", "penetration", "use", "user",
-				"Gross",  "domestic", "GDP", "gdp", "product",
-				"life", "expectancy",
-				"diesel", "price", "priced", "fuel", "prices"} ;
-		for(String key: fixedKeywords){
-			if(key.equals(token)){
-				return true;
-			}
-		}
-		return false;
-	}
-	
 	
 	/** 
 	 * Untouched RelationECML getFeatures algorithm...
@@ -228,11 +201,10 @@ public class MintzKeywordFeatureGenerator implements FeatureGenerator {
 		// generate the features in the same order as in ecml data
 		String mto = middleTokens.toString();
 		
-		if(!mto.equals("*LONG*")){
-			features.add(inv + "|" + firstNer + "|" + mto + "|" + secondNer);
-			features.add(inv + "|" + prefixes[1] + "|" + firstNer + "|" + mto + "|" + secondNer + "|" + suffixes[1]);
-			features.add(inv + "|" + prefixes[2] + "|" + firstNer + "|" + mto + "|" + secondNer + "|" + suffixes[2]);
-		}
+		features.add(inv + "|" + firstNer + "|" + mto + "|" + secondNer);
+		features.add(inv + "|" + prefixes[1] + "|" + firstNer + "|" + mto + "|" + secondNer + "|" + suffixes[1]);
+		features.add(inv + "|" + prefixes[2] + "|" + firstNer + "|" + mto + "|" + secondNer + "|" + suffixes[2]);
+
 		// dependency features
 		if (depParents == null || depParents.length < tokens.length) return features;
 		
@@ -311,17 +283,7 @@ public class MintzKeywordFeatureGenerator implements FeatureGenerator {
 				dirs[i] = "->";
 				strs[i] = i > 0? tokens[path1[i]] : "";
 				rels[i] = depTypes[path1[i]];
-				//System.out.println("[" + depTypes[path1[i]] + "]->");
-				
-				/*
-				 * adding keywords as features.
-				 * Intuition: NN phrases in dependency path form good keywords.
-				 *
-				if(i > 0 && postags[path1[i]].equals("NN") && fixedKeywordContains(tokens[path1[i]])){
-					features.add("key: "+tokens[path1[i]]);
-				}
-				*/
-					
+				//System.out.println("[" + depTypes[path1[i]] + "]->");	
 			}
 			for (int j=0; j < lcaDown; j++) {
 			//for (int j=lcaDown-1; j >= 0; j--) {
@@ -329,18 +291,7 @@ public class MintzKeywordFeatureGenerator implements FeatureGenerator {
 				strs[lcaUp + j] = (lcaUp + j > 0)? tokens[path2[lcaDown-j]] : ""; // word taken from above
 				rels[lcaUp + j] = depTypes[path2[lcaDown-j]];
 				//System.out.println("[" + depTypes[path2[j]] + "]<-");
-				/*
-				 * adding keywords as features
-				 *
-				if(lcaUp + j > 0 && postags[path2[lcaDown-j]].equals("NN") && fixedKeywordContains(tokens[path2[lcaDown-j]])){
-					features.add("key: "+tokens[path2[lcaDown-j]]);
-				}
-				*/
 			}
-			
-			/*for(String keyword: keywords){
-				features.add("key: "+keyword);
-			}*/
 			
 			for (int i=0; i < dirs.length; i++) {
 				middleDirs.append(dirs[i]);
@@ -465,15 +416,8 @@ public class MintzKeywordFeatureGenerator implements FeatureGenerator {
 		}
 
 		features.add("str:" + basicStr);
-		
-		List<String> newFeatures = new ArrayList<String>();
-		for(String feat: features){
-			if(!feat.contains("*LONG-PATH*")){
-				newFeatures.add(feat);
-			}
-		}
 
-		return newFeatures;
+		return features;
 	}
 
 

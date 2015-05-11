@@ -1,9 +1,7 @@
 package main.java.iitb.neo.pretrain.featuregeneration;
 
-import iitb.rbased.meta.KeywordData;
-import iitb.rbased.meta.RelationMetadata;
-
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import edu.stanford.nlp.ling.CoreAnnotations;
@@ -25,6 +23,26 @@ import edu.washington.multirframework.featuregeneration.FeatureGenerator;
  */
 public class KeywordFeatureGenerator implements FeatureGenerator {
 	
+	private static HashSet<String> keywords;
+	static
+	{
+		keywords = new HashSet<>();
+		String[] fixedKeywords = {"population", "people", "inhabitants", "natives", "residents", "people",
+				"area", "land",
+				"foreign", "fdi", "direct", "investments", "investment",
+				"goods", "exports", "export", "exporter", "exported", "ships", "shipped",
+				"electricity", "kilowatthors", "terawatt", "generation", "production", "sector",
+				"carbon", "emission", "CO2", "co2", "emissions", "kilotons",
+				"inflation", "Price", "Rise", "rate",
+				"Internet", "users", "usage", "penetration", "use", "user",
+				"Gross",  "domestic", "GDP", "gdp", "product",
+				"life", "expectancy",
+				"diesel", "price", "priced", "fuel", "prices"} ;
+		for(String key: fixedKeywords){
+			keywords.add(key);
+		}
+		
+	}
 	
 	@Override
 	public List<String> generateFeatures(Integer arg1StartOffset,
@@ -124,61 +142,41 @@ public class KeywordFeatureGenerator implements FeatureGenerator {
 		arg1Pos[1] += 1;
 		arg2Pos[1] += 1;	
 		
-		return originalMultirFeatures(tokenStrings, posTags, depParents, depTypes, arg1Pos, arg2Pos, arg1ner, arg2ner);
+		return getSentKeywordFeatures(tokenStrings, posTags, depParents, depTypes, arg1Pos, arg2Pos, arg1ner, arg2ner);
 	}
 	
-	boolean fixedKeywordContains(String token){
-		String[] fixedKeywords = {"population", "people", "inhabitants", "natives", "residents", "people",
-				"area", "land",
-				"foreign", "fdi", "direct", "investments", "investment",
-				"goods", "exports", "export", "exporter", "exported", "ships", "shipped",
-				"electricity", "kilowatthors", "terawatt", "generation", "production", "sector",
-				"carbon", "emission", "CO2", "co2", "emissions", "kilotons",
-				"inflation", "Price", "Rise", "rate",
-				"Internet", "users", "usage", "penetration", "use", "user",
-				"Gross",  "domestic", "GDP", "gdp", "product",
-				"life", "expectancy",
-				"diesel", "price", "priced", "fuel", "prices"} ;
-		for(String key: fixedKeywords){
-			if(key.equals(token)){
-				return true;
+	public List<String> getSentKeywordFeatures(String[] tokens, 
+			String[] postags,
+			int[] depParents, String[] depTypes,
+			int[] arg1Pos, int[] arg2Pos, String arg1ner, String arg2ner){
+		
+			/*
+			 * creates keyword features for words in sentence.
+			 */
+		
+			List<String> features = new ArrayList<String>();
+			
+			for (String token: tokens) {
+				if (keywords.contains(token)) {
+					features.add("key: " + token);
+				}
 			}
-		}
-		return false;
+			return features;
 	}
-	/** 
-	 * Untouched RelationECML getFeatures algorithm...
-	 * @param tokens
-	 * @param postags
-	 * @param depParents
-	 * @param depTypes
-	 * @param arg1Pos
-	 * @param arg2Pos
-	 * @param arg1ner
-	 * @param arg2ner
-	 * @return
-	 */
-	public  List<String> originalMultirFeatures( String[] tokens, 
+	
+	public  List<String> getDepKeywordFeatures( String[] tokens, 
 			String[] postags,
 			int[] depParents, String[] depTypes,
 			int[] arg1Pos, int[] arg2Pos, String arg1ner, String arg2ner) {
 
+		/*
+		 * create keyword features for words in dependency path. 
+		 */
+		
 		List<String> features = new ArrayList<String>();
 
-			/*
-			 * This code takes all the NN phrase in the sentence and create keywords features.
-			 
-			 Adding NN as keywords for sentences
-			
-			for (int i = 0; i < postags.length; i++) {
-				if (postags[i].equals("NN") && fixedKeywordContains(tokens[i])) {
-					features.add("key: " + tokens[i]);
-				}
-			}
-			return features;
-			*/
 		
-				// dependency features
+		// dependency features
 		if (depParents == null || depParents.length < tokens.length) return features;
 		
 		// identify head words of arg1 and arg2
@@ -249,7 +247,7 @@ public class KeywordFeatureGenerator implements FeatureGenerator {
 				 * adding keywords as features.
 				 * Intuition: NN phrases in dependency path form good keywords.
 				 */
-				if(i > 0 && fixedKeywordContains(tokens[path1[i]])){
+				if(i > 0 && keywords.contains(tokens[path1[i]])){
 					features.add("key: "+tokens[path1[i]]);
 				}	
 			}
@@ -257,7 +255,7 @@ public class KeywordFeatureGenerator implements FeatureGenerator {
 				/*
 				 * adding keywords as features
 				 */
-				if(lcaUp + j > 0  && fixedKeywordContains(tokens[path2[lcaDown-j]])){
+				if(lcaUp + j > 0  && keywords.contains(tokens[path2[lcaDown-j]])){
 					features.add("key: "+tokens[path2[lcaDown-j]]);
 				}
 			}
