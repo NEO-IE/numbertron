@@ -137,7 +137,7 @@ public class EvaluateModel {
 	public void evaluate(ExtractFromCorpus efc, boolean verbose, PrintWriter resultWriter) throws SQLException, IOException {
 		Results r = new Results();
 	
-		List<Extraction> modelExtractions = efc.getExtractions("_results_", false, verbose, verboseFile, 1, 1, 200);
+		List<Extraction> modelExtractions = efc.getExtractions("_results_", false, verbose, verboseFile, 1, 1, 1);
 		r.fillResult(modelExtractions);
 		r.dumpResults(resultWriter);
 		
@@ -191,7 +191,7 @@ public class EvaluateModel {
 
 	public void evaluate() throws SQLException, IOException {
 		List<Extraction> modelExtractions = efc.getExtractions("_results_" + new File(modelName).getName(), writeExtractions,
-				verbose, verboseFile, 1, 1, 2);
+				verbose, verboseFile, 1, 1, 1);
 		res.fillResult(modelExtractions);
 		res.dumpResults();
 	}

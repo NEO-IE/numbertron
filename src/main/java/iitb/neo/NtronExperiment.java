@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,6 +25,7 @@ import main.java.iitb.neo.goldDB.GoldDB;
 import main.java.iitb.neo.pretrain.featuregeneration.NumbertronFeatureGenerationDriver;
 import main.java.iitb.neo.pretrain.process.MakeGraph;
 import main.java.iitb.neo.pretrain.spotting.UnitLocationSpotting;
+import main.java.iitb.neo.training.algorithm.lpercp.GoldDbInference;
 import main.java.iitb.neo.training.algorithm.lpercp.LperceptTrain;
 import main.java.iitb.neo.util.JsonUtils;
 import edu.washington.multirframework.argumentidentification.SententialInstanceGeneration;
@@ -307,11 +309,15 @@ public class NtronExperiment {
 
 		NtronExperiment irb = new NtronExperiment(args[0]);
 		irb.run();
-		writeFeatureWeights(irb.ntronModelDirs.get(0) + File.separatorChar
-				+ "mapping", irb.ntronModelDirs.get(0) + File.separatorChar
-				+ "params", irb.ntronModelDirs.get(0) + File.separatorChar
-				+ "model", irb.ntronModelDirs.get(0) + File.separatorChar
-				+ "weights");
+		PrintWriter pw = new PrintWriter("hitstats");
+		
+		GoldDbInference.printMatchStats(pw);
+		pw.close();
+//		writeFeatureWeights(irb.ntronModelDirs.get(0) + File.separatorChar
+//				+ "mapping", irb.ntronModelDirs.get(0) + File.separatorChar
+//				+ "params", irb.ntronModelDirs.get(0) + File.separatorChar
+//				+ "model", irb.ntronModelDirs.get(0) + File.separatorChar
+//				+ "weights");
 	}
 
 	private boolean filesExist(List<String> dsFiles) {
@@ -400,6 +406,7 @@ public class NtronExperiment {
 		MINTZ_FEATURE_THRESHOLD = mintzFeatureThreshold;
 		KEYWORD_FEATURE_THRESHOLD = kwFeatureThreshold;
 		this.finalAvg = finalAvg;
+		
 	}
 
 }
