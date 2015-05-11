@@ -139,7 +139,7 @@ public class LocalAveragedPerceptron {
 				obw.write("#######################################\n");
 				obw.write("Iteration : " + i + "\n");
 				obw.write("#######################################\n");
-				
+
 			}
 			System.out.println("Iteration: " + i);
 			trainingIteration(i, trainingData);
@@ -149,7 +149,7 @@ public class LocalAveragedPerceptron {
 		}
 
 		// GoldDbInference.printMatchStat();
-		if(debug){ 
+		if (debug) {
 			obw.close();
 		}
 		return (computeAvgParameters) ? avgParameters : iterParameters;
@@ -288,18 +288,18 @@ public class LocalAveragedPerceptron {
 						zeroIterationCount.vals[id] += (avgIteration - lastZeroIteration.vals[id]);
 						lastZeroIteration.vals[id] = -1;
 					}
-					
-					if(debug) {
-					if (id == 527682) {
-						obw.write("\n" + relNumNameMapping.get(relNumber)
-								+ "--> " + delta + "\n");
-						obw.write(lastUpdatesIter.vals[id] + "-->"
-								+ avgIteration + "\n");
-						obw.write(featureList.get(id) + " : " + avg.vals[id]
-								+ "\n");
-						obw.write("Iterval : " + iter.vals[id] + "\n");
-						obw.write("*************************************\n");
-					}
+
+					if (debug) {
+						if (id == 527682) {
+							obw.write("\n" + relNumNameMapping.get(relNumber)
+									+ "--> " + delta + "\n");
+							obw.write(lastUpdatesIter.vals[id] + "-->"
+									+ avgIteration + "\n");
+							obw.write(featureList.get(id) + " : "
+									+ avg.vals[id] + "\n");
+							obw.write("Iterval : " + iter.vals[id] + "\n");
+							obw.write("*************************************\n");
+						}
 					}
 				}
 				lastUpdatesIter.vals[id] = avgIteration;

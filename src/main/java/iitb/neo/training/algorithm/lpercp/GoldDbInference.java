@@ -137,9 +137,9 @@ public class GoldDbInference {
 				
 		}
 		
-		RandomUtil.coinToss(0.002);
-		//None of the relations had true for this, so call the no attachement true
-		return true;
+		
+		
+		return RandomUtil.coinToss(0.002);
 	}
 
 }
