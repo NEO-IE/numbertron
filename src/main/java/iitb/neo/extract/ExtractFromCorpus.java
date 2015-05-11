@@ -303,13 +303,13 @@ public class ExtractFromCorpus {
 				List<CoreMap> sentences = doc
 						.get(CoreAnnotations.SentencesAnnotation.class);
 				for (CoreMap sentence : sentences) {
-
+					System.out.println(sentence);
 					// argument identification
 					List<Argument> arguments = ai.identifyArguments(doc,
 							sentence);
 					// sentential instance generation
 
-					if (sentNumber++ % 50 == 0) {
+					if (sentNumber++ % 10 == 0) {
 						System.out.println("Extracting from sentence number "
 								+ sentNumber);
 					}

@@ -50,7 +50,7 @@ public class LRGraphMemoryDatasetWithoutConfusedLocationRels implements Dataset<
 			if (!ignore) {
 				l.add(d);
 			} else {
-				System.err.println("Ignoring with " + d.location + ", " + d.relation);
+				//System.err.println("Ignoring with " + d.location + ", " + d.relation);
 			}
 
 			d = new LRGraph();

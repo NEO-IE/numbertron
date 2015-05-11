@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +25,10 @@ import main.java.iitb.neo.goldDB.GoldDB;
 import main.java.iitb.neo.pretrain.featuregeneration.NumbertronFeatureGenerationDriver;
 import main.java.iitb.neo.pretrain.process.MakeGraph;
 import main.java.iitb.neo.pretrain.spotting.UnitLocationSpotting;
+import main.java.iitb.neo.training.algorithm.lpercp.GoldDbInference;
 import main.java.iitb.neo.training.algorithm.lpercp.LperceptTrain;
+import main.java.iitb.neo.training.ds.LRGraph;
+import main.java.iitb.neo.training.meta.LRGraphMemoryDataset;
 import main.java.iitb.neo.util.JsonUtils;
 import edu.washington.multirframework.argumentidentification.SententialInstanceGeneration;
 import edu.washington.multirframework.corpus.Corpus;
@@ -34,6 +38,7 @@ import edu.washington.multirframework.corpus.DocumentInformationI;
 import edu.washington.multirframework.corpus.SentInformationI;
 import edu.washington.multirframework.corpus.TokenInformationI;
 import edu.washington.multirframework.featuregeneration.FeatureGenerator;
+import edu.washington.multirframework.multiralgorithm.Dataset;
 import edu.washington.multirframework.multiralgorithm.DenseVector;
 import edu.washington.multirframework.multiralgorithm.Model;
 import edu.washington.multirframework.multiralgorithm.Parameters;
@@ -283,18 +288,17 @@ public class NtronExperiment {
 					+ File.separatorChar + "train", ntronModelDirs.get(0));
 		}
 		File modelFile = new File(ntronModelDirs.get(0));
-		//
+		
 		// /**Print Graph*/
 		// String dir = modelFile.getAbsoluteFile().toString();
-		// Dataset<LRGraph> train = new LRGraphMemoryDataset(dir +
-		// File.separatorChar + "train");
-		// LRGraph lrg = new LRGraph();
-		// BufferedWriter bw = new BufferedWriter(new FileWriter("graph"));
-		// while(train.next(lrg)) {
-		// bw.write(lrg.toString() + "\n");
-		// bw.write("\n\n");
-		// }
-		// bw.close();
+		 Dataset<LRGraph> train = new LRGraphMemoryDataset(ntronModelDirs.get(0) + File.separatorChar + "train");
+		 LRGraph lrg = new LRGraph();
+		 BufferedWriter bw = new BufferedWriter(new FileWriter("graph"));
+		 while(train.next(lrg)) {
+			 bw.write(lrg.toString() + "\n");
+			 bw.write("\n\n");
+		 }
+		 bw.close();
 		/**/
 		LperceptTrain.train(modelFile.getAbsoluteFile().toString(), new Random(
 				1), this.numIterations, this.regularizer, this.finalAvg,
@@ -307,6 +311,10 @@ public class NtronExperiment {
 
 		NtronExperiment irb = new NtronExperiment(args[0]);
 		irb.run();
+		PrintWriter pw = new PrintWriter("hitstats");
+		
+		GoldDbInference.printMatchStats(pw);
+		pw.close();
 		writeFeatureWeights(irb.ntronModelDirs.get(0) + File.separatorChar
 				+ "mapping", irb.ntronModelDirs.get(0) + File.separatorChar
 				+ "params", irb.ntronModelDirs.get(0) + File.separatorChar
@@ -400,6 +408,7 @@ public class NtronExperiment {
 		MINTZ_FEATURE_THRESHOLD = mintzFeatureThreshold;
 		KEYWORD_FEATURE_THRESHOLD = kwFeatureThreshold;
 		this.finalAvg = finalAvg;
+		
 	}
 
 }
