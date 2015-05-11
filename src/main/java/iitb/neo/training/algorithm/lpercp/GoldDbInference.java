@@ -134,7 +134,6 @@ public class GoldDbInference {
 			}
 				
 		}
-		System.out.println("here");
 		//None of the relations had true for this, so call the no attachement true
 		return true;
 	}

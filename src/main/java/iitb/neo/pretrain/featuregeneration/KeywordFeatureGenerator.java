@@ -124,13 +124,7 @@ public class KeywordFeatureGenerator implements FeatureGenerator {
 		arg1Pos[1] += 1;
 		arg2Pos[1] += 1;	
 		
-		List<String> features = new ArrayList<String>();
-		for (int i = 0; i < tokenStrings.length; i++) {
-			if (fixedKeywordContains(tokenStrings[i])) {
-				features.add("key: " + tokenStrings[i]);
-			}
-		}
-		return features;
+		return originalMultirFeatures(tokenStrings, posTags, depParents, depTypes, arg1Pos, arg2Pos, arg1ner, arg2ner);
 	}
 	
 	boolean fixedKeywordContains(String token){
@@ -151,5 +145,123 @@ public class KeywordFeatureGenerator implements FeatureGenerator {
 			}
 		}
 		return false;
+	}
+	/** 
+	 * Untouched RelationECML getFeatures algorithm...
+	 * @param tokens
+	 * @param postags
+	 * @param depParents
+	 * @param depTypes
+	 * @param arg1Pos
+	 * @param arg2Pos
+	 * @param arg1ner
+	 * @param arg2ner
+	 * @return
+	 */
+	public  List<String> originalMultirFeatures( String[] tokens, 
+			String[] postags,
+			int[] depParents, String[] depTypes,
+			int[] arg1Pos, int[] arg2Pos, String arg1ner, String arg2ner) {
+
+		List<String> features = new ArrayList<String>();
+
+			/*
+			 * This code takes all the NN phrase in the sentence and create keywords features.
+			 
+			 Adding NN as keywords for sentences
+			
+			for (int i = 0; i < postags.length; i++) {
+				if (postags[i].equals("NN") && fixedKeywordContains(tokens[i])) {
+					features.add("key: " + tokens[i]);
+				}
+			}
+			return features;
+			*/
+		
+				// dependency features
+		if (depParents == null || depParents.length < tokens.length) return features;
+		
+		// identify head words of arg1 and arg2
+		// (start at end, while inside entity, jump)
+		int head1 = arg1Pos[1]-1;
+		int loopIterationCount =0;
+		while (depParents[head1] >= arg1Pos[0] && depParents[head1] < arg1Pos[1]) {
+			  head1 = depParents[head1];
+			  //avoid infinite loop
+			  if(loopIterationCount == 100){
+				  break;
+			  }
+			  loopIterationCount++;
+		}
+		int head2 = arg2Pos[1]-1;
+		//System.out.println(head1 + " " + head2);
+		loopIterationCount =0;
+		while (depParents[head2] >= arg2Pos[0] && depParents[head2] < arg2Pos[1]) {
+			head2 = depParents[head2];
+			//avoid infinite loop
+			  if(loopIterationCount == 100){
+				  break;
+			  }
+			  loopIterationCount++;
+		}
+
+		
+		
+		// find path of dependencies from first to second
+		int[] path1 = new int[tokens.length];
+		for (int i=0; i < path1.length; i++) path1[i] = -1;
+		path1[0] = head1; // last token of first argument
+		for (int i=1; i < path1.length; i++) {
+			path1[i] = depParents[path1[i-1]];
+			if (path1[i] == -1) break;
+		}	
+		int[] path2 = new int[tokens.length];
+		for (int i=0; i < path2.length; i++) path2[i] = -1;
+		path2[0] = head2; // last token of first argument
+		for (int i=1; i < path2.length; i++) {
+			path2[i] = depParents[path2[i-1]];
+			if (path2[i] == -1) break;
+		}
+		int lca = -1;
+		int lcaUp = 0, lcaDown = 0;
+		outer:
+		for (int i=0; i < path1.length; i++)
+			for (int j=0; j < path2.length; j++) {
+				if (path1[i] == -1 || path2[j] == -1) {
+					break; // no path
+				}
+				if (path1[i] == path2[j]) {
+					lca = path1[i];
+					lcaUp = i;
+					lcaDown = j;
+					break outer;
+				}
+			}
+		
+		if (lca < 0) return features; // no dependency path (shouldn't happen)
+
+		//ArrayList<String> keywords = new ArrayList<String>();
+		
+		if (lcaUp + lcaDown < 12) {
+			
+			for (int i=0; i < lcaUp; i++) {
+				/*
+				 * adding keywords as features.
+				 * Intuition: NN phrases in dependency path form good keywords.
+				 */
+				if(i > 0 && fixedKeywordContains(tokens[path1[i]])){
+					features.add("key: "+tokens[path1[i]]);
+				}	
+			}
+			for (int j=0; j < lcaDown; j++) {
+				/*
+				 * adding keywords as features
+				 */
+				if(lcaUp + j > 0  && fixedKeywordContains(tokens[path2[lcaDown-j]])){
+					features.add("key: "+tokens[path2[lcaDown-j]]);
+				}
+			}
+		}	
+		return features;
 	}
 }

@@ -173,20 +173,6 @@ public class MintzKeywordFeatureGenerator implements FeatureGenerator {
 			int[] arg1Pos, int[] arg2Pos, String arg1ner, String arg2ner) {
 
 		List<String> features = new ArrayList<String>();
-
-		if (this.useKeywordFeatures) {
-			/*
-			 * This code takes all the NN phrase in the sentence and create keywords features.
-			 
-			 Adding NN as keywords for sentences
-			
-			for (int i = 0; i < postags.length; i++) {
-				if (postags[i].equals("NN") && fixedKeywordContains(tokens[i])) {
-					features.add("key: " + tokens[i]);
-				}
-			}
-			*/
-		}
 		
 		// it's easier to deal with first, second
 		int[] first = arg1Pos, second = arg2Pos;
@@ -242,10 +228,11 @@ public class MintzKeywordFeatureGenerator implements FeatureGenerator {
 		// generate the features in the same order as in ecml data
 		String mto = middleTokens.toString();
 		
-		features.add(inv + "|" + firstNer + "|" + mto + "|" + secondNer);
-		features.add(inv + "|" + prefixes[1] + "|" + firstNer + "|" + mto + "|" + secondNer + "|" + suffixes[1]);
-		features.add(inv + "|" + prefixes[2] + "|" + firstNer + "|" + mto + "|" + secondNer + "|" + suffixes[2]);
-		
+		if(!mto.equals("*LONG*")){
+			features.add(inv + "|" + firstNer + "|" + mto + "|" + secondNer);
+			features.add(inv + "|" + prefixes[1] + "|" + firstNer + "|" + mto + "|" + secondNer + "|" + suffixes[1]);
+			features.add(inv + "|" + prefixes[2] + "|" + firstNer + "|" + mto + "|" + secondNer + "|" + suffixes[2]);
+		}
 		// dependency features
 		if (depParents == null || depParents.length < tokens.length) return features;
 		
@@ -478,8 +465,15 @@ public class MintzKeywordFeatureGenerator implements FeatureGenerator {
 		}
 
 		features.add("str:" + basicStr);
+		
+		List<String> newFeatures = new ArrayList<String>();
+		for(String feat: features){
+			if(!feat.contains("*LONG-PATH*")){
+				newFeatures.add(feat);
+			}
+		}
 
-		return features;
+		return newFeatures;
 	}
 
 
