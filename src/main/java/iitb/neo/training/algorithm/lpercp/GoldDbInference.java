@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import main.java.iitb.neo.goldDB.GoldDB;
 import main.java.iitb.neo.training.ds.LRGraph;
+import main.java.iitb.neo.util.RandomUtil;
 
 /**
  * Sets the value of n nodes based on the value pulled from the gold db
@@ -105,7 +106,8 @@ public class GoldDbInference {
 		}*/
 		for(Double val : goldValues){
 			
-			Double valueSlack = marginMap.get(rel)* val; // +- 5 percent
+			//Double valueSlack = marginMap.get(rel)* val; // +- 5 percent
+			Double valueSlack = GoldDB.MARGIN * val; // +- 5 percent
 			//System.out.print(val + "\t");
 			if((value > (val- valueSlack)) && (value < (val + valueSlack))){	
 				return true;
@@ -135,6 +137,7 @@ public class GoldDbInference {
 				
 		}
 		
+		RandomUtil.coinToss(0.002);
 		//None of the relations had true for this, so call the no attachement true
 		return true;
 	}
