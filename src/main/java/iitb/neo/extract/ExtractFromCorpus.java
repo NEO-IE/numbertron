@@ -13,6 +13,7 @@ import java.util.Map;
 import org.apache.commons.lang.NotImplementedException;
 
 import main.java.iitb.neo.util.JsonUtils;
+import main.java.iitb.neo.util.MapUtils;
 import main.java.iitb.neo.util.RegExpUtils;
 import main.java.iitb.neo.util.UnitsUtils;
 import edu.stanford.nlp.ling.CoreAnnotations;
@@ -333,6 +334,7 @@ public class ExtractFromCorpus {
 							nie.printStackTrace();
 							continue;
 						}
+						perRelationScoreMap = MapUtils.sortByValue(perRelationScoreMap);
 						ArrayList<Integer> compatRels = UnitsUtils
 								.unitsCompatible(p.second, sentence, sle
 										.getMapping().getRel2RelID());
