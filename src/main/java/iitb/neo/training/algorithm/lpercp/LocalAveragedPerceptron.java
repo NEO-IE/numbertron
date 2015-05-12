@@ -43,14 +43,16 @@ public class LocalAveragedPerceptron {
 	/*
 	 * variables added for debugging purposes.
 	 */
-	HashMap<Integer, String> relNumNameMapping;
+	public static HashMap<Integer, String> relNumNameMapping;
+	public static HashMap<String, Integer> featNameNumMapping;
 	HashMap<Integer, String> featureList;
 	Integer numRelation;
 	Integer numFeatures;
-	String mappingFile = "/mnt/bag/aman/model/keywords_model/mapping";
+	String mappingFile = "/mnt/a99/d0/ashishm/workspace/numbertron/data/model/babymodel/mapping";
 	String outputFile = "verbose_iteration_updates_key_area_1";
 	BufferedWriter obw;
 	boolean debug = false;
+	boolean readMapping = true;
 
 	public LocalAveragedPerceptron(Model model, Random random,
 			int maxIterations, double regularizer, boolean finalAverageCalc)
@@ -62,22 +64,26 @@ public class LocalAveragedPerceptron {
 		this.regulaizer = regularizer;
 		this.finalAverageCalc = finalAverageCalc;
 
-		if (debug) {
+		if (readMapping) {
 			relNumNameMapping = new HashMap<Integer, String>();
+			featNameNumMapping = new HashMap<String, Integer>();
 			featureList = new HashMap<Integer, String>();
 			BufferedReader featureReader = new BufferedReader(new FileReader(
 					mappingFile));
 			Integer numRel = Integer.parseInt(featureReader.readLine());
 			for (int i = 0; i < numRel; i++) {
 				// skip relation names
-				relNumNameMapping.put(i, featureReader.readLine());
+				String rel = featureReader.readLine().trim();
+				relNumNameMapping.put(i, rel);
 			}
 			int numFeatures = Integer.parseInt(featureReader.readLine());
 			String ftr = null;
 			featureList = new HashMap<Integer, String>();
 			int fno = 0;
 			while (fno < numFeatures) {
-				ftr = featureReader.readLine();
+				ftr = featureReader.readLine().trim();
+				String parts[] = ftr.split("\t");
+				featNameNumMapping.put(parts[1], Integer.parseInt(parts[0]));
 				featureList.put(fno, ftr);
 				fno++;
 			}

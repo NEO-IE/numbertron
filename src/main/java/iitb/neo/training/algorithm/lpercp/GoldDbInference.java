@@ -5,10 +5,12 @@ import iitb.rbased.util.Pair;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import main.java.iitb.neo.goldDB.GoldDB;
 import main.java.iitb.neo.training.ds.LRGraph;
 import main.java.iitb.neo.util.RandomUtils;
+import main.java.iitb.neo.training.ds.Number;
 
 /**
  * Sets the value of n nodes based on the value pulled from the gold db
@@ -92,7 +94,7 @@ public class GoldDbInference {
 	}
 
 	public static boolean closeEnough(Double value, String rel, String entity) {
-
+		
 		Pair<String, String> locationRelation = new Pair<String, String>(
 				entity, rel);
 		if (rel.split("_").length > 1) {
@@ -127,8 +129,8 @@ public class GoldDbInference {
 			int currCount = falseCountMap.get(locationRelation);
 			falseCountMap.put(locationRelation, currCount + 1);
 		}
-		return false;
-		// return true;
+		//return false;
+		 return true;
 	}
 
 	/**
@@ -165,15 +167,16 @@ public class GoldDbInference {
 			String relation = lrPair.second;
 			Integer hits = trueCountMap.get(lrPair);
 			Integer misses = falseCountMap.get(lrPair);
-			try {
-				double hitPerc = (hits * 1.0) / (hits + misses);
+			
+				if(misses == null) {
+					misses  = 0;
+				}
+				double hitPerc = null == hits ? 0 : ((hits * 1.0) / (hits + misses));
 				double missPerc = 1 - hitPerc;
 				pw.println("Location = " + location + " Relation  = "
 						+ relation + " hits = " + hitPerc + " misses = "
 						+ missPerc + "\n");
-			} catch (NullPointerException npe) {
-				continue;
-			}
+			
 
 		}
 	}

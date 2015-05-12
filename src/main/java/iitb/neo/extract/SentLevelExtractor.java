@@ -163,7 +163,7 @@ public class SentLevelExtractor {
 	}
 	
 	public Map<Integer, Double> extractFromSententialInstanceWithAllRelationScores(
-			Argument arg1, Argument arg2, CoreMap sentence, Annotation doc, double w_m, double w_n, double w_k) throws IOException {
+			Argument arg1, Argument arg2, CoreMap sentence, Annotation doc, double w_m, double w_k, double w_n) throws IOException {
 		
 		HashMap<Integer, Double> finalScoreMap = new HashMap<>();
 		

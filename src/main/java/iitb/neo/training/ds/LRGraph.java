@@ -171,20 +171,21 @@ public class LRGraph {
 		sb.append("\t");
 		sb.append(relation);
 		sb.append("\t");
+		sb.append("\n");
 		for(Number n_node: n){
 			sb.append(n_node);
-			sb.append("|");
+			sb.append("\n");
 		}
 		sb.setLength(sb.length()-1);
 		sb.append("\n");
-		for(int i = 0; i < numNodesCount; i++){
-			sb.append("Number  " + i + " ");
-			for(int feat: numFeatures[i].ids){
-				sb.append(feat);
-				sb.append(" ");
-			}
-			sb.append("\n");
-		}
+//		for(int i = 0; i < numNodesCount; i++){
+//			sb.append("Number  " + i + " ");
+//			for(int feat: numFeatures[i].ids){
+//				sb.append(feat);
+//				sb.append(" ");
+//			}
+//			sb.append("\n");
+//		}
 		for(int i = 0; i < numMentions; i++){
 			sb.append("Mention " + i+ " ");
 			for(int feat: features[i].ids){
