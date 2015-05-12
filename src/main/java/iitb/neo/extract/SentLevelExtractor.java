@@ -4,7 +4,6 @@ import iitb.rbased.meta.RelationMetadata;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,12 +11,13 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import org.apache.commons.lang.NotImplementedException;
-
 import main.java.iitb.neo.training.algorithm.lpercp.FullInference;
 import main.java.iitb.neo.training.algorithm.lpercp.Scorer;
 import main.java.iitb.neo.training.ds.LRGraph;
 import main.java.iitb.neo.util.UnitsUtils;
+
+import org.apache.commons.lang.NotImplementedException;
+
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.util.CoreMap;
