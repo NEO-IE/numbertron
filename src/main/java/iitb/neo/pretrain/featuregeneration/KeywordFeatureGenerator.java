@@ -142,7 +142,7 @@ public class KeywordFeatureGenerator implements FeatureGenerator {
 //		arg1Pos[1] += 1;
 //		arg2Pos[1] += 1;	
 //		
-//		return getSentKeywordFeatures(tokenStrings, posTags, depParents, depTypes, arg1Pos, arg2Pos, arg1ner, arg2ner);
+//		return getDepKeywordFeatures(tokenStrings, posTags, depParents, depTypes, arg1Pos, arg2Pos, arg1ner, arg2ner);
 //	}
 //	
 	@Override
@@ -154,13 +154,18 @@ public class KeywordFeatureGenerator implements FeatureGenerator {
 		List<String> features = new ArrayList<String>();
 		
 		for (CoreLabel token: tokens) {
+			
 			String tokenStr = token.toString().toLowerCase();
 			if (keywords.contains(tokenStr)) {
+				if(tokenStr.toLowerCase().equals("exports")) {
+					tokenStr = "export";
+				}
 				features.add("key: " + tokenStr);
 			}
 		}
 		return features;
 	}
+
 	public List<String> getSentKeywordFeatures(String[] tokens, 
 			String[] postags,
 			int[] depParents, String[] depTypes,

@@ -191,7 +191,7 @@ public class EvaluateModel {
 
 	public void evaluate() throws SQLException, IOException {
 		List<Extraction> modelExtractions = efc.getExtractions("_results_" + new File(modelName).getName(), writeExtractions,
-				verbose, verboseFile, 1, 1, 1);
+				verbose, verboseFile, 0, 1, 0);
 		res.fillResult(modelExtractions);
 		res.dumpResults();
 	}
