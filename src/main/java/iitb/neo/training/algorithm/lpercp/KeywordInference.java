@@ -8,6 +8,7 @@ import java.util.List;
 
 import main.java.iitb.neo.training.ds.LRGraph;
 import main.java.iitb.neo.training.ds.Number;
+import main.java.iitb.neo.util.LemmaUtils;
 
 /**
  * Sets the value of n nodes based on the value pulled from the gold db
@@ -46,7 +47,8 @@ public class KeywordInference {
 	public static boolean hasKeyword(HashSet<Integer> feats, String rel){
 		List<String>  relKey = KeywordData.REL_KEYWORD_MAP.get(rel);
 		for(String key : relKey){
-			Integer featID = LocalAveragedPerceptron.featNameNumMapping.get("key: "+key.toLowerCase());
+			String lemmaKey = LemmaUtils.lemmatize(key.toLowerCase()).get(0);
+			Integer featID = LocalAveragedPerceptron.featNameNumMapping.get("key: "+lemmaKey);
 			if(featID != null){
 				if(feats.contains(featID)){
 					return true;
