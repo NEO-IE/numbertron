@@ -4,14 +4,11 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import main.java.iitb.neo.util.StemUtils;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.util.CoreMap;
-import edu.stanford.nlp.util.Triple;
-import edu.washington.multirframework.corpus.SentDependencyInformation.DependencyAnnotation;
-import edu.washington.multirframework.corpus.TokenOffsetInformation.SentenceRelativeCharacterOffsetBeginAnnotation;
-import edu.washington.multirframework.corpus.TokenOffsetInformation.SentenceRelativeCharacterOffsetEndAnnotation;
 import edu.washington.multirframework.featuregeneration.FeatureGenerator;
 
 /**
@@ -39,7 +36,7 @@ public class KeywordFeatureGenerator implements FeatureGenerator {
 				"life", "expectancy",
 				"diesel", "price", "priced", "fuel", "prices"} ;
 		for(String key: fixedKeywords){
-			keywords.add(key.toLowerCase());
+			keywords.add(StemUtils.getStemWord(key.toLowerCase()));
 		}
 		
 	}
@@ -155,11 +152,8 @@ public class KeywordFeatureGenerator implements FeatureGenerator {
 		
 		for (CoreLabel token: tokens) {
 			
-			String tokenStr = token.toString().toLowerCase();
+			String tokenStr = StemUtils.getStemWord(token.toString().toLowerCase());
 			if (keywords.contains(tokenStr)) {
-				if(tokenStr.toLowerCase().equals("exports")) {
-					tokenStr = "export";
-				}
 				features.add("key: " + tokenStr);
 			}
 		}
