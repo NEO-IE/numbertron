@@ -60,10 +60,10 @@ public class NumberFeatureGenerator implements FeatureGenerator {
 		} else if (value >= 1000000000000.0) {
 			features.add("Num: Tera");
 		}
-
-		if ((value == Math.floor(value)) && !Double.isInfinite(value)) {
-			features.add("Num: Integer");
-		}
+//
+//		if ((value == Math.floor(value)) && !Double.isInfinite(value)) {
+//			features.add("Num: Integer");
+//		}
 
 		/*
 		 * todo: add scientific notation feature

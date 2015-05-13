@@ -27,14 +27,14 @@ public class KeywordFeatureGenerator implements FeatureGenerator {
 		String[] fixedKeywords = {"population", "people", "inhabitants", "natives", "residents", "people",
 				"area", "land",
 				"foreign", "fdi", "direct", "investments", "investment",
-				"goods", "exports", "export", "exporter", "exported", "ships", "shipped",
+				"goods", "exports", "export",
 				"electricity", "kilowatthors", "terawatt", "generation", "production", "sector",
 				"carbon", "emission", "CO2", "co2", "emissions", "kilotons",
-				"inflation", "Price", "Rise", "rate",
-				"internet", "users", "usage", "penetration", "use", "user",
-				"Gross",  "domestic", "GDP", "gdp", "product",
+				"inflation",
+				"internet", "penetration", 
+				"gross",  "domestic", "gdp",
 				"life", "expectancy",
-				"diesel", "price", "priced", "fuel", "prices"} ;
+				"diesel"} ;
 		for(String key: fixedKeywords){
 			keywords.add(StemUtils.getStemWord(key.toLowerCase()));
 		}

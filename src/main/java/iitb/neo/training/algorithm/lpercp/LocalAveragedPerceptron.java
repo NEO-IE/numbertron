@@ -105,7 +105,10 @@ public class LocalAveragedPerceptron {
 
 	private Parameters avgParameters;
 	private Parameters iterParameters;
-
+	
+	//The following parameter array stores the number of times a particular 
+	//parameter was updated, this will help in smoothing weights that are updated a lot (well that's the hope)
+	private Parameters countUpdates;
 	int avgIteration = 0;
 
 	public Parameters train(Dataset<LRGraph> trainingData) throws IOException {
@@ -128,6 +131,11 @@ public class LocalAveragedPerceptron {
 			countZeroIter = new Parameters();
 			countZeroIter.model = model;
 			countZeroIter.init();
+			
+
+			countUpdates = new Parameters();
+			countUpdates.model = model;
+			countUpdates.init();
 
 		}
 
@@ -274,12 +282,17 @@ public class LocalAveragedPerceptron {
 
 			DenseVector lastZeroIteration = (DenseVector) lastZeroIter.relParameters[relNumber];
 			DenseVector zeroIterationCount = (DenseVector) countZeroIter.relParameters[relNumber];
-
+			
+			DenseVector updateCountVector = (DenseVector) countUpdates.relParameters[relNumber]; 
+			
 			for (int j = 0; j < features.num; j++) {
 				int id = features.ids[j];
+				updateCountVector.vals[id] += 1;
 				if (lastUpdates.vals[id] != 0) {
 					// avg.vals[id] += (avgIteration - lastUpdatesIter.vals[id])
 					// * lastUpdates.vals[id];
+					
+				
 					int notUpdatedWindow = avgIteration
 							- (int) lastUpdatesIter.vals[id];
 					avg.vals[id] = Math.pow(regulaizer, notUpdatedWindow)
@@ -319,7 +332,9 @@ public class LocalAveragedPerceptron {
 			DenseVector lastUpdates = (DenseVector) avgParamsLastUpdates.relParameters[s];
 			DenseVector avg = (DenseVector) avgParameters.relParameters[s];
 			DenseVector zeroIterationCountRel = (DenseVector) countZeroIter.relParameters[s];
-
+			
+			DenseVector updateCountVector = (DenseVector) countUpdates.relParameters[s]; 
+			
 			for (int id = 0; id < avg.vals.length; id++) {
 				if (lastUpdates.vals[id] != 0) {
 					int notUpdatedWindow = avgIteration
@@ -333,7 +348,7 @@ public class LocalAveragedPerceptron {
 					// System.out.println("Nonziteration  = " + nonZeroIteration
 					// );
 					if (this.finalAverageCalc) {
-						avg.vals[id] = (avg.vals[id] / nonZeroIteration);
+						avg.vals[id] = updateCountVector.vals[id] == 0 ? avg.vals[id] : (avg.vals[id] / updateCountVector.vals[id]);
 					}
 					lastUpdatesIter.vals[id] = avgIteration;
 				}
