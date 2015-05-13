@@ -48,14 +48,13 @@ public class LocalAveragedPerceptron {
 	HashMap<Integer, String> featureList;
 	Integer numRelation;
 	Integer numFeatures;
-	String mappingFile = "/mnt/a99/d0/ashishm/workspace/numbertron/data/model/babymodel/mapping";
 	String outputFile = "verbose_iteration_updates_key_area_1";
 	BufferedWriter obw;
 	boolean debug = false;
 	boolean readMapping = true;
 
 	public LocalAveragedPerceptron(Model model, Random random,
-			int maxIterations, double regularizer, boolean finalAverageCalc)
+			int maxIterations, double regularizer, boolean finalAverageCalc, String mappingFile)
 			throws NumberFormatException, IOException {
 		scorer = new Scorer();
 		this.model = model;

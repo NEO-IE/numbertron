@@ -21,11 +21,11 @@ import edu.washington.multirframework.multiralgorithm.Parameters;
  */
 public class LperceptTrain {
 
-	public static void train(String dir, Random r, int numIterations, double regularizer, boolean finalAvg, boolean ignoreConfusion) throws IOException {		
+	public static void train(String dir, Random r, int numIterations, double regularizer, boolean finalAvg, boolean ignoreConfusion, String mappingFile) throws IOException {		
 		Model model = new Model();
 		model.read(dir + File.separatorChar + "model");
 		
-		LocalAveragedPerceptron lpton = new LocalAveragedPerceptron(model, r, numIterations, regularizer, finalAvg);
+		LocalAveragedPerceptron lpton = new LocalAveragedPerceptron(model, r, numIterations, regularizer, finalAvg, mappingFile);
 		
 		Dataset<LRGraph> train = null;
 		if(ignoreConfusion) {

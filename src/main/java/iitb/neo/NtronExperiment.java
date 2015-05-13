@@ -302,7 +302,8 @@ public class NtronExperiment {
 		/**/
 		LperceptTrain.train(modelFile.getAbsoluteFile().toString(), new Random(
 				1), this.numIterations, this.regularizer, this.finalAvg,
-				this.ignoreConfusion);
+				this.ignoreConfusion, ntronModelDirs.get(0)
+				+ File.separatorChar + "mapping");
 		
 
 	}
