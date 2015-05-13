@@ -36,8 +36,8 @@ public class KeywordFeatureGenerator implements FeatureGenerator {
 				"life", "expectancy",
 				"diesel"} ;
 		for(String key: fixedKeywords){
-			//keywords.add(StemUtils.getStemWord(key.toLowerCase()));
-			keywords.add(key.toLowerCase());
+			keywords.add(StemUtils.getStemWord(key.toLowerCase()));
+			//keywords.add(key.toLowerCase());
 		}
 		
 	}
@@ -153,8 +153,8 @@ public class KeywordFeatureGenerator implements FeatureGenerator {
 		
 		for (CoreLabel token: tokens) {
 			
-			//String tokenStr = StemUtils.getStemWord(token.toString().toLowerCase());
-			String tokenStr = token.toString().toLowerCase();
+			String tokenStr = StemUtils.getStemWord(token.toString().toLowerCase());
+			//String tokenStr = token.toString().toLowerCase();
 			if (keywords.contains(tokenStr)) {
 				features.add("key: " + tokenStr);
 			}

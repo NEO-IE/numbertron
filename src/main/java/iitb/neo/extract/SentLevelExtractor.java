@@ -51,7 +51,7 @@ public class SentLevelExtractor {
 	
 	public Map<Integer, String> relID2rel = new HashMap<Integer, String>();
 
-	private int MIN_TYPE_THRESHOLD = 3;
+	private int MIN_TYPE_THRESHOLD = 2;
 
 	public SentLevelExtractor(String pathToMultirFiles, FeatureGenerator mintzFg, FeatureGenerator numFg, FeatureGenerator keywordsFg) {
 		this.numFg = numFg;
