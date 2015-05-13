@@ -19,7 +19,7 @@ import main.java.org.tartarus.snowball.SnowballStemmer;
  * @author ashish
  * 
  */
-public class KeywordInference {
+public class GoldDBKeywordInference {
 
 	public static HashMap<String, Double> marginMap;
 	
@@ -42,22 +42,12 @@ public class KeywordInference {
 					feats.add(id);
 				}
 			}
-			p.n_states[n_i] = hasKeyword(feats, lrg.relation);
-		}
-		return p;
-	}
-	
-	public static boolean hasKeyword(HashSet<Integer> feats, String rel){
-		List<String>  relKey = KeywordData.REL_KEYWORD_MAP.get(rel);
-		for(String key : relKey){
-			String stemKey = StemUtils.getStemWord(key.toLowerCase());
-			Integer featID = LocalAveragedPerceptron.featNameNumMapping.get("key: "+stemKey);
-			if(featID != null){
-				if(feats.contains(featID)){
-					return true;
-				}
+			if(GoldDbInference.closeEnough(lrg.n[n_i].value, lrg.relation, lrg.location)){
+				p.n_states[n_i] = KeywordInference.hasKeyword(feats, lrg.relation);
+			}else{
+				p.n_states[n_i] = false;
 			}
 		}
-		return false;
+		return p;
 	}
 }
