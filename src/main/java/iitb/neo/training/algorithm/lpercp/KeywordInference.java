@@ -51,14 +51,11 @@ public class KeywordInference {
 		List<String>  relKey = KeywordData.REL_KEYWORD_MAP.get(rel);
 		for(String key : relKey){
 			String stemKey = StemUtils.getStemWord(key.toLowerCase());
-			System.err.println(stemKey);
 			Integer featID = LocalAveragedPerceptron.featNameNumMapping.get("key: "+stemKey);
 			if(featID != null){
 				if(feats.contains(featID)){
 					return true;
 				}
-			}else{
-				//System.err.println("key: " + key.toLowerCase());
 			}
 		}
 		return false;

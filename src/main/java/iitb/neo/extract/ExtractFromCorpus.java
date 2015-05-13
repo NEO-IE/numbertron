@@ -304,7 +304,7 @@ public class ExtractFromCorpus {
 				List<CoreMap> sentences = doc
 						.get(CoreAnnotations.SentencesAnnotation.class);
 				for (CoreMap sentence : sentences) {
-					System.out.println(sentence);
+					//System.out.println(sentence);
 					// argument identification
 					List<Argument> arguments = ai.identifyArguments(doc,
 							sentence);
@@ -357,16 +357,17 @@ public class ExtractFromCorpus {
 						double max, min;
 						ArrayList<Double> scores = new ArrayList<Double>(
 								perRelationScoreMap.values());
-						max = min = scores.get(0);
-						for (int i1 = 1, l = scores.size(); i1 < l; i1++) {
-							if (max < scores.get(i1)) {
-								max = scores.get(i1);
-							}
-							if (min > scores.get(i1)) {
-								min = scores.get(i1);
-							}
-
-						}
+						max =  scores.get(0);
+						min = scores.get(scores.size() - 1);
+//						for (int i1 = 1, l = scores.size(); i1 < l; i1++) {
+//							if (max < scores.get(i1)) {
+//								max = scores.get(i1);
+//							}
+//							if (min > scores.get(i1)) {
+//								min = scores.get(i1);
+//							}
+//
+//						}
 						double conf = 0.0;
 						if (max != min) {
 							conf = (extrScore - min) / (max - min);

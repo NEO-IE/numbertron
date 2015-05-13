@@ -129,8 +129,8 @@ public class GoldDbInference {
 			int currCount = falseCountMap.get(locationRelation);
 			falseCountMap.put(locationRelation, currCount + 1);
 		}
-		//return false;
-		 return true;
+		return false;
+		 
 	}
 
 	/**
