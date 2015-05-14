@@ -304,7 +304,7 @@ public class ExtractFromCorpus {
 				List<CoreMap> sentences = doc
 						.get(CoreAnnotations.SentencesAnnotation.class);
 				for (CoreMap sentence : sentences) {
-					//System.out.println(sentence);
+					System.out.println(sentence);
 					// argument identification
 					List<Argument> arguments = ai.identifyArguments(doc,
 							sentence);

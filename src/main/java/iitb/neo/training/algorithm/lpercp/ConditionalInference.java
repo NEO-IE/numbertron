@@ -3,8 +3,8 @@ package main.java.iitb.neo.training.algorithm.lpercp;
 import java.util.ArrayList;
 
 import main.java.iitb.neo.training.ds.LRGraph;
+import main.java.iitb.neo.training.ds.Number;
 import edu.washington.multirframework.multiralgorithm.Parameters;
-import main.java.iitb.neo.training.ds.Number;	
 
 
 
@@ -20,6 +20,8 @@ public class ConditionalInference {
 			
 			Parse trueParse = GoldDbInference.infer(lrg); //get the states of n nodes from gold DB for this graph.
 			//Parse trueParse = KeywordInference.infer(lrg);
+			//Parse trueParse = GoldDBKeywordInference.infer(lrg);
+			
 			p.z_states = new boolean[lrg.Z.length];
 			p.n_states = trueParse.n_states;
 			

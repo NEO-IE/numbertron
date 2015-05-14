@@ -51,17 +51,19 @@ public class FullInference {
 				p.z_states[z] = false;
 			}
 		}
-
+		double LEAST_Z_FLIPPED_COUNT = 0.5;
 		/* now flip n nodes accordingly: OR */
 		int numN = lrg.n.length;
 		for (int n_i = 0; n_i < numN; n_i++) {
 			ArrayList<Integer> attachedZ = lrg.n[n_i].zs_linked;
+			int totalZ = attachedZ.size();
 			p.n_states[n_i] = false;
+			int trueAttachedZCount = 0;
 			for (Integer z : attachedZ) { // iterate over all the attached Z
 											// nodes
-				if (p.z_states[z]) { // if any of them is one, set the number
-										// node to 1
-					p.n_states[n_i] = true;
+				if (p.z_states[z]) { // if any of them is one, set the number // node to 1
+					trueAttachedZCount++;
+					p.n_states[n_i] = true;//(((trueAttachedZCount * 1.0) / (totalZ)) >= LEAST_Z_FLIPPED_COUNT);
 					break;
 				}
 			}
