@@ -8,10 +8,7 @@ import java.util.List;
 
 import main.java.iitb.neo.training.ds.LRGraph;
 import main.java.iitb.neo.training.ds.Number;
-import main.java.iitb.neo.util.LemmaUtils;
 import main.java.iitb.neo.util.StemUtils;
-import main.java.org.tartarus.snowball.SnowballProgram;
-import main.java.org.tartarus.snowball.SnowballStemmer;
 
 /**
  * Sets the value of n nodes based on the value pulled from the gold db
