@@ -16,7 +16,7 @@ public class LRGraphMemoryDatasetWithoutConfusedLocationRels implements Dataset<
 
 	private LRGraph[] docs;
 	private int cursor = 0;
-	private HashSet<String> confusedPercentCountries, confusedGOODSGDPCountries;
+	private HashSet<String> confusedPercentCountries, confusedGOODSGDPCountries, confusedFDIGOODSCountries;
 
 	public LRGraphMemoryDatasetWithoutConfusedLocationRels() {
 	}
@@ -24,6 +24,7 @@ public class LRGraphMemoryDatasetWithoutConfusedLocationRels implements Dataset<
 	public LRGraphMemoryDatasetWithoutConfusedLocationRels(String file) throws IOException {
 		confusedPercentCountries = new HashSet<String>();
 		confusedGOODSGDPCountries = new HashSet<String>();
+		confusedFDIGOODSCountries = new HashSet<String>();
 		
 		String confusedPercentCountriesNames[] = { "/m/06s9y", "/m/04xn_", "/m/088vb", "/m/07tp2", "/m/07dvs",
 				"/m/07f5x", "/m/06v36", "/m/06tw8", "/m/01n8qg", "/m/06dfg", "/m/05qkp", "/m/016zwt", "/m/05cc1",
@@ -41,12 +42,21 @@ public class LRGraphMemoryDatasetWithoutConfusedLocationRels implements Dataset<
 			confusedGOODSGDPCountries.add(confusedGOODSGDP);
 		}
 		
+		
+		String confusedFDIGOODSNames[] = {"/m/02lx0", "/m/07dvs", "/m/06s_2", "/m/01n8qg", "/m/04wlh", "/m/04vs9", "/m/04v3q", "/m/04w8f",
+				"/m/04hzj", "/m/047t_", "/m/0165b", "/m/0j11", "/m/04g61", "/m/03rj0"};
+		for(String confusedFDIGOODSName: confusedFDIGOODSNames) {
+			confusedFDIGOODSCountries.add(confusedFDIGOODSName);
+		}
+		
 		LRGraph d = new LRGraph();
 		List<LRGraph> l = new ArrayList<LRGraph>();
 		DataInputStream dis = new DataInputStream(new BufferedInputStream(new FileInputStream(file)));
 		while (d.read(dis)) {
 			boolean ignore = confusedPercentCountries.contains(d.location) && (d.relation.equals("INTERNET") || d.relation.equals("INF"));
-			ignore = ignore || (confusedGOODSGDPCountries.contains(d.location) && (d.relation.equals("GOODS") || d.relation.equals("GDP"))); 
+			ignore = ignore || (confusedGOODSGDPCountries.contains(d.location) && (d.relation.equals("GOODS") || d.relation.equals("GDP")));
+			ignore = ignore || (confusedFDIGOODSCountries.contains(d.location) && (d.relation.equals("GOODS") || d.relation.equals("FDI")));
+			
 			if (!ignore) {
 				l.add(d);
 			} else {
