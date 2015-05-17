@@ -2,10 +2,10 @@ package main.java.iitb.neo.autoeval;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.Console;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class ActiveLearn {
 	
@@ -27,7 +27,7 @@ public class ActiveLearn {
 			BufferedWriter newFeatureWriter = new BufferedWriter(new FileWriter(featureFileOut));
 			String instanceLine = null;
 			String featureLine = null;
-			Console console = System.console();
+			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 			
 			while ((instanceLine = instanceReader.readLine()) != null) {
 				featureLine = featureReader.readLine();
@@ -52,30 +52,43 @@ public class ActiveLearn {
 				Double value = Double.parseDouble(instanceParts[7]);
 				boolean golddbLabel = LabelInstances.distanceLabel(value, rel, entity, margin);
 				if(!golddbLabel) { //anyways false, write, and proceed
-					newFeatureWriter.write(featureLine);
+					newFeatureWriter.write(featureLine + "\n");
 				} else { //this could be a possible false positive, get the label from the human oracle
 					double matchMargin = LabelInstances.getMatchMargin(value, rel, entity, margin);
-					if(matchMargin > activeLearnThreshold) { //Almost false, take a label
-						System.err.println("------ATTENTION ORACLE--------");
+					System.out.println(matchMargin);
+					if(matchMargin >= activeLearnThreshold) { //Almost false, take a label
+						System.err.println("-------CONFUSED INSTANCE--------");
 						System.out.println(sent);
 						System.out.println(entity + " - " + rel + " - " + value);
 						System.out.println("\n");
-						String input = console.readLine("[1 (yes) / 2 (no)]: ");
+						Integer input = Integer.parseInt(in.readLine());
+						System.err.println("Label: " + (input == 1 ? "Yes" : "No"));
 						String labelFeature = null;
-						if(input.equals("1")) {
+						if(input == 1) {
 							labelFeature = "hard: " + rel;
-							
 						} else {
 							labelFeature = "hard: N_" + rel; 
 						}
-						newFeatureWriter.write(featureLine + "\t" + labelFeature);
+						newFeatureWriter.write(featureLine + "\t" + labelFeature  + "\n");
 					} else { //not so confusing
-						newFeatureWriter.write(featureLine);
+						newFeatureWriter.write(featureLine + "\n");
 					}
 				}
 			}
+			instanceReader.close();
+			featureReader.close();
+			newFeatureWriter.close();
 		} catch (IOException ioe) {
-
+			ioe.printStackTrace();
 		}
+	
+	}
+	
+	public static void main(String args[]) {
+		String instanceFile = "/mnt/a99/d0/aman/combined_baby_instances.tsv";
+		String featureFile = "/mnt/bag/aman/train/features_babycorpus.tsv";
+		String newFeatureFile = "/mnt/bag/aman/train/features_babycorpus_active.tsv";
+		ActiveLearn alearn = new ActiveLearn();
+		alearn.activeLearn(instanceFile, featureFile, newFeatureFile);
 	}
 }
