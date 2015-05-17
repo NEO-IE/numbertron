@@ -136,6 +136,7 @@ public class NNKeywordFeatureGenerator implements FeatureGenerator {
 			for (int i = 0; i < tokens.length; i++) {
 				if (postags[i].equals("NN")) {
 					features.add("key: " + StemUtils.getStemWord(tokens[i]));
+					//features.add("key: " + (tokens[i]));
 				}
 			}
 			return features;

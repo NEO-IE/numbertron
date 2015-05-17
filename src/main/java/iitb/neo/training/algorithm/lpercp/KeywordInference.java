@@ -39,6 +39,7 @@ public class KeywordInference {
 					feats.add(id);
 				}
 			}
+			//Make the number true if one of the Z nodes attached expresses the relation
 			p.n_states[n_i] = hasKeyword(feats, lrg.relation);
 		}
 		return p;

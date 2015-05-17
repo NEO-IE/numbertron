@@ -292,6 +292,7 @@ public class SentLevelExtractor {
 		}
 		bw.write("_____________________________________________________\n");
 		
+		/*
 		//now writing for all the other relations
 		Set<String> relNames = RelationMetadata.getRelations();
 		
@@ -308,7 +309,7 @@ public class SentLevelExtractor {
 			bw.write("_____________________________________________________\n");
 			
 		}
-		
+		*/
 		bw.write("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
 		bw.write("_____________________________________________________\n");
 	

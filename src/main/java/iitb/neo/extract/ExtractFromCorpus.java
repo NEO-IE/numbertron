@@ -286,114 +286,123 @@ public class ExtractFromCorpus {
 		}
 
 		List<Extraction> extrs = new ArrayList<Extraction>();
-		for (int i = 0; i < sigs.size(); i++) {
-			Iterator<Annotation> docs = c.getDocumentIterator();
-			SententialInstanceGeneration sig = sigs.get(i);
-			String modelPath = modelPaths.get(i);
-			SentLevelExtractor sle = new SentLevelExtractor(modelPath,
-					mintzKeywordsFg, numberFg, keywordsFg);
+		Iterator<Annotation> docs = c.getDocumentIterator();
+		SententialInstanceGeneration sig = sigs.get(0);
+		String modelPath = modelPaths.get(0);
+		SentLevelExtractor sle = new SentLevelExtractor(modelPath,
+				mintzKeywordsFg, numberFg, keywordsFg);
 
-			// Map<String, Integer> rel2RelIdMap =
-			// sle.getMapping().getRel2RelID();
-			// Map<Integer, String> ftID2ftMap =
-			// ModelUtils.getFeatureIDToFeatureMap(sle.getMapping());
-			int sentNumber = 0;
-			int docCount = 0;
-			while (docs.hasNext()) {
-				Annotation doc = docs.next();
-				List<CoreMap> sentences = doc
-						.get(CoreAnnotations.SentencesAnnotation.class);
-				for (CoreMap sentence : sentences) {
-					System.out.println(sentence);
-					// argument identification
-					List<Argument> arguments = ai.identifyArguments(doc,
-							sentence);
-					// sentential instance generation
+		// Map<String, Integer> rel2RelIdMap =
+		// sle.getMapping().getRel2RelID();
+		// Map<Integer, String> ftID2ftMap =
+		// ModelUtils.getFeatureIDToFeatureMap(sle.getMapping());
+		int sentNumber = 0;
+		int docCount = 0;
+		while (docs.hasNext()) {
+			Annotation doc = docs.next();
+			List<CoreMap> sentences = doc
+					.get(CoreAnnotations.SentencesAnnotation.class);
+			for (CoreMap sentence : sentences) {
+				 System.out.println(sentence);
+				// argument identification
+				
+				 List<Argument> arguments = ai.identifyArguments(doc, sentence);
+				// sentential instance generation
+				List<Pair<Argument, Argument>> sententialInstances = null;
+				 sententialInstances =
+				 sigs.get(0).generateSententialInstances(
+				 arguments, sentence);
+//				if (exactlyOneCountry(arguments)) { // if there is only one
+//													// country, just do a usual
+//													// cross product
+//					sententialInstances = sigs.get(0)
+//							.generateSententialInstances(arguments, sentence);
+//				} else {
+//					sententialInstances = sigs.get(1)
+//							.generateSententialInstances(arguments, sentence);
+//				}
 
-					if (sentNumber++ % 10 == 0) {
-						System.out.println("Extracting from sentence number "
-								+ sentNumber);
+				if (sentNumber++ % 10 == 0) {
+					System.out.println("Extracting from sentence number "
+							+ sentNumber);
+				}
+				for (Pair<Argument, Argument> p : sententialInstances) {
+					if (p.first.getArgName().equals("years")
+							|| !(RegExpUtils.exactlyOneNumber(p)
+									&& RegExpUtils.secondNumber(p) && !RegExpUtils
+										.isYear(p.second.getArgName()))) {
+						continue;
 					}
-					List<Pair<Argument, Argument>> sententialInstances = sig
-							.generateSententialInstances(arguments, sentence);
-					for (Pair<Argument, Argument> p : sententialInstances) {
-						if (p.first.getArgName().equals("years")
-								|| !(RegExpUtils.exactlyOneNumber(p)
-										&& RegExpUtils.secondNumber(p) && !RegExpUtils
-											.isYear(p.second.getArgName()))) {
-							continue;
-						}
-						Map<Integer, Double> perRelationScoreMap = null;
-						try {
-							perRelationScoreMap = sle
-									.extractFromSententialInstanceWithAllRelationScores(
-											p.first, p.second, sentence, doc,
-											w_m, w_k, w_n);
+					Map<Integer, Double> perRelationScoreMap = null;
+					try {
+						perRelationScoreMap = sle
+								.extractFromSententialInstanceWithAllRelationScores(
+										p.first, p.second, sentence, doc, w_m,
+										w_k, w_n);
 
-						} catch (NotImplementedException nie) {
-							nie.printStackTrace();
-							continue;
+					} catch (NotImplementedException nie) {
+						nie.printStackTrace();
+						continue;
+					}
+					perRelationScoreMap = MapUtils
+							.sortByValue(perRelationScoreMap);
+					ArrayList<Integer> compatRels = UnitsUtils
+							.unitsCompatible(p.second, sentence, sle
+									.getMapping().getRel2RelID());
+					String relStr = null;
+					Double extrScore = -1.0;
+					for (Integer rel : perRelationScoreMap.keySet()) {
+						if (compatRels.contains(rel)) {
+							relStr = sle.relID2rel.get(rel);
+							extrScore = perRelationScoreMap.get(rel);
+							break;
 						}
-						perRelationScoreMap = MapUtils.sortByValue(perRelationScoreMap);
-						ArrayList<Integer> compatRels = UnitsUtils
-								.unitsCompatible(p.second, sentence, sle
-										.getMapping().getRel2RelID());
-						String relStr = null;
-						Double extrScore = -1.0;
-						for (Integer rel : perRelationScoreMap.keySet()) {
-							if (compatRels.contains(rel)) {
-								relStr = sle.relID2rel.get(rel);
-								extrScore = perRelationScoreMap.get(rel);
-								break;
-							}
-						}
+					}
 
-						String senText = sentence
-								.get(CoreAnnotations.TextAnnotation.class);
-						String docName = sentence.get(SentDocName.class);
-						sentence.get(SentStartOffset.class);
+					String senText = sentence
+							.get(CoreAnnotations.TextAnnotation.class);
+					String docName = sentence.get(SentDocName.class);
+					sentence.get(SentStartOffset.class);
 
-						Integer sentNum = sentence.get(SentGlobalID.class);
-						double max, min;
-						ArrayList<Double> scores = new ArrayList<Double>(
-								perRelationScoreMap.values());
-						max =  scores.get(0);
-						min = scores.get(scores.size() - 1);
-//						for (int i1 = 1, l = scores.size(); i1 < l; i1++) {
-//							if (max < scores.get(i1)) {
-//								max = scores.get(i1);
-//							}
-//							if (min > scores.get(i1)) {
-//								min = scores.get(i1);
-//							}
-//
-//						}
-						double conf = 0.0;
-						if (max != min) {
-							conf = (extrScore - min) / (max - min);
+					Integer sentNum = sentence.get(SentGlobalID.class);
+					double max, min;
+					ArrayList<Double> scores = new ArrayList<Double>(
+							perRelationScoreMap.values());
+					max = scores.get(0);
+					min = scores.get(scores.size() - 1);
+					// for (int i1 = 1, l = scores.size(); i1 < l; i1++) {
+					// if (max < scores.get(i1)) {
+					// max = scores.get(i1);
+					// }
+					// if (min > scores.get(i1)) {
+					// min = scores.get(i1);
+					// }
+					//
+					// }
+					double conf = 0.0;
+					if (max != min) {
+						conf = (extrScore - min) / (max - min);
+					}
+					if (conf <= cutoff_confidence) { // no compatible
+														// extraction ||
+						continue;
+					}
+					// System.out.println(extrResult);
+					// prepare extraction
+					if (null != relStr) {
+						if (ANALYZE) {
+							sle.firedFeaturesScores(p.first, p.second,
+									sentence, doc, relStr, analysis_writer);
+							analysis_writer.flush();
 						}
-						if (conf <= cutoff_confidence) { // no compatible
-															// extraction ||
-							continue;
-						}
-						// System.out.println(extrResult);
-						// prepare extraction
-						if (null != relStr) {
-							if (ANALYZE) {
-								sle.firedFeaturesScores(p.first, p.second,
-										sentence, doc, relStr, analysis_writer);
-								analysis_writer.flush();
-							}
-							Extraction e = new Extraction(p.first, p.second,
-									docName, relStr, sentNum, extrScore,
-									senText);
-							extrs.add(e);
-
-						}
+						Extraction e = new Extraction(p.first, p.second,
+								docName, relStr, sentNum, extrScore, senText);
+						extrs.add(e);
 
 					}
 
 				}
+
 			}
 
 			docCount++;
@@ -406,6 +415,26 @@ public class ExtractFromCorpus {
 		}
 
 		return extrs;
+	}
+
+	/**
+	 * Takes a list of arguments and checks whether exactly one of them is a
+	 * country. If so, we would like to take a cross product instead of taking
+	 * the closest pair.
+	 * 
+	 * @param arguments
+	 * @return
+	 */
+	private boolean exactlyOneCountry(List<Argument> arguments) {
+		int countNumbers = 0;
+		for (Argument arg : arguments) {
+			if (RegExpUtils.isNumber(arg)) {
+				countNumbers++;
+			}
+		}
+		int totalArgs = arguments.size();
+		int countCountries = totalArgs - countNumbers;
+		return countCountries == 1;
 	}
 
 }
