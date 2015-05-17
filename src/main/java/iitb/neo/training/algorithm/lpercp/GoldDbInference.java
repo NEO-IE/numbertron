@@ -180,4 +180,36 @@ public class GoldDbInference {
 
 		}
 	}
+	
+	/**
+	 * Returns the match margin for a value, rel and entity which is trye
+	 */
+	public static double getMatchMargin(Double value, String rel, String entity) {
+		
+		Pair<String, String> locationRelation = new Pair<String, String>(
+				entity, rel);
+	
+		rel = rel.split("&")[0];
+		ArrayList<Double> goldValues = GoldDB.getGoldDBValue(entity, rel,
+				GoldDB.K);
+		/*
+		 * if(rel.equals("ELEC")){ System.err.println("Entity: "+entity);
+		 * System.err.println("DBVal: "+goldValues);
+		 * System.err.println("Tvalue: "+value); }
+		 */
+		for (Double val : goldValues) {
+
+			// Double valueSlack = marginMap.get(rel)* val; // +- 5 percent
+			Double valueSlack = GoldDB.MARGIN * val; // +- 5 percent
+			// System.out.print(val + "\t");
+			if ((value > (val - valueSlack)) && (value < (val + valueSlack))) {
+				return Math.abs(value - val) / val;
+				
+			}
+		}
+		//Something is wrong if you reach here, getMatchMargin should only be called for instances 
+		//that are true
+		return Math.sqrt(-1); 
+	}
+
 }
