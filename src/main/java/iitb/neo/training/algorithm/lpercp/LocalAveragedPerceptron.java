@@ -2,18 +2,15 @@ package main.java.iitb.neo.training.algorithm.lpercp;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Random;
-
-import org.joda.time.field.ZeroIsMaxDateTimeField;
+import java.util.Set;
 
 import main.java.iitb.neo.training.ds.LRGraph;
-import main.java.iitb.neo.training.ds.Number;
 import edu.washington.multirframework.multiralgorithm.Dataset;
 import edu.washington.multirframework.multiralgorithm.DenseVector;
 import edu.washington.multirframework.multiralgorithm.Model;
@@ -45,6 +42,7 @@ public class LocalAveragedPerceptron {
 	 */
 	public static HashMap<Integer, String> relNumNameMapping;
 	public static HashMap<String, Integer> featNameNumMapping;
+	public static Set<Integer> hardLabelFeatures;
 	HashMap<Integer, String> featureList;
 	Integer numRelation;
 	Integer numFeatures;
@@ -67,6 +65,7 @@ public class LocalAveragedPerceptron {
 			relNumNameMapping = new HashMap<Integer, String>();
 			featNameNumMapping = new HashMap<String, Integer>();
 			featureList = new HashMap<Integer, String>();
+			hardLabelFeatures = new HashSet<Integer>();
 			BufferedReader featureReader = new BufferedReader(new FileReader(
 					mappingFile));
 			Integer numRel = Integer.parseInt(featureReader.readLine());
@@ -83,6 +82,9 @@ public class LocalAveragedPerceptron {
 				ftr = featureReader.readLine().trim();
 				String parts[] = ftr.split("\t");
 				featNameNumMapping.put(parts[1], Integer.parseInt(parts[0]));
+				if(parts[1].split(" ")[0].equals("hard:")) {
+					hardLabelFeatures.add(Integer.parseInt(parts[0]));
+				}
 				featureList.put(fno, ftr);
 				fno++;
 			}
@@ -287,6 +289,9 @@ public class LocalAveragedPerceptron {
 			
 			for (int j = 0; j < features.num; j++) {
 				int id = features.ids[j];
+				if(hardLabelFeatures.contains(id)) {
+					continue;
+				}
 				updateCountVector.vals[id] += 1;
 				if (lastUpdates.vals[id] != 0) {
 					// avg.vals[id] += (avgIteration - lastUpdatesIter.vals[id])
@@ -336,6 +341,9 @@ public class LocalAveragedPerceptron {
 			DenseVector updateCountVector = (DenseVector) countUpdates.relParameters[s]; 
 			
 			for (int id = 0; id < avg.vals.length; id++) {
+				if(hardLabelFeatures.contains(id)) {
+					continue;
+				}
 				if (lastUpdates.vals[id] != 0) {
 					int notUpdatedWindow = avgIteration
 							- (int) lastUpdatesIter.vals[id];
