@@ -6,11 +6,20 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ActiveLearn {
 	
 	double margin = 0.20; //the gold db match margin
 	double activeLearnThreshold = 0.18; //only get labels for instances 
+	int MAX_SAMPLE_PER_RELATION = 1;
+	Map<String, Integer> countMap;
+	public ActiveLearn() {
+		countMap = new HashMap<String, Integer>();
+		
+		
+	}
 	/**
 	 * 
 	 * Appends a feature "hard: relation" to some of the instances
@@ -35,7 +44,7 @@ public class ActiveLearn {
 				String sent = instanceParts[10];
 				String rel = instanceParts[9];
 				String entity = instanceParts[0];
-
+				
 				boolean ignore = LabelInstances.confusedPercentCountries.contains(entity)
 						&& (rel.equals("INTERNET") || rel.equals("INF"));
 				ignore = ignore
@@ -45,7 +54,7 @@ public class ActiveLearn {
 						|| (LabelInstances.confusedFDIGOODSCountries.contains(entity) && (rel
 								.equals("GOODS") || rel.equals("FDI")));
 				if (ignore) {
-					newFeatureWriter.write(featureLine);
+					newFeatureWriter.write(featureLine + "\n");
 					continue;
 				}
 				
@@ -55,8 +64,16 @@ public class ActiveLearn {
 					newFeatureWriter.write(featureLine + "\n");
 				} else { //this could be a possible false positive, get the label from the human oracle
 					double matchMargin = LabelInstances.getMatchMargin(value, rel, entity, margin);
-					System.out.println(matchMargin);
-					if(matchMargin >= activeLearnThreshold) { //Almost false, take a label
+					if(matchMargin >= activeLearnThreshold) { //Almost false, take a label, if there are still relations left
+						Integer relCount = countMap.get(rel);
+						if(relCount == null) {
+							countMap.put(rel, 1);
+						} else if(relCount >= MAX_SAMPLE_PER_RELATION) {
+							newFeatureWriter.write(featureLine + "\n");
+							continue;
+						} else {
+							countMap.put(rel, relCount + 1);
+						}
 						System.err.println("-------CONFUSED INSTANCE--------");
 						System.out.println(sent);
 						System.out.println(entity + " - " + rel + " - " + value);
