@@ -18,7 +18,7 @@ import edu.washington.multirframework.multiralgorithm.Parameters;
  * @author aman
  * 
  */
-public class GoldDbInference implements CI {
+public class GoldDbInference implements ConditionalInference {
 
 	private static HashMap<Pair<String, String>, Integer> trueCountMap = new HashMap<>();
 

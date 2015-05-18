@@ -50,7 +50,12 @@ public class LocalAveragedPerceptron {
 	BufferedWriter obw;
 	boolean debug = false;
 	boolean readMapping = true;
-
+	
+	
+	//There are several kinds of conditional inferences defined now, each of them implements
+	//The interface ConditionalInference
+	ConditionalInference conditionalInference = null;
+	
 	public LocalAveragedPerceptron(Model model, Random random,
 			int maxIterations, double regularizer, boolean finalAverageCalc, String mappingFile)
 			throws NumberFormatException, IOException {
@@ -60,7 +65,8 @@ public class LocalAveragedPerceptron {
 		this.numIterations = maxIterations;
 		this.regulaizer = regularizer;
 		this.finalAverageCalc = finalAverageCalc;
-
+		this.conditionalInference = new GoldDbInference();
+		
 		if (readMapping) {
 			relNumNameMapping = new HashMap<Integer, String>();
 			featNameNumMapping = new HashMap<String, Integer>();
@@ -185,7 +191,7 @@ public class LocalAveragedPerceptron {
 			// compute most likely label under current parameters
 			Parse predictedParse = FullInference.infer(lrg, scorer,
 					iterParameters);
-			Parse trueParse = ConditionalInference.infer(lrg, scorer,
+			Parse trueParse = conditionalInference.infer(lrg, scorer,
 					iterParameters);
 
 			if (!NsAgree(predictedParse, trueParse)) {
