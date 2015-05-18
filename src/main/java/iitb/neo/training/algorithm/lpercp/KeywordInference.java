@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
+import edu.washington.multirframework.multiralgorithm.Parameters;
 import main.java.iitb.neo.training.ds.LRGraph;
 import main.java.iitb.neo.training.ds.Number;
 import main.java.iitb.neo.util.StemUtils;
@@ -16,7 +17,7 @@ import main.java.iitb.neo.util.StemUtils;
  * @author ashish
  * 
  */
-public class KeywordInference {
+public class KeywordInference implements ConditionalInference {
 
 	public static HashMap<String, Double> marginMap;
 	
@@ -24,7 +25,8 @@ public class KeywordInference {
 		marginMap = new HashMap<String, Double>();
 	}
 
-	public static Parse infer(LRGraph lrg) {
+	public Parse infer(LRGraph lrg, Scorer scorer, Parameters params) {
+		scorer.setParameters(params);
 		Parse p = new Parse();
 		p.graph = lrg;
 		p.z_states = new boolean[lrg.Z.length];
