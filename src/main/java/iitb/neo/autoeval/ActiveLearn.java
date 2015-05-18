@@ -25,21 +25,30 @@ public class ActiveLearn {
 	 * Appends a feature "hard: relation" to some of the instances
 	 * @param instanceFile
 	 * @param featureFile
+	 * @param handkeywordFeatureFileNew 
+	 * @param allkeywordFeatureFileNew 
 	 * @param featureFileOut, the resulting output file
 	 */
-	private void activeLearn(String instanceFile, String featureFile, String featureFileOut) {
+	private void activeLearn(String instanceFile, String allkeywordFeatureFile, String handkeywordFeatureFile, String allkeywordFeatureFileNew, String handkeywordFeatureFileNew) {
 		try {
 			BufferedReader instanceReader = new BufferedReader(new FileReader(
 					instanceFile));
-			BufferedReader featureReader = new BufferedReader(new FileReader(
-					featureFile));
-			BufferedWriter newFeatureWriter = new BufferedWriter(new FileWriter(featureFileOut));
+			BufferedReader allFeatureReader = new BufferedReader(new FileReader(
+					allkeywordFeatureFile));
+			BufferedReader handFeatureReader = new BufferedReader(new FileReader(
+					handkeywordFeatureFile));
+			
+			BufferedWriter allFeatureWriter = new BufferedWriter(new FileWriter(allkeywordFeatureFileNew));
+			BufferedWriter handFeatureWriter = new BufferedWriter(new FileWriter(handkeywordFeatureFileNew));
 			String instanceLine = null;
-			String featureLine = null;
+			String allfeatureLine = null, handfeatureLine;
 			BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 			
 			while ((instanceLine = instanceReader.readLine()) != null) {
-				featureLine = featureReader.readLine();
+				allfeatureLine = allFeatureReader.readLine();
+				handfeatureLine = handFeatureReader.readLine();
+				
+				
 				String instanceParts[] = instanceLine.split("\t");
 				String sent = instanceParts[10];
 				String rel = instanceParts[9];
@@ -54,14 +63,17 @@ public class ActiveLearn {
 						|| (LabelInstances.confusedFDIGOODSCountries.contains(entity) && (rel
 								.equals("GOODS") || rel.equals("FDI")));
 				if (ignore) {
-					newFeatureWriter.write(featureLine + "\n");
+					allFeatureWriter.write(allfeatureLine + "\n");
+					handFeatureWriter.write(handfeatureLine + "\n");
 					continue;
 				}
 				
 				Double value = Double.parseDouble(instanceParts[7]);
 				boolean golddbLabel = LabelInstances.distanceLabel(value, rel, entity, margin);
 				if(!golddbLabel) { //anyways false, write, and proceed
-					newFeatureWriter.write(featureLine + "\n");
+					allFeatureWriter.write(allfeatureLine + "\n");
+					handFeatureWriter.write(handfeatureLine + "\n");
+					
 				} else { //this could be a possible false positive, get the label from the human oracle
 					double matchMargin = LabelInstances.getMatchMargin(value, rel, entity, margin);
 					if(matchMargin >= activeLearnThreshold) { //Almost false, take a label, if there are still relations left
@@ -69,7 +81,9 @@ public class ActiveLearn {
 						if(relCount == null) {
 							countMap.put(rel, 1);
 						} else if(relCount >= MAX_SAMPLE_PER_RELATION) {
-							newFeatureWriter.write(featureLine + "\n");
+							allFeatureWriter.write(allfeatureLine + "\n");
+							handFeatureWriter.write(handfeatureLine + "\n");
+							
 							continue;
 						} else {
 							countMap.put(rel, relCount + 1);
@@ -86,15 +100,22 @@ public class ActiveLearn {
 						} else {
 							labelFeature = "hard: N_" + rel; 
 						}
-						newFeatureWriter.write(featureLine + "\t" + labelFeature  + "\n");
+						allFeatureWriter.write(allfeatureLine + "\t" + labelFeature  +  "\n");
+						handFeatureWriter.write(handfeatureLine + "\t" + labelFeature  +  "\n");
+						
+						
 					} else { //not so confusing
-						newFeatureWriter.write(featureLine + "\n");
+						allFeatureWriter.write(allfeatureLine + "\n");
+						handFeatureWriter.write(handfeatureLine + "\n");
+						
 					}
 				}
 			}
 			instanceReader.close();
-			featureReader.close();
-			newFeatureWriter.close();
+			allFeatureReader.close();
+			handFeatureReader.close();
+			allFeatureWriter.close();
+			handFeatureWriter.close();
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
@@ -102,10 +123,13 @@ public class ActiveLearn {
 	}
 	
 	public static void main(String args[]) {
-		String instanceFile = "/mnt/a99/d0/aman/combined_baby_instances.tsv";
-		String featureFile = "/mnt/bag/aman/train/features_babycorpus.tsv";
-		String newFeatureFile = "/mnt/bag/aman/train/features_babycorpus_active.tsv";
+		String instanceFile = "/mnt/a99/d0/aman/combined_all_instances.tsv";
+		String allkeywordFeatureFile = "/mnt/bag/aman/train/features_mintz_allkeywords_numbers.tsv";
+		String handkeywordFeatureFile = "/mnt/bag/aman/train/features_mintz_handkeywords_numbers.tsv";
+		String allkeywordFeatureFileNew = "/mnt/bag/aman/train/features_mintz_allkeywords_numbers_active.tsv";
+		String handkeywordFeatureFileNew = "/mnt/bag/aman/train/features_mintz_handkeywords_numbers_active.tsv";
+		
 		ActiveLearn alearn = new ActiveLearn();
-		alearn.activeLearn(instanceFile, featureFile, newFeatureFile);
+		alearn.activeLearn(instanceFile, allkeywordFeatureFile, handkeywordFeatureFile, allkeywordFeatureFileNew, handkeywordFeatureFileNew);
 	}
 }
