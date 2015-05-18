@@ -5,12 +5,12 @@ import iitb.rbased.util.Pair;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import main.java.iitb.neo.goldDB.GoldDB;
 import main.java.iitb.neo.training.ds.LRGraph;
-import main.java.iitb.neo.util.RandomUtils;
 import main.java.iitb.neo.training.ds.Number;
+import main.java.iitb.neo.util.RandomUtils;
+import edu.washington.multirframework.multiralgorithm.Parameters;
 
 /**
  * Sets the value of n nodes based on the value pulled from the gold db
@@ -18,7 +18,7 @@ import main.java.iitb.neo.training.ds.Number;
  * @author aman
  * 
  */
-public class GoldDbInference {
+public class GoldDbInference implements CI {
 
 	private static HashMap<Pair<String, String>, Integer> trueCountMap = new HashMap<>();
 
@@ -54,22 +54,27 @@ public class GoldDbInference {
 
 	}
 
-	public static Parse infer(LRGraph lrg) {
+	public Parse infer(LRGraph lrg, Scorer scorer, Parameters params) {
 		Parse p = new Parse();
 		p.graph = lrg;
+		scorer.setParameters(params);
 		p.z_states = new boolean[lrg.Z.length];
 		p.n_states = new boolean[lrg.n.length];
 		int numN = lrg.n.length;
 		for (int n_i = 0; n_i < numN; n_i++) {
 			if (closeEnough(lrg.n[n_i].value, lrg.relation, lrg.location)) {
-				// if(countRel.containsKey(lrg.relation)){
-				// countRel.put(lrg.relation, countRel.get(lrg.relation)+1);
-				// }else{
-				// countRel.put(lrg.relation, 1);
-				// }
+			
 				p.n_states[n_i] = true;
 			} else {
 				p.n_states[n_i] = false;
+			}
+		}
+		p.z_states = new boolean[lrg.Z.length];
+		for(int i = 0 ; i < lrg.n.length; i++){
+			Number n = lrg.n[i];
+			ArrayList<Integer> z_s = n.zs_linked;
+			for(Integer z: z_s){
+				p.z_states[z] = p.n_states[i];  //z_s copy the state of n_s.
 			}
 		}
 		return p;
@@ -211,5 +216,6 @@ public class GoldDbInference {
 		//that are true
 		return Math.sqrt(-1); 
 	}
+
 
 }
