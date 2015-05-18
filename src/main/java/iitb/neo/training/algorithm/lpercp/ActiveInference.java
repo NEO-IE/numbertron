@@ -32,8 +32,6 @@ public class ActiveInference implements ConditionalInference {
 				p.z_states[z] = true;
 			} else if (feats.contains(labelFalse)) {
 				p.z_states[z] = false;
-			} else {
-				p.z_states[z] = true;
 			}
 		}
 		for (int n_i = 0; n_i < numN; n_i++) {

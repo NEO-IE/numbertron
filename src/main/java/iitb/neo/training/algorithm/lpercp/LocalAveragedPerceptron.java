@@ -65,7 +65,7 @@ public class LocalAveragedPerceptron {
 		this.numIterations = maxIterations;
 		this.regulaizer = regularizer;
 		this.finalAverageCalc = finalAverageCalc;
-		this.conditionalInference = new GoldDbInference();
+		this.conditionalInference = new KeywordInference();
 		
 		if (readMapping) {
 			relNumNameMapping = new HashMap<Integer, String>();
