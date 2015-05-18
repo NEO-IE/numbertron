@@ -11,11 +11,9 @@ public class ActiveInference implements ConditionalInference {
 
 	public Parse infer(LRGraph lrg, Scorer scorer, Parameters params) {
 		scorer.setParameters(params);
-		Parse p = new Parse();
-		p.graph = lrg;
-		p.z_states = new boolean[lrg.Z.length];
-		p.n_states = new boolean[lrg.n.length];
-		int numN = lrg.n.length;
+		Parse p = new GoldDbInference().infer(lrg, scorer, params);
+		
+		
 		Integer labelTrue = LocalAveragedPerceptron.featNameNumMapping
 				.get("hard: " + lrg.relation);
 		Integer labelFalse = LocalAveragedPerceptron.featNameNumMapping
@@ -32,23 +30,6 @@ public class ActiveInference implements ConditionalInference {
 				p.z_states[z] = true;
 			} else if (feats.contains(labelFalse)) {
 				p.z_states[z] = false;
-			}
-		}
-		for (int n_i = 0; n_i < numN; n_i++) {
-			if (GoldDbInference.closeEnough(lrg.n[n_i].value, lrg.relation,
-					lrg.location)) {
-				Number n = lrg.n[n_i];
-				List<Integer> z_s = n.zs_linked;
-				p.n_states[n_i] = false;
-				for(int z: z_s) {
-					if(p.z_states[z] == true) {
-						p.n_states[n_i] = true;
-						break;
-					}
-				}
-
-			} else {
-				p.n_states[n_i] = false;
 			}
 		}
 		return p;
