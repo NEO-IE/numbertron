@@ -36,10 +36,14 @@ public class KeywordInference implements ConditionalInference {
 			HashSet<Integer> feats = new HashSet<>();
 			Number n = lrg.n[n_i];
 			List<Integer> z_s = n.zs_linked;
+			
 			for(Integer z: z_s){
+				HashSet<Integer> zfeats = new HashSet<Integer>();
 				for(int id: lrg.features[z].ids){
 					feats.add(id);
+					zfeats.add(id);
 				}
+				p.z_states[z] = KeywordInference.hasKeyword(zfeats, lrg.relation);
 			}
 			//Make the number true if one of the Z nodes attached expresses the relation
 			p.n_states[n_i] = hasKeyword(feats, lrg.relation);
