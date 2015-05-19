@@ -333,60 +333,61 @@ public class ExtractFromCorpus {
 										.isYear(p.second.getArgName()))) {
 						continue;
 					}
-					Map<Integer, Double> perRelationScoreMap = null;
-					try {
-						perRelationScoreMap = sle
-								.extractFromSententialInstanceWithAllRelationScores(
-										p.first, p.second, sentence, doc, w_m,
-										w_k, w_n);
 
-					} catch (NotImplementedException nie) {
-						nie.printStackTrace();
-						continue;
-					}
-					perRelationScoreMap = MapUtils
-							.sortByValue(perRelationScoreMap);
-					ArrayList<Integer> compatRels = UnitsUtils
-							.unitsCompatible(p.second, sentence, sle
-									.getMapping().getRel2RelID());
-					String relStr = null;
-					Double extrScore = -1.0;
-					for (Integer rel : perRelationScoreMap.keySet()) {
-						if (compatRels.contains(rel)) {
-							relStr = sle.relID2rel.get(rel);
-							extrScore = perRelationScoreMap.get(rel);
-							break;
+						Map<Integer, Double> perRelationScoreMap = null;
+						try {
+							perRelationScoreMap = sle
+									.extractFromSententialInstanceWithAllRelationScores(
+											p.first, p.second, sentence, doc,
+											w_m, w_k, w_n);
+
+						} catch (NotImplementedException nie) {
+							nie.printStackTrace();
+							continue;
 						}
-					}
+						perRelationScoreMap = MapUtils.sortByValue(perRelationScoreMap);
+						ArrayList<Integer> compatRels = UnitsUtils
+								.unitsCompatible(p.second, sentence, sle
+										.getMapping().getRel2RelID());
+						String relStr = null;
+						Double extrScore = -1.0;
+						for (Integer rel : perRelationScoreMap.keySet()) {
+							if (compatRels.contains(rel)) {
+								relStr = sle.relID2rel.get(rel);
+								extrScore = perRelationScoreMap.get(rel);
+								break;
+							}
+						}
 
-					String senText = sentence
-							.get(CoreAnnotations.TextAnnotation.class);
-					String docName = sentence.get(SentDocName.class);
-					sentence.get(SentStartOffset.class);
+						String senText = sentence
+								.get(CoreAnnotations.TextAnnotation.class);
+						String docName = sentence.get(SentDocName.class);
+						sentence.get(SentStartOffset.class);
 
-					Integer sentNum = sentence.get(SentGlobalID.class);
-					double max, min;
-					ArrayList<Double> scores = new ArrayList<Double>(
-							perRelationScoreMap.values());
-					max = scores.get(0);
-					min = scores.get(scores.size() - 1);
-					// for (int i1 = 1, l = scores.size(); i1 < l; i1++) {
-					// if (max < scores.get(i1)) {
-					// max = scores.get(i1);
-					// }
-					// if (min > scores.get(i1)) {
-					// min = scores.get(i1);
-					// }
-					//
-					// }
-					double conf = 0.0;
-					if (max != min) {
-						conf = (extrScore - min) / (max - min);
-					}
-					if (conf <= cutoff_confidence) { // no compatible
-														// extraction ||
-						continue;
-					}
+						Integer sentNum = sentence.get(SentGlobalID.class);
+						double max, min;
+						ArrayList<Double> scores = new ArrayList<Double>(
+								perRelationScoreMap.values());
+						max =  scores.get(0);
+						min = scores.get(scores.size() - 1);
+//						for (int i1 = 1, l = scores.size(); i1 < l; i1++) {
+//							if (max < scores.get(i1)) {
+//								max = scores.get(i1);
+//							}
+//							if (min > scores.get(i1)) {
+//								min = scores.get(i1);
+//							}
+//
+//						}
+						double conf = 0.0;
+						if (max != min) {
+							conf = (extrScore - min) / (max - min);
+						}
+						if (conf <= cutoff_confidence) { // no compatible
+															// extraction ||
+							continue;
+						}
+				
 					// System.out.println(extrResult);
 					// prepare extraction
 					if (null != relStr) {
