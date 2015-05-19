@@ -42,7 +42,9 @@ public class ProximalSententialInstanceGeneration implements
 			Argument closestArg = null;
 			int closestDist = 1000000;
 			for (int j = i + 1; j < arguments.size(); j++) {
-
+				if(i == j) {
+					continue;
+				}
 				Argument arg2 = arguments.get(j);
 				Interval<Integer> arg2Interval = Interval.toInterval(
 						arg2.getStartOffset(), arg2.getEndOffset());

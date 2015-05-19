@@ -312,15 +312,15 @@ public class NtronExperiment {
 
 		NtronExperiment irb = new NtronExperiment(args[0]);
 		irb.run();
-		PrintWriter pw = new PrintWriter("hitstats");
-		
-		GoldDbInference.printMatchStats(pw);
-		pw.close();
-		writeFeatureWeights(irb.ntronModelDirs.get(0) + File.separatorChar
-				+ "mapping", irb.ntronModelDirs.get(0) + File.separatorChar
-				+ "params", irb.ntronModelDirs.get(0) + File.separatorChar
-				+ "model", irb.ntronModelDirs.get(0) + File.separatorChar
-				+ "weights");
+//		PrintWriter pw = new PrintWriter("hitstats");
+//		
+//		GoldDbInference.printMatchStats(pw);
+//		pw.close();
+//		writeFeatureWeights(irb.ntronModelDirs.get(0) + File.separatorChar
+//				+ "mapping", irb.ntronModelDirs.get(0) + File.separatorChar
+//				+ "params", irb.ntronModelDirs.get(0) + File.separatorChar
+//				+ "model", irb.ntronModelDirs.get(0) + File.separatorChar
+//				+ "weights");
 	}
 
 	private boolean filesExist(List<String> dsFiles) {

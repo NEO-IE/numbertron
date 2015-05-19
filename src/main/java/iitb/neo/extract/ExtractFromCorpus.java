@@ -316,6 +316,7 @@ public class ExtractFromCorpus {
 					}
 					List<Pair<Argument, Argument>> sententialInstances = sig
 							.generateSententialInstances(arguments, sentence);
+					assert true;
 					for (Pair<Argument, Argument> p : sententialInstances) {
 						if (p.first.getArgName().equals("years")
 								|| !(RegExpUtils.exactlyOneNumber(p)
