@@ -33,13 +33,11 @@ import edu.washington.multirframework.data.Extraction;
 import edu.washington.multirframework.featuregeneration.FeatureGenerator;
 
 /**
- * The main method of this class will print to an output file all the
- * extractions made over an input corpus.
- * 
- * @author jgilme1
- * 
+ **Extract from corpus derived from a similar method used in multir, heavily modded to suit our needs
+ *
  */
-public class ExtractFromCorpus {
+
+public class NumbertronExtractFromCorpus {
 
 	private CorpusInformationSpecification cis;
 	private ArgumentIdentification ai;
@@ -56,7 +54,7 @@ public class ExtractFromCorpus {
 	private FeatureGenerator numberFg;
 	private FeatureGenerator keywordsFg;
 
-	public ExtractFromCorpus(String propertiesFile) throws Exception {
+	public NumbertronExtractFromCorpus(String propertiesFile) throws Exception {
 
 		Map<String, Object> properties = JsonUtils.getJsonMap(propertiesFile);
 		corpusPath = JsonUtils.getStringProperty(properties, "testCorpusPath");
@@ -128,7 +126,7 @@ public class ExtractFromCorpus {
 
 	public static void main(String[] args) throws Exception {
 
-		ExtractFromCorpus efc = new ExtractFromCorpus(args[0]);
+		NumbertronExtractFromCorpus efc = new NumbertronExtractFromCorpus(args[0]);
 		Corpus c = new Corpus(efc.corpusPath, efc.cis, true);
 		c.setCorpusToDefault();
 		BufferedWriter bw = new BufferedWriter(new FileWriter(new File(
