@@ -15,6 +15,7 @@ import java.util.Map;
 
 import main.java.iitb.neo.extract.NumbertronExtractFromCorpus;
 import main.java.iitb.neo.util.JsonUtils;
+import edu.washington.multir.extractor.MultirExtractFromCorpus;
 import edu.washington.multirframework.data.Argument;
 import edu.washington.multirframework.data.Extraction;
 
@@ -26,7 +27,7 @@ import edu.washington.multirframework.data.Extraction;
  * 
  */
 public class EvaluateModel {
-	NumbertronExtractFromCorpus efc;
+	MultirExtractFromCorpus efc;
 	HashSet<Extraction> trueExtractions;
 	EvaluateModel.Results res;
 	HashMap<String, Integer> perRelationTrue;
@@ -120,7 +121,7 @@ public class EvaluateModel {
 
 		verbose = JsonUtils.getBooleanProperty(properties, "verbose");
 		verboseFile = JsonUtils.getStringProperty(properties, "verboseFile");
-		efc = new NumbertronExtractFromCorpus(propertiesFile);
+		efc = new MultirExtractFromCorpus(propertiesFile);
 
 		readTrueExtractions(trueFile);
 	}
@@ -190,8 +191,7 @@ public class EvaluateModel {
 	}
 
 	public void evaluate() throws SQLException, IOException {
-		List<Extraction> modelExtractions = efc.getExtractions("_results_" + new File(modelName).getName(), writeExtractions,
-				verbose, verboseFile, 1, 1, 0);
+		List<Extraction> modelExtractions = efc.getExtractions();
 		res.fillResult(modelExtractions);
 		res.dumpResults();
 	}
