@@ -18,7 +18,7 @@ import org.apache.commons.lang.NotImplementedException;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.util.CoreMap;
-import edu.washington.multirframework.util.ModelUtils;
+import edu.washington.multir.util.ModelUtils;
 import edu.washington.multirframework.data.Argument;
 import edu.washington.multirframework.data.KBArgument;
 import edu.washington.multirframework.featuregeneration.FeatureGenerator;
@@ -56,6 +56,7 @@ public class SentLevelExtractor {
 		this.keywordsFg = keywordsFg;
 		
 		dir = pathToMultirFiles;
+		System.err.println("Reading model");
 		try {
 			mapping = new Mappings();
 			mapping.read(dir + "/mapping");

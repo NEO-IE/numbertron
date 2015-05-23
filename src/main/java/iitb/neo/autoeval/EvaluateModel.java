@@ -192,6 +192,7 @@ public class EvaluateModel {
 
 	public void evaluate() throws SQLException, IOException {
 		List<Extraction> modelExtractions = efc.getExtractions("_results_", false, verbose, verboseFile, 1, 1, 0);
+		res = new Results();
 		res.fillResult(modelExtractions);
 		res.dumpResults();
 	}
