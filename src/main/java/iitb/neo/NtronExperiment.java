@@ -281,7 +281,7 @@ public class NtronExperiment {
 			fGeneration.run(DSFiles, featureFiles, c, cis);
 		}
 
-		System.err.println("Training");
+		System.err.println("Training " + ntronModelDirs.get(0));
 		/* Step 3: Training and weight learning */
 		// Step 3.1: From the feature file, generate graphs
 		// for each input feature training file
