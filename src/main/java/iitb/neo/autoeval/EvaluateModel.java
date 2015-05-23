@@ -34,6 +34,8 @@ public class EvaluateModel {
 	boolean verbose; // verbose extractions?
 	String verboseFile; // verboseFile
 	private boolean writeExtractions;
+	public double precision;
+	public double recall;
 
 	private class Results {
 		HashMap<String, Integer> perRelationCorrect;
@@ -56,8 +58,8 @@ public class EvaluateModel {
 			pw.write("Total Extracted: " + totalExtracted + "\n");
 			pw.write("Total Correct: " + totalCorrectExtracted + "\n");
 			pw.write("Total Facts in the Corpus: " + totalFacts + "\n");
-			Double precision = (totalCorrectExtracted * 1.0) / totalExtracted;
-			Double recall = (totalCorrectExtracted * 1.0) / totalFacts;
+			precision = (totalCorrectExtracted * 1.0) / totalExtracted;
+			recall = (totalCorrectExtracted * 1.0) / totalFacts;
 			pw.write("Precision = " + precision + ", Recall = " + recall + ", F-Score = "
 					+ f(precision, recall) + "\n");
 			pw.write("----Per Relation P/R\n");
@@ -82,7 +84,7 @@ public class EvaluateModel {
 			}
 		}
 
-		double f(double p, double r) {
+		public double f(double p, double r) {
 			assert (p + r > 0);
 			if (p + r == 0) {
 				return 0;
