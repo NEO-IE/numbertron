@@ -285,14 +285,14 @@ public class NtronExperiment {
 		/* Step 3: Training and weight learning */
 		// Step 3.1: From the feature file, generate graphs
 		// for each input feature training file
-		for (int i = 0; i < featureFiles.size(); i++) {
-			File modelFile = new File(ntronModelDirs.get(i));
-			if (!modelFile.exists())
-				modelFile.mkdir();
-			MakeGraph.run(featureFiles.get(i), ntronModelDirs.get(0)
-					+ File.separatorChar + "mapping", ntronModelDirs.get(0)
-					+ File.separatorChar + "train", ntronModelDirs.get(0));
-		}
+//		for (int i = 0; i < featureFiles.size(); i++) {
+//			File modelFile = new File(ntronModelDirs.get(i));
+//			if (!modelFile.exists())
+//				modelFile.mkdir();
+//			MakeGraph.run(featureFiles.get(i), ntronModelDirs.get(0)
+//					+ File.separatorChar + "mapping", ntronModelDirs.get(0)
+//					+ File.separatorChar + "train", ntronModelDirs.get(0));
+//		}
 		File modelFile = new File(ntronModelDirs.get(0));
 
 		// /**Print Graph*/
@@ -322,11 +322,11 @@ public class NtronExperiment {
 		//
 		// GoldDbInference.printMatchStats(pw);
 		// pw.close();
-		// writeFeatureWeights(irb.ntronModelDirs.get(0) + File.separatorChar
-		// + "mapping", irb.ntronModelDirs.get(0) + File.separatorChar
-		// + "params", irb.ntronModelDirs.get(0) + File.separatorChar
-		// + "model", irb.ntronModelDirs.get(0) + File.separatorChar
-		// + "weights");
+		 writeFeatureWeights(irb.ntronModelDirs.get(0) + File.separatorChar
+		 + "mapping", irb.ntronModelDirs.get(0) + File.separatorChar
+		 + "params", irb.ntronModelDirs.get(0) + File.separatorChar
+		 + "model", irb.ntronModelDirs.get(0) + File.separatorChar
+		 + "weights");
 	}
 
 	private boolean filesExist(List<String> dsFiles) {
