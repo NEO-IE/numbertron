@@ -3,7 +3,6 @@ package main.java.iitb.neo.autoeval;
 import iitb.rbased.meta.RelationMetadata;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,7 +12,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
-import main.java.iitb.neo.extract.ExtractFromCorpus;
+import main.java.iitb.neo.extract.NumbertronExtractFromCorpus;
 import main.java.iitb.neo.util.JsonUtils;
 import edu.washington.multirframework.data.Argument;
 import edu.washington.multirframework.data.Extraction;
@@ -26,7 +25,7 @@ import edu.washington.multirframework.data.Extraction;
  * 
  */
 public class EvaluateModel {
-	ExtractFromCorpus efc;
+	NumbertronExtractFromCorpus efc;
 	HashSet<Extraction> trueExtractions;
 	EvaluateModel.Results res;
 	HashMap<String, Integer> perRelationTrue;
@@ -122,12 +121,12 @@ public class EvaluateModel {
 
 		verbose = JsonUtils.getBooleanProperty(properties, "verbose");
 		verboseFile = JsonUtils.getStringProperty(properties, "verboseFile");
-		efc = new ExtractFromCorpus(propertiesFile);
+		efc = new NumbertronExtractFromCorpus(propertiesFile);
 
 		readTrueExtractions(trueFile);
 	}
 
-	public void evaluate(ExtractFromCorpus efc, boolean verbose, PrintWriter resultWriter, double w_m, double w_k, double w_n) throws SQLException, IOException {
+	public void evaluate(NumbertronExtractFromCorpus efc, boolean verbose, PrintWriter resultWriter, double w_m, double w_k, double w_n) throws SQLException, IOException {
 		Results r = new Results();
 	
 		List<Extraction> modelExtractions = efc.getExtractions("_results_", false, verbose, verboseFile, w_m, w_k, w_n);
@@ -136,7 +135,7 @@ public class EvaluateModel {
 		
 	}
 	
-	public void evaluate(ExtractFromCorpus efc, boolean verbose, PrintWriter resultWriter) throws SQLException, IOException {
+	public void evaluate(NumbertronExtractFromCorpus efc, boolean verbose, PrintWriter resultWriter) throws SQLException, IOException {
 		Results r = new Results();
 	
 		List<Extraction> modelExtractions = efc.getExtractions("_results_", false, verbose, verboseFile, 1, 1, 1);
@@ -192,8 +191,7 @@ public class EvaluateModel {
 	}
 
 	public void evaluate() throws SQLException, IOException {
-		List<Extraction> modelExtractions = efc.getExtractions("_results_" + new File(modelName).getName(), writeExtractions,
-				verbose, verboseFile, 1, 1, 0);
+		List<Extraction> modelExtractions = efc.getExtractions("_results_", false, verbose, verboseFile, 1, 1, 0);
 		res.fillResult(modelExtractions);
 		res.dumpResults();
 	}

@@ -123,14 +123,18 @@ public class NtronExperiment {
 			}
 		}
 
-		String keywordFeatureGeneratorClass = JsonUtils.getStringProperty(properties, "keywordsFg");
+		String keywordFeatureGeneratorClass = JsonUtils.getStringProperty(
+				properties, "keywordsFg");
 		String mintzFeatureGeneratorClass = JsonUtils.getStringProperty(
 				properties, "mintzKeywordsFg");
 		String numbersFeatureGeneratorClass = JsonUtils.getStringProperty(
 				properties, "numbersFg");
 
-		if(keywordFeatureGeneratorClass != null && !keywordFeatureGeneratorClass.isEmpty()){
-			this.keywordsFg = (FeatureGenerator) ClassLoader.getSystemClassLoader().loadClass(keywordFeatureGeneratorClass).newInstance();
+		if (keywordFeatureGeneratorClass != null
+				&& !keywordFeatureGeneratorClass.isEmpty()) {
+			this.keywordsFg = (FeatureGenerator) ClassLoader
+					.getSystemClassLoader()
+					.loadClass(keywordFeatureGeneratorClass).newInstance();
 		}
 		if (mintzFeatureGeneratorClass != null
 				&& !mintzFeatureGeneratorClass.isEmpty()) {
@@ -140,7 +144,8 @@ public class NtronExperiment {
 
 		}
 		if (numbersFeatureGeneratorClass != null
-				&& !numbersFeatureGeneratorClass.isEmpty()) {
+
+		&& !numbersFeatureGeneratorClass.isEmpty()) {
 			this.numberFg = (FeatureGenerator) ClassLoader
 					.getSystemClassLoader()
 					.loadClass(numbersFeatureGeneratorClass).newInstance();
@@ -194,8 +199,9 @@ public class NtronExperiment {
 					.loadClass(tokenInformationClassName).newInstance());
 		}
 
-		List<String> sentInformationClassNames = JsonUtils.getListProperty(
-				properties, "si");
+		List<String>
+
+		sentInformationClassNames = JsonUtils.getListProperty(properties, "si");
 		List<SentInformationI> sentInfoList = new ArrayList<>();
 		for (String sentInformationClassName : sentInformationClassNames) {
 			sentInfoList.add((SentInformationI) ClassLoader
@@ -288,23 +294,23 @@ public class NtronExperiment {
 					+ File.separatorChar + "train", ntronModelDirs.get(0));
 		}
 		File modelFile = new File(ntronModelDirs.get(0));
-		
+
 		// /**Print Graph*/
 		// String dir = modelFile.getAbsoluteFile().toString();
-		 Dataset<LRGraph> train = new LRGraphMemoryDataset(ntronModelDirs.get(0) + File.separatorChar + "train");
-		 LRGraph lrg = new LRGraph();
-		 BufferedWriter bw = new BufferedWriter(new FileWriter("graph"));
-		 while(train.next(lrg)) {
-			 bw.write(lrg.toString() + "\n");
-			 bw.write("\n\n");
-		 }
-		 bw.close();
+		Dataset<LRGraph> train = new LRGraphMemoryDataset(ntronModelDirs.get(0)
+				+ File.separatorChar + "train");
+		LRGraph lrg = new LRGraph();
+		BufferedWriter bw = new BufferedWriter(new FileWriter("graph"));
+		while (train.next(lrg)) {
+			bw.write(lrg.toString() + "\n");
+			bw.write("\n\n");
+		}
+		bw.close();
 		/**/
 		LperceptTrain.train(modelFile.getAbsoluteFile().toString(), new Random(
 				1), this.numIterations, this.regularizer, this.finalAvg,
 				this.ignoreConfusion, ntronModelDirs.get(0)
-				+ File.separatorChar + "mapping");
-		
+						+ File.separatorChar + "mapping");
 
 	}
 
@@ -312,15 +318,15 @@ public class NtronExperiment {
 
 		NtronExperiment irb = new NtronExperiment(args[0]);
 		irb.run();
-//		PrintWriter pw = new PrintWriter("hitstats");
-//		
-//		GoldDbInference.printMatchStats(pw);
-//		pw.close();
-//		writeFeatureWeights(irb.ntronModelDirs.get(0) + File.separatorChar
-//				+ "mapping", irb.ntronModelDirs.get(0) + File.separatorChar
-//				+ "params", irb.ntronModelDirs.get(0) + File.separatorChar
-//				+ "model", irb.ntronModelDirs.get(0) + File.separatorChar
-//				+ "weights");
+		// PrintWriter pw = new PrintWriter("hitstats");
+		//
+		// GoldDbInference.printMatchStats(pw);
+		// pw.close();
+		// writeFeatureWeights(irb.ntronModelDirs.get(0) + File.separatorChar
+		// + "mapping", irb.ntronModelDirs.get(0) + File.separatorChar
+		// + "params", irb.ntronModelDirs.get(0) + File.separatorChar
+		// + "model", irb.ntronModelDirs.get(0) + File.separatorChar
+		// + "weights");
 	}
 
 	private boolean filesExist(List<String> dsFiles) {
@@ -409,7 +415,7 @@ public class NtronExperiment {
 		MINTZ_FEATURE_THRESHOLD = mintzFeatureThreshold;
 		KEYWORD_FEATURE_THRESHOLD = kwFeatureThreshold;
 		this.finalAvg = finalAvg;
-		
+
 	}
 
 }

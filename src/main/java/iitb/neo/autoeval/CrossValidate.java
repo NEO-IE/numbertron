@@ -8,7 +8,7 @@ import java.io.PrintWriter;
 import java.util.Map;
 
 import main.java.iitb.neo.NtronExperiment;
-import main.java.iitb.neo.extract.ExtractFromCorpus;
+import main.java.iitb.neo.extract.NumbertronExtractFromCorpus;
 import main.java.iitb.neo.util.JsonUtils;
 
 /**
@@ -42,7 +42,7 @@ public class CrossValidate {
 
 	public static void main(String[] args) throws Exception {
 		NtronExperiment ntronExp = new NtronExperiment(args[0]);
-		ExtractFromCorpus efc = new ExtractFromCorpus(args[0]);
+		NumbertronExtractFromCorpus efc = new NumbertronExtractFromCorpus(args[0]);
 		EvaluateModel eval = new EvaluateModel(args[0]);
 
 		Map<String, Object> properties = JsonUtils.getJsonMap(args[0]);

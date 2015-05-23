@@ -111,7 +111,7 @@ public class CreateGoldTruthFile {
 						for (String compatibleRel : compatibleRels) {
 							Extraction e = new Extraction(p.first, p.second, docName, compatibleRel, sentNum, 0.0,
 									senText);
-							bw.write(main.java.iitb.neo.extract.ExtractFromCorpus.formatExtractionStringOriginalOffset(c, e) + "\n");
+							bw.write(main.java.iitb.neo.extract.NumbertronExtractFromCorpus.formatExtractionStringOriginalOffset(c, e) + "\n");
 							extrs.add(e);
 						}
 					}
