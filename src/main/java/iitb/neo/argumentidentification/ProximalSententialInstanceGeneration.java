@@ -3,12 +3,12 @@ package main.java.iitb.neo.argumentidentification;
 import java.util.ArrayList;
 import java.util.List;
 
+import main.java.iitb.neo.util.IntervalUtils;
 import edu.stanford.nlp.util.CoreMap;
 import edu.stanford.nlp.util.Interval;
 import edu.stanford.nlp.util.Pair;
 import edu.washington.multirframework.argumentidentification.SententialInstanceGeneration;
 import edu.washington.multirframework.data.Argument;
-import edu.washington.multirframework.data.KBArgument;
 
 /**
  * Implements <code>SententialInstanceGeneration</code> method
@@ -48,7 +48,7 @@ public class ProximalSententialInstanceGeneration implements
 				Argument arg2 = arguments.get(j);
 				Interval<Integer> arg2Interval = Interval.toInterval(
 						arg2.getStartOffset(), arg2.getEndOffset());
-				int dist = findIntervalDistance(arg1Interval, arg2Interval);
+				int dist = IntervalUtils.findIntervalDistance(arg1Interval, arg2Interval);
 				if (closestDist > dist) {
 					closestDist = dist;
 					closestArg = arg2;
@@ -64,22 +64,5 @@ public class ProximalSententialInstanceGeneration implements
 		return sententialInstances;
 	}
 
-	/**
-	 * Finds the absolute value of the first interval to the second interval
-	 * 
-	 * @param intr1
-	 * @param intr2
-	 */
-	private int findIntervalDistance(Interval<Integer> intr1,
-			Interval<Integer> intr2) {
-		int order = intr1.compareIntervalOrder(intr2);
-		if (order == -1) { // before
-			return intr2.first() - intr1.second();
-		} else if (order == 1) {
-			return intr1.first() - intr2.second();
-		} else {
-			return -1;
-		}
-	}
 
 }
