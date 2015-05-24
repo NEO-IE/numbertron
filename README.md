@@ -1,31 +1,29 @@
 sg
 
 ```json
-
-
 {	
   "corpusPath" :
-"jdbc:derby:/mnt/a99/d0/aman/MultirExperiments/data/numbers_corpus",
+"jdbc:derby:/mnt/bag/aman/numbers_corpus",
   "mintzKeywordsFg" :
-"main.java.iitb.neo.pretrain.featuregeneration.MintzKeywordFeatureGenerator",
+"",
 "numbersFg" :
-"main.java.iitb.neo.pretrain.featuregeneration.NumberFeatureGenerator",
+"",
+"keywordsFg" :
+"main.java.iitb.neo.pretrain.featuregeneration.KeywordFeatureGenerator",
 "countriesList":
 "/mnt/a99/d0/aman/MultirExperiments/data/numericalkb/countries_list_ids",
-  "ai" :
-"edu.washington.multirframework.argumentidentification.NERArgumentIdentification",
   "kbRelFile" : "/mnt/a99/d0/aman/MultirExperiments/data/numericalkb/kb-worldbank-SI.tsv",
   "sigs" : [
 "edu.washington.multirframework.argumentidentification.DefaultSententialInstanceGeneration"
 ],
   "dsFiles" : [
-"data/train/instances.tsv"
+"/mnt/bag/aman/train/instances_deldanger.tsv"
 ],
   "featureFiles" : [
-"data/train/features_mintz_keywords_deppath_numbers.tsv"
+"/mnt/bag/aman/train/features_handkeywords.tsv"
 ],
   "models" : [
-"data/model/model_mintz_keywords_numbers_depbased" ],
+"/mnt/bag/aman/model/model_handkeywords" ],
   "cis" :
 "edu.washington.multirframework.corpus.DefaultCorpusInformationSpecification",
   "si" : [
@@ -35,13 +33,13 @@ sg
   "ti" : [ "edu.washington.multirframework.corpus.TokenChunkInformation" ],
   "di" : [ ],
   "mintzFeatureThreshold" : "1",
-  "keywordFeatureThreshold" : "3",
-  "regularizer" : "0.4",
-  "iterations" : "50",
-  "finalAvg" : "true",
-  "topKGoldDb" : "3",
-  "margin" : "0.25",
-  "ignoreConfusion" : "false"
+  "keywordFeatureThreshold" : "1",
+  "regularizer" : "0.999",
+  "iterations" : "10",
+  "finalAvg" : "false",
+  "topKGoldDb" : "5",
+  "margin" : "0.20",
+  "ignoreConfusion" : "true"
 }
 ```
 #Implementation notes; incomplete

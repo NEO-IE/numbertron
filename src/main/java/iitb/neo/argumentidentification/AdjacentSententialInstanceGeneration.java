@@ -3,11 +3,10 @@ package main.java.iitb.neo.argumentidentification;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 
-import main.java.iitb.neo.util.IntervalUtils;
 import edu.stanford.nlp.util.CoreMap;
-import edu.stanford.nlp.util.Interval;
 import edu.stanford.nlp.util.Pair;
 import edu.washington.multirframework.argumentidentification.SententialInstanceGeneration;
 import edu.washington.multirframework.data.Argument;
@@ -31,9 +30,10 @@ public class AdjacentSententialInstanceGeneration implements
 	}
 
 	@Override
+
 	public List<Pair<Argument, Argument>> generateSententialInstances(
 			List<Argument> arguments, CoreMap sentence) {
-		List<Pair<Argument, Argument>> sententialInstances = new ArrayList<>();
+		HashSet<Pair<Argument, Argument>> sententialInstances = new HashSet<>();
 		Collections.sort(arguments, new Comparator<Argument>() {
 
 			@Override
@@ -66,8 +66,9 @@ public class AdjacentSententialInstanceGeneration implements
 			}
 
 		}
-
-		return sententialInstances;
+		
+		ArrayList<Pair<Argument, Argument>> res = new ArrayList<Pair<Argument, Argument>>(sententialInstances);
+		return res;
 	}
 
 }
