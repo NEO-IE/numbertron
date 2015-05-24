@@ -27,16 +27,17 @@ import edu.washington.multirframework.data.Extraction;
 public class EvaluateModel {
 	NumbertronExtractFromCorpus efc;
 	HashSet<Extraction> trueExtractions;
-	EvaluateModel.Results res;
+	public EvaluateModel.Results res;
 	HashMap<String, Integer> perRelationTrue;
 	String modelName; // model to be evaluated
 	boolean verbose; // verbose extractions?
 	String verboseFile; // verboseFile
 	private boolean writeExtractions;
-	public double precision;
-	public double recall;
+	
 
-	private class Results {
+	class Results {
+		public double precision;
+		public double recall;
 		HashMap<String, Integer> perRelationCorrect;
 	
 		HashMap<String, Integer> perRelationExtracted;
@@ -127,20 +128,17 @@ public class EvaluateModel {
 	}
 
 	public void evaluate(NumbertronExtractFromCorpus efc, boolean verbose, PrintWriter resultWriter, double w_m, double w_k, double w_n) throws SQLException, IOException {
-		Results r = new Results();
-	
 		List<Extraction> modelExtractions = efc.getExtractions("_results_", false, verbose, verboseFile, w_m, w_k, w_n);
-		r.fillResult(modelExtractions);
-		r.dumpResults(resultWriter);
+		res.fillResult(modelExtractions);
+		res.dumpResults(resultWriter);
 		
 	}
 	
 	public void evaluate(NumbertronExtractFromCorpus efc, boolean verbose, PrintWriter resultWriter) throws SQLException, IOException {
-		Results r = new Results();
 	
 		List<Extraction> modelExtractions = efc.getExtractions("_results_", false, verbose, verboseFile, 1, 1, 1);
-		r.fillResult(modelExtractions);
-		r.dumpResults(resultWriter);
+		res.fillResult(modelExtractions);
+		res.dumpResults(resultWriter);
 		
 	}
 	
@@ -192,7 +190,6 @@ public class EvaluateModel {
 
 	public void evaluate() throws SQLException, IOException {
 		List<Extraction> modelExtractions = efc.getExtractions("_results_", false, verbose, verboseFile, 1, 1, 0);
-		res = new Results();
 		res.fillResult(modelExtractions);
 		res.dumpResults();
 	}
