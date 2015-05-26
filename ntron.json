@@ -1,10 +1,12 @@
-{	
+{   
   "corpusPath" :
-"jdbc:derby:/mnt/a99/d0/aman/MultirExperiments/data/numbers_corpus",
-  "mintzKeywordsFg" :
+"jdbc:derby:/mnt/bag/aman/numbers_corpus",
+"mintzKeywordsFg" :
 "main.java.iitb.neo.pretrain.featuregeneration.MintzKeywordFeatureGenerator",
 "numbersFg" :
 "main.java.iitb.neo.pretrain.featuregeneration.NumberFeatureGenerator",
+"keywordsFg" :
+"main.java.iitb.neo.pretrain.featuregeneration.KeywordFeatureGenerator",
 "countriesList":
 "/mnt/a99/d0/aman/MultirExperiments/data/numericalkb/countries_list_ids",
   "ai" :
@@ -14,13 +16,13 @@
 "edu.washington.multirframework.argumentidentification.DefaultSententialInstanceGeneration"
 ],
   "dsFiles" : [
-"data/train/key_instances.tsv"
+"data/train/instances_deldanger.tsv"
 ],
   "featureFiles" : [
-"data/train/key_features_keywordsInDep.tsv"
+"data/train/features_mintz_handkeywords_numbers_new_fresh.tsv"
 ],
   "models" : [
-"data/model/model_mintz_keywords_numbers_keywordsInDep_debug" ],
+"best_model_26may/model_handkeywords_keywordinference_OR_new" ],
   "cis" :
 "edu.washington.multirframework.corpus.DefaultCorpusInformationSpecification",
   "si" : [
@@ -31,10 +33,10 @@
   "di" : [ ],
   "mintzFeatureThreshold" : "1",
   "keywordFeatureThreshold" : "1",
-  "regularizer" : "0.999",
-  "iterations" : "40",
-  "finalAvg" : "true",
-  "topKGoldDb" : "3",
-  "margin" : "0.25",
+  "regularizer" : "0.99",
+  "iterations" : "10",
+  "finalAvg" : "false",
+  "topKGoldDb" : "5",
+  "margin" : "0.20",
   "ignoreConfusion" : "true"
 }

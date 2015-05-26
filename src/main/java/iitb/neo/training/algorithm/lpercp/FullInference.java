@@ -63,8 +63,8 @@ public class FullInference {
 											// nodes
 				if (p.z_states[z]) { // if any of them is one, set the number // node to 1
 					trueAttachedZCount++;
-					p.n_states[n_i] = (((trueAttachedZCount * 1.0) / (totalZ)) >= LEAST_Z_FLIPPED_COUNT);
-					//break;
+					p.n_states[n_i] = true;//(((trueAttachedZCount * 1.0) / (totalZ)) >= LEAST_Z_FLIPPED_COUNT);
+					break;
 				}
 			}
 		}
