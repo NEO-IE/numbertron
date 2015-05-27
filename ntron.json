@@ -1,4 +1,4 @@
-{   
+{	
   "corpusPath" :
 "jdbc:derby:/mnt/bag/aman/numbers_corpus",
 "mintzKeywordsFg" :
