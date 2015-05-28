@@ -35,7 +35,7 @@ public class GeneratePRCurves {
 		
 		for(double conf = startConf; conf <= endConf; conf += confwidth){
 			EvaluateModel emodel = new EvaluateModel(propertiesFile);
-			emodel.efc.setConfidence(conf);
+			///emodel.efc.setConfidence(conf);
 			emodel.evaluate();
 			pw.write(conf+"\t"+emodel.precision+"\t"+emodel.recall+"\t"+f(emodel.precision, emodel.recall)+"\n");
 		}

@@ -14,6 +14,7 @@ import java.util.Map;
 
 import main.java.iitb.neo.extract.NumbertronExtractFromCorpus;
 import main.java.iitb.neo.util.JsonUtils;
+import edu.washington.multir.extractor.MultirExtractFromCorpus;
 import edu.washington.multirframework.data.Argument;
 import edu.washington.multirframework.data.Extraction;
 
@@ -25,7 +26,7 @@ import edu.washington.multirframework.data.Extraction;
  * 
  */
 public class EvaluateModel {
-	NumbertronExtractFromCorpus efc;
+	MultirExtractFromCorpus efc;
 	HashSet<Extraction> trueExtractions;
 	EvaluateModel.Results res;
 	HashMap<String, Integer> perRelationTrue;
@@ -33,8 +34,10 @@ public class EvaluateModel {
 	boolean verbose; // verbose extractions?
 	String verboseFile; // verboseFile
 	private boolean writeExtractions;
+	private double cutoff_confidence;
 	public double precision;
 	public double recall;
+	
 
 	private class Results {
 		HashMap<String, Integer> perRelationCorrect;
@@ -121,7 +124,9 @@ public class EvaluateModel {
 
 		verbose = JsonUtils.getBooleanProperty(properties, "verbose");
 		verboseFile = JsonUtils.getStringProperty(properties, "verboseFile");
-		efc = new NumbertronExtractFromCorpus(propertiesFile);
+		efc = new MultirExtractFromCorpus(propertiesFile);
+		
+		cutoff_confidence = JsonUtils.getDoubleProperty(properties, "cutoff_confidence");
 
 		readTrueExtractions(trueFile);
 	}
@@ -191,9 +196,11 @@ public class EvaluateModel {
 	}
 
 	public void evaluate() throws SQLException, IOException {
-		List<Extraction> modelExtractions = efc.getExtractions("_results_", false, verbose, verboseFile, 1, 1, 0);
+		//List<Extraction> modelExtractions = efc.getExtractions("_results_", false, verbose, verboseFile, 1, 1, 0);
+		List<Extraction> modelExtractions = efc.getExtractions();
 		res = new Results();
 		res.fillResult(modelExtractions);
+		System.out.println("Confidence: " + cutoff_confidence);
 		res.dumpResults();
 	}
 
