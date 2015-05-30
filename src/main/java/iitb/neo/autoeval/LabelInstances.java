@@ -78,12 +78,15 @@ public class LabelInstances {
 		for (String confusedFDIGOODSName : confusedFDIGOODSNames) {
 			confusedFDIGOODSCountries.add(confusedFDIGOODSName);
 		}
-
+		/**
+		 * Initialize the gold database
+		 */
 		double margin = 0.20;
 		int goldTrue = 0, keywordTrue = 0;
 		GoldDB.initializeGoldDB(
 				"/mnt/a99/d0/aman/MultirExperiments/data/numericalkb/kb-worldbank-SI.tsv",
 				k, margin);
+		
 		int total = 0, agree = 0, goldNotKey = 0, keyNotGold = 0, totalFalse = 0;
 		while ((instance = br.readLine()) != null) {
 			String instanceParts[] = instance.split("\t");
