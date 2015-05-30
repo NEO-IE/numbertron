@@ -35,22 +35,22 @@ public class GoldDbInference {
 
 		marginMap.put("AGL", xl);
 
-		marginMap.put("FDI", xl);
+		marginMap.put("FDI", xxl);
 		marginMap.put("GOODS", xl);
 		marginMap.put("GDP", xl);
 
 		marginMap.put("ELEC", xl);
 
-		marginMap.put("CO2", xl);
+		marginMap.put("CO2", xxl);
 
 		// unitMap.put("DIESEL", "united states dollar per litre");
 
 		marginMap.put("INF", s);
-		marginMap.put("INTERNET", s);
+		marginMap.put("INTERNET",xl);
 
 		marginMap.put("LIFE", regular);
 
-		marginMap.put("POP", regular);
+		marginMap.put("POP",  xl);
 
 	}
 
