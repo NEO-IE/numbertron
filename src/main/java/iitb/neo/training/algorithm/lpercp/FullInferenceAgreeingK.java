@@ -117,6 +117,14 @@ public class FullInferenceAgreeingK {
 			}
 		}
 		
+		//Also set to 1 those n nodes that are zero but witnin the limits
+		for (int n_i = 0; n_i < numN; n_i++) {
+			if(!p.n_states[n_i] && (MathUtils.within(lrg.n[n_i].value, bestCentralValue, delta))) { //check if this guy must be turned off
+				p.n_states[n_i] = true;
+			}
+		}
+		
+		
 		return p;
 	}
 
