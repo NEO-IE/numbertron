@@ -391,7 +391,7 @@ public class NumbertronExtractFromCorpus {
 					if (null != relStr) {
 						if (ANALYZE) {
 							sle.firedFeaturesScores(p.first, p.second,
-									sentence, doc, relStr, analysis_writer);
+									sentence, doc, relStr, analysis_writer, conf);
 							analysis_writer.flush();
 						}
 						Extraction e = new Extraction(p.first, p.second,

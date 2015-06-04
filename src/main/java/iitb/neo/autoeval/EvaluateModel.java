@@ -20,7 +20,7 @@ import edu.washington.multirframework.data.Extraction;
  */
 public class EvaluateModel {
 
-	MultirExtractFromCorpus efc; //returns the extractions given a model
+	NumbertronExtractFromCorpus efc; //returns the extractions given a model
 	
 	public Results res; //stores results, generates stats
 
@@ -45,7 +45,7 @@ public class EvaluateModel {
 
 		verbose = JsonUtils.getBooleanProperty(properties, "verbose");
 		verboseFile = JsonUtils.getStringProperty(properties, "verboseFile");
-		efc = new MultirExtractFromCorpus(propertiesFile);
+		efc = new NumbertronExtractFromCorpus(propertiesFile);
 		
 		cutoff_confidence = JsonUtils.getDoubleProperty(properties, "cutoff_confidence");
 
@@ -74,8 +74,8 @@ public class EvaluateModel {
 
 	public void evaluate() throws SQLException, IOException {
 
-		//List<Extraction> modelExtractions = efc.getExtractions("_results_", false, verbose, verboseFile, 1, 1, 0);
-		List<Extraction> modelExtractions = efc.getExtractions();
+		List<Extraction> modelExtractions = efc.getExtractions("_results_", false, verbose, verboseFile, 1, 1, 0);
+		//List<Extraction> modelExtractions = efc.getExtractions();
 		
 		res.fillResult(modelExtractions);
 		System.out.println("Confidence: " + cutoff_confidence);

@@ -301,11 +301,11 @@ public class SentLevelExtractor {
 	 * @return
 	 */
 	public void firedFeaturesScores(Argument arg1, Argument arg2,
-			CoreMap sentence, Annotation doc, String rel, BufferedWriter bw)
+			CoreMap sentence, Annotation doc, String rel, BufferedWriter bw, double conf)
 			throws IOException {
 		bw.write("_____________________________________________________\n");
 		bw.write(sentence + "\n");
-		bw.write(arg1 + "\t" + arg2 + "\t" + rel + "\n");
+		bw.write(arg1 + "\t" + arg2 + "\t" + rel + "\t" + conf + "\n");
 
 		List<String> features = getFeatureList(arg1, arg2, sentence, doc);
 		LRGraph lrg = makeGraph(arg1, arg2, features);
