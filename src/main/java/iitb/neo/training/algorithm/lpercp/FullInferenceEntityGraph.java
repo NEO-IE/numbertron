@@ -57,14 +57,15 @@ public class FullInferenceEntityGraph {
 			//the set of Zs attached will be same for all the numbers, so just take anyone and work
 			ArrayList<Integer> attachedZ = egraph.n[n_i][0].zs_linked;
 			int totalZ = attachedZ.size();
-			p.n_states[n_i] = false;
-			int trueAttachedZCount = 0;
-			for (Integer z : attachedZ) { // iterate over all the attached Z
-											// nodes
-				if (p.z_states[z] > 0) { //0 is reserved for the relation NA
-					trueAttachedZCount++;	
-					p.n_states[n_i] = (((trueAttachedZCount * 1.0) / (totalZ)) >= LEAST_Z_FLIPPED_COUNT);
-					//break;
+			for(String relation: RelationMetaData.relationNames) {
+				int relNumber = m.getRelationID(relation, false);
+				p.n_states[n_i][relNumber] = false;
+				
+				
+				for (Integer z : attachedZ) { // iterate over all the attached Z nodes
+					if (p.z_states[z] > 0) { //0 is reserved for the relation NA
+						p.n_states[n_i][p.z_states[z]] = true;
+					}
 				}
 			}
 		}
