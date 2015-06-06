@@ -29,23 +29,11 @@ import edu.washington.multirframework.multiralgorithm.SparseBinaryVector;
  * TODO: Move the list of Z nodes connected to a number node to the 
  * SparseBinaryRepresentation
  */
-public class LRGraph {
-	public static final int MNT_CAPACITY = 1;
-	public static final int NUM_RELS = 11;
-	public String location, relation;
+public class LRGraph extends Graph{
+	public String relation;
 	public int relNumber;
-	public int random = 0;
-	
-
-	
-	// mentions of this entity pair
-	public int numMentions = 0;
-	public int[] mentionIDs;
-	public int[] Z;
-	public Number[] n;
-	public SparseBinaryVector[] features;
-
-	//mentions of the number
+	//numbers are handled differently for the LRGraph and the EntityGraph
+	public Number[] n; //The set Q_e
 	public int[] N;
 	public int numNodesCount = 0;
 	public int[] numMentionIDs;
@@ -98,7 +86,7 @@ public class LRGraph {
 	public boolean read(DataInputStream dis) throws IOException {
 		try {
 			random = dis.readInt();
-			location = dis.readUTF();
+			entity = dis.readUTF();
 			relation = dis.readUTF();
 			relNumber = dis.readInt();
 		
@@ -141,7 +129,7 @@ public class LRGraph {
 	
 	public void write(DataOutputStream dos) throws IOException {
 		dos.writeInt(random);
-		dos.writeUTF(location);
+		dos.writeUTF(entity);
 		dos.writeUTF(relation);
 		dos.writeInt(relNumber);
 		dos.writeInt(n.length);
@@ -167,7 +155,7 @@ public class LRGraph {
 	public String toString(){
 
 		StringBuilder sb = new StringBuilder();
-		sb.append(location);
+		sb.append(entity);
 		sb.append("\t");
 		sb.append(relation);
 		sb.append("\t");

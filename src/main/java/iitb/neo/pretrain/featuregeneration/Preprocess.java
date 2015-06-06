@@ -54,11 +54,13 @@ public class Preprocess {
 	 * @return
 	 * @throws IOException
 	 */
-	public static Mappings getMappingFromTrainingData(String trainFile, String mappingFile) throws IOException {
+	public static Mappings getMappingFromTrainingData(String trainFile, String mappingFile, boolean hasNA) throws IOException {
 
 		Mappings m = new Mappings();
 		// ensure that "NA" gets ID o
-	
+		if(hasNA) {
+			m.getRelationID("NA", true);
+		}
 		System.out.println("Converting input feature file to temporary feature list file...");
 		long start = System.currentTimeMillis();
 		// grab feature from feature file and put in new file

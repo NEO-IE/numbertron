@@ -5,12 +5,12 @@ import iitb.rbased.util.Pair;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import main.java.iitb.neo.goldDB.GoldDB;
-import main.java.iitb.neo.training.ds.LRGraph;
-import main.java.iitb.neo.util.RandomUtils;
-import main.java.iitb.neo.training.ds.Number;
+import main.java.iitb.neo.pretrain.process.MakeEntityGraph;
+import main.java.iitb.neo.training.ds.EntityGraph;
+import meta.RelationMetaData;
+import edu.washington.multirframework.multiralgorithm.Mappings;
 
 /**
  * Sets the value of n nodes based on the value pulled from the gold db
@@ -18,7 +18,7 @@ import main.java.iitb.neo.training.ds.Number;
  * @author aman
  * 
  */
-public class GoldDbInference {
+public class GoldDbInferenceEntityGraph {
 
 	private static HashMap<Pair<String, String>, Integer> trueCountMap = new HashMap<>();
 
@@ -54,22 +54,23 @@ public class GoldDbInference {
 
 	}
 
-	public static Parse infer(LRGraph lrg) {
-		Parse p = new Parse();
-		p.graph = lrg;
-		p.z_states = new boolean[lrg.Z.length];
-		p.n_states = new boolean[lrg.n.length];
-		int numN = lrg.n.length;
-		for (int n_i = 0; n_i < numN; n_i++) {
-			if (closeEnough(lrg.n[n_i].value, lrg.relation, lrg.entity)) {
-				// if(countRel.containsKey(lrg.relation)){
-				// countRel.put(lrg.relation, countRel.get(lrg.relation)+1);
-				// }else{
-				// countRel.put(lrg.relation, 1);
-				// }
-				p.n_states[n_i] = true;
-			} else {
-				p.n_states[n_i] = false;
+	public static EntityGraphParse infer(EntityGraph egraph) {
+		EntityGraphParse p = new EntityGraphParse();
+		p.graph = egraph;
+		p.z_states = new int[egraph.Z.length];
+		p.n_states = new boolean[egraph.n.length][RelationMetaData.NUM_RELATIONS + 1];
+		int numN = egraph.numNodesCount;
+		Mappings m = MakeEntityGraph.mapping;
+		
+		for (int n_i = 0; n_i < numN; n_i++) { //for all the number nodes
+			double value = egraph.n[n_i][0].value;
+			for(String relation: RelationMetaData.relationNames) {
+				int relNumber = m.getRelationID(relation, false);
+				if (closeEnough(value, relation, egraph.entity)) {
+					p.n_states[n_i][relNumber] = true;
+				} else {
+					p.n_states[n_i][relNumber] = false;
+				}
 			}
 		}
 		return p;
@@ -97,9 +98,7 @@ public class GoldDbInference {
 		
 		Pair<String, String> locationRelation = new Pair<String, String>(
 				entity, rel);
-		if (rel.split("_").length > 1) {
-			return nullCloseEnough(value, rel, entity);
-		}
+		
 		rel = rel.split("&")[0];
 		ArrayList<Double> goldValues = GoldDB.getGoldDBValue(entity, rel,
 				GoldDB.K);
@@ -131,29 +130,6 @@ public class GoldDbInference {
 		}
 		return false;
 		 
-	}
-
-	/**
-	 * This is a method that checks whether the null relation is true or not.
-	 * The no attachment relation is true if all the relations for which it is a
-	 * true class are false.
-	 * 
-	 * @param value
-	 * @param rel
-	 * @param entity
-	 * @return
-	 */
-	private static boolean nullCloseEnough(Double value, String rel,
-			String entity) {
-		String rels[] = rel.split("_");
-		for (int i = 1, l = rels.length; i < l; i++) {
-			if (closeEnough(value, rels[i], entity)) {
-				return false;
-			}
-
-		}
-
-		return RandomUtils.coinToss(0.2);
 	}
 
 	/**

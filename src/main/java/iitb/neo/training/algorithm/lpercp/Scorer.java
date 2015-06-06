@@ -2,6 +2,7 @@ package main.java.iitb.neo.training.algorithm.lpercp;
 
 import java.util.Map;
 
+import main.java.iitb.neo.training.ds.Graph;
 import main.java.iitb.neo.training.ds.LRGraph;
 import edu.washington.multirframework.multiralgorithm.DenseVector;
 import edu.washington.multirframework.multiralgorithm.Parameters;
@@ -13,7 +14,7 @@ private Parameters params;
 	public Scorer() {}
 	
 	// scoring on mention documents, all 2*numRelation	
-	public double scoreMentionRelation(LRGraph doc, int m, int rel, Map<Integer,Double> featureScoreMap) {
+	public double scoreMentionRelation(Graph doc, int m, int rel, Map<Integer,Double> featureScoreMap) {
 		double sum = 0;
 		DenseVector p = params.relParameters[rel];
 		sum += p.dotProduct(doc.features[m], featureScoreMap);
@@ -21,7 +22,7 @@ private Parameters params;
 	}
 	
 	// scoring on mention documents, all 2*numRelation	
-	public double scoreMentionRelation(LRGraph doc, int m, int rel) {
+	public double scoreMentionRelation(Graph doc, int m, int rel) {
 		double sum = 0;
 		DenseVector p = params.relParameters[rel];
 		sum += p.dotProduct(doc.features[m]);

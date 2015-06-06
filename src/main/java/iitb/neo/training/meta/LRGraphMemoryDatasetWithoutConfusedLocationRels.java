@@ -53,9 +53,9 @@ public class LRGraphMemoryDatasetWithoutConfusedLocationRels implements Dataset<
 		List<LRGraph> l = new ArrayList<LRGraph>();
 		DataInputStream dis = new DataInputStream(new BufferedInputStream(new FileInputStream(file)));
 		while (d.read(dis)) {
-			boolean ignore = confusedPercentCountries.contains(d.location) && (d.relation.equals("INTERNET") || d.relation.equals("INF"));
-			ignore = ignore || (confusedGOODSGDPCountries.contains(d.location) && (d.relation.equals("GOODS") || d.relation.equals("GDP")));
-			ignore = ignore || (confusedFDIGOODSCountries.contains(d.location) && (d.relation.equals("GOODS") || d.relation.equals("FDI")));
+			boolean ignore = confusedPercentCountries.contains(d.entity) && (d.relation.equals("INTERNET") || d.relation.equals("INF"));
+			ignore = ignore || (confusedGOODSGDPCountries.contains(d.entity) && (d.relation.equals("GOODS") || d.relation.equals("GDP")));
+			ignore = ignore || (confusedFDIGOODSCountries.contains(d.entity) && (d.relation.equals("GOODS") || d.relation.equals("FDI")));
 			
 			if (!ignore) {
 				l.add(d);
@@ -93,7 +93,7 @@ public class LRGraphMemoryDatasetWithoutConfusedLocationRels implements Dataset<
 	public boolean next(LRGraph doc) {
 		if (cursor < docs.length) {
 			LRGraph d = docs[cursor++];
-			doc.location = d.location;
+			doc.entity = d.entity;
 			doc.relation = d.relation;
 			doc.features = d.features;
 			doc.mentionIDs = d.mentionIDs;

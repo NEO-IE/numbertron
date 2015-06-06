@@ -42,7 +42,7 @@ public class GoldDBKeywordInference {
 					feats.add(id);
 				}
 			}
-			if(GoldDbInference.closeEnough(lrg.n[n_i].value, lrg.relation, lrg.location)){
+			if(GoldDbInference.closeEnough(lrg.n[n_i].value, lrg.relation, lrg.entity)){
 				p.n_states[n_i] = KeywordInference.hasKeyword(feats, lrg.relation);
 			}else{
 				p.n_states[n_i] = false;

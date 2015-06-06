@@ -8,7 +8,6 @@ import java.util.Map;
 
 import main.java.iitb.neo.extract.NumbertronExtractFromCorpus;
 import main.java.iitb.neo.util.JsonUtils;
-import edu.washington.multir.extractor.MultirExtractFromCorpus;
 import edu.washington.multirframework.data.Extraction;
 
 /**

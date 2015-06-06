@@ -55,7 +55,7 @@ public class LRGraphMemoryDataset implements Dataset<LRGraph> {
 	public boolean next(LRGraph doc) {
 		if (cursor < docs.length) {
 			LRGraph d = docs[cursor++];
-			doc.location = d.location;
+			doc.entity = d.entity;
 			doc.relation = d.relation;
 			doc.features = d.features;
 			doc.mentionIDs = d.mentionIDs;

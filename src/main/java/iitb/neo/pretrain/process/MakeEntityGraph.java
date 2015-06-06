@@ -16,9 +16,9 @@ import java.util.Random;
 
 import main.java.iitb.neo.pretrain.featuregeneration.NumbertronFeatureGenerationDriver;
 import main.java.iitb.neo.pretrain.featuregeneration.Preprocess;
-import main.java.iitb.neo.training.ds.LRGraph;
+import main.java.iitb.neo.training.ds.EntityGraph;
 import main.java.iitb.neo.training.ds.Number;
-import edu.stanford.nlp.ie.pascal.AcronymModel.Feature;
+import meta.RelationMetaData;
 import edu.washington.multirframework.multiralgorithm.Mappings;
 import edu.washington.multirframework.multiralgorithm.Model;
 import edu.washington.multirframework.multiralgorithm.SparseBinaryVector;
@@ -33,41 +33,23 @@ import edu.washington.multirframework.multiralgorithm.SparseBinaryVector;
  * @author aman
  * 
  */
-public class MakeGraph {
+public class MakeEntityGraph {
 
 	public static int FEATURE_THRESHOLD = 1;
-	//private static final double GIGABYTE_DIVISOR = 1073741824;
-
-	static HashMap<String, Integer> relToRelnumberMap;
-	static int numRelations = 11; 
-	
-	static {
-		relToRelnumberMap = new HashMap<String, Integer>();
-
-		relToRelnumberMap.put("AGL", 0);
-		relToRelnumberMap.put("FDI", 1);
-		relToRelnumberMap.put("GOODS", 2);
-		relToRelnumberMap.put("ELEC", 3);
-		relToRelnumberMap.put("CO2", 4);
-		relToRelnumberMap.put("INF", 5);
-		relToRelnumberMap.put("INTERNET", 6);
-		relToRelnumberMap.put("GDP", 7);
-		relToRelnumberMap.put("LIFE", 8);
-		relToRelnumberMap.put("POP", 9);
-	
-
-	}
+	public static Mappings mapping = null;
+	// private static final double GIGABYTE_DIVISOR = 1073741824;
 
 	public static void main(String args[]) {
 
 	}
 
-	public static void run(String featureFile, String mappingFile, String graphFile, String trainDir)
-			throws IOException {
+	public static void run(String featureFile, String mappingFile,
+			String graphFile, String trainDir) throws IOException {
 		run(featureFile, mappingFile, graphFile, trainDir, FEATURE_THRESHOLD);
 	}
 
-	public static void run(String featureFile, String mappingFile, String graphFile, String trainDir, Integer threshold)
+	public static void run(String featureFile, String mappingFile,
+			String graphFile, String trainDir, Integer threshold)
 			throws IOException {
 		FEATURE_THRESHOLD = threshold;
 		long start = System.currentTimeMillis();
@@ -81,12 +63,13 @@ public class MakeGraph {
 		System.out.println("GETTING Mapping form training data");
 		// Check if mapping file already exists
 		File mappingFileHandle = new File(mappingFile);
-		Mappings mapping = null;
+	
 		if (mappingFileHandle.exists()) { // directly read
 			mapping = new Mappings();
 			mapping.read(mappingFile);
 		} else {
-			mapping = Preprocess.getMappingFromTrainingData(featureFile, mappingFile, false);
+			mapping = Preprocess.getMappingFromTrainingData(featureFile,
+					mappingFile, true);
 			generateMapping = true;
 		}
 
@@ -95,7 +78,7 @@ public class MakeGraph {
 			File graphFileHandle = new File(graphFile);
 			if (!graphFileHandle.exists()) {
 				String output1 = outDir + File.separatorChar + "train";
-				convertFeatureFileToLRGraph(featureFile, output1, mapping);
+				convertFeatureFileToEntityGraph(featureFile, output1, mapping);
 			}
 
 		}
@@ -121,40 +104,54 @@ public class MakeGraph {
 		}
 
 		long end = System.currentTimeMillis();
-		System.out.println("Preprocessing took " + (end - start) + " millisseconds");
+		System.out.println("Preprocessing took " + (end - start)
+				+ " millisseconds");
 
 	}
 
-	private static void convertFeatureFileToLRGraph(String input, String output, Mappings m) throws IOException {
+	/**
+	 * Given a set of features, creates an entity graph where the entuty graph
+	 * is as defined at https://www.overleaf.com/2748088ynypty#/7347851/
+	 * 
+	 * @param input
+	 * @param output
+	 * @param m
+	 * @throws IOException
+	 */
+	private static void convertFeatureFileToEntityGraph(String input,
+			String output, Mappings m) throws IOException {
 
-		Comparator<String> locationRelationPairComparator = new Comparator<String>() {
+		Comparator<String> entityComparator = new Comparator<String>() {
 			@Override
 			public int compare(String line1, String line2) {
-				String[] line1Values = line1.split("\t");
-				String[] line2Values = line2.split("\t");
-				int locationIdx = 1;
-				int relationIdx = 3;
-				Integer entity1Compare = line1Values[locationIdx].compareTo(line2Values[locationIdx]);
-				return entity1Compare == 0 ? line1Values[relationIdx].compareTo(line2Values[relationIdx])
-						: entity1Compare;
+				return line1.compareTo(line2);
 			}
 
 		};
 
 		File inputFile = new File(input);
-		File tempSortedFeatureFile = new File(inputFile.getParentFile().getAbsolutePath() + "/" + inputFile.getName()
-				+ "-sortedFeaturesFile-" + new Random(System.nanoTime()).nextInt());
+		File tempSortedFeatureFile = new File(inputFile.getParentFile()
+				.getAbsolutePath()
+				+ "/"
+				+ inputFile.getName()
+				+ "-sortedFeaturesFile-"
+				+ new Random(System.nanoTime()).nextInt());
 		long start = System.currentTimeMillis();
 		System.out.println("Sorting feature file");
 
-		Preprocess.externalSort(new File(input), tempSortedFeatureFile, locationRelationPairComparator);
+		// sort the feature file based on the entity
+		Preprocess.externalSort(new File(input), tempSortedFeatureFile,
+				entityComparator);
 		long end = System.currentTimeMillis();
-		System.out.println("Feature file sorted in " + (end - start) + " milliseconds");
+		System.out.println("Feature file sorted in " + (end - start)
+				+ " milliseconds");
 
 		// open input and output streams
-		DataOutputStream os = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(output)));
+		DataOutputStream os = new DataOutputStream(new BufferedOutputStream(
+				new FileOutputStream(output)));
 
-		BufferedReader br = new BufferedReader(new FileReader(tempSortedFeatureFile));
+		BufferedReader br = new BufferedReader(new FileReader(
+				tempSortedFeatureFile));
 		System.out.println("Set up buffered reader");
 
 		// create MILDocument data map
@@ -173,26 +170,29 @@ public class MakeGraph {
 		int mentionNumber = 0; // keeps track of the mention that is being
 								// processed for the current location relation.
 		HashMap<String, List<Integer>> numberMentionMap = null; // stores the
-																	// sentences
-																	// in which
-																	// the
-																	// current
-																	// number
-																	// appears
-		HashMap<String, List<Integer>> numberFeatureMap = null; //stores the features for the numbers
-		
+																// sentences
+																// in which
+																// the
+																// current
+																// number
+																// appears
+		HashMap<String, List<Integer>> numberFeatureMap = null; // stores the
+																// features for
+																// the numbers
+
 		while ((line = br.readLine()) != null) {
 
-			String[] parts = line.split(NumbertronFeatureGenerationDriver.FEATURE_TYPE_SEPARATOR);
-			
-			//parts[1] is number features. TODO from here.
-			
+			String[] parts = line
+					.split(NumbertronFeatureGenerationDriver.FEATURE_TYPE_SEPARATOR);
+
+			// parts[1] is number features. TODO from here.
+
 			String[] values = parts[0].split("\t");
-			String location = values[1];
+			String entity = values[1];
 			String number = values[2];
 			String relString = values[3];
 
-			String key = location + "%" + relString;
+			String key = entity;
 			m.getRelationID(relString, true); // add the relation to the list of
 												// relations
 			List<String> features = new ArrayList<>();
@@ -200,20 +200,22 @@ public class MakeGraph {
 			for (int i = 4; i < values.length; i++) {
 				features.add(values[i]);
 			}
-			
+
 			List<String> numFeatures = new ArrayList<>();
-			if(parts.length == 2) { //if number features
+			if (parts.length == 2) { // if number features
 				String[] vals = parts[1].split("\t");
-				for(int i = 0; i < vals.length; i++){
+				for (int i = 0; i < vals.length; i++) {
 					numFeatures.add(vals[i]);
 				}
 			}
-			
-			// convert to integer keys from the mappings m object
-			List<Integer> featureIntegers = Preprocess.convertFeaturesToIntegers(features, m);
-			List<Integer> numFeatureIntegers = Preprocess.convertFeaturesToIntegers(numFeatures, m);
 
-			if (key.equals(prevKey)) { // same location relation, add
+			// convert to integer keys from the mappings m object
+			List<Integer> featureIntegers = Preprocess
+					.convertFeaturesToIntegers(features, m);
+			List<Integer> numFeatureIntegers = Preprocess
+					.convertFeaturesToIntegers(numFeatures, m);
+
+			if (key.equals(prevKey)) { // same entity, add
 				featureLists.add(featureIntegers);
 				if (numberMentionMap.keySet().contains(number)) { // number
 					numberMentionMap.get(number).add(mentionNumber);
@@ -224,17 +226,17 @@ public class MakeGraph {
 					numberFeatureMap.put(number, numFeatureIntegers);
 				}
 			} else {
-				// construct MILDoc from currentFeatureLists
+				// a new entity has arrived, collect all the instances that
+				// you had about the previous entity, and store them
 				if (!prevKey.equals("")) { // not first time round?
-					String[] v = prevKey.split("%");
 					ArrayList<Number> numbers = new ArrayList<Number>();
 					for (String num : numberMentionMap.keySet()) {
 						numbers.add(new Number(num, numberMentionMap.get(num)));
 					}
-					// m/0154j AGL
 
-					LRGraph lr = constructLRGraph(numbers, featureLists, numberFeatureMap, v[0], v[1], m.getRelationID(v[1], false));
-					lr.write(os);
+					EntityGraph egraph = constructEntityGraph(numbers,
+							featureLists, prevKey);
+					egraph.write(os);
 					mentionNumber = 0; // reset the mention number
 
 				}
@@ -253,7 +255,8 @@ public class MakeGraph {
 
 			count++;
 			if (count % 100000 == 0) {
-				System.out.println("Number of training instances read in =" + count);
+				System.out.println("Number of training instances read in ="
+						+ count);
 				Preprocess.printMemoryStatistics();
 			}
 			mentionNumber++;
@@ -261,14 +264,14 @@ public class MakeGraph {
 
 		// construct last MILDOC from featureLists
 		if (!prevKey.equals("")) {
-			String[] v = prevKey.split("%");
 			ArrayList<Number> numbers = new ArrayList<Number>();
 			for (String num : numberMentionMap.keySet()) {
 				numbers.add(new Number(num, numberMentionMap.get(num)));
 			}
 
-			LRGraph newGraph = constructLRGraph(numbers, featureLists, numberFeatureMap, v[0], v[1], m.getRelationID(v[1], false));
-			newGraph.write(os);	
+			EntityGraph newGraph = constructEntityGraph(numbers, featureLists,
+					prevKey);
+			newGraph.write(os);
 		}
 
 		br.close();
@@ -276,49 +279,40 @@ public class MakeGraph {
 		tempSortedFeatureFile.delete();
 	}
 
-	private static LRGraph constructLRGraph(List<Number> numbers, 
-			List<List<Integer>> featureInts, HashMap<String, List<Integer>> numberFeatureMap, 
-			String location, String relation, int relNumber) {
-		LRGraph lrg = new LRGraph();
-		lrg.entity = location;
-		lrg.relation = relation;
-		lrg.relNumber = relNumber;
+	private static EntityGraph constructEntityGraph(List<Number> numbers,
+			List<List<Integer>> featureInts, String loc) {
+		EntityGraph egraph = new EntityGraph();
+		egraph.entity = loc;
 		// set number nodes
-
 		int numNodesCount = numbers.size();
-		lrg.n = new Number[numNodesCount];
-		
+		egraph.setCapacity(featureInts.size(), numNodesCount);
+
+		egraph.n = new Number[numNodesCount][RelationMetaData.NUM_RELATIONS + 1];
+
 		for (int i = 0; i < numNodesCount; i++) {
-			lrg.n[i] = numbers.get(i); // just for performance reasons, too
-										// early and perhaps evil. But worth a
-										// try;
+			for (int r = 1; r <= RelationMetaData.NUM_RELATIONS; r++) {
+				egraph.n[i][r] = numbers.get(i);
+			}
 		}
 		// set mentions
-		lrg.setCapacity(featureInts.size());
-		lrg.numMentions = featureInts.size();
-		
+
+		egraph.numMentions = featureInts.size();
+
 		for (int j = 0; j < featureInts.size(); j++) {
-			lrg.Z[j] = -1;
-			lrg.mentionIDs[j] = j;
-			lrg.features[j] = getSBVfromList(featureInts.get(j));
-		}
-		
-		//set num Mentions
-		lrg.setNumCapacity(numNodesCount);
-		lrg.numNodesCount = numNodesCount;
-		
-		for(int j = 0; j < numNodesCount; j++){
-			lrg.N[j] = -1;
-			lrg.numMentionIDs[j] = j;
-			lrg.numFeatures[j] = getSBVfromList(numberFeatureMap.get(lrg.n[j].svalue));
+			egraph.Z[j] = -1;
+			egraph.mentionIDs[j] = j;
+			egraph.features[j] = getSBVfromList(featureInts.get(j));
 		}
 
-		return lrg;
+		// set num Mentions
+
+		egraph.numNodesCount = numNodesCount;
+		return egraph;
 	}
-	
-	public static SparseBinaryVector getSBVfromList(List<Integer> features){
+
+	public static SparseBinaryVector getSBVfromList(List<Integer> features) {
 		SparseBinaryVector sv = new SparseBinaryVector();
-		
+
 		int[] fts = new int[features.size()];
 
 		for (int i = 0; i < features.size(); i++)
@@ -335,7 +329,6 @@ public class MakeGraph {
 			if (fts[i] != -1 && (i == 0 || fts[i - 1] != fts[i]))
 				sv.ids[pos++] = fts[i];
 
-		
 		return sv;
 	}
 
