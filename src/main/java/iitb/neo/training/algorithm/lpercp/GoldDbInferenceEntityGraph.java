@@ -63,7 +63,7 @@ public class GoldDbInferenceEntityGraph {
 		Mappings m = MakeEntityGraph.mapping;
 		
 		for (int n_i = 0; n_i < numN; n_i++) { //for all the number nodes
-			double value = egraph.n[n_i][0].value;
+			double value = egraph.n[n_i][1].value;
 			for(String relation: RelationMetaData.relationNames) {
 				int relNumber = m.getRelationID(relation, false);
 				if (closeEnough(value, relation, egraph.entity)) {

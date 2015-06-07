@@ -25,16 +25,16 @@ public class FullInferenceEntityGraph {
 		/* setup what we already know about the parse */
 		p.graph = egraph;
 		scorer.setParameters(params);
-		p.z_states = new int[egraph.Z.length];
+		p.z_states = new int[egraph.numMentions];
 		p.n_states = new boolean[egraph.numNodesCount][RelationMetaData.NUM_RELATIONS + 1];
 		/* iterate over the Z nodes and set them to true whenever applicable */
-		int numZ = egraph.Z.length;
+		int numZ = egraph.numMentions;
 		for (int z = 0; z < numZ; z++) {
 			double bestScore = 0.0;
 			// There can be multiple "best" relations. It is okay if we get
 			// anyone of them
 			ArrayList<Integer> bestRels = new ArrayList<Integer>();
-			for (int r = 0; r < params.model.numRelations; r++) {
+			for (int r = 1; r <= RelationMetaData.NUM_RELATIONS; r++) {
 				double currScore = scorer.scoreMentionRelation(egraph, z, r);
 				if (currScore > bestScore) {
 					bestRels.clear();
@@ -51,10 +51,10 @@ public class FullInferenceEntityGraph {
 		
 		double LEAST_Z_FLIPPED_COUNT = 0.5;
 		/* now flip n nodes accordingly: OR */
-		int numN = egraph.n.length;
+		int numN = egraph.numNodesCount;
 		for (int n_i = 0; n_i < numN; n_i++) {
 			//the set of Zs attached will be same for all the numbers, so just take anyone and work
-			ArrayList<Integer> attachedZ = egraph.n[n_i][0].zs_linked;
+			ArrayList<Integer> attachedZ = egraph.n[n_i][1].zs_linked;
 			int totalZ = attachedZ.size();
 			for(String relation: RelationMetaData.relationNames) {
 				int relNumber = m.getRelationID(relation, false);

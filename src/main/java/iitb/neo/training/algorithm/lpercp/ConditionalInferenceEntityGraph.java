@@ -25,12 +25,12 @@ public class ConditionalInferenceEntityGraph {
 			//Parse trueParse = KeywordInference.infer(lrg);
 			//Parse trueParse = GoldDBKeywordInference.infer(lrg);
 			
-			p.z_states = new int[egraph.Z.length];
+			p.z_states = new int[egraph.numMentions];
 			p.n_states = trueParse.n_states;
 			
 			Mappings m = MakeEntityGraph.mapping;
 			for(int i = 0 ; i < egraph.numNodesCount; i++){
-				for(int r = 0; r <= RelationMetaData.NUM_RELATIONS; r++) {
+				for(int r = 1; r <= RelationMetaData.NUM_RELATIONS; r++) {
 					Number n = egraph.n[i][r];
 					ArrayList<Integer> z_s = n.zs_linked;
 					if(trueParse.n_states[i][r]) {
