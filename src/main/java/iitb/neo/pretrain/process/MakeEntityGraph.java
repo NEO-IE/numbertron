@@ -68,6 +68,7 @@ public class MakeEntityGraph {
 			mapping = new Mappings();
 			mapping.read(mappingFile);
 		} else {
+			System.out.println("Creating a Mapping File");
 			mapping = Preprocess.getMappingFromTrainingData(featureFile,
 					mappingFile, true);
 			generateMapping = true;
@@ -299,8 +300,6 @@ public class MakeEntityGraph {
 		egraph.numMentions = featureInts.size();
 
 		for (int j = 0; j < featureInts.size(); j++) {
-			egraph.Z[j] = -1;
-			egraph.mentionIDs[j] = j;
 			egraph.features[j] = getSBVfromList(featureInts.get(j));
 		}
 

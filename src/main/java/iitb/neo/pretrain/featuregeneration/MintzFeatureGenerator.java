@@ -25,7 +25,7 @@ import edu.washington.multirframework.featuregeneration.FeatureGenerator;
 
 /**
  */
-public class MintzKeywordFeatureGenerator implements FeatureGenerator {
+public class MintzFeatureGenerator implements FeatureGenerator {
 	
 	@Override
 	public List<String> generateFeatures(Integer arg1StartOffset,
