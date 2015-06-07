@@ -51,8 +51,7 @@ public class EntityGraph extends Graph {
 	 */
 	public void setCapacity(int numMentions, int numNodesCount) {
 		n = new Number[numNodesCount][RelationMetaData.NUM_RELATIONS + 1];
-		SparseBinaryVector[] newFeatures = new SparseBinaryVector[numMentions];
-		features = newFeatures;
+		features = new SparseBinaryVector[numMentions];
 	}
 
 
@@ -67,27 +66,22 @@ public class EntityGraph extends Graph {
 			random = dis.readInt();
 			entity = dis.readUTF();
 
-			int totalN = dis.readInt();
+		
 			//there are (#relations * #unique number-units) number nodes
-			int countNumNodes = totalN / RelationMetaData.NUM_RELATIONS;
-			n = new Number[countNumNodes][RelationMetaData.NUM_RELATIONS + 1];
-			for (int i = 0; i < countNumNodes; i++) {
+		 
+			
+			this.numNodesCount = dis.readInt();
+		
+			setCapacity(numMentions, numNodesCount);
+			for (int i = 0; i < numNodesCount; i++) {
 				for(int r = 1; r <= RelationMetaData.NUM_RELATIONS; r++) {
 					n[i][r] = new Number();
 					n[i][r].deserialize(dis);
 				}
 			}
-
-			this.numNodesCount = countNumNodes;
-			
-		
-
-			
 			this.numMentions = dis.readInt();
-			
 			for (int i = 0; i < numMentions; i++) {
-				if (features[i] == null)
-					features[i] = new SparseBinaryVector();
+				//features[i] = new SparseBinaryVector();
 				features[i].deserialize(dis);
 			}
 			
@@ -107,7 +101,7 @@ public class EntityGraph extends Graph {
 		dos.writeUTF(entity);
 		
 		//write the number nodes
-		dos.writeInt(n.length * (NUM_RELATIONS));
+		dos.writeInt(n.length);
 		for (int i = 0; i < n.length; i++) {
 			for(int r = 1; r <= NUM_RELATIONS; r++) {
 				n[i][r].serialize(dos);

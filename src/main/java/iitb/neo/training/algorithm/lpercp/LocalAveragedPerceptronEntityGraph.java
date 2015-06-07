@@ -76,9 +76,12 @@ public class LocalAveragedPerceptronEntityGraph {
 			String ftr = null;
 			featureList = new HashMap<Integer, String>();
 			int fno = 0;
-			while (fno < numFeatures) {
-				ftr = featureReader.readLine().trim();
+			while (fno < numFeatures && ((ftr = featureReader.readLine()) != null)) {
+				ftr = ftr.trim();
 				String parts[] = ftr.split("\t");
+				if(parts.length == 1) {
+					continue;
+				}
 				featNameNumMapping.put(parts[1], Integer.parseInt(parts[0]));
 				featureList.put(fno, ftr);
 				fno++;
