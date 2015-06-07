@@ -102,7 +102,7 @@ public class EntityGraph extends Graph {
 		dos.writeUTF(entity);
 		
 		//write the number nodes
-		dos.writeInt(n.length);
+		dos.writeInt(numNodesCount);
 		dos.writeInt(numMentions);
 		
 		for (int i = 0; i < n.length; i++) {
