@@ -25,6 +25,7 @@ import main.java.iitb.neo.pretrain.featuregeneration.NumbertronFeatureGeneration
 import main.java.iitb.neo.pretrain.process.MakeEntityGraph;
 import main.java.iitb.neo.pretrain.spotting.UnitLocationSpotting;
 import main.java.iitb.neo.training.algorithm.lpercp.LperceptTrain;
+import main.java.iitb.neo.training.algorithm.lpercp.LperceptTrainEntityGraph;
 import main.java.iitb.neo.training.ds.EntityGraph;
 import main.java.iitb.neo.training.ds.LRGraph;
 import main.java.iitb.neo.training.meta.EntityGraphMemoryDataset;
@@ -306,7 +307,7 @@ public class NtronExperimentEntityGraph {
 		}
 		bw.close();
 		/**/
-		LperceptTrain.train(modelFile.getAbsoluteFile().toString(), new Random(
+		LperceptTrainEntityGraph.train(modelFile.getAbsoluteFile().toString(), new Random(
 				1), this.numIterations, this.regularizer, this.finalAvg,
 				this.ignoreConfusion, ntronModelDirs.get(0)
 						+ File.separatorChar + "mapping");
