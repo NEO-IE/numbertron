@@ -6,7 +6,6 @@ import java.util.Map;
 
 import main.java.iitb.neo.pretrain.process.MakeEntityGraph;
 import main.java.iitb.neo.training.ds.EntityGraph;
-import main.java.iitb.neo.training.ds.LRGraph;
 import main.java.iitb.neo.util.MapUtils;
 import meta.RelationMetaData;
 import edu.washington.multirframework.multiralgorithm.Mappings;
@@ -82,19 +81,19 @@ public class FullInferenceEntityGraph {
 	 * @param params
 	 * @return
 	 */
-	public static Map<Integer, Double> getRelationScoresPerMention(LRGraph lrg, Scorer scorer, Parameters params) {
-		Parse p = new Parse();
+	public static Map<Integer, Double> getRelationScoresPerMention(EntityGraph egraph, Scorer scorer, Parameters params) {
+		EntityGraphParse p = new EntityGraphParse();
 		/* setup what we already know about the parse */
-		p.graph = lrg;
+		p.graph = egraph;
 		scorer.setParameters(params);
-		p.z_states = new boolean[lrg.Z.length];
+		p.z_states = new int[egraph.numMentions];
 
 		/* iterate over the Z nodes and set them to true whenever applicable */
-		int numZ = lrg.Z.length;
+		int numZ = egraph.numMentions;
 		assert (numZ == 1);
 		HashMap<Integer, Double> relationScoreMap = new HashMap<Integer, Double>();
 		for (int r = 0; r < params.model.numRelations; r++) {
-			relationScoreMap.put(r, scorer.scoreMentionRelation(lrg, 0, r));
+			relationScoreMap.put(r, scorer.scoreMentionRelation(egraph, 0, r));
 		}
 		
 		return MapUtils.sortByValue(relationScoreMap);
