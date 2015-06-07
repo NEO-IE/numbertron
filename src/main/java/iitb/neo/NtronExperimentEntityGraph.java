@@ -12,7 +12,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,12 +23,11 @@ import java.util.concurrent.ExecutionException;
 import main.java.iitb.neo.goldDB.GoldDB;
 import main.java.iitb.neo.pretrain.featuregeneration.NumbertronFeatureGenerationDriver;
 import main.java.iitb.neo.pretrain.process.MakeEntityGraph;
-import main.java.iitb.neo.pretrain.process.MakeGraph;
 import main.java.iitb.neo.pretrain.spotting.UnitLocationSpotting;
-import main.java.iitb.neo.training.algorithm.lpercp.GoldDbInference;
 import main.java.iitb.neo.training.algorithm.lpercp.LperceptTrain;
+import main.java.iitb.neo.training.ds.EntityGraph;
 import main.java.iitb.neo.training.ds.LRGraph;
-import main.java.iitb.neo.training.meta.LRGraphMemoryDataset;
+import main.java.iitb.neo.training.meta.EntityGraphMemoryDataset;
 import main.java.iitb.neo.util.JsonUtils;
 import edu.washington.multirframework.argumentidentification.SententialInstanceGeneration;
 import edu.washington.multirframework.corpus.Corpus;
@@ -298,12 +296,12 @@ public class NtronExperimentEntityGraph {
 
 		// /**Print Graph*/
 		// String dir = modelFile.getAbsoluteFile().toString();
-		Dataset<LRGraph> train = new LRGraphMemoryDataset(ntronModelDirs.get(0)
+		Dataset<EntityGraph> train = new EntityGraphMemoryDataset(ntronModelDirs.get(0)
 				+ File.separatorChar + "train");
-		LRGraph lrg = new LRGraph();
+		EntityGraph egraph = new EntityGraph();
 		BufferedWriter bw = new BufferedWriter(new FileWriter("graph"));
-		while (train.next(lrg)) {
-			bw.write(lrg.toString() + "\n");
+		while (train.next(egraph)) {
+			bw.write(egraph.toString() + "\n");
 			bw.write("\n\n");
 		}
 		bw.close();
