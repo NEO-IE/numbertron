@@ -8,7 +8,6 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -18,10 +17,10 @@ import main.java.iitb.neo.pretrain.featuregeneration.NumbertronFeatureGeneration
 import main.java.iitb.neo.pretrain.featuregeneration.Preprocess;
 import main.java.iitb.neo.training.ds.EntityGraph;
 import main.java.iitb.neo.training.ds.Number;
+import main.java.iitb.neo.util.SparseBinaryVectorUtils;
 import meta.RelationMetaData;
 import edu.washington.multirframework.multiralgorithm.Mappings;
 import edu.washington.multirframework.multiralgorithm.Model;
-import edu.washington.multirframework.multiralgorithm.SparseBinaryVector;
 
 /**
  * This class assumes that the features have been created and then uses the
@@ -282,53 +281,28 @@ public class MakeEntityGraph {
 
 	private static EntityGraph constructEntityGraph(List<Number> numbers,
 			List<List<Integer>> featureInts, String loc) {
+		
 		EntityGraph egraph = new EntityGraph();
+		
 		egraph.entity = loc;
-		// set number nodes
-		int numNodesCount = numbers.size();
-		egraph.setCapacity(featureInts.size(), numNodesCount);
+		egraph.numMentions = featureInts.size();
+		egraph.numNodesCount = numbers.size();
+		
+		egraph.setCapacity(egraph.numMentions, egraph.numNodesCount);
 
-		egraph.n = new Number[numNodesCount][RelationMetaData.NUM_RELATIONS + 1];
-
-		for (int i = 0; i < numNodesCount; i++) {
+	
+		for (int i = 0; i < egraph.numNodesCount; i++) {
 			for (int r = 1; r <= RelationMetaData.NUM_RELATIONS; r++) {
 				egraph.n[i][r] = numbers.get(i);
 			}
 		}
-		// set mentions
 
-		egraph.numMentions = featureInts.size();
-
-		for (int j = 0; j < featureInts.size(); j++) {
-			egraph.features[j] = getSBVfromList(featureInts.get(j));
+		for (int j = 0; j < egraph.numMentions; j++) {
+			egraph.features[j] = SparseBinaryVectorUtils.getSBVfromList(featureInts.get(j));
 		}
 
-		// set num Mentions
-
-		egraph.numNodesCount = numNodesCount;
 		return egraph;
 	}
 
-	public static SparseBinaryVector getSBVfromList(List<Integer> features) {
-		SparseBinaryVector sv = new SparseBinaryVector();
-
-		int[] fts = new int[features.size()];
-
-		for (int i = 0; i < features.size(); i++)
-			fts[i] = features.get(i);
-		Arrays.sort(fts);
-		int countUnique = 0;
-		for (int i = 0; i < fts.length; i++)
-			if (fts[i] != -1 && (i == 0 || fts[i - 1] != fts[i]))
-				countUnique++;
-		sv.num = countUnique;
-		sv.ids = new int[countUnique];
-		int pos = 0;
-		for (int i = 0; i < fts.length; i++)
-			if (fts[i] != -1 && (i == 0 || fts[i - 1] != fts[i]))
-				sv.ids[pos++] = fts[i];
-
-		return sv;
-	}
 
 }

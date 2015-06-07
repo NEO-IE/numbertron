@@ -71,7 +71,8 @@ public class EntityGraph extends Graph {
 		 
 			
 			this.numNodesCount = dis.readInt();
-		
+			this.numMentions = dis.readInt();
+			
 			setCapacity(numMentions, numNodesCount);
 			for (int i = 0; i < numNodesCount; i++) {
 				for(int r = 1; r <= RelationMetaData.NUM_RELATIONS; r++) {
@@ -79,9 +80,9 @@ public class EntityGraph extends Graph {
 					n[i][r].deserialize(dis);
 				}
 			}
-			this.numMentions = dis.readInt();
+			
 			for (int i = 0; i < numMentions; i++) {
-				//features[i] = new SparseBinaryVector();
+				features[i] = new SparseBinaryVector();
 				features[i].deserialize(dis);
 			}
 			
@@ -102,6 +103,8 @@ public class EntityGraph extends Graph {
 		
 		//write the number nodes
 		dos.writeInt(n.length);
+		dos.writeInt(numMentions);
+		
 		for (int i = 0; i < n.length; i++) {
 			for(int r = 1; r <= NUM_RELATIONS; r++) {
 				n[i][r].serialize(dos);
@@ -113,7 +116,7 @@ public class EntityGraph extends Graph {
 		//now write the mentions
 		
 
-		dos.writeInt(numMentions);
+	
 		for (int i = 0; i < numMentions; i++) {
 			features[i].serialize(dos);
 		}
