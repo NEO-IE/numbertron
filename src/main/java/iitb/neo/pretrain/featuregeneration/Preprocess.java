@@ -73,22 +73,12 @@ public class Preprocess {
 		int count = 0;
 		while ((nextLine = br.readLine()) != null) {
 
-			/*
-			 * @ashishm: made changes to handle number features.
-			 */
-			String[] parts = nextLine.split(NumbertronFeatureGenerationDriver.FEATURE_TYPE_SEPARATOR);
-
-			String[] values = parts[0].split("\t");
+			String[] values = nextLine.split("\t");
 			for (int i = 4; i < values.length; i++) {
 				bw.write(values[i] + "\n");
 			}
-			if (parts.length == 2) {
-				values = parts[1].split("\t");
-				for (int i = 0; i < values.length; i++) {
-					bw.write(values[i] + "\n");
-				}
-			}
 			count++;
+			
 			if (count % 100000 == 0) {
 				System.out.println(count + " lines processed");
 			}

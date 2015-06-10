@@ -8,7 +8,6 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -18,10 +17,9 @@ import main.java.iitb.neo.pretrain.featuregeneration.NumbertronFeatureGeneration
 import main.java.iitb.neo.pretrain.featuregeneration.Preprocess;
 import main.java.iitb.neo.training.ds.LRGraph;
 import main.java.iitb.neo.training.ds.Number;
-import edu.stanford.nlp.ie.pascal.AcronymModel.Feature;
+import main.java.iitb.neo.util.SparseBinaryVectorUtils;
 import edu.washington.multirframework.multiralgorithm.Mappings;
 import edu.washington.multirframework.multiralgorithm.Model;
-import edu.washington.multirframework.multiralgorithm.SparseBinaryVector;
 
 /**
  * This class assumes that the features have been created and then uses the
@@ -300,7 +298,7 @@ public class MakeGraph {
 		for (int j = 0; j < featureInts.size(); j++) {
 			lrg.Z[j] = -1;
 			lrg.mentionIDs[j] = j;
-			lrg.features[j] = getSBVfromList(featureInts.get(j));
+			lrg.features[j] = SparseBinaryVectorUtils.getSBVfromList(featureInts.get(j));
 		}
 		
 		//set num Mentions
@@ -310,33 +308,12 @@ public class MakeGraph {
 		for(int j = 0; j < numNodesCount; j++){
 			lrg.N[j] = -1;
 			lrg.numMentionIDs[j] = j;
-			lrg.numFeatures[j] = getSBVfromList(numberFeatureMap.get(lrg.n[j].svalue));
+			lrg.numFeatures[j] = SparseBinaryVectorUtils.getSBVfromList(numberFeatureMap.get(lrg.n[j].svalue));
 		}
 
 		return lrg;
 	}
 	
-	public static SparseBinaryVector getSBVfromList(List<Integer> features){
-		SparseBinaryVector sv = new SparseBinaryVector();
-		
-		int[] fts = new int[features.size()];
 
-		for (int i = 0; i < features.size(); i++)
-			fts[i] = features.get(i);
-		Arrays.sort(fts);
-		int countUnique = 0;
-		for (int i = 0; i < fts.length; i++)
-			if (fts[i] != -1 && (i == 0 || fts[i - 1] != fts[i]))
-				countUnique++;
-		sv.num = countUnique;
-		sv.ids = new int[countUnique];
-		int pos = 0;
-		for (int i = 0; i < fts.length; i++)
-			if (fts[i] != -1 && (i == 0 || fts[i - 1] != fts[i]))
-				sv.ids[pos++] = fts[i];
-
-		
-		return sv;
-	}
 
 }

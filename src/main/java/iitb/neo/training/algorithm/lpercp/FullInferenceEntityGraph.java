@@ -6,7 +6,6 @@ import java.util.Map;
 
 import main.java.iitb.neo.pretrain.process.MakeEntityGraph;
 import main.java.iitb.neo.training.ds.EntityGraph;
-import main.java.iitb.neo.training.ds.LRGraph;
 import main.java.iitb.neo.util.MapUtils;
 import meta.RelationMetaData;
 import edu.washington.multirframework.multiralgorithm.Mappings;
@@ -26,16 +25,16 @@ public class FullInferenceEntityGraph {
 		/* setup what we already know about the parse */
 		p.graph = egraph;
 		scorer.setParameters(params);
-		p.z_states = new int[egraph.Z.length];
+		p.z_states = new int[egraph.numMentions];
 		p.n_states = new boolean[egraph.numNodesCount][RelationMetaData.NUM_RELATIONS + 1];
 		/* iterate over the Z nodes and set them to true whenever applicable */
-		int numZ = egraph.Z.length;
+		int numZ = egraph.numMentions;
 		for (int z = 0; z < numZ; z++) {
 			double bestScore = 0.0;
 			// There can be multiple "best" relations. It is okay if we get
 			// anyone of them
 			ArrayList<Integer> bestRels = new ArrayList<Integer>();
-			for (int r = 0; r < params.model.numRelations; r++) {
+			for (int r = 1; r <= RelationMetaData.NUM_RELATIONS; r++) {
 				double currScore = scorer.scoreMentionRelation(egraph, z, r);
 				if (currScore > bestScore) {
 					bestRels.clear();
@@ -52,10 +51,10 @@ public class FullInferenceEntityGraph {
 		
 		double LEAST_Z_FLIPPED_COUNT = 0.5;
 		/* now flip n nodes accordingly: OR */
-		int numN = egraph.n.length;
+		int numN = egraph.numNodesCount;
 		for (int n_i = 0; n_i < numN; n_i++) {
 			//the set of Zs attached will be same for all the numbers, so just take anyone and work
-			ArrayList<Integer> attachedZ = egraph.n[n_i][0].zs_linked;
+			ArrayList<Integer> attachedZ = egraph.n[n_i][1].zs_linked;
 			int totalZ = attachedZ.size();
 			for(String relation: RelationMetaData.relationNames) {
 				int relNumber = m.getRelationID(relation, false);
@@ -82,19 +81,19 @@ public class FullInferenceEntityGraph {
 	 * @param params
 	 * @return
 	 */
-	public static Map<Integer, Double> getRelationScoresPerMention(LRGraph lrg, Scorer scorer, Parameters params) {
-		Parse p = new Parse();
+	public static Map<Integer, Double> getRelationScoresPerMention(EntityGraph egraph, Scorer scorer, Parameters params) {
+		EntityGraphParse p = new EntityGraphParse();
 		/* setup what we already know about the parse */
-		p.graph = lrg;
+		p.graph = egraph;
 		scorer.setParameters(params);
-		p.z_states = new boolean[lrg.Z.length];
+		p.z_states = new int[egraph.numMentions];
 
 		/* iterate over the Z nodes and set them to true whenever applicable */
-		int numZ = lrg.Z.length;
+		int numZ = egraph.numMentions;
 		assert (numZ == 1);
 		HashMap<Integer, Double> relationScoreMap = new HashMap<Integer, Double>();
 		for (int r = 0; r < params.model.numRelations; r++) {
-			relationScoreMap.put(r, scorer.scoreMentionRelation(lrg, 0, r));
+			relationScoreMap.put(r, scorer.scoreMentionRelation(egraph, 0, r));
 		}
 		
 		return MapUtils.sortByValue(relationScoreMap);

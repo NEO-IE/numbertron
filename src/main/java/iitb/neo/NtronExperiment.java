@@ -68,8 +68,8 @@ public class NtronExperiment {
 	int topKGoldDb; // match the recent k params from the gold database
 	double MARGIN;
 	// Feature thresholds
-	public static int MINTZ_FEATURE_THRESHOLD;
-	public static int KEYWORD_FEATURE_THRESHOLD;
+	public static int MINTZ_FEATURE_THRESHOLD = 1;
+	public static int KEYWORD_FEATURE_THRESHOLD = 1;
 
 	// confused relations ignoring
 	boolean ignoreConfusion;

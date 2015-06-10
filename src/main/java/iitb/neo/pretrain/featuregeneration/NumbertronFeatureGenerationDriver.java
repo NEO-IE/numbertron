@@ -169,7 +169,7 @@ public class NumbertronFeatureGenerationDriver {
 				List<String> numFeatures = numbersFg.generateFeatures(sap.arg1Offsets.first, sap.arg1Offsets.second,
 						sap.arg2Offsets.first, sap.arg2Offsets.second, sap.arg1ID, sap.arg2ID, sentence, doc);
 
-				bw.write(FEATURE_TYPE_SEPARATOR + makeNumFeatureString(sap, numFeatures));
+				bw.write("\t" + makeNumFeatureString(sap, numFeatures));
 			
 			}
 			
