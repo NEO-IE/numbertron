@@ -5,6 +5,8 @@ import iitb.rbased.meta.KeywordData;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import main.java.iitb.neo.pretrain.process.MakeEntityGraph;
 import main.java.iitb.neo.training.ds.EntityGraph;
@@ -20,10 +22,20 @@ import meta.RelationMetaData;
  */
 public class KeywordInferenceEntityGraph {
 
-	public static HashMap<String, Double> marginMap;
-
+	public static Map<String, Double> marginMap;
+	public static Map<String, Set<Integer>> keywordFeatureIds;
 	static {
 		marginMap = new HashMap<String, Double>();
+		keywordFeatureIds = new HashMap<String, Set<Integer>>();
+		for(String rel: RelationMetaData.relationNames) {
+			List<String> relKey = KeywordData.REL_KEYWORD_MAP.get(rel);
+			Set<Integer> featSet = new HashSet<Integer>();
+			for(String key: relKey) {
+				String stemKey = StemUtils.getStemWord(key.toLowerCase());
+				featSet.add(MakeEntityGraph.mapping.getFt2ftId().get("key: " + stemKey));
+			}
+			keywordFeatureIds.put(rel, featSet);
+		}
 	}
 
 	public static EntityGraphParse infer(EntityGraph egraph) {
@@ -57,13 +69,10 @@ public class KeywordInferenceEntityGraph {
 	}
 
 	public static boolean hasKeyword(HashSet<Integer> feats, String rel) {
-		List<String> relKey = KeywordData.REL_KEYWORD_MAP.get(rel);
-		for (String key : relKey) {
-			String stemKey = StemUtils.getStemWord(key.toLowerCase());
-			Integer featID = MakeEntityGraph.mapping.getFt2ftId().get("key: " + stemKey);
-			
-			if (featID != null) {
-				if (feats.contains(featID)) {
+		HashSet<Integer> keywordFeatsForRel = (HashSet<Integer>) keywordFeatureIds.get(rel);
+		for (Integer feat: feats) {
+			if (feat != null) {
+				if (keywordFeatsForRel.contains(feat)) {
 					return true;
 				}
 			}

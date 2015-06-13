@@ -6,10 +6,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 import main.java.iitb.neo.training.ds.EntityGraph;
-import main.java.iitb.neo.training.ds.LRGraph;
+import meta.RelationMetaData;
 import edu.washington.multirframework.multiralgorithm.Dataset;
 import edu.washington.multirframework.multiralgorithm.DenseVector;
 import edu.washington.multirframework.multiralgorithm.Model;
@@ -22,6 +23,7 @@ import edu.washington.multirframework.multiralgorithm.SparseBinaryVector;
  * AveragedPerceptron from multirframework
  * 
  * Adopted for the lightweight entity graph implementation
+ * 
  * @author aman/ashish
  * 
  */
@@ -51,8 +53,8 @@ public class LocalAveragedPerceptronEntityGraph {
 	boolean readMapping = true;
 
 	public LocalAveragedPerceptronEntityGraph(Model model, Random random,
-			int maxIterations, double regularizer, boolean finalAverageCalc, String mappingFile)
-			throws NumberFormatException, IOException {
+			int maxIterations, double regularizer, boolean finalAverageCalc,
+			String mappingFile) throws NumberFormatException, IOException {
 		scorer = new ScorerEntityGraph();
 		this.model = model;
 		this.random = random;
@@ -76,10 +78,11 @@ public class LocalAveragedPerceptronEntityGraph {
 			String ftr = null;
 			featureList = new HashMap<Integer, String>();
 			int fno = 0;
-			while (fno < numFeatures && ((ftr = featureReader.readLine()) != null)) {
+			while (fno < numFeatures
+					&& ((ftr = featureReader.readLine()) != null)) {
 				ftr = ftr.trim();
 				String parts[] = ftr.split("\t");
-				if(parts.length == 1) {
+				if (parts.length == 1) {
 					continue;
 				}
 				featNameNumMapping.put(parts[1], Integer.parseInt(parts[0]));
@@ -105,13 +108,15 @@ public class LocalAveragedPerceptronEntityGraph {
 
 	private Parameters avgParameters;
 	private Parameters iterParameters;
-	
-	//The following parameter array stores the number of times a particular 
-	//parameter was updated, this will help in smoothing weights that are updated a lot (well that's the hope)
+
+	// The following parameter array stores the number of times a particular
+	// parameter was updated, this will help in smoothing weights that are
+	// updated a lot (well that's the hope)
 	private Parameters countUpdates;
 	int avgIteration = 0;
 
-	public Parameters train(Dataset<EntityGraph> trainingData) throws IOException {
+	public Parameters train(Dataset<EntityGraph> trainingData)
+			throws IOException {
 
 		if (computeAvgParameters) {
 			avgParameters = new Parameters();
@@ -131,7 +136,6 @@ public class LocalAveragedPerceptronEntityGraph {
 			countZeroIter = new Parameters();
 			countZeroIter.model = model;
 			countZeroIter.init();
-			
 
 			countUpdates = new Parameters();
 			countUpdates.model = model;
@@ -168,8 +172,8 @@ public class LocalAveragedPerceptronEntityGraph {
 		return (computeAvgParameters) ? avgParameters : iterParameters;
 	}
 
-	public void trainingIteration(int iteration, Dataset<EntityGraph> trainingData)
-			throws IOException {
+	public void trainingIteration(int iteration,
+			Dataset<EntityGraph> trainingData) throws IOException {
 
 		EntityGraph egraph = new EntityGraph();
 
@@ -177,13 +181,21 @@ public class LocalAveragedPerceptronEntityGraph {
 
 		trainingData.reset();
 		while (trainingData.next(egraph)) {
-			
-			// compute most likely label under current parameters
-			EntityGraphParse predictedParse = FullInferenceEntityGraph.infer(egraph, scorer,
-					iterParameters);
-			EntityGraphParse trueParse = ConditionalInferenceEntityGraph.infer(egraph, scorer,
-					iterParameters);
 
+			// compute most likely label under current parameters
+			long startTime = System.nanoTime();
+			
+			EntityGraphParse predictedParse = FullInferenceEntityGraph.infer(
+					egraph, scorer, iterParameters);
+			long endTime = System.nanoTime();
+			System.out.println("Full Inference took: " + (endTime - startTime) / (1000000000));
+			
+			startTime = System.nanoTime();
+			EntityGraphParse trueParse = ConditionalInferenceEntityGraph.infer(
+					egraph, scorer, iterParameters);
+			endTime = System.nanoTime();
+			
+			System.out.println("Conditional Inference took: " + (endTime - startTime) / (1000000000));
 			if (!NsAgree(predictedParse, trueParse)) {
 				// if this is the first avgIteration, then we need to initialize
 				// the lastUpdate vector
@@ -200,8 +212,8 @@ public class LocalAveragedPerceptronEntityGraph {
 		}
 	}
 
-	public void update(EntityGraphParse predictedParse, EntityGraphParse trueParse)
-			throws IOException {
+	public void update(EntityGraphParse predictedParse,
+			EntityGraphParse trueParse) throws IOException {
 		// if this is the first avgIteration, then we need to initialize
 		// the lastUpdate vector
 		if (computeAvgParameters && avgIteration == 0)
@@ -237,25 +249,39 @@ public class LocalAveragedPerceptronEntityGraph {
 			// }
 			SparseBinaryVector v1a = scorer.getMentionFeatures(egraph, i);
 			if (trueParse.z_states[i] > 0) {
-				updateRel(trueParse.z_states[i], v1a, delta, computeAvgParameters);
+				updateRel(trueParse.z_states[i], v1a, delta,
+						computeAvgParameters);
 
 			}
-			if (predictedParse.z_states[i] > 0 && (predictedParse.z_states[i] != trueParse.z_states[i])) {
-				updateRel(trueParse.z_states[i], v1a, -delta, computeAvgParameters);
+			if (predictedParse.z_states[i] > 0
+					&& (predictedParse.z_states[i] != trueParse.z_states[i])) {
+				updateRel(trueParse.z_states[i], v1a, -delta,
+						computeAvgParameters);
 			}
 
 		}
 	}
 
-	private boolean NsAgree(EntityGraphParse predictedParse, EntityGraphParse trueParse) {
-		int numN = predictedParse.n_states.length;
-		if (numN != trueParse.n_states.length) {
+	private boolean NsAgree(EntityGraphParse predictedParse,
+			EntityGraphParse trueParse) {
+		int numN = predictedParse.graph.numNodesCount;
+		if (numN != trueParse.graph.numNodesCount) {
 			throw new IllegalArgumentException(
 					"Something is not right in LocalAveragedPerceptron");
 		}
+
 		for (int i = 0; i < numN; i++) {
-			if (predictedParse.n_states[i] != trueParse.n_states[i]) {
+			String trueUnit = trueParse.graph.n[i].unit;
+			String predictedUnit = predictedParse.graph.n[i].unit;
+			if (!trueUnit.equals(predictedUnit)) {
 				return false;
+			}
+			List<Integer> validIdx = RelationMetaData.unitRelationMap
+					.get(trueUnit);
+			for (Integer r : validIdx) {
+				if (predictedParse.n_states[i][r] != trueParse.n_states[i][r]) {
+					return false;
+				}
 			}
 		}
 		return true;
@@ -279,17 +305,16 @@ public class LocalAveragedPerceptronEntityGraph {
 
 			DenseVector lastZeroIteration = (DenseVector) lastZeroIter.relParameters[relNumber];
 			DenseVector zeroIterationCount = (DenseVector) countZeroIter.relParameters[relNumber];
-			
-			DenseVector updateCountVector = (DenseVector) countUpdates.relParameters[relNumber]; 
-			
+
+			DenseVector updateCountVector = (DenseVector) countUpdates.relParameters[relNumber];
+
 			for (int j = 0; j < features.num; j++) {
 				int id = features.ids[j];
 				updateCountVector.vals[id] += 1;
 				if (lastUpdates.vals[id] != 0) {
 					// avg.vals[id] += (avgIteration - lastUpdatesIter.vals[id])
 					// * lastUpdates.vals[id];
-					
-				
+
 					int notUpdatedWindow = avgIteration
 							- (int) lastUpdatesIter.vals[id];
 					avg.vals[id] = Math.pow(regulaizer, notUpdatedWindow)
@@ -329,9 +354,9 @@ public class LocalAveragedPerceptronEntityGraph {
 			DenseVector lastUpdates = (DenseVector) avgParamsLastUpdates.relParameters[s];
 			DenseVector avg = (DenseVector) avgParameters.relParameters[s];
 			DenseVector zeroIterationCountRel = (DenseVector) countZeroIter.relParameters[s];
-			
-			DenseVector updateCountVector = (DenseVector) countUpdates.relParameters[s]; 
-			
+
+			DenseVector updateCountVector = (DenseVector) countUpdates.relParameters[s];
+
 			for (int id = 0; id < avg.vals.length; id++) {
 				if (lastUpdates.vals[id] != 0) {
 					int notUpdatedWindow = avgIteration
@@ -345,7 +370,8 @@ public class LocalAveragedPerceptronEntityGraph {
 					// System.out.println("Nonziteration  = " + nonZeroIteration
 					// );
 					if (this.finalAverageCalc) {
-						avg.vals[id] = updateCountVector.vals[id] == 0 ? avg.vals[id] : (avg.vals[id] / updateCountVector.vals[id]);
+						avg.vals[id] = updateCountVector.vals[id] == 0 ? avg.vals[id]
+								: (avg.vals[id] / updateCountVector.vals[id]);
 					}
 					lastUpdatesIter.vals[id] = avgIteration;
 				}
