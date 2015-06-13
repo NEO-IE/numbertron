@@ -12,11 +12,11 @@ import edu.washington.multirframework.multiralgorithm.Parameters;
 
 
 public class ConditionalInferenceEntityGraph {
-	public static EntityGraphParse infer(EntityGraph egraph, ScorerEntityGraph scorer, Parameters params) {
+	public static EntityGraphParse infer(EntityGraph egraph) {
 				
 			EntityGraphParse p = new EntityGraphParse();
 			p.graph = egraph;
-			scorer.setParameters(params);
+			
 			
 			//EntityGraphParse trueParse = GoldDbInferenceEntityGraph.infer(egraph); //get the states of n nodes from gold DB for this graph.
 			EntityGraphParse trueParse = KeywordInferenceEntityGraph.infer(egraph);

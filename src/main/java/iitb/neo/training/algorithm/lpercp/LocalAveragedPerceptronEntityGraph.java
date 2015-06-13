@@ -62,36 +62,7 @@ public class LocalAveragedPerceptronEntityGraph {
 		this.regulaizer = regularizer;
 		this.finalAverageCalc = finalAverageCalc;
 
-		if (readMapping) {
-			relNumNameMapping = new HashMap<Integer, String>();
-			featNameNumMapping = new HashMap<String, Integer>();
-			featureList = new HashMap<Integer, String>();
-			BufferedReader featureReader = new BufferedReader(new FileReader(
-					mappingFile));
-			Integer numRel = Integer.parseInt(featureReader.readLine());
-			for (int i = 0; i < numRel; i++) {
-				// skip relation names
-				String rel = featureReader.readLine().trim();
-				relNumNameMapping.put(i, rel);
-			}
-			int numFeatures = Integer.parseInt(featureReader.readLine());
-			String ftr = null;
-			featureList = new HashMap<Integer, String>();
-			int fno = 0;
-			while (fno < numFeatures
-					&& ((ftr = featureReader.readLine()) != null)) {
-				ftr = ftr.trim();
-				String parts[] = ftr.split("\t");
-				if (parts.length == 1) {
-					continue;
-				}
-				featNameNumMapping.put(parts[1], Integer.parseInt(parts[0]));
-				featureList.put(fno, ftr);
-				fno++;
-			}
-			featureReader.close();
-		}
-
+		
 	}
 
 	// the following two are actually not storing weights:
@@ -159,7 +130,12 @@ public class LocalAveragedPerceptronEntityGraph {
 
 			}
 			System.out.println("Iteration: " + i);
+			long startTime = System.currentTimeMillis();
+			
 			trainingIteration(i, trainingData);
+			long endTime = System.currentTimeMillis();
+			System.out.println("An iteration took: " + (endTime - startTime));
+			
 		}
 		if (computeAvgParameters) {
 			finalizeRel();
@@ -183,27 +159,31 @@ public class LocalAveragedPerceptronEntityGraph {
 		while (trainingData.next(egraph)) {
 
 			// compute most likely label under current parameters
-			long startTime = System.nanoTime();
+			long startTime = System.currentTimeMillis();
 			
 			EntityGraphParse predictedParse = FullInferenceEntityGraph.infer(
 					egraph, scorer, iterParameters);
-			long endTime = System.nanoTime();
-			System.out.println("Full Inference took: " + (endTime - startTime) / (1000000000));
+			long endTime = System.currentTimeMillis();
+			if((endTime - startTime) > 1)
+			System.out.println("Full Inference took: " + (endTime - startTime));
 			
-			startTime = System.nanoTime();
-			EntityGraphParse trueParse = ConditionalInferenceEntityGraph.infer(
-					egraph, scorer, iterParameters);
-			endTime = System.nanoTime();
+			startTime = System.currentTimeMillis();
+			EntityGraphParse trueParse = ConditionalInferenceEntityGraph.infer(egraph);
+			endTime = System.currentTimeMillis();
 			
-			System.out.println("Conditional Inference took: " + (endTime - startTime) / (1000000000));
+			if((endTime - startTime) > 1)
+			System.out.println("Conditional Inference took: " + (endTime - startTime));
 			if (!NsAgree(predictedParse, trueParse)) {
 				// if this is the first avgIteration, then we need to initialize
 				// the lastUpdate vector
 				if (computeAvgParameters && avgIteration == 0) {
 					avgParamsLastUpdates.sum(iterParameters, 1.0f);
 				}
-
+				startTime = System.currentTimeMillis();
 				update(predictedParse, trueParse);
+				endTime = System.currentTimeMillis();
+				if((endTime - startTime) > 1)
+				System.out.println("Updating took: " + (endTime - startTime));
 			}
 
 			if (computeAvgParameters) {
