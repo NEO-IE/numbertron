@@ -322,11 +322,11 @@ public class NtronExperiment {
 		//
 		// GoldDbInference.printMatchStats(pw);
 		// pw.close();
-		 /*writeFeatureWeights(irb.ntronModelDirs.get(0) + File.separatorChar
+		 writeFeatureWeights(irb.ntronModelDirs.get(0) + File.separatorChar
 		 + "mapping", irb.ntronModelDirs.get(0) + File.separatorChar
 		 + "params", irb.ntronModelDirs.get(0) + File.separatorChar
 		 + "model", irb.ntronModelDirs.get(0) + File.separatorChar
-		 + "weights");*/
+		 + "weights");
 	}
 
 	private boolean filesExist(List<String> dsFiles) {

@@ -16,9 +16,9 @@ import java.util.Random;
 import main.java.iitb.neo.pretrain.featuregeneration.NumbertronFeatureGenerationDriver;
 import main.java.iitb.neo.pretrain.featuregeneration.Preprocess;
 import main.java.iitb.neo.training.ds.EntityGraph;
+import main.java.iitb.neo.training.ds.Mention;
 import main.java.iitb.neo.training.ds.Number;
 import main.java.iitb.neo.util.SparseBinaryVectorUtils;
-import meta.RelationMetaData;
 import edu.washington.multirframework.multiralgorithm.Mappings;
 import edu.washington.multirframework.multiralgorithm.Model;
 
@@ -165,7 +165,7 @@ public class MakeEntityGraph {
 		String line;
 		Integer count = 0;
 		String prevKey = "";
-		List<List<Integer>> featureLists = new ArrayList<>();
+		List<Mention> mentionList = new ArrayList<>();
 
 		int mentionNumber = 0; // keeps track of the mention that is being
 								// processed for the current location relation.
@@ -215,7 +215,8 @@ public class MakeEntityGraph {
 					.convertFeaturesToIntegers(numFeatures, m);
 
 			if (key.equals(prevKey)) { // same entity, add
-				featureLists.add(featureIntegers);
+				mentionList.add(new Mention(SparseBinaryVectorUtils.getSBVfromList(featureIntegers),
+						unitString));
 				if (numberMentionMap.keySet().contains(number)) { // number
 					numberMentionMap.get(number).add(mentionNumber);
 				} else { // need to add
@@ -234,7 +235,7 @@ public class MakeEntityGraph {
 					}
 
 					EntityGraph egraph = constructEntityGraph(numbers,
-							featureLists, prevKey);
+							mentionList, prevKey);
 					egraph.write(os);
 					mentionNumber = 0; // reset the mention number
 
@@ -247,8 +248,9 @@ public class MakeEntityGraph {
 
 				numberFeatureMap = new HashMap<String, List<Integer>>();
 				numberFeatureMap.put(number, numFeatureIntegers);
-				featureLists = new ArrayList<>();
-				featureLists.add(featureIntegers);
+				mentionList = new ArrayList<>();
+				mentionList.add(new Mention(SparseBinaryVectorUtils.getSBVfromList(featureIntegers),
+						unitString));
 				prevKey = key;
 			}
 
@@ -261,14 +263,14 @@ public class MakeEntityGraph {
 			mentionNumber++;
 		}
 
-		// construct last MILDOC from featureLists
+		// construct last entity graph from featureLists
 		if (!prevKey.equals("")) {
 			ArrayList<Number> numbers = new ArrayList<Number>();
 			for (String num : numberMentionMap.keySet()) {
 				numbers.add(new Number(num, numberMentionMap.get(num), unitString));
 			}
-
-			EntityGraph newGraph = constructEntityGraph(numbers, featureLists,
+			
+			EntityGraph newGraph = constructEntityGraph(numbers, mentionList,
 					prevKey);
 			newGraph.write(os);
 		}
@@ -279,12 +281,12 @@ public class MakeEntityGraph {
 	}
 
 	private static EntityGraph constructEntityGraph(List<Number> numbers,
-			List<List<Integer>> featureInts, String loc) {
+			List<Mention> mentions, String loc) {
 		
 		EntityGraph egraph = new EntityGraph();
 		
 		egraph.entity = loc;
-		egraph.numMentions = featureInts.size();
+		egraph.numMentions = mentions.size();
 		egraph.numNodesCount = numbers.size();
 		
 		egraph.setCapacity(egraph.numMentions, egraph.numNodesCount);
@@ -295,7 +297,7 @@ public class MakeEntityGraph {
 		}
 
 		for (int j = 0; j < egraph.numMentions; j++) {
-			egraph.features[j] = SparseBinaryVectorUtils.getSBVfromList(featureInts.get(j));
+			egraph.s[j] = mentions.get(j);
 		}
 
 		return egraph;

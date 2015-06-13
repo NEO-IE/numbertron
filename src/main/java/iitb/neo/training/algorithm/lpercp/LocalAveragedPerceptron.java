@@ -47,6 +47,7 @@ public class LocalAveragedPerceptron {
 	BufferedWriter obw;
 	boolean debug = false;
 	boolean readMapping = true;
+	HashMap<Integer, Double> metaParams;
 
 	public LocalAveragedPerceptron(Model model, Random random,
 			int maxIterations, double regularizer, boolean finalAverageCalc, String mappingFile)
@@ -57,6 +58,8 @@ public class LocalAveragedPerceptron {
 		this.numIterations = maxIterations;
 		this.regulaizer = regularizer;
 		this.finalAverageCalc = finalAverageCalc;
+		
+		this.metaParams = new HashMap<Integer, Double>();
 
 		if (readMapping) {
 			relNumNameMapping = new HashMap<Integer, String>();
@@ -77,6 +80,9 @@ public class LocalAveragedPerceptron {
 			while (fno < numFeatures) {
 				ftr = featureReader.readLine().trim();
 				String parts[] = ftr.split("\t");
+				if(parts[1].contains("meta: ")){
+					metaParams.put(Integer.parseInt(parts[0]), 0.0);
+				}
 				featNameNumMapping.put(parts[1], Integer.parseInt(parts[0]));
 				featureList.put(fno, ftr);
 				fno++;
@@ -162,7 +168,7 @@ public class LocalAveragedPerceptron {
 		}
 		return (computeAvgParameters) ? avgParameters : iterParameters;
 	}
-
+	
 	public void trainingIteration(int iteration, Dataset<LRGraph> trainingData)
 			throws IOException {
 
@@ -290,9 +296,7 @@ public class LocalAveragedPerceptron {
 				
 					int notUpdatedWindow = avgIteration
 							- (int) lastUpdatesIter.vals[id];
-					avg.vals[id] = Math.pow(regulaizer, notUpdatedWindow)
-							* avg.vals[id] + notUpdatedWindow
-							* lastUpdates.vals[id];
+					avg.vals[id] = Math.pow(regulaizer, notUpdatedWindow) * avg.vals[id] + notUpdatedWindow * lastUpdates.vals[id];
 
 					if (iter.vals[id] == 0) { // present 0
 						assert (lastZeroIteration.vals[id] == -1);
@@ -301,23 +305,27 @@ public class LocalAveragedPerceptron {
 						zeroIterationCount.vals[id] += (avgIteration - lastZeroIteration.vals[id]);
 						lastZeroIteration.vals[id] = -1;
 					}
-
-					if (debug) {
-						if (id == 527682) {
-							obw.write("\n" + relNumNameMapping.get(relNumber)
-									+ "--> " + delta + "\n");
-							obw.write(lastUpdatesIter.vals[id] + "-->"
-									+ avgIteration + "\n");
-							obw.write(featureList.get(id) + " : "
-									+ avg.vals[id] + "\n");
-							obw.write("Iterval : " + iter.vals[id] + "\n");
-							obw.write("*************************************\n");
-						}
-					}
 				}
 				lastUpdatesIter.vals[id] = avgIteration;
 				lastUpdates.vals[id] = iter.vals[id];
+				if(metaParams.containsKey(id)){
+					globalize(id, relNumber);
+				}
 			}
+		}
+	}
+	
+	void globalize(int id, int rel){
+		for(int s = 0; s < model.numRelations; s++){
+			iterParameters.relParameters[s].vals[id] = iterParameters.relParameters[rel].vals[id];
+			
+			avgParamsLastUpdatesIter.relParameters[s].vals[id] = avgParamsLastUpdatesIter.relParameters[rel].vals[id];
+			avgParamsLastUpdates.relParameters[s].vals[id] = avgParamsLastUpdates.relParameters[rel].vals[id];	
+			avgParameters.relParameters[s].vals[id] = avgParameters.relParameters[rel].vals[id];
+			
+			countZeroIter.relParameters[s].vals[id] = countZeroIter.relParameters[rel].vals[id];
+			countUpdates.relParameters[s].vals[id] = countUpdates.relParameters[rel].vals[id];
+			lastZeroIter.relParameters[s].vals[id] = lastZeroIter.relParameters[rel].vals[id];
 		}
 	}
 
