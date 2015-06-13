@@ -26,9 +26,7 @@ public class EntityGraphMemoryDataset implements Dataset<EntityGraph> {
 				(new FileInputStream(file)));
 		EntityGraph egraph = new EntityGraph();
 		while (egraph.read(dis)) {
-			
 			egraphList.add(egraph);
-		
 			egraph = new EntityGraph();
 		}
 		dis.close();

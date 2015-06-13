@@ -57,15 +57,19 @@ public class GoldDbInferenceEntityGraph {
 	public static EntityGraphParse infer(EntityGraph egraph) {
 		EntityGraphParse p = new EntityGraphParse();
 		p.graph = egraph;
-		p.z_states = new int[egraph.Z.length];
-		p.n_states = new boolean[egraph.n.length][RelationMetaData.NUM_RELATIONS + 1];
+		p.z_states = new int[egraph.numMentions];
+		p.n_states = new boolean[egraph.numNodesCount][RelationMetaData.NUM_RELATIONS + 1];
 		int numN = egraph.numNodesCount;
 		Mappings m = MakeEntityGraph.mapping;
 		
 		for (int n_i = 0; n_i < numN; n_i++) { //for all the number nodes
-			double value = egraph.n[n_i][1].value;
+			double value = egraph.n[n_i].value;
+			ArrayList<Integer> validIdx = RelationMetaData.unitRelationMap.get(egraph.n[n_i].unit);
 			for(String relation: RelationMetaData.relationNames) {
 				int relNumber = m.getRelationID(relation, false);
+				if(!validIdx.contains(relNumber)) {
+					continue;
+				}
 				if (closeEnough(value, relation, egraph.entity)) {
 					p.n_states[n_i][relNumber] = true;
 				} else {

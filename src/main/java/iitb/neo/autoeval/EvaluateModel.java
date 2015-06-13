@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import main.java.iitb.neo.extract.NumbertronExtractFromCorpus;
+import main.java.iitb.neo.extract.NumbertronExtractFromCorpusEntityGraph;
 import main.java.iitb.neo.util.JsonUtils;
 import edu.washington.multirframework.data.Extraction;
 

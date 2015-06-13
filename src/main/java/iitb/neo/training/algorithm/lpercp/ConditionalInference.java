@@ -18,8 +18,8 @@ public class ConditionalInference {
 			p.graph = lrg;
 			scorer.setParameters(params);
 			
-			//Parse trueParse = GoldDbInference.infer(lrg); //get the states of n nodes from gold DB for this graph.
-			Parse trueParse = KeywordInference.infer(lrg);
+			Parse trueParse = GoldDbInference.infer(lrg); //get the states of n nodes from gold DB for this graph.
+			//Parse trueParse = KeywordInference.infer(lrg);
 			//Parse trueParse = GoldDBKeywordInference.infer(lrg);
 			
 			p.z_states = new boolean[lrg.Z.length];

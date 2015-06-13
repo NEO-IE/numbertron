@@ -4,6 +4,8 @@ package main.java.iitb.neo.training.ds;
  * A light weight rewrite of the original location relation graph.
  * The Z nodes are now multi-ary, and are taken care of in the parse
  * The graph stores the features of the mentions and the number nodes
+ * Extends from the class Graph only for compatibility, none of the 
+ * variables from the original class is used
  * @author aman
  *
  */
@@ -18,24 +20,21 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import meta.RelationMetaData;
-import edu.washington.multirframework.multiralgorithm.SparseBinaryVector;
-
 
 public class EntityGraph extends Graph {
 	int NUM_RELATIONS = RelationMetaData.NUM_RELATIONS;
-	//for each number-unit, there are NUM_RELATIONS binary number nodes
-	
-	public Number[][] n; //The set Q_e
-	
+	// for each number-unit, there are NUM_RELATIONS binary number nodes
+
 	public int numNodesCount = 0;
-	
-	
-	
+	public Number[] n; // The set Q_e
+	// We just need one number node, the parse can take care of the replication
+	// The number object anyways doesn't store any information about the label
+
+	// we also need to store the set of relations that are allowed for each
+	public Mention[] s;
+
 	public EntityGraph() {
-		mentionIDs = new int[MNT_CAPACITY];
-		Z = new int[MNT_CAPACITY];
-		features = new SparseBinaryVector[MNT_CAPACITY];
-		n = new Number[MNT_CAPACITY][NUM_RELATIONS + 1];
+
 	}
 
 	public void clear() {
@@ -44,19 +43,19 @@ public class EntityGraph extends Graph {
 	}
 
 	/**
-	 * makes space for numMentions mentions and numNodesCount 
-	 * number nodes
+	 * makes space for numMentions mentions and numNodesCount number nodes
+	 * 
 	 * @param numMentions
 	 * @param numNodesCount
 	 */
 	public void setCapacity(int numMentions, int numNodesCount) {
-		n = new Number[numNodesCount][RelationMetaData.NUM_RELATIONS + 1];
-		features = new SparseBinaryVector[numMentions];
+		n = new Number[numNodesCount];
+		s = new Mention[numMentions];
 	}
-
 
 	/**
 	 * Reads the entity, number nodes followed by the features
+	 * 
 	 * @param dis
 	 * @return
 	 * @throws IOException
@@ -66,59 +65,49 @@ public class EntityGraph extends Graph {
 			random = dis.readInt();
 			entity = dis.readUTF();
 
-		
-			//there are (#relations * #unique number-units) number nodes
-		 
-			
+			// there are (#relations * #unique number-units) number nodes
+
 			this.numNodesCount = dis.readInt();
 			this.numMentions = dis.readInt();
-			
+
 			setCapacity(numMentions, numNodesCount);
 			for (int i = 0; i < numNodesCount; i++) {
-				for(int r = 1; r <= RelationMetaData.NUM_RELATIONS; r++) {
-					n[i][r] = new Number();
-					n[i][r].deserialize(dis);
-				}
+				n[i] = new Number();
+				n[i].deserialize(dis);
 			}
-			
+
 			for (int i = 0; i < numMentions; i++) {
-				features[i] = new SparseBinaryVector();
-				features[i].deserialize(dis);
+				s[i] = new Mention();
+				s[i].deserialize(dis);
 			}
-			
+
 			return true;
 		} catch (EOFException e) {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Writes the number nodes followed by the sparse features
+	 * 
 	 * @param dos
 	 * @throws IOException
 	 */
 	public void write(DataOutputStream dos) throws IOException {
 		dos.writeInt(random);
 		dos.writeUTF(entity);
-		
-		//write the number nodes
+
+		// write the number nodes
 		dos.writeInt(numNodesCount);
 		dos.writeInt(numMentions);
-		
-		for (int i = 0; i < n.length; i++) {
-			for(int r = 1; r <= NUM_RELATIONS; r++) {
-				n[i][r].serialize(dos);
-				//the null number node is just for convenience, not really needed
-				//Anything associated with relation number 0 is NA
-			}
-		}
-			
-		//now write the mentions
-		
 
-	
+		for (int i = 0; i < numNodesCount; i++) {
+			n[i].serialize(dos);
+		}
+
+		// now write the mentions
 		for (int i = 0; i < numMentions; i++) {
-			features[i].serialize(dos);
+			s[i].serialize(dos);
 		}
 	}
 
@@ -128,26 +117,23 @@ public class EntityGraph extends Graph {
 		StringBuilder sb = new StringBuilder();
 		sb.append(entity);
 		sb.append("\n");
-		
-		//first dump the number nodes
-		for(int i = 0; i < numNodesCount; i++) {
-			for(int r = 1; r <= RelationMetaData.NUM_RELATIONS; r++) {
-				for (Number n_node : n[i]) {
+
+		// first dump the number nodes
+		for (int i = 0; i < numNodesCount; i++) {
+			for (int r = 1; r <= RelationMetaData.NUM_RELATIONS; r++) {
+				for (Number n_node : n) {
 					sb.append(n_node);
 					sb.append("\n");
 				}
-			}	
-		}
-		
-		sb.setLength(sb.length() - 1);
-		sb.append("\n");
-
-		for(int i = 0; i < numMentions; i++) {
-			sb.append("Mention " + i + " ");
-			for (int feat : features[i].ids) {
-				sb.append(feat);
-				sb.append(" ");
 			}
+			sb.append("\n");
+		}
+
+		sb.setLength(sb.length() - 1);
+
+		for (int i = 0; i < numMentions; i++) {
+			sb.append("Mention " + i + " ");
+			sb.append(s[i]);
 			sb.append("\n");
 		}
 		sb.setLength(sb.length() - 1);

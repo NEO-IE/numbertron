@@ -11,9 +11,6 @@ import edu.washington.multirframework.multiralgorithm.Parameters;
 
 
 
-/*
- * @author ashish
- */
 public class ConditionalInferenceEntityGraph {
 	public static EntityGraphParse infer(EntityGraph egraph, Scorer scorer, Parameters params) {
 				
@@ -30,8 +27,9 @@ public class ConditionalInferenceEntityGraph {
 			
 			Mappings m = MakeEntityGraph.mapping;
 			for(int i = 0 ; i < egraph.numNodesCount; i++){
-				for(int r = 1; r <= RelationMetaData.NUM_RELATIONS; r++) {
-					Number n = egraph.n[i][r];
+				Number n = egraph.n[i];
+				ArrayList<Integer> validIdx = RelationMetaData.unitRelationMap.get(n.unit);
+				for(Integer r: validIdx) {
 					ArrayList<Integer> z_s = n.zs_linked;
 					if(trueParse.n_states[i][r]) {
 						for(Integer z: z_s){

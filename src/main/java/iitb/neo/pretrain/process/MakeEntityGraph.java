@@ -179,7 +179,7 @@ public class MakeEntityGraph {
 		HashMap<String, List<Integer>> numberFeatureMap = null; // stores the
 																// features for
 																// the numbers
-
+		String unitString = null, entity = null, number = null;
 		while ((line = br.readLine()) != null) {
 
 			String[] parts = line
@@ -188,13 +188,12 @@ public class MakeEntityGraph {
 			// parts[1] is number features. TODO from here.
 
 			String[] values = parts[0].split("\t");
-			String entity = values[1];
-			String number = values[2];
-			String relString = values[3];
+			entity = values[1];
+			number = values[2];
+			unitString = values[3];
 
 			String key = entity;
-			m.getRelationID(relString, true); // add the relation to the list of
-												// relations
+			
 			List<String> features = new ArrayList<>();
 			// add all features
 			for (int i = 4; i < values.length; i++) {
@@ -231,7 +230,7 @@ public class MakeEntityGraph {
 				if (!prevKey.equals("")) { // not first time round?
 					ArrayList<Number> numbers = new ArrayList<Number>();
 					for (String num : numberMentionMap.keySet()) {
-						numbers.add(new Number(num, numberMentionMap.get(num)));
+						numbers.add(new Number(num, numberMentionMap.get(num), unitString));
 					}
 
 					EntityGraph egraph = constructEntityGraph(numbers,
@@ -266,7 +265,7 @@ public class MakeEntityGraph {
 		if (!prevKey.equals("")) {
 			ArrayList<Number> numbers = new ArrayList<Number>();
 			for (String num : numberMentionMap.keySet()) {
-				numbers.add(new Number(num, numberMentionMap.get(num)));
+				numbers.add(new Number(num, numberMentionMap.get(num), unitString));
 			}
 
 			EntityGraph newGraph = constructEntityGraph(numbers, featureLists,
@@ -292,9 +291,7 @@ public class MakeEntityGraph {
 
 	
 		for (int i = 0; i < egraph.numNodesCount; i++) {
-			for (int r = 1; r <= RelationMetaData.NUM_RELATIONS; r++) {
-				egraph.n[i][r] = numbers.get(i);
-			}
+			egraph.n[i] = numbers.get(i);
 		}
 
 		for (int j = 0; j < egraph.numMentions; j++) {
