@@ -21,10 +21,12 @@ import java.io.IOException;
 
 import meta.RelationMetaData;
 
-public class EntityGraph extends Graph {
+public class EntityGraph{
 	int NUM_RELATIONS = RelationMetaData.NUM_RELATIONS;
 	// for each number-unit, there are NUM_RELATIONS binary number nodes
-
+	public String entity;
+	int random;
+	public int numMentions = 0;
 	public int numNodesCount = 0;
 	public Number[] n; // The set Q_e
 	// We just need one number node, the parse can take care of the replication
@@ -119,15 +121,11 @@ public class EntityGraph extends Graph {
 		sb.append("\n");
 
 		// first dump the number nodes
-		for (int i = 0; i < numNodesCount; i++) {
-			for (int r = 1; r <= RelationMetaData.NUM_RELATIONS; r++) {
-				for (Number n_node : n) {
-					sb.append(n_node);
-					sb.append("\n");
-				}
-			}
+		for (Number n_node : n) {
+			sb.append(n_node);
 			sb.append("\n");
 		}
+		sb.append("\n");
 
 		sb.setLength(sb.length() - 1);
 

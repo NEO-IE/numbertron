@@ -69,6 +69,7 @@ public class Number {
 		DataOutputStream dos = new DataOutputStream(os);
 		dos.writeDouble(this.value);
 		dos.writeUTF(svalue);
+		dos.writeUTF(unit);
 		dos.writeInt(this.zs_linked.size());
 		for (int i = 0; i < this.zs_linked.size(); i++) {
 			dos.writeInt(this.zs_linked.get(i));
@@ -79,6 +80,7 @@ public class Number {
 		DataInputStream dis = new DataInputStream(is);
 		this.value = dis.readDouble();
 		this.svalue = dis.readUTF();
+		this.unit = dis.readUTF();
 		int numZConnected = dis.readInt();
 		zs_linked = new ArrayList<Integer>();
 		for (int i = 0; i < numZConnected; i++) {

@@ -20,7 +20,7 @@ import edu.washington.multirframework.multiralgorithm.Parameters;
  * 
  */
 public class FullInferenceEntityGraph {
-	public static EntityGraphParse infer(EntityGraph egraph, Scorer scorer, Parameters params) {
+	public static EntityGraphParse infer(EntityGraph egraph, ScorerEntityGraph scorer, Parameters params) {
 		EntityGraphParse p = new EntityGraphParse();
 		/* setup what we already know about the parse */
 		p.graph = egraph;
@@ -58,7 +58,7 @@ public class FullInferenceEntityGraph {
 			ArrayList<Integer> attachedZ = egraph.n[n_i].zs_linked;
 			int totalZ = attachedZ.size();
 			ArrayList<Integer> validIdx = RelationMetaData.unitRelationMap.get(egraph.n[n_i].unit);
-			
+			System.out.println(egraph.n[n_i].unit);
 			for(String relation: RelationMetaData.relationNames) {
 				int relNumber = m.getRelationID(relation, false);
 				if(!validIdx.contains(relNumber)) {
@@ -85,7 +85,7 @@ public class FullInferenceEntityGraph {
 	 * @param params
 	 * @return
 	 */
-	public static Map<Integer, Double> getRelationScoresPerMention(EntityGraph egraph, Scorer scorer, Parameters params) {
+	public static Map<Integer, Double> getRelationScoresPerMention(EntityGraph egraph, ScorerEntityGraph scorer, Parameters params) {
 		EntityGraphParse p = new EntityGraphParse();
 		/* setup what we already know about the parse */
 		p.graph = egraph;

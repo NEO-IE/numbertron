@@ -12,7 +12,7 @@ import edu.washington.multirframework.multiralgorithm.Parameters;
 
 
 public class ConditionalInferenceEntityGraph {
-	public static EntityGraphParse infer(EntityGraph egraph, Scorer scorer, Parameters params) {
+	public static EntityGraphParse infer(EntityGraph egraph, ScorerEntityGraph scorer, Parameters params) {
 				
 			EntityGraphParse p = new EntityGraphParse();
 			p.graph = egraph;

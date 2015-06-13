@@ -33,7 +33,7 @@ public class LocalAveragedPerceptronEntityGraph {
 	public boolean finalAverageCalc;
 	private double delta = 1;
 	private double regulaizer;
-	private Scorer scorer;
+	private ScorerEntityGraph scorer;
 	private Model model;
 	private Random random;
 
@@ -53,7 +53,7 @@ public class LocalAveragedPerceptronEntityGraph {
 	public LocalAveragedPerceptronEntityGraph(Model model, Random random,
 			int maxIterations, double regularizer, boolean finalAverageCalc, String mappingFile)
 			throws NumberFormatException, IOException {
-		scorer = new Scorer();
+		scorer = new ScorerEntityGraph();
 		this.model = model;
 		this.random = random;
 		this.numIterations = maxIterations;
@@ -177,9 +177,7 @@ public class LocalAveragedPerceptronEntityGraph {
 
 		trainingData.reset();
 		while (trainingData.next(egraph)) {
-			if (egraph.features.length == 0) {
-				continue;
-			}
+			
 			// compute most likely label under current parameters
 			EntityGraphParse predictedParse = FullInferenceEntityGraph.infer(egraph, scorer,
 					iterParameters);

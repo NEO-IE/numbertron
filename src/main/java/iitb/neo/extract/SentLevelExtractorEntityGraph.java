@@ -11,6 +11,7 @@ import java.util.TreeSet;
 import main.java.iitb.neo.training.algorithm.lpercp.FullInference;
 import main.java.iitb.neo.training.algorithm.lpercp.FullInferenceEntityGraph;
 import main.java.iitb.neo.training.algorithm.lpercp.Scorer;
+import main.java.iitb.neo.training.algorithm.lpercp.ScorerEntityGraph;
 import main.java.iitb.neo.training.ds.EntityGraph;
 import main.java.iitb.neo.training.ds.LRGraph;
 import main.java.iitb.neo.util.UnitsUtils;
@@ -45,7 +46,7 @@ public class SentLevelExtractorEntityGraph {
 	private Mappings mapping;
 	private Model model;
 	private Parameters params;
-	private Scorer scorer;
+	private ScorerEntityGraph scorer;
 	private static final int KEYWORD_FEAT = 0, NUM_FEAT = 1, MINTZ_FEAT = 2;
 
 	public Map<Integer, String> relID2rel = new HashMap<Integer, String>();
@@ -72,7 +73,7 @@ public class SentLevelExtractorEntityGraph {
 			params.model = model;
 			params.deserialize(dir + "/params");
 
-			scorer = new Scorer();
+			scorer = new ScorerEntityGraph();
 
 			for (String key : mapping.getRel2RelID().keySet()) {
 				Integer id = mapping.getRel2RelID().get(key);
@@ -265,7 +266,7 @@ public class SentLevelExtractorEntityGraph {
 
 		egraph.numMentions = 1;// sentence level prediction just one sentence
 		egraph.setCapacity(1, 1);
-		SparseBinaryVector sv = egraph.features[0] = new SparseBinaryVector();
+		SparseBinaryVector sv = egraph.s[0].features = new SparseBinaryVector();
 
 		SortedSet<Integer> ftrset = new TreeSet<Integer>();
 		for (String f : features) {
@@ -318,7 +319,7 @@ public class SentLevelExtractorEntityGraph {
 
 		List<String> features = getFeatureList(arg1, arg2, sentence, doc);
 		EntityGraph egraph = makeGraph(arg1, arg2, features);
-		SparseBinaryVector sv = egraph.features[0];
+		SparseBinaryVector sv = egraph.s[0].features;
 
 		DenseVector p = params.relParameters[mapping.getRelationID(rel, false)];
 
