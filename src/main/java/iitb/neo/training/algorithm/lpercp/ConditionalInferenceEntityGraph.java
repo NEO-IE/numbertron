@@ -18,8 +18,8 @@ public class ConditionalInferenceEntityGraph {
 			p.graph = egraph;
 			scorer.setParameters(params);
 			
-			EntityGraphParse trueParse = GoldDbInferenceEntityGraph.infer(egraph); //get the states of n nodes from gold DB for this graph.
-			//Parse trueParse = KeywordInference.infer(lrg);
+			//EntityGraphParse trueParse = GoldDbInferenceEntityGraph.infer(egraph); //get the states of n nodes from gold DB for this graph.
+			EntityGraphParse trueParse = KeywordInferenceEntityGraph.infer(egraph);
 			//Parse trueParse = GoldDBKeywordInference.infer(lrg);
 			
 			p.z_states = new int[egraph.numMentions];
@@ -33,15 +33,11 @@ public class ConditionalInferenceEntityGraph {
 					ArrayList<Integer> z_s = n.zs_linked;
 					if(trueParse.n_states[i][r]) {
 						for(Integer z: z_s){
-							
 							p.z_states[z] = r;  //z_s copy the state of n_s.
 						}
 					}
 					
 				}
-				
-				
-				
 			}
 			return p;
 	}

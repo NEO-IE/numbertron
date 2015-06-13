@@ -8,12 +8,10 @@ import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import main.java.iitb.neo.training.algorithm.lpercp.FullInference;
 import main.java.iitb.neo.training.algorithm.lpercp.FullInferenceEntityGraph;
-import main.java.iitb.neo.training.algorithm.lpercp.Scorer;
 import main.java.iitb.neo.training.algorithm.lpercp.ScorerEntityGraph;
 import main.java.iitb.neo.training.ds.EntityGraph;
-import main.java.iitb.neo.training.ds.LRGraph;
+import main.java.iitb.neo.training.ds.Mention;
 import main.java.iitb.neo.util.UnitsUtils;
 
 import org.apache.commons.lang.NotImplementedException;
@@ -265,7 +263,9 @@ public class SentLevelExtractorEntityGraph {
 		EntityGraph egraph = new EntityGraph();
 
 		egraph.numMentions = 1;// sentence level prediction just one sentence
+		egraph.numNodesCount = 1;
 		egraph.setCapacity(1, 1);
+		egraph.s[0] = new Mention();
 		SparseBinaryVector sv = egraph.s[0].features = new SparseBinaryVector();
 
 		SortedSet<Integer> ftrset = new TreeSet<Integer>();

@@ -20,7 +20,7 @@ import edu.washington.multirframework.data.Extraction;
  */
 public class EvaluateModel {
 
-	NumbertronExtractFromCorpus efc; //returns the extractions given a model
+	NumbertronExtractFromCorpusEntityGraph efc; //returns the extractions given a model
 	
 	public Results res; //stores results, generates stats
 
@@ -45,7 +45,7 @@ public class EvaluateModel {
 
 		verbose = JsonUtils.getBooleanProperty(properties, "verbose");
 		verboseFile = JsonUtils.getStringProperty(properties, "verboseFile");
-		efc = new NumbertronExtractFromCorpus(propertiesFile);
+		efc = new NumbertronExtractFromCorpusEntityGraph(propertiesFile);
 		
 		cutoff_confidence = JsonUtils.getDoubleProperty(properties, "cutoff_confidence");
 

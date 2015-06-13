@@ -58,7 +58,7 @@ public class FullInferenceEntityGraph {
 			ArrayList<Integer> attachedZ = egraph.n[n_i].zs_linked;
 			int totalZ = attachedZ.size();
 			ArrayList<Integer> validIdx = RelationMetaData.unitRelationMap.get(egraph.n[n_i].unit);
-			System.out.println(egraph.n[n_i].unit);
+			
 			for(String relation: RelationMetaData.relationNames) {
 				int relNumber = m.getRelationID(relation, false);
 				if(!validIdx.contains(relNumber)) {
