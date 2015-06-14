@@ -59,7 +59,7 @@ public class FullInferenceAgreeingK {
 				p.z_states[z] = false;
 			}
 		}
-		double LEAST_Z_FLIPPED_COUNT = 0.5;
+		double LEAST_Z_FLIPPED_COUNT = 0.3;
 		
 		/**
 		 * Now get the Atleast-K assignments to the number nodes

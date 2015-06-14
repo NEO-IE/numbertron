@@ -169,7 +169,7 @@ public class KeywordFeatureGenerator implements FeatureGenerator {
 		arg2Pos[1] += 1;	
 		
 		
-	//	features.addAll(getDeltaFeatures(tokenStrings, posTags, depParents, depTypes, arg1Pos, arg2Pos, arg1ner, arg2ner));
+		features.addAll(getDeltaFeatures(tokenStrings, posTags, depParents, depTypes, arg1Pos, arg2Pos, arg1ner, arg2ner));
 		
 		return features;
 	}

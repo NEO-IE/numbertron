@@ -1,6 +1,11 @@
 package main.java.iitb.neo.pretrain.featuregeneration;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import main.java.iitb.neo.training.ds.Number;
@@ -17,6 +22,56 @@ import edu.washington.multirframework.featuregeneration.FeatureGenerator;
 public class NumberFeatureGenerator implements FeatureGenerator {
 
 	
+	public static int NumCountThreshold = 5;
+	
+	public static String instanceFile = "data/train/instances_number.tsv";
+	
+	
+	static HashSet<Double> commonNumber;
+	
+	static{
+		commonNumber = new HashSet<Double>();
+		
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(instanceFile));
+			
+			String line;
+			boolean flag = true;
+			Double prev = 0.0;
+			Double current = 0.0;
+			int count = 0;
+			while ((line = br.readLine()) != null) {
+				
+				String parts[] = line.split("\t");
+				current = Double.parseDouble(parts[4]);
+				if(flag){ //first time
+					prev = current;
+					count ++;
+					flag = false;
+					continue;
+				} 
+				
+				if(prev == current){
+					count ++;
+				}else{
+					if(count >= NumCountThreshold){
+						commonNumber.add(current);
+					}
+					prev = current;
+					count = 1;
+				}
+			}
+			if(count >= NumCountThreshold){
+				commonNumber.add(current);
+			}
+			
+			br.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	/**
 	 * 
 	 */
@@ -66,9 +121,13 @@ public class NumberFeatureGenerator implements FeatureGenerator {
 		}
 
 		/*
-		 * todo: add scientific notation feature
+		 * TF based feature
 		 */
-
+		if(commonNumber.contains(value)){
+			features.add("Num: isCommon");
+		}
+			
+		
 		return features;
 	}
 

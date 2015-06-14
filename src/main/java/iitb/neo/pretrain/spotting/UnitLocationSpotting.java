@@ -126,7 +126,7 @@ public class UnitLocationSpotting extends Spotting {
 					}
 					List<Triple<Integer, String, Integer>> deps = sentence.get(SentDependencyInformation.DependencyAnnotation.class);
 					//include NAs, around 25% of the instances should be NAs
-					List<Relation> currRels = rbased.spotPossibleRelations(deps, sentence, true, 0.25);
+					List<Relation> currRels = rbased.spotPossibleRelations(deps, sentence);
 					for (Relation rel : currRels) {
 						relationList.add(new Pair<Integer, Relation>(sentID, rel));
 					}
