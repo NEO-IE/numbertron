@@ -208,7 +208,7 @@ public class LocalAveragedPerceptronEntityGraph {
 			updateRel(trueParse.z_states[i], v1a, delta,
 						computeAvgParameters);
 
-			updateRel(trueParse.z_states[i], v1a, -delta,
+			updateRel(predictedParse.z_states[i], v1a, -delta,
 						computeAvgParameters);
 			
 
