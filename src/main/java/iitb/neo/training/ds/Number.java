@@ -90,7 +90,7 @@ public class Number {
 
 	@Override
 	public String toString() {
-		return "Number [zs_linked=" + zs_linked + ", svalue=" + svalue + "]";
+		return "Number [zs_linked = " + zs_linked + ", svalue = " + svalue + ", unit = " + unit + "]";
 	}
 
 }

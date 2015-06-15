@@ -1,5 +1,7 @@
 package main.java.iitb.neo.pretrain.process;
 
+import iitb.rbased.util.Pair;
+
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -13,7 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-import main.java.iitb.neo.pretrain.featuregeneration.NumbertronFeatureGenerationDriver;
 import main.java.iitb.neo.pretrain.featuregeneration.Preprocess;
 import main.java.iitb.neo.training.ds.EntityGraph;
 import main.java.iitb.neo.training.ds.Mention;
@@ -110,15 +111,15 @@ public class MakeEntityGraph {
 	}
 
 	/**
-	 * Given a set of features, creates an entity graph where the entuty graph
+	 * Given a set of features, creates an entity graph where the entity graph
 	 * is as defined at https://www.overleaf.com/2748088ynypty#/7347851/
 	 * 
-	 * @param input
+	 * @param featureFile
 	 * @param output
 	 * @param m
 	 * @throws IOException
 	 */
-	private static void convertFeatureFileToEntityGraph(String input,
+	private static void convertFeatureFileToEntityGraph(String featureFile,
 			String output, Mappings m) throws IOException {
 
 		Comparator<String> entityComparator = new Comparator<String>() {
@@ -133,7 +134,7 @@ public class MakeEntityGraph {
 
 		};
 
-		File inputFile = new File(input);
+		File inputFile = new File(featureFile);
 		File tempSortedFeatureFile = new File(inputFile.getParentFile()
 				.getAbsolutePath()
 				+ "/"
@@ -144,7 +145,7 @@ public class MakeEntityGraph {
 		System.out.println("Sorting feature file");
 
 		// sort the feature file based on the entity
-		Preprocess.externalSort(new File(input), tempSortedFeatureFile,
+		Preprocess.externalSort(new File(featureFile), tempSortedFeatureFile,
 				entityComparator);
 		long end = System.currentTimeMillis();
 		System.out.println("Feature file sorted in " + (end - start)
@@ -166,32 +167,22 @@ public class MakeEntityGraph {
 		// Map<Integer,Pair<List<Integer>,List<List<Integer>>>>
 		// relationMentionMap = new HashMap<>();
 
-		String line;
+		String featureLine;
 		Integer count = 0;
 		String prevKey = "";
 		List<Mention> mentionList = new ArrayList<>();
 
 		int mentionNumber = 0; // keeps track of the mention that is being
 								// processed for the current location relation.
-		HashMap<String, List<Integer>> numberMentionMap = null; // stores the
-																// sentences
-																// in which
-																// the
-																// current
-																// number
-																// appears
-		HashMap<String, List<Integer>> numberFeatureMap = null; // stores the
-																// features for
-																// the numbers
+		
+		//stores the sentences in which the current number-unit appears
+		HashMap<Pair<String, String>, List<Integer>> numberMentionMap = null; 
+		
 		String unitString = null, entity = null, number = null;
-		while ((line = br.readLine()) != null) {
+		
+		while ((featureLine = br.readLine()) != null) {
 
-			String[] parts = line
-					.split(NumbertronFeatureGenerationDriver.FEATURE_TYPE_SEPARATOR);
-
-			// parts[1] is number features. TODO from here.
-
-			String[] values = parts[0].split("\t");
+			String[] values = featureLine.split("\t");
 			entity = values[1];
 			number = values[2];
 			unitString = values[3];
@@ -204,38 +195,30 @@ public class MakeEntityGraph {
 				features.add(values[i]);
 			}
 
-			List<String> numFeatures = new ArrayList<>();
-			if (parts.length == 2) { // if number features
-				String[] vals = parts[1].split("\t");
-				for (int i = 0; i < vals.length; i++) {
-					numFeatures.add(vals[i]);
-				}
-			}
+		
 
 			// convert to integer keys from the mappings m object
 			List<Integer> featureIntegers = Preprocess
 					.convertFeaturesToIntegers(features, m);
-			List<Integer> numFeatureIntegers = Preprocess
-					.convertFeaturesToIntegers(numFeatures, m);
 
 			if (key.equals(prevKey)) { // same entity, add
 				mentionList.add(new Mention(SparseBinaryVectorUtils.getSBVfromList(featureIntegers),
 						unitString));
-				if (numberMentionMap.keySet().contains(number)) { // number
-					numberMentionMap.get(number).add(mentionNumber);
+				Pair<String, String> numberUnit = new Pair<String, String>(number, unitString);
+				if (numberMentionMap.keySet().contains(numberUnit)) { // number
+					numberMentionMap.get(numberUnit).add(mentionNumber);
 				} else { // need to add
 					ArrayList<Integer> mentionIds = new ArrayList<Integer>();
 					mentionIds.add(mentionNumber);
-					numberMentionMap.put(number, mentionIds);
-					numberFeatureMap.put(number, numFeatureIntegers);
+					numberMentionMap.put(numberUnit, mentionIds);
 				}
 			} else {
 				// a new entity has arrived, collect all the instances that
 				// you had about the previous entity, and store them
 				if (!prevKey.equals("")) { // not first time round?
 					ArrayList<Number> numbers = new ArrayList<Number>();
-					for (String num : numberMentionMap.keySet()) {
-						numbers.add(new Number(num, numberMentionMap.get(num), unitString));
+					for (Pair<String, String> numberUnit : numberMentionMap.keySet()) {
+						numbers.add(new Number(numberUnit.first, numberMentionMap.get(numberUnit), numberUnit.second));
 					}
 
 					EntityGraph egraph = constructEntityGraph(numbers,
@@ -245,13 +228,14 @@ public class MakeEntityGraph {
 
 				}
 				// reset featureLists and prevKey
-				numberMentionMap = new HashMap<String, List<Integer>>();
+				numberMentionMap = new HashMap<Pair<String, String>, List<Integer>>();
 				ArrayList<Integer> mentionIds = new ArrayList<Integer>();
+				Pair<String, String> numberUnit = new Pair<String, String>(number, unitString);
+				
 				mentionIds.add(mentionNumber);
-				numberMentionMap.put(number, mentionIds);
+			
+				numberMentionMap.put(numberUnit, mentionIds);
 
-				numberFeatureMap = new HashMap<String, List<Integer>>();
-				numberFeatureMap.put(number, numFeatureIntegers);
 				mentionList = new ArrayList<>();
 				mentionList.add(new Mention(SparseBinaryVectorUtils.getSBVfromList(featureIntegers),
 						unitString));
@@ -270,8 +254,8 @@ public class MakeEntityGraph {
 		// construct last entity graph from featureLists
 		if (!prevKey.equals("")) {
 			ArrayList<Number> numbers = new ArrayList<Number>();
-			for (String num : numberMentionMap.keySet()) {
-				numbers.add(new Number(num, numberMentionMap.get(num), unitString));
+			for (Pair<String, String> numberUnit : numberMentionMap.keySet()) {
+				numbers.add(new Number(numberUnit.first, numberMentionMap.get(numberUnit), numberUnit.second));
 			}
 			
 			EntityGraph newGraph = constructEntityGraph(numbers, mentionList,
