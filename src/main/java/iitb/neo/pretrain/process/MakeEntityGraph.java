@@ -124,7 +124,11 @@ public class MakeEntityGraph {
 		Comparator<String> entityComparator = new Comparator<String>() {
 			@Override
 			public int compare(String line1, String line2) {
-				return line1.compareTo(line2);
+				String[] line1Values = line1.split("\t");
+				String[] line2Values = line2.split("\t");
+				int locationIdx = 1;
+				Integer entity1Compare = line1Values[locationIdx].compareTo(line2Values[locationIdx]);
+				return entity1Compare;
 			}
 
 		};

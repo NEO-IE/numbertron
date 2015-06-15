@@ -1,20 +1,31 @@
 package main.java.iitb.neo.training.algorithm.lpercp;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import main.java.iitb.neo.pretrain.process.MakeEntityGraph;
 import main.java.iitb.neo.training.ds.EntityGraph;
 import main.java.iitb.neo.training.ds.Number;
 import meta.RelationMetaData;
 import edu.washington.multirframework.multiralgorithm.Mappings;
-import edu.washington.multirframework.multiralgorithm.Parameters;
 
 
-
+/**
+ * This is not inference at all actually.
+ * The results are cached in a map to be served as it is later.
+ * @author aman
+ *
+ */
 public class ConditionalInferenceEntityGraph {
+	
+	private static Map<String, EntityGraphParse> cache = new HashMap<>();
 	public static EntityGraphParse infer(EntityGraph egraph) {
-				
-			EntityGraphParse p = new EntityGraphParse();
+			EntityGraphParse p = null;
+//			if((p = cache.get(egraph.entity)) != null) {
+//				return p;
+//			}
+			p = new EntityGraphParse();
 			p.graph = egraph;
 			
 			
@@ -25,7 +36,7 @@ public class ConditionalInferenceEntityGraph {
 			p.z_states = new int[egraph.numMentions];
 			p.n_states = trueParse.n_states;
 			
-			Mappings m = MakeEntityGraph.mapping;
+			
 			for(int i = 0 ; i < egraph.numNodesCount; i++){
 				Number n = egraph.n[i];
 				ArrayList<Integer> validIdx = RelationMetaData.unitRelationMap.get(n.unit);
@@ -39,6 +50,7 @@ public class ConditionalInferenceEntityGraph {
 					
 				}
 			}
+			cache.put(egraph.entity, p);
 			return p;
 	}
 }

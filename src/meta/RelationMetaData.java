@@ -12,7 +12,7 @@ import scala.actors.threadpool.Arrays;
  */
 @SuppressWarnings("unchecked")
 public class RelationMetaData {
-	public static String relationNames[] = {"AGL", "FDI", "GOODS", "ELEC", "CO2", "INF", "INTERNET", "LIFE", "POP", "GDP"};
+	public static String relationNames[] = {"NA", "AGL", "FDI", "GOODS", "ELEC", "CO2", "INF", "INTERNET", "LIFE", "POP", "GDP"};
 	public static int NUM_RELATIONS = -1;
 	public static HashMap<String, ArrayList<Integer> > unitRelationMap;
 	static {
@@ -24,6 +24,7 @@ public class RelationMetaData {
 		ArrayList<Integer> pop = new ArrayList<Integer>(Arrays.asList(new Integer[]{0, 8}));
 		ArrayList<Integer> elec = new ArrayList<Integer>(Arrays.asList(new Integer[]{0, 9}));
 		ArrayList<Integer> co2 = new ArrayList<Integer>(Arrays.asList(new Integer[]{0, 10}));
+		ArrayList<Integer> na = new ArrayList<Integer>(Arrays.asList(new Integer[]{0}));
 		unitRelationMap = new HashMap<>();
 		unitRelationMap.put("PERC", perc);
 		unitRelationMap.put("USD", usd);
@@ -32,6 +33,7 @@ public class RelationMetaData {
 		unitRelationMap.put("AGL", agl);
 		unitRelationMap.put("POP", pop);
 		unitRelationMap.put("ELEC", elec);
+		unitRelationMap.put("NA", na);
 		
 	}
 	 

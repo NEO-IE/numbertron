@@ -202,42 +202,15 @@ public class LocalAveragedPerceptronEntityGraph {
 
 		int numMentions = egraph.numMentions;
 		for (int i = 0; i < numMentions; i++) {
-			//
-			// /*
-			// * get the numeric features.
-			// */
-			// SparseBinaryVector v2a =
-			// scorer.getMentionNumRelationFeatures(lrg, i, lrg.relNumber);
-			//
-			// Number n = lrg.n[i];
-			// ArrayList<Integer> z_s = n.zs_linked;
-			// for (Integer z : z_s) {
-			// SparseBinaryVector v1a = scorer.getMentionRelationFeatures(lrg,
-			// z, lrg.relNumber);
-			//
-			// if (trueParse.z_states[z] == true) {
-			// // increase weight for the incorrect mention
-			//
-			// updateRel(lrg.relNumber, v1a, delta, computeAvgParameters);
-			// updateRel(lrg.relNumber, v2a, delta, computeAvgParameters);
-			// }
-			// if (predictedParse.z_states[z] == true) {
-			// // decrease weight for the incorrect mention
-			// updateRel(lrg.relNumber, v1a, -delta, computeAvgParameters);
-			// updateRel(lrg.relNumber, v2a, -delta, computeAvgParameters);
-			//
-			// }
+		
 			SparseBinaryVector v1a = scorer.getMentionFeatures(egraph, i);
-			if (trueParse.z_states[i] > 0) {
-				updateRel(trueParse.z_states[i], v1a, delta,
+			
+			updateRel(trueParse.z_states[i], v1a, delta,
 						computeAvgParameters);
 
-			}
-			if (predictedParse.z_states[i] > 0
-					&& (predictedParse.z_states[i] != trueParse.z_states[i])) {
-				updateRel(trueParse.z_states[i], v1a, -delta,
+			updateRel(trueParse.z_states[i], v1a, -delta,
 						computeAvgParameters);
-			}
+			
 
 		}
 	}
@@ -264,6 +237,7 @@ public class LocalAveragedPerceptronEntityGraph {
 				}
 			}
 		}
+		
 		return true;
 	}
 
