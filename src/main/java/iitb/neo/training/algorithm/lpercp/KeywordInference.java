@@ -58,4 +58,16 @@ public class KeywordInference {
 		}
 		return false;
 	}
+	
+	public static boolean hasKeyword_new(HashSet<String> feats, String rel){
+		List<String>  relKey = KeywordData.REL_KEYWORD_MAP.get(rel);
+		for(String key : relKey){
+			String stemKey = StemUtils.getStemWord(key.toLowerCase());
+			String feat = "key: "+stemKey;
+			if(feats.contains(feat)){
+				return true;
+			}
+		}
+		return false;
+	}
 }

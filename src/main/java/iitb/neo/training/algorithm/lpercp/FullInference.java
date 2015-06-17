@@ -51,7 +51,7 @@ public class FullInference {
 				p.z_states[z] = false;
 			}
 		}
-		double LEAST_Z_FLIPPED_COUNT = 0.5;
+		double LEAST_Z_FLIPPED_COUNT = 0.3;
 		/* now flip n nodes accordingly: OR */
 		int numN = lrg.n.length;
 		for (int n_i = 0; n_i < numN; n_i++) {
