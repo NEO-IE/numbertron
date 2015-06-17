@@ -33,6 +33,7 @@ public class libSVMPreProcessor {
 	public HashMap<String, Integer> featNameNumMapping;
 	
 	public boolean includeNA = true;
+	public boolean test = false;
 	
 	public libSVMPreProcessor(String propertiesFile) throws FileNotFoundException, IOException{
 		Map<String, Object> properties = JsonUtils.getJsonMap(propertiesFile);
@@ -50,6 +51,7 @@ public class libSVMPreProcessor {
 		GoldDB.initializeGoldDB(goldDBFile, topKGoldDb, margin);
 		
 		includeNA = JsonUtils.getBooleanProperty(properties, "includeNA");
+		test = JsonUtils.getBooleanProperty(properties, "test");
 		
 		/*
 		 * read mapping
@@ -124,16 +126,19 @@ public class libSVMPreProcessor {
 				}
 			}
 			
-			Boolean goldInference = GoldDbInference.closeEnough(value, relation, entity);
-			Boolean keywordInference = KeywordInference.hasKeyword_new(features, relation);
-			if(goldInference && keywordInference){ //value is within limits.
-				writeToLibSVMFile(pw, relation, featIDs);
-			}else if(includeNA){
-				writeToLibSVMFile(pw, "NA", featIDs);
+			if(test){
+				writeToLibSVMFile(pw, "NA", featIDs);  //NA is dummy
 			}else{
-				//ignore the Negative examples.
+				Boolean goldInference = GoldDbInference.closeEnough(value, relation, entity);
+				Boolean keywordInference = KeywordInference.hasKeyword_new(features, relation);
+				if(goldInference && keywordInference){ //value is within limits.
+					writeToLibSVMFile(pw, relation, featIDs);
+				}else if(includeNA){
+					writeToLibSVMFile(pw, "NA", featIDs);
+				}else{
+					//ignore the Negative examples.
+				}
 			}
-			
 			
 		}
 		
@@ -148,6 +153,21 @@ public class libSVMPreProcessor {
 		fr.close();
 		ir.close();
 		
+	}
+
+	private void writeToLibSVMFile(PrintWriter pw, TreeSet<Integer> featIDs) {
+		// TODO Auto-generated method stub
+		if(featIDs.size() == 0){
+			return;
+		}
+		String outputString = ""; 
+		for(Integer feat: featIDs){
+			outputString += +feat+":1\t";
+		}
+		outputString.trim();
+		outputString += "\n";
+		
+		pw.write(outputString);
 	}
 
 	private void writeToLibSVMFile(PrintWriter pw, String relation, TreeSet<Integer> featIDs) {
