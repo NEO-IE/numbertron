@@ -25,18 +25,18 @@ public class GoldDBKeywordInferenceEntityGraph {
 		marginMap = new HashMap<String, Double>();
 	}
 
-	public static EntityGraphParse infer(EntityGraph lrg) {
+	public static EntityGraphParse infer(EntityGraph egraph) {
 		EntityGraphParse p = new EntityGraphParse();
-		p.graph = lrg;
-		p.z_states = new int[lrg.numMentions];
-		p.n_states = new boolean[lrg.numNodesCount][RelationMetaData.NUM_RELATIONS + 1];
-		int numN = lrg.numNodesCount;
+		p.graph = egraph;
+		p.z_states = new int[egraph.numMentions];
+		p.n_states = new boolean[egraph.numNodesCount][RelationMetaData.NUM_RELATIONS + 1];
+		int numN = egraph.numNodesCount;
 		for (int n_i = 0; n_i < numN; n_i++) {
 			HashSet<Integer> feats = new HashSet<>();
-			Number n = lrg.n[n_i];
+			Number n = egraph.n[n_i];
 			List<Integer> z_s = n.zs_linked;
 			for (Integer z : z_s) {
-				for (int id : lrg.s[z].features.ids) {
+				for (int id : egraph.s[z].features.ids) {
 					feats.add(id);
 				}
 			}
@@ -48,8 +48,8 @@ public class GoldDBKeywordInferenceEntityGraph {
 				if (!validIdx.contains(relNumber)) {
 					continue;
 				}
-				if (GoldDbInference.closeEnough(n.value, relation, lrg.entity)) {
-					p.n_states[n_i][relNumber] = KeywordInference.hasKeyword(
+				if (GoldDbInference.closeEnough(n.value, relation, egraph.entity)) {
+					p.n_states[n_i][relNumber] = KeywordInferenceEntityGraph.hasKeyword(
 							feats, relation);
 				} else {
 					p.n_states[n_i][relNumber] = false;

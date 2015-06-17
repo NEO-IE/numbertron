@@ -30,8 +30,8 @@ public class ConditionalInferenceEntityGraph {
 			
 			
 			//EntityGraphParse trueParse = GoldDbInferenceEntityGraph.infer(egraph); //get the states of n nodes from gold DB for this graph.
-			EntityGraphParse trueParse = KeywordInferenceEntityGraph.infer(egraph);
-			//Parse trueParse = GoldDBKeywordInference.infer(lrg);
+			//EntityGraphParse trueParse = KeywordInferenceEntityGraph.infer(egraph);
+			EntityGraphParse trueParse = GoldDBKeywordInferenceEntityGraph.infer(egraph);
 			
 			p.z_states = new int[egraph.numMentions];
 			p.n_states = trueParse.n_states;
