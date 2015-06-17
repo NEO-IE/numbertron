@@ -287,7 +287,7 @@ public class NumbertronExtractFromCorpusEntityGraph {
 		Iterator<Annotation> docs = c.getDocumentIterator();
 		SententialInstanceGeneration sig = sigs.get(0);
 		String modelPath = modelPaths.get(0);
-		SentLevelExtractor sle = new SentLevelExtractor(modelPath,
+		SentLevelExtractorEntityGraph sle = new SentLevelExtractorEntityGraph(modelPath,
 				mintzKeywordsFg, numberFg, keywordsFg);
 
 		// Map<String, Integer> rel2RelIdMap =

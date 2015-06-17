@@ -20,7 +20,7 @@ import edu.washington.multirframework.multiralgorithm.Parameters;
  * 
  */
 public class FullInferenceEntityGraph {
-	public static EntityGraphParse infer(EntityGraph egraph, Scorer scorer, Parameters params) {
+	public static EntityGraphParse infer(EntityGraph egraph, ScorerEntityGraph scorer, Parameters params) {
 		EntityGraphParse p = new EntityGraphParse();
 		/* setup what we already know about the parse */
 		p.graph = egraph;
@@ -34,7 +34,8 @@ public class FullInferenceEntityGraph {
 			// There can be multiple "best" relations. It is okay if we get
 			// anyone of them
 			ArrayList<Integer> bestRels = new ArrayList<Integer>();
-			for (int r = 1; r <= RelationMetaData.NUM_RELATIONS; r++) {
+			ArrayList<Integer> validIdx = RelationMetaData.unitRelationMap.get(egraph.s[z].unit);
+			for (Integer r: validIdx) {
 				double currScore = scorer.scoreMentionRelation(egraph, z, r);
 				if (currScore > bestScore) {
 					bestRels.clear();
@@ -54,13 +55,16 @@ public class FullInferenceEntityGraph {
 		int numN = egraph.numNodesCount;
 		for (int n_i = 0; n_i < numN; n_i++) {
 			//the set of Zs attached will be same for all the numbers, so just take anyone and work
-			ArrayList<Integer> attachedZ = egraph.n[n_i][1].zs_linked;
+			ArrayList<Integer> attachedZ = egraph.n[n_i].zs_linked;
 			int totalZ = attachedZ.size();
+			ArrayList<Integer> validIdx = RelationMetaData.unitRelationMap.get(egraph.n[n_i].unit);
+			
 			for(String relation: RelationMetaData.relationNames) {
 				int relNumber = m.getRelationID(relation, false);
+				if(!validIdx.contains(relNumber)) {
+					continue;
+				}
 				p.n_states[n_i][relNumber] = false;
-				
-				
 				for (Integer z : attachedZ) { // iterate over all the attached Z nodes
 					if (p.z_states[z] > 0) { //0 is reserved for the relation NA
 						p.n_states[n_i][p.z_states[z]] = true;
@@ -81,7 +85,7 @@ public class FullInferenceEntityGraph {
 	 * @param params
 	 * @return
 	 */
-	public static Map<Integer, Double> getRelationScoresPerMention(EntityGraph egraph, Scorer scorer, Parameters params) {
+	public static Map<Integer, Double> getRelationScoresPerMention(EntityGraph egraph, ScorerEntityGraph scorer, Parameters params) {
 		EntityGraphParse p = new EntityGraphParse();
 		/* setup what we already know about the parse */
 		p.graph = egraph;

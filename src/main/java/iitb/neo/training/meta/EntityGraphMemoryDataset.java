@@ -26,9 +26,7 @@ public class EntityGraphMemoryDataset implements Dataset<EntityGraph> {
 				(new FileInputStream(file)));
 		EntityGraph egraph = new EntityGraph();
 		while (egraph.read(dis)) {
-			
 			egraphList.add(egraph);
-		
 			egraph = new EntityGraph();
 		}
 		dis.close();
@@ -57,12 +55,12 @@ public class EntityGraphMemoryDataset implements Dataset<EntityGraph> {
 		if (cursor < docs.length) {
 			EntityGraph d = docs[cursor++];
 			doc.entity = d.entity;
-			
-			doc.features = d.features;
+
 			doc.numMentions = d.numMentions;
-			doc.n = d.n;
+			doc.s = d.s;
 		
 			doc.numNodesCount = d.numNodesCount;
+			doc.n = d.n;
 			
 			return true;
 		}

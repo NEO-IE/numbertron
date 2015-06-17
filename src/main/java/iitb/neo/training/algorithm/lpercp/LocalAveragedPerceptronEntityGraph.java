@@ -6,10 +6,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 import main.java.iitb.neo.training.ds.EntityGraph;
-import main.java.iitb.neo.training.ds.LRGraph;
+import meta.RelationMetaData;
 import edu.washington.multirframework.multiralgorithm.Dataset;
 import edu.washington.multirframework.multiralgorithm.DenseVector;
 import edu.washington.multirframework.multiralgorithm.Model;
@@ -22,6 +23,7 @@ import edu.washington.multirframework.multiralgorithm.SparseBinaryVector;
  * AveragedPerceptron from multirframework
  * 
  * Adopted for the lightweight entity graph implementation
+ * 
  * @author aman/ashish
  * 
  */
@@ -33,7 +35,7 @@ public class LocalAveragedPerceptronEntityGraph {
 	public boolean finalAverageCalc;
 	private double delta = 1;
 	private double regulaizer;
-	private Scorer scorer;
+	private ScorerEntityGraph scorer;
 	private Model model;
 	private Random random;
 
@@ -51,44 +53,16 @@ public class LocalAveragedPerceptronEntityGraph {
 	boolean readMapping = true;
 
 	public LocalAveragedPerceptronEntityGraph(Model model, Random random,
-			int maxIterations, double regularizer, boolean finalAverageCalc, String mappingFile)
-			throws NumberFormatException, IOException {
-		scorer = new Scorer();
+			int maxIterations, double regularizer, boolean finalAverageCalc,
+			String mappingFile) throws NumberFormatException, IOException {
+		scorer = new ScorerEntityGraph();
 		this.model = model;
 		this.random = random;
 		this.numIterations = maxIterations;
 		this.regulaizer = regularizer;
 		this.finalAverageCalc = finalAverageCalc;
 
-		if (readMapping) {
-			relNumNameMapping = new HashMap<Integer, String>();
-			featNameNumMapping = new HashMap<String, Integer>();
-			featureList = new HashMap<Integer, String>();
-			BufferedReader featureReader = new BufferedReader(new FileReader(
-					mappingFile));
-			Integer numRel = Integer.parseInt(featureReader.readLine());
-			for (int i = 0; i < numRel; i++) {
-				// skip relation names
-				String rel = featureReader.readLine().trim();
-				relNumNameMapping.put(i, rel);
-			}
-			int numFeatures = Integer.parseInt(featureReader.readLine());
-			String ftr = null;
-			featureList = new HashMap<Integer, String>();
-			int fno = 0;
-			while (fno < numFeatures && ((ftr = featureReader.readLine()) != null)) {
-				ftr = ftr.trim();
-				String parts[] = ftr.split("\t");
-				if(parts.length == 1) {
-					continue;
-				}
-				featNameNumMapping.put(parts[1], Integer.parseInt(parts[0]));
-				featureList.put(fno, ftr);
-				fno++;
-			}
-			featureReader.close();
-		}
-
+		
 	}
 
 	// the following two are actually not storing weights:
@@ -105,13 +79,15 @@ public class LocalAveragedPerceptronEntityGraph {
 
 	private Parameters avgParameters;
 	private Parameters iterParameters;
-	
-	//The following parameter array stores the number of times a particular 
-	//parameter was updated, this will help in smoothing weights that are updated a lot (well that's the hope)
+
+	// The following parameter array stores the number of times a particular
+	// parameter was updated, this will help in smoothing weights that are
+	// updated a lot (well that's the hope)
 	private Parameters countUpdates;
 	int avgIteration = 0;
 
-	public Parameters train(Dataset<EntityGraph> trainingData) throws IOException {
+	public Parameters train(Dataset<EntityGraph> trainingData)
+			throws IOException {
 
 		if (computeAvgParameters) {
 			avgParameters = new Parameters();
@@ -131,7 +107,6 @@ public class LocalAveragedPerceptronEntityGraph {
 			countZeroIter = new Parameters();
 			countZeroIter.model = model;
 			countZeroIter.init();
-			
 
 			countUpdates = new Parameters();
 			countUpdates.model = model;
@@ -155,7 +130,12 @@ public class LocalAveragedPerceptronEntityGraph {
 
 			}
 			System.out.println("Iteration: " + i);
+			long startTime = System.currentTimeMillis();
+			
 			trainingIteration(i, trainingData);
+			long endTime = System.currentTimeMillis();
+			System.out.println("An iteration took: " + (endTime - startTime));
+			
 		}
 		if (computeAvgParameters) {
 			finalizeRel();
@@ -168,8 +148,8 @@ public class LocalAveragedPerceptronEntityGraph {
 		return (computeAvgParameters) ? avgParameters : iterParameters;
 	}
 
-	public void trainingIteration(int iteration, Dataset<EntityGraph> trainingData)
-			throws IOException {
+	public void trainingIteration(int iteration,
+			Dataset<EntityGraph> trainingData) throws IOException {
 
 		EntityGraph egraph = new EntityGraph();
 
@@ -177,23 +157,33 @@ public class LocalAveragedPerceptronEntityGraph {
 
 		trainingData.reset();
 		while (trainingData.next(egraph)) {
-			if (egraph.features.length == 0) {
-				continue;
-			}
-			// compute most likely label under current parameters
-			EntityGraphParse predictedParse = FullInferenceEntityGraph.infer(egraph, scorer,
-					iterParameters);
-			EntityGraphParse trueParse = ConditionalInferenceEntityGraph.infer(egraph, scorer,
-					iterParameters);
 
+			// compute most likely label under current parameters
+			long startTime = System.currentTimeMillis();
+			
+			EntityGraphParse predictedParse = FullInferenceEntityGraph.infer(
+					egraph, scorer, iterParameters);
+			long endTime = System.currentTimeMillis();
+			if((endTime - startTime) > 1)
+			System.out.println("Full Inference took: " + (endTime - startTime));
+			
+			startTime = System.currentTimeMillis();
+			EntityGraphParse trueParse = ConditionalInferenceEntityGraph.infer(egraph);
+			endTime = System.currentTimeMillis();
+			
+			if((endTime - startTime) > 1)
+			System.out.println("Conditional Inference took: " + (endTime - startTime));
 			if (!NsAgree(predictedParse, trueParse)) {
 				// if this is the first avgIteration, then we need to initialize
 				// the lastUpdate vector
 				if (computeAvgParameters && avgIteration == 0) {
 					avgParamsLastUpdates.sum(iterParameters, 1.0f);
 				}
-
+				startTime = System.currentTimeMillis();
 				update(predictedParse, trueParse);
+				endTime = System.currentTimeMillis();
+				if((endTime - startTime) > 1)
+				System.out.println("Updating took: " + (endTime - startTime));
 			}
 
 			if (computeAvgParameters) {
@@ -202,8 +192,8 @@ public class LocalAveragedPerceptronEntityGraph {
 		}
 	}
 
-	public void update(EntityGraphParse predictedParse, EntityGraphParse trueParse)
-			throws IOException {
+	public void update(EntityGraphParse predictedParse,
+			EntityGraphParse trueParse) throws IOException {
 		// if this is the first avgIteration, then we need to initialize
 		// the lastUpdate vector
 		if (computeAvgParameters && avgIteration == 0)
@@ -212,54 +202,42 @@ public class LocalAveragedPerceptronEntityGraph {
 
 		int numMentions = egraph.numMentions;
 		for (int i = 0; i < numMentions; i++) {
-			//
-			// /*
-			// * get the numeric features.
-			// */
-			// SparseBinaryVector v2a =
-			// scorer.getMentionNumRelationFeatures(lrg, i, lrg.relNumber);
-			//
-			// Number n = lrg.n[i];
-			// ArrayList<Integer> z_s = n.zs_linked;
-			// for (Integer z : z_s) {
-			// SparseBinaryVector v1a = scorer.getMentionRelationFeatures(lrg,
-			// z, lrg.relNumber);
-			//
-			// if (trueParse.z_states[z] == true) {
-			// // increase weight for the incorrect mention
-			//
-			// updateRel(lrg.relNumber, v1a, delta, computeAvgParameters);
-			// updateRel(lrg.relNumber, v2a, delta, computeAvgParameters);
-			// }
-			// if (predictedParse.z_states[z] == true) {
-			// // decrease weight for the incorrect mention
-			// updateRel(lrg.relNumber, v1a, -delta, computeAvgParameters);
-			// updateRel(lrg.relNumber, v2a, -delta, computeAvgParameters);
-			//
-			// }
+		
 			SparseBinaryVector v1a = scorer.getMentionFeatures(egraph, i);
-			if (trueParse.z_states[i] > 0) {
-				updateRel(trueParse.z_states[i], v1a, delta, computeAvgParameters);
+			
+			updateRel(trueParse.z_states[i], v1a, delta,
+						computeAvgParameters);
 
-			}
-			if (predictedParse.z_states[i] > 0 && (predictedParse.z_states[i] != trueParse.z_states[i])) {
-				updateRel(trueParse.z_states[i], v1a, -delta, computeAvgParameters);
-			}
+			updateRel(predictedParse.z_states[i], v1a, -delta,
+						computeAvgParameters);
+			
 
 		}
 	}
 
-	private boolean NsAgree(EntityGraphParse predictedParse, EntityGraphParse trueParse) {
-		int numN = predictedParse.n_states.length;
-		if (numN != trueParse.n_states.length) {
+	private boolean NsAgree(EntityGraphParse predictedParse,
+			EntityGraphParse trueParse) {
+		int numN = predictedParse.graph.numNodesCount;
+		if (numN != trueParse.graph.numNodesCount) {
 			throw new IllegalArgumentException(
 					"Something is not right in LocalAveragedPerceptron");
 		}
+
 		for (int i = 0; i < numN; i++) {
-			if (predictedParse.n_states[i] != trueParse.n_states[i]) {
+			String trueUnit = trueParse.graph.n[i].unit;
+			String predictedUnit = predictedParse.graph.n[i].unit;
+			if (!trueUnit.equals(predictedUnit)) {
 				return false;
 			}
+			List<Integer> validIdx = RelationMetaData.unitRelationMap
+					.get(trueUnit);
+			for (Integer r : validIdx) {
+				if (predictedParse.n_states[i][r] != trueParse.n_states[i][r]) {
+					return false;
+				}
+			}
 		}
+		
 		return true;
 	}
 
@@ -281,17 +259,16 @@ public class LocalAveragedPerceptronEntityGraph {
 
 			DenseVector lastZeroIteration = (DenseVector) lastZeroIter.relParameters[relNumber];
 			DenseVector zeroIterationCount = (DenseVector) countZeroIter.relParameters[relNumber];
-			
-			DenseVector updateCountVector = (DenseVector) countUpdates.relParameters[relNumber]; 
-			
+
+			DenseVector updateCountVector = (DenseVector) countUpdates.relParameters[relNumber];
+
 			for (int j = 0; j < features.num; j++) {
 				int id = features.ids[j];
 				updateCountVector.vals[id] += 1;
 				if (lastUpdates.vals[id] != 0) {
 					// avg.vals[id] += (avgIteration - lastUpdatesIter.vals[id])
 					// * lastUpdates.vals[id];
-					
-				
+
 					int notUpdatedWindow = avgIteration
 							- (int) lastUpdatesIter.vals[id];
 					avg.vals[id] = Math.pow(regulaizer, notUpdatedWindow)
@@ -331,9 +308,9 @@ public class LocalAveragedPerceptronEntityGraph {
 			DenseVector lastUpdates = (DenseVector) avgParamsLastUpdates.relParameters[s];
 			DenseVector avg = (DenseVector) avgParameters.relParameters[s];
 			DenseVector zeroIterationCountRel = (DenseVector) countZeroIter.relParameters[s];
-			
-			DenseVector updateCountVector = (DenseVector) countUpdates.relParameters[s]; 
-			
+
+			DenseVector updateCountVector = (DenseVector) countUpdates.relParameters[s];
+
 			for (int id = 0; id < avg.vals.length; id++) {
 				if (lastUpdates.vals[id] != 0) {
 					int notUpdatedWindow = avgIteration
@@ -347,7 +324,8 @@ public class LocalAveragedPerceptronEntityGraph {
 					// System.out.println("Nonziteration  = " + nonZeroIteration
 					// );
 					if (this.finalAverageCalc) {
-						avg.vals[id] = updateCountVector.vals[id] == 0 ? avg.vals[id] : (avg.vals[id] / updateCountVector.vals[id]);
+						avg.vals[id] = updateCountVector.vals[id] == 0 ? avg.vals[id]
+								: (avg.vals[id] / updateCountVector.vals[id]);
 					}
 					lastUpdatesIter.vals[id] = avgIteration;
 				}

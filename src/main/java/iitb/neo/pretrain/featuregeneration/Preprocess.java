@@ -58,8 +58,22 @@ public class Preprocess {
 
 		Mappings m = new Mappings();
 		// ensure that "NA" gets ID o
+		
 		if(hasNA) {
+			/**
+			 * This fix is for the multi-ary implementation, that has unit and not relation string
+			 */
 			m.getRelationID("NA", true);
+			m.getRelationID("INTERNET", true);
+			m.getRelationID("INF", true);
+			m.getRelationID("FDI", true);
+			m.getRelationID("GDP", true);
+			m.getRelationID("GOODS", true);
+			m.getRelationID("AGL", true);
+			m.getRelationID("LIFE", true);
+			m.getRelationID("POP", true);
+			m.getRelationID("ELEC", true);
+			m.getRelationID("CO2", true);
 		}
 		System.out.println("Converting input feature file to temporary feature list file...");
 		long start = System.currentTimeMillis();
