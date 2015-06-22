@@ -2,7 +2,7 @@
   "corpusPath" :
 "jdbc:derby:/mnt/bag/aman/numbers_corpus",
 "mintzKeywordsFg" :
-"main.java.iitb.neo.pretrain.featuregeneration.MintzKeywordFeatureGenerator",
+"main.java.iitb.neo.pretrain.featuregeneration.MintzFeatureGenerator",
 "numbersFg" :
 "main.java.iitb.neo.pretrain.featuregeneration.NumberFeatureGenerator",
 "keywordsFg" :
@@ -16,13 +16,13 @@
 "edu.washington.multirframework.argumentidentification.DefaultSententialInstanceGeneration"
 ],
   "dsFiles" : [
-"data/train/instances_deldanger.tsv"
+"/mnt/bag/aman/train/instances_na.tsv"
 ],
   "featureFiles" : [
-"data/train/features_mintz_handkeywords_numbers_new_fresh.tsv"
+"/mnt/bag/aman/train/features_all_na.tsv"
 ],
   "models" : [
-"best_model_26may/model_handkeywords_keywordinference_OR_new" ],
+"/mnt/bag/aman/model/model_entitygraph_allfeatures_na" ],
   "cis" :
 "edu.washington.multirframework.corpus.DefaultCorpusInformationSpecification",
   "si" : [

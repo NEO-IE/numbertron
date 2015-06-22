@@ -16,7 +16,7 @@
 "edu.washington.multirframework.argumentidentification.DefaultSententialInstanceGeneration"
 ],
   "models" : [
-"/mnt/a99/d0/aman/numbertron/data/model_features_mintz_match20perc_regul0.5_noconfusion" ],
+"/mnt/a99/d0/aman/MultirExperiments/data/multir-baseline-extractor" ],
   "cis" :
 "edu.washington.multirframework.corpus.DefaultCorpusInformationSpecification",
   "ti" : [ "edu.washington.multirframework.corpus.TokenChunkInformation" ],
