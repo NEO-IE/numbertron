@@ -48,7 +48,7 @@ public class GoldDBKeywordInferenceEntityGraph {
 				if (!validIdx.contains(relNumber)) {
 					continue;
 				}
-				if (GoldDbInference.closeEnough(n.value, relation, egraph.entity)) {
+				if (GoldDbInferenceEntityGraph.closeEnough(n.value, relation, egraph.entity)) {
 					p.n_states[n_i][relNumber] = KeywordInferenceEntityGraph.hasKeyword(
 							feats, relation);
 				} else {

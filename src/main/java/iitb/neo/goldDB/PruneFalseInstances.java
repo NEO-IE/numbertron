@@ -1,13 +1,12 @@
 package main.java.iitb.neo.goldDB;
 
 import java.io.BufferedReader;
-
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import main.java.iitb.neo.training.algorithm.lpercp.GoldDbInference;
+import main.java.iitb.neo.training.algorithm.lpercp.GoldDbInferenceEntityGraph;
 import main.java.iitb.neo.training.ds.Number;
 
 /**
@@ -39,7 +38,7 @@ public class PruneFalseInstances {
 				continue;
 			}
 			String relation  = instanceLineSplit[9];
-			if(GoldDbInference.closeEnough(number, relation, location)) {
+			if(GoldDbInferenceEntityGraph.closeEnough(number, relation, location)) {
 				bw.write(instanceLine + "\n");
 			}
 			

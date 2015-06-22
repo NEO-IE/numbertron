@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import main.java.iitb.neo.goldDB.GoldDB;
-import main.java.iitb.neo.training.algorithm.lpercp.GoldDbInference;
+import main.java.iitb.neo.training.algorithm.lpercp.GoldDbInferenceEntityGraph;
 import main.java.iitb.neo.util.StemUtils;
 
 /**
@@ -39,7 +39,7 @@ public class LabelInstances {
 
 	static boolean distanceLabel(Double value, String rel, String entity,
 			double margin) {
-		return GoldDbInference.closeEnough(value, rel, entity, margin);
+		return GoldDbInferenceEntityGraph.closeEnough(value, rel, entity, margin);
 	}
 
 	public static void main(String args[]) throws IOException {

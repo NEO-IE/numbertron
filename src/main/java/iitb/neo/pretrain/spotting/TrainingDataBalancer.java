@@ -9,9 +9,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-import edu.washington.multirframework.multiralgorithm.MILDocument;
 import main.java.iitb.neo.goldDB.GoldDB;
-import main.java.iitb.neo.training.algorithm.lpercp.GoldDbInference;
+import main.java.iitb.neo.training.algorithm.lpercp.GoldDbInferenceEntityGraph;
 
 public class TrainingDataBalancer {
 
@@ -47,7 +46,7 @@ public class TrainingDataBalancer {
 		//	int sentid = Integer.parseInt(instanceLineSplit[8]);
 			String countryId = instanceLineSplit[0];
 			
-			if(GoldDbInference.closeEnough(value, relString, countryId, 0.5)) {
+			if(GoldDbInferenceEntityGraph.closeEnough(value, relString, countryId, 0.5)) {
 				if(null == hits.get(relString)) {
 					ArrayList<String> sentList = new ArrayList<String>();
 					sentList.add(instanceLine);

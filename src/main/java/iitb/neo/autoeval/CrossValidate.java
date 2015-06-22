@@ -7,8 +7,8 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.Map;
 
-import main.java.iitb.neo.NtronExperiment;
-import main.java.iitb.neo.extract.NumbertronExtractFromCorpus;
+import main.java.iitb.neo.NtronExperimentEntityGraph;
+import main.java.iitb.neo.extract.NumbertronExtractFromCorpusEntityGraph;
 import main.java.iitb.neo.util.JsonUtils;
 
 /**
@@ -41,8 +41,8 @@ public class CrossValidate {
 	}
 
 	public static void main(String[] args) throws Exception {
-		NtronExperiment ntronExp = new NtronExperiment(args[0]);
-		NumbertronExtractFromCorpus efc = new NumbertronExtractFromCorpus(args[0]);
+		NtronExperimentEntityGraph ntronExp = new NtronExperimentEntityGraph(args[0]);
+		NumbertronExtractFromCorpusEntityGraph efc = new NumbertronExtractFromCorpusEntityGraph(args[0]);
 		EvaluateModel eval = new EvaluateModel(args[0]);
 
 		Map<String, Object> properties = JsonUtils.getJsonMap(args[0]);
@@ -69,7 +69,7 @@ public class CrossValidate {
 										pw.write(configString(iterations, regul, topk, margin, finalAvgConfig, w_m, w_k, w_n) + "\n");
 										pw.write("====================================");
 										ntronExp.updateHyperparams(iterations, regul, topk, margin,
-												NtronExperiment.MINTZ_FEATURE_THRESHOLD, NtronExperiment.KEYWORD_FEATURE_THRESHOLD,
+												NtronExperimentEntityGraph.MINTZ_FEATURE_THRESHOLD, NtronExperimentEntityGraph.KEYWORD_FEATURE_THRESHOLD,
 												finalAvgConfig);
 										//ntronExp.run();
 										eval.evaluate(efc, false, pw, w_m, w_k, w_n);

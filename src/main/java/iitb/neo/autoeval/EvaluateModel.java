@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-import main.java.iitb.neo.extract.NumbertronExtractFromCorpus;
 import main.java.iitb.neo.extract.NumbertronExtractFromCorpusEntityGraph;
 import main.java.iitb.neo.util.JsonUtils;
 import edu.washington.multirframework.data.Extraction;
@@ -52,14 +51,14 @@ public class EvaluateModel {
 		
 	}
 
-	public void evaluate(NumbertronExtractFromCorpus efc, boolean verbose, PrintWriter resultWriter, double w_m, double w_k, double w_n) throws SQLException, IOException {
+	public void evaluate(NumbertronExtractFromCorpusEntityGraph efc, boolean verbose, PrintWriter resultWriter, double w_m, double w_k, double w_n) throws SQLException, IOException {
 		List<Extraction> modelExtractions = efc.getExtractions("_results_", false, verbose, verboseFile, w_m, w_k, w_n);
 		res.fillResult(modelExtractions);
 		res.dumpResults(resultWriter);
 		
 	}
 	
-	public void evaluate(NumbertronExtractFromCorpus efc, boolean verbose, PrintWriter resultWriter) throws SQLException, IOException {
+	public void evaluate(NumbertronExtractFromCorpusEntityGraph efc, boolean verbose, PrintWriter resultWriter) throws SQLException, IOException {
 	
 		List<Extraction> modelExtractions = efc.getExtractions("_results_", false, verbose, verboseFile, 1, 1, 1);
 		res.fillResult(modelExtractions);

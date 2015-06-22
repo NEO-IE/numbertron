@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import main.java.iitb.neo.NtronExperiment;
+import main.java.iitb.neo.NtronExperimentEntityGraph;
 
 import com.google.code.externalsorting.ExternalSort;
 
@@ -128,7 +128,7 @@ public class Preprocess {
 			if (feature.equals(prevFeature)) {
 				prevCount++;
 			} else {
-				if ((!keyfeature && prevCount >= NtronExperiment.MINTZ_FEATURE_THRESHOLD) || (keyfeature && prevCount >= NtronExperiment.KEYWORD_FEATURE_THRESHOLD)) {
+				if ((!keyfeature && prevCount >= NtronExperimentEntityGraph.MINTZ_FEATURE_THRESHOLD) || (keyfeature && prevCount >= NtronExperimentEntityGraph.KEYWORD_FEATURE_THRESHOLD)) {
 					m.getFeatureID(prevFeature, true);
 				}
 				if (feature.split(":")[0].equals("key")) {
@@ -147,7 +147,7 @@ public class Preprocess {
 			}
 		}
 		// For the last feature
-		if ((!keyfeature && prevCount >=  NtronExperiment.MINTZ_FEATURE_THRESHOLD) || (keyfeature && prevCount >=  NtronExperiment.KEYWORD_FEATURE_THRESHOLD)) {
+		if ((!keyfeature && prevCount >=  NtronExperimentEntityGraph.MINTZ_FEATURE_THRESHOLD) || (keyfeature && prevCount >=  NtronExperimentEntityGraph.KEYWORD_FEATURE_THRESHOLD)) {
 			m.getFeatureID(feature, true);
 		}
 

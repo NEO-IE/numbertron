@@ -8,7 +8,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import main.java.iitb.neo.training.algorithm.lpercp.GoldDbInference;
+import main.java.iitb.neo.training.algorithm.lpercp.GoldDbInferenceEntityGraph;
 
 public class FindMatches {
 
@@ -27,7 +27,7 @@ public class FindMatches {
 			String relString = instanceLineSplit[9];
 			int sentid = Integer.parseInt(instanceLineSplit[8]);
 			String countryId = instanceLineSplit[0];
-			if(GoldDbInference.closeEnough(value, relString, countryId, 0.5)) {
+			if(GoldDbInferenceEntityGraph.closeEnough(value, relString, countryId, 0.5)) {
 				if(null == hits.get(relString)) {
 					ArrayList<Integer> sentList = new ArrayList<Integer>();
 					sentList.add(sentid);
