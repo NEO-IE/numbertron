@@ -13,7 +13,7 @@ import main.java.iitb.neo.training.meta.LRGraphMemoryDatasetWithoutConfusedLocat
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.NotImplementedException;
 
-import edu.washington.multir.development.MakeAverageModel;
+
 import edu.washington.multirframework.multiralgorithm.Dataset;
 import edu.washington.multirframework.multiralgorithm.Model;
 import edu.washington.multirframework.multiralgorithm.Parameters;

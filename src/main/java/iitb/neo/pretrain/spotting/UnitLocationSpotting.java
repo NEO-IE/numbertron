@@ -125,7 +125,7 @@ public class UnitLocationSpotting extends Spotting {
 						
 					}
 					List<Triple<Integer, String, Integer>> deps = sentence.get(SentDependencyInformation.DependencyAnnotation.class);
-					List<Relation> currRels = rbased.spotPossibleRelations(deps, sentence);
+					List<Relation> currRels = rbased.spotPossibleRelations(deps, sentence, false, 0);
 					for (Relation rel : currRels) {
 						relationList.add(new Pair<Integer, Relation>(sentID, rel));
 					}

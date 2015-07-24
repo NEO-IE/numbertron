@@ -47,7 +47,7 @@ public class LocalAveragedPerceptron {
 	BufferedWriter obw;
 	boolean debug = false;
 	boolean readMapping = true;
-
+	int numDisagreements = 0;
 	public LocalAveragedPerceptron(Model model, Random random,
 			int maxIterations, double regularizer, boolean finalAverageCalc, String mappingFile)
 			throws NumberFormatException, IOException {
@@ -151,6 +151,9 @@ public class LocalAveragedPerceptron {
 			}
 			System.out.println("Iteration: " + i);
 			trainingIteration(i, trainingData);
+			System.out.println("Disagreements: " + numDisagreements);
+			numDisagreements = 0;
+			
 		}
 		if (computeAvgParameters) {
 			finalizeRel();
@@ -182,6 +185,7 @@ public class LocalAveragedPerceptron {
 					iterParameters);
 
 			if (!NsAgree(predictedParse, trueParse)) {
+				numDisagreements++;
 				// if this is the first avgIteration, then we need to initialize
 				// the lastUpdate vector
 				if (computeAvgParameters && avgIteration == 0) {

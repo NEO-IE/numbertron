@@ -16,13 +16,13 @@
 "edu.washington.multirframework.argumentidentification.DefaultSententialInstanceGeneration"
 ],
   "dsFiles" : [
-"data/train/instances_deldanger.tsv"
+"/mnt/bag/aman/train/instances_deldanger.tsv"
 ],
   "featureFiles" : [
-"data/train/features_mintz_handkeywords_numbers_new_fresh.tsv"
+"/mnt/bag/aman/train/features_mintz_allkeywords_numbers.tsv"
 ],
   "models" : [
-"best_model_26may/model_handkeywords_keywordinference_OR_new" ],
+"/mnt/a99/d0/aman/impecs/model/model_mintz_allkeywords_numbers_keywordinference" ],
   "cis" :
 "edu.washington.multirframework.corpus.DefaultCorpusInformationSpecification",
   "si" : [
@@ -34,7 +34,7 @@
   "mintzFeatureThreshold" : "1",
   "keywordFeatureThreshold" : "1",
   "regularizer" : "0.99",
-  "iterations" : "10",
+  "iterations" : "1000",
   "finalAvg" : "false",
   "topKGoldDb" : "5",
   "margin" : "0.20",

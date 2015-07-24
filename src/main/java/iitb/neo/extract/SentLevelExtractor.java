@@ -18,7 +18,6 @@ import org.apache.commons.lang.NotImplementedException;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.util.CoreMap;
-import edu.washington.multir.util.ModelUtils;
 import edu.washington.multirframework.data.Argument;
 import edu.washington.multirframework.data.KBArgument;
 import edu.washington.multirframework.featuregeneration.FeatureGenerator;
@@ -27,6 +26,7 @@ import edu.washington.multirframework.multiralgorithm.Mappings;
 import edu.washington.multirframework.multiralgorithm.Model;
 import edu.washington.multirframework.multiralgorithm.Parameters;
 import edu.washington.multirframework.multiralgorithm.SparseBinaryVector;
+import edu.washington.multirframework.util.ModelUtils;
 
 /**
  * Accepts a feature vector and returns a list of possible relations sorted by
