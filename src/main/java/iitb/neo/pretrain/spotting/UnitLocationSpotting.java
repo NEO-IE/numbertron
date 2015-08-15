@@ -37,7 +37,7 @@ import edu.washington.multirframework.data.KBArgument;
 
 public class UnitLocationSpotting extends Spotting {
 	String corpusPath;
-	CorpusInformationSpecification cis;
+		CorpusInformationSpecification cis;
 	RuleBasedDriver rbased;
 	private Map<String, String> countryFreebaseIdMap;
 	
